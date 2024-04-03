@@ -12,7 +12,7 @@
                             </div>
                             <div class="col-1">
                                 @error('email')
-                                    <span class="text-danger-500 text-xs">{{ $message }}</span>
+                                    <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -25,7 +25,7 @@
                             </div>
                             <div class="col-1">
                                 @error('password')
-                                    <span class="text-danger-500 text-xs">{{ $message }}</span>
+                                    <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
