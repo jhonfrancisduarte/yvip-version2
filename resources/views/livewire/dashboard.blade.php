@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="css/dashboard.css">
 @endsection
 
 
@@ -73,7 +74,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                     with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="dashboard.php" class="nav-link" style="background-color: #0459C9; color: white;">
+                    <a href="#dashboard" class="nav-link active">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                         Dashboard
@@ -81,7 +82,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="#my-category" class="nav-link">
                     <i class="nav-icon fas fa-book"></i>
                     <p>
                         My Category
@@ -90,7 +91,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="#events-and-trainings" class="nav-link">
                     <i class="nav-icon fas fa-list"></i>
                     <p>
                         Events and Trainings List
@@ -99,7 +100,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="#my-participations" class="nav-link">
                     <i class="nav-icon fas fa-handshake"></i>
                     <p>
                         My Participations
@@ -108,7 +109,7 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="#my-volunteering-hours" class="nav-link">
                     <i class="nav-icon fas fa-clock"></i>
                     <p>
                         My Volunteering Hours
@@ -117,7 +118,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="#my-rewards" class="nav-link">
                     <i class="nav-icon fas fa-award"></i>
                     <p>
                         My Rewards
@@ -126,7 +127,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="#my-virtual-passport" class="nav-link">
                     <i class="nav-icon fas fa-passport"></i>
                     <p>
                         My Virtual Passport
@@ -134,7 +135,7 @@
                     </a>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="#volunteer-manual" class="nav-link">
                     <i class="nav-icon fas fa-book-open"></i>
                     <p>
                         Volunteer Manual
@@ -143,7 +144,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="#leaderboard" class="nav-link">
                     <i class="nav-icon fas fa-trophy"></i>
                     <p>
                         Leaderboard
@@ -152,7 +153,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="#my-messages" class="nav-link">
                     <i class="nav-icon fas fa-envelope"></i>
                     <p>
                         My Messages
@@ -161,7 +162,7 @@
                 </li>
             
                 <li class="nav-item">
-                    <a href="../index.php" class="nav-link">
+                    <a href="/logout" class="nav-link">
                     <i class="nav-icon fas fa-sign-out-alt"></i>
                     <p>
                         Logout
@@ -228,5 +229,6 @@
     <script src="dist/js/adminlte.js"></script>
     <script src="dist/js/demo.js"></script>
     <script src="dist/js/pages/dashboard.js"></script>
+    <script src="js/dashboard.js"></script>
 @endsection
 
