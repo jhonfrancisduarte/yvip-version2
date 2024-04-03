@@ -29,36 +29,8 @@
             </div>
         </div>
 
-        <div class="card card-4 login-form-container">
-            <div class="card-body">
-                <p class="close-button">✖</p>
-                <h2 class="title">Sign in to your account</h2>
-                <form method="POST" action="client/dashboard.php">
-                    <div class="row row-space login-input-div">
-                        <div class="col-1">
-                            <div class="input-group">
-                                <label class="label">Email</label>
-                                <input class="input--style-4" type="text" name="first_name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row row-space login-input-div">
-                        <div class="col-1">
-                            <div class="input-group">
-                                <label class="label">password</label>
-                                <input class="input--style-4" type="password" name="last_name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-t-15">
-                        <button class="btn btn--radius-2 btn--blue" type="submit">Sign In</button>
-                    </div>
-                    <div class="to-register-button">
-                        <b><a href="/registration" style="color:#2c6ed5">I don't have an account yet!</a></b>
-                    </div>
-                </form>
-            </div>
-        </div>
+        @livewire('login')
+        
     </div>
 
 @endsection
