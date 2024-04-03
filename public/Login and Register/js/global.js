@@ -112,12 +112,18 @@ $(document).ready(function() {
 
     // Toggle login form
     $('.sign-in-button').click(function() {
-        $('.login-form-container').css('right', '0');
-        $('.close-button').css('right', '-460px'); // Hide close button
+        $('.login-container').css('display', 'flex');
+        $('.login-container').css('width', '100%');
     });
 
     $('.close-button').click(function() {
-        $('.login-form-container').css('right', '-460px');
-        $('.close-button').css('right', '0'); // Show close button
+        $('.login-container').css('width', '140%');
+        $('.login-container').css('display', 'none');
     });
+
+    $('.login-overlay').click(function() {
+        $('.login-container').css('width', '140%');
+        $('.login-container').css('display', 'none');
+    });
+
 });

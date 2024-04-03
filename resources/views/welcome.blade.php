@@ -28,8 +28,10 @@
                 <h3>Youth Information Management System</h3>
             </div>
         </div>
-
-        @livewire('login')
+        <div class="login-container">
+            <div class="login-overlay"></div>
+            @livewire('login')
+        </div>
         
     </div>
 

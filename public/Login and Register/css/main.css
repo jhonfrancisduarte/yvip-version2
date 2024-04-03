@@ -787,12 +787,33 @@ input {
 
 .login-form-container{
   position: absolute; 
-  top: 0; right: -460px;
+  top: 0; right: 0px;
   z-index: 99;
   width: 450px;
   border-radius: 0px !important;
   height: 100vh;
   transition: 0.3s ease-in-out;
+}
+
+.login-container{
+  position: absolute; top: 0;
+  z-index: 98;
+  width: 140%;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  background: rgba(0, 0, 0, 0.2);
+  transition: 0.8s ease-in-out;
+}
+
+.login-container .login-overlay{
+  position: absolute; top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.login-form-container.active{
+  right: 0 !important;
 }
 
 .close-button{

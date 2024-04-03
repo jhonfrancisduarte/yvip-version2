@@ -12,16 +12,11 @@ class Login extends Component
     #[Rule('required|email')]
     public $email = "";
     
-    #[Rule('required|min:8')]
+    #[Rule('required')]
     public $password = "";
 
-    public function render()
-    {
-        return view('livewire.login');
-    }
-
-    public function login()
-    {
+    
+    public function login(){
         $this->validate();
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             // Authentication successful
@@ -30,5 +25,9 @@ class Login extends Component
             // Authentication failed
             $this->addError('email', 'Invalid credentials.');
         }
+    }
+    
+    public function render(){
+        return view('livewire.login');
     }
 }
