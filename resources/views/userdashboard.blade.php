@@ -38,11 +38,11 @@
                 <i class="fas fa-expand-arrows-alt"></i>
                 </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                 <i class="fas fa-th-large"></i>
                 </a>
-            </li>
+            </li> -->
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -73,7 +73,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                     with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="dashboard.php" class="nav-link" style="background-color: #e83e8c; color: white;">
+                    <a href="dashboard.php" class="nav-link" style="background-color: #0459C9; color: white;">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                         Dashboard
@@ -118,7 +118,7 @@
 
                 <li class="nav-item">
                     <a href="" class="nav-link">
-                    <i class="nav-icon fas fa-trophy"></i>
+                    <i class="nav-icon fas fa-award"></i>
                     <p>
                         My Rewards
                     </p>
@@ -144,7 +144,7 @@
 
                 <li class="nav-item">
                     <a href="" class="nav-link">
-                    <i class="nav-icon fas fa-shopping-bag"></i>
+                    <i class="nav-icon fas fa-trophy"></i>
                     <p>
                         Leaderboard
                     </p>
@@ -153,7 +153,7 @@
 
                 <li class="nav-item">
                     <a href="" class="nav-link">
-                    <i class="nav-icon fas fa-message"></i>
+                    <i class="nav-icon fas fa-envelope"></i>
                     <p>
                         My Messages
                     </p>
@@ -196,55 +196,6 @@
             <!-- /.content-header -->
         <!-- Main content -->
 
-        <section class="content">
-            <div class="container-fluid">
-                <!-- Small boxes (Stat box) -->
-                <div class="row">
-                    <div class="col-lg-4 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-info">
-                            <div class="inner">
-                                <h3>150</h3>
-
-                                <p>Total Pets</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-dog"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-primary">
-                            <div class="inner">
-                                <h3>545</h3>
-
-                                <p>Total Pet Products</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-shopping-bag"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-6">
-                        <div class="small-box bg-success">
-                            <div class="inner">
-                                <h3>1,322<sup style="font-size: 20px"></sup></h3>
-
-                                <p>Total Services</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-users-cog"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
 
 @endsection
@@ -252,10 +203,9 @@
 
 @section ('footer')
   <footer class="main-footer">
-    <strong>Footer <a href="">Pet Shop Magement System</a>.</strong>
+    <strong><a href="">Youth Information Management System</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Footer</b>
     </div>
   </footer>
 

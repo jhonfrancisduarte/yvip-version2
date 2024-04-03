@@ -17,8 +17,9 @@
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Registration Form</h2>
-                    <form action="client/dashboard.php">
 
+                    <form action="">
+                        
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
@@ -48,6 +49,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
@@ -65,6 +67,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
@@ -79,6 +82,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
@@ -124,6 +128,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row row-space">
                             <div class="col-4" style="width: 100%">
                                 <div class="input-group">
@@ -132,6 +137,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="row row-space">
                             <div class="col-4" style="width: 100%">
                                 <div class="input-group">
