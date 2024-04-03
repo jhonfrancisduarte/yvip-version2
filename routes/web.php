@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Inertia\Inertia;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
+Route::middleware(['auth'])->group(function () {
+    // Routes that require authentication
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    // Add other authenticated routes here
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,6 +29,7 @@ Route::get('/registration', function () {
     return view('registration');
 });
 
-Route::get('/dashboard', function () {
-    return view('userdashboard');
-});
+// Route::get('/dashboard', function () {
+//     return view('userdashboard');
+// });
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
