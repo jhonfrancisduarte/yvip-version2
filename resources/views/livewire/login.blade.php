@@ -38,7 +38,7 @@
             @endif
 
             <div class="to-register-button">
-                <b><a href="/registration" style="color:#2c6ed5">I don't have an account yet!</a></b>
+                <b><a href="/registration" style="color:#2c6ed5" wire:navigate>I don't have an account yet!</a></b>
             </div>
         </form>
     </div>

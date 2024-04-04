@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('civil_status', 50);
             $table->integer('age');
             $table->string('nationality', 50);
-            $table->integer('tel_number')->nullable();
-            $table->integer('mobile_number');
+            $table->string('tel_number')->nullable();
+            $table->string('mobile_number');
             $table->string('email', 50);
             $table->string('sex', 50);
             $table->string('permanent_address', 200);
@@ -34,12 +34,13 @@ return new class extends Migration
             $table->string('nature_of_work', 50)->nullable();
             $table->string('employer', 50)->nullable();
             $table->binary('profile_picture')->nullable();
-            $table->boolean('is_volunteer');
-            $table->boolean('is_ip_participant');
+            $table->boolean('is_volunteer')->nullable();
+            $table->boolean('is_ip_participant')->nullable();
             $table->string('name_of_school', 50)->nullable();
             $table->string('course', 50)->nullable();
             $table->string('organization_name', 50)->nullable();
             $table->string('org_position', 50)->nullable();
+            $table->string('password', 1000);
             $table->timestamps();
         });
     }
