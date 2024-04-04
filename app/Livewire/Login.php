@@ -13,7 +13,7 @@ class Login extends Component
     public $email = "";
     
     #[Rule('required')]
-    public $password = "";
+    private $password = "";
 
     
     public function login(){
