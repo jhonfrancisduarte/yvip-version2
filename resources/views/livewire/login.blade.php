@@ -3,7 +3,7 @@
         <p class="close-button">✖</p>
         <h2 class="title">Sign in to your account</h2>
 
-        <form wire:submit.prevent="login" method="POST" action="{{ route('login') }}">
+        <form wire:submit.prevent="login">
             @csrf
             <div class="row row-space login-input-div">
                 <div class="col-1">
@@ -13,7 +13,7 @@
                                 <span style="color: red;">{{ $message }}</span>
                             @enderror
                         </label>
-                        <input class="input--style-4" type="text" id="email" name="email" wire:model="email">
+                        <input class="input--style-4" type="text" id="email" name="email" required wire:model="email">
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                                 <span style="color: red;">{{ $message }}</span>
                             @enderror
                         </label>
-                        <input class="input--style-4" type="password" id="password" name="password" wire:model="password">
+                        <input class="input--style-4" type="password" id="password" name="password" required wire:model="password">
                     </div>
                 </div>
             </div>

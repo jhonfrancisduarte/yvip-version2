@@ -36,11 +36,12 @@
 
         @yield ('js')
       
+        
         <script src="Login and Register/vendor/jquery/jquery.min.js"></script>
         <script src="Login and Register/vendor/select2/select2.min.js"></script>
         <script src="Login and Register/vendor/datepicker/moment.min.js"></script>
         <script src="Login and Register/vendor/datepicker/daterangepicker.js"></script>
-        <script src="Login and Register/js/global.js"></script>
+        <script src="Login and Register/js/global.js"></script> 
 
     </body>
 

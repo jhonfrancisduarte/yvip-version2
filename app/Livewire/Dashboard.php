@@ -6,12 +6,7 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
-    public function render()
-    {
-        if (!Auth::check()) {
-            return redirect('/');
-        }
-
-        return view('livewire.dashboard');
+    public function render(){
+        return view('livewire.dashboard')->layout('layouts.app');
     }
 }

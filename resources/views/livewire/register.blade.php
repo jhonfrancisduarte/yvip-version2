@@ -144,12 +144,11 @@
                             
                         <div class="input-group">
                             <label class="label">Status</label>
-                            <div class="rs-select2 js-select-simple select--no-search">
-                                <select wire:model="status" wire:change="setStatus($event.target.value)" name="status">
-                                    <option selected>Choose option</option>
-                                    <option value="Student">Student</option>
-                                    <option value="Professional">Professional</option>
-                                    
+                            <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
+                                <select  class="label select-status" id="status" wire:model="status" name="status">
+                                    <option selected class="label">Choose option</option>
+                                    <option value="Student" class="label">Student</option>
+                                    <option value="Professional" class="label">Professional</option>    
                                 </select>
                                 <div class="select-dropdown"></div>
                             </div>
@@ -174,13 +173,13 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">School name</label>
-                                    <input class="input--style-4" type="text" wire:model="school" name="school">
+                                    <input class="input--style-4" type="text" wire:model="name_of_school" name="name_of_school">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Course</label>
-                                    <input class="input--style-4" type="password" wire:model="course" name="course">
+                                    <input class="input--style-4" type="text" wire:model="course" name="course">
                                 </div>
                             </div>
                         </div>
@@ -213,7 +212,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">position</label>
-                                    <input class="input--style-4" type="password" wire:model="position" name="employer">
+                                    <input class="input--style-4" type="text" wire:model="org_position" name="employer">
                                 </div>
                             </div>
                         </div>
@@ -236,7 +235,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">password</label>
-                                    <input class="input--style-4" type="text" wire:model="password" name="password">
+                                    <input class="input--style-4" type="password" wire:model="password" name="password">
                                 </div>
                             </div>
                             <div class="col-2">

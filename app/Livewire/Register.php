@@ -25,7 +25,7 @@ class Register extends Component
     public $permanent_address;
     public $residential_address;
     public $educational_background;
-    public $status="punyeta";
+    public $status;
     public $nature_of_work;
     public $employer;
     public $profile_picture = "";
@@ -36,8 +36,8 @@ class Register extends Component
     public $is_volunteer;
     public $is_ip_participant;
     public $password;
-    // public $c_password;
-    
+    public $c_password;
+
     // Define validation rules for each field
     protected $rules = [
         'first_name' => 'required|min:2',
@@ -62,7 +62,7 @@ class Register extends Component
         'name_of_school' => 'required|min:2',
         'course' => 'required|min:2',
         'organization_name' => 'required|min:2',
-        'position' => 'required|min:2',
+        'org_position' => 'required|min:2',
         'is_volunteer' => 'required',
         'is_ip_participant' => 'required',
         'password' => 'required|min:8',
@@ -70,23 +70,15 @@ class Register extends Component
     ];
     
 
-    public function render()
-    {
+    public function render(){
         return view('livewire.register');
     }
 
-    public function create()
-    {
-
-        // dd($this->all());
-        // Validate the form input
-        // $this->validate();
-
-        // Create a new user record
+    public function create(){
+        //dd($this->all());
+        //$this->validate();
         User::create($this->all());
-
-        // Optionally, you can reset the form after submission
-        // $this->reset();
+        $this->reset();
     }
 
 }

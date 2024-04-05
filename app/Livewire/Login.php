@@ -10,10 +10,9 @@ use Livewire\Attributes\Rule;
 class Login extends Component
 {
     #[Rule('required|email')]
-    public $email = "";
-    
+    public $email;
     #[Rule('required')]
-    private $password = "";
+    public $password;
 
     
     public function login(){
