@@ -54,7 +54,7 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{ route('volunteering-hours') }}" class="nav-link {{ request()->routeIs('volunteering-hours') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-clock"></i>
                         <p>
                             My Volunteering Hours
@@ -63,7 +63,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{ route('rewards') }}" class="nav-link {{ request()->routeIs('rewards') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-award"></i>
                         <p>
                             My Rewards
@@ -72,7 +72,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{ route('virtual-passport') }}" class="nav-link {{ request()->routeIs('virtual-passport') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-passport"></i>
                         <p>
                             My Virtual Passport
@@ -80,7 +80,7 @@
                         </a>
 
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{ route('volunteer-manual') }}" class="nav-link {{ request()->routeIs('volunteer-manual') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-book-open"></i>
                         <p>
                             Volunteer Manual
@@ -89,7 +89,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{ route('leaderboard') }}" class="nav-link {{ request()->routeIs('leaderboard') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-trophy"></i>
                         <p>
                             Leaderboard
@@ -98,7 +98,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{ route('messages') }}" class="nav-link {{ request()->routeIs('messages') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             My Messages
