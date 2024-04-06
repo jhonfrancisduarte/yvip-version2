@@ -1,7 +1,7 @@
 @extends ('layout')
 
 @section ('title')
-    <title>NYC - YIMS</title>
+    <title>NYC - YVIP</title>
 @endsection
 
 @section ('css')
@@ -23,9 +23,9 @@
         <div class="welcome-header">
             <img src="images/nyc-logo.png" width="130"/>
             <div class="title-container">
-                <h4>Republic of the Philippines</h4>
-                <h1>NATIONAL YOUTH COMMISSION</h1>
-                <h3>Youth Information Management System</h3>
+                <h4>The NYC</h4>
+                <h1>YVIP</h1>
+                <h3>Youth Volunteers & International Programs Beneficiaries Hub</h3>
             </div>
         </div>
         <div class="login-container">.

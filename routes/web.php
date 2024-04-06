@@ -17,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
      Route::get('/volunteer-manual', function () {return view('livewire.volunteer-manual');})->name('volunteer-manual');
      Route::get('/leaderboard', function () {return view('livewire.leaderboard');})->name('leaderboard');
      Route::get('/messages', function () {return view('livewire.messages');})->name('messages');
+     Route::get('/profile', function () {return view('livewire.profile');})->name('profile');
 });
 
 

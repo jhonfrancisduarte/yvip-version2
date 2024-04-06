@@ -68,15 +68,20 @@ class Register extends Component
         'password' => 'required|min:8',
         'c_password' => 'required|same:password',
     ];
-    
+
+    public function mount()
+    {
+        // Set default profile picture
+        $this->profile_picture = 'images/blank_profile_pic.png';
+    }
 
     public function render(){
         return view('livewire.register');
     }
 
     public function create(){
-        //dd($this->all());
-        //$this->validate();
+        // dd($this->all());
+        // $this->validate();
         User::create($this->all());
         $this->reset();
     }
