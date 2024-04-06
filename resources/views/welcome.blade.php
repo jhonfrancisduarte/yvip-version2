@@ -17,7 +17,7 @@
 
             </div>
             <p class="sign-in-button">Sign In</p>
-            <p class="reg-button"><a href="/registration">Register</a></p>
+            <p class="reg-button"><a href="/registration" wire:navigate >Register</a></p>
         </div>
 
         <div class="welcome-header">
@@ -28,8 +28,11 @@
                 <h3>Youth Information Management System</h3>
             </div>
         </div>
-
-        @livewire('login')
+        <div class="login-container">.
+            
+            <div class="login-overlay"></div>
+            @livewire('login')
+        </div>
         
     </div>
 
