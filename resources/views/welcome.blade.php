@@ -12,7 +12,6 @@
 @section ('main-content')
 
     <div class="main-container">
-        <div class="landing-page-hero-bg">
             <div class="landing-page-hero">
                 <div class="welcome-nav">
                     <div class="contact-info">
@@ -30,13 +29,12 @@
                         <h3>Youth Volunteers & International Programs Beneficiaries Hub</h3>
                     </div>
                 </div>
+
                 <div class="login-container">.
-                    
                     <div class="login-overlay"></div>
                     @livewire('login')
                 </div>
             </div>
-        </div>
     </div>
 
 @endsection
