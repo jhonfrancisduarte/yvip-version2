@@ -27,14 +27,14 @@
                         </a>
                     </li>
 
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="#" wire:click='create' wire:navigate>
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Register Admin
                         </p>
                         </a>
-                    </li> --}}
+                    </li> 
 
                 @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa')
                     {{-- Volunteer navlinks --}}
