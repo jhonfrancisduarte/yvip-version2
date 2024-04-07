@@ -1,9 +1,9 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="" class="brand-link">
-            <img src="images/nyc-logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">YVIP - Admin</span>
-        </a>
+            <a href="#" class="brand-link" wire:navigate>
+                <img src="images/yvip_logo_white.png" alt="AdminLTE Logo" class="brand-image brand-image1" style="opacity: .8">
+                <span class="brand-text font-weight-bold">THE NYC - YVIP</span>
+            </a>
 
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
