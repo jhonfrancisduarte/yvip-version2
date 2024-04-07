@@ -737,7 +737,7 @@ input {
 }
 
 .welcome-nav .reg-button{
-  border: 1px solid white;
+  border: 1px solid rgb(0, 0, 0);
   border-radius: 5px;
   padding: 5px 15px;
   cursor: pointer;
@@ -745,7 +745,7 @@ input {
 
 .welcome-nav .reg-button:hover{
   background: white;
-  color: #FCE013;
+  color: #E14843;
 }
 
 .welcome-nav .sign-in-button{
@@ -754,13 +754,12 @@ input {
 }
 
 .welcome-nav .sign-in-button:hover{
-  color: #FCE013;
+  color: #E14843;
 }
 
 .welcome-header{
   width: 100%;
   height: 200px;
-  background-color: #045C9C;
   position: relative;
   overflow-x: hidden;
   display: flex;
@@ -779,10 +778,25 @@ input {
   line-height: 1.1;
 }
 
-.welcome-header .title-container h4{
-  border-bottom: 1px solid white;
-  width: fit-content;
-  margin-bottom: 6px;
+.welcome-header{
+  background-color: white !important;
+}
+
+.welcome-header h4{
+  color: #E14843 !important;
+  font-size: 28px;
+  margin-bottom: -10px !important;
+}
+
+.welcome-header h3{
+  padding-left: 20px;
+  font-size: 20px;
+  color: #1C2840 !important;
+}
+
+.welcome-nav{
+  background-color: rgb(236, 236, 236) !important;
+  color: black !important;
 }
 
 .login-form-container{
@@ -793,6 +807,13 @@ input {
   border-radius: 0px !important;
   height: 100vh;
   transition: 0.3s ease-in-out;
+}
+
+.login-form-container2{
+  width: 450px;
+  border-radius: 10px !important;
+  height: 75%;
+  margin-top: 80px;
 }
 
 .login-container{
@@ -865,4 +886,18 @@ input {
   line-height: 50px !important;
   background: #fafafa !important;
   height: 50px !important;
+}
+
+.main-container2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hr{
+  background-color: white;
+}
+
+.nav-item .admin-greetings{
+  color: white !important;
 }

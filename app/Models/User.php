@@ -18,36 +18,18 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'passport_number',
-        'first_name',
-        'last_name',
-        'middle_name',
-        'nickname',
-        'date_of_birth',
-        'civil_status',
-        'age',
-        'nationality',
-        'tel_number',
-        'mobile_number',
         'email',
-        'blood_type',
-        'sex',
-        'permanent_address',
-        'residential_address',
-        'educational_background',
-        'status',
-        'nature_of_work',
-        'employer',
-        'profile_picture',
-        'name_of_school',
-        'course',
-        'organization_name',
-        'org_position',
-        'is_volunteer',
-        'is_ip_participant',
         'password',
+        'user_role',
     ];
-    
+
+    public function userData(){
+        return $this->hasOne(UserData::class);
+    }
+
+    public function admin(){
+        return $this->hasOne(Admin::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

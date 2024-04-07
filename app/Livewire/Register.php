@@ -35,6 +35,7 @@ class Register extends Component
     public $org_position;
     public $is_volunteer;
     public $is_ip_participant;
+    public $user_role = "yip";
     public $password;
     public $c_password;
 
@@ -43,7 +44,7 @@ class Register extends Component
         'first_name' => 'required|min:2',
         'last_name' => 'required|min:2',
         'middle_name' => 'required|min:2',
-        'nickname' => 'required|min:2',
+        'nickname' => 'min:2',
         'date_of_birth' => 'required|date',
         'civil_status' => 'required',
         'age' => 'required|numeric|min:1',
@@ -65,13 +66,12 @@ class Register extends Component
         'org_position' => 'required|min:2',
         'is_volunteer' => 'required',
         'is_ip_participant' => 'required',
-        'password' => 'required|min:8',
+        'user_role' => 'required',
+        'password' => 'required|min:6',
         'c_password' => 'required|same:password',
     ];
 
-    public function mount()
-    {
-        // Set default profile picture
+    public function mount(){
         $this->profile_picture = 'images/blank_profile_pic.png';
     }
 
@@ -82,7 +82,46 @@ class Register extends Component
     public function create(){
         // dd($this->all());
         // $this->validate();
-        User::create($this->all());
+        // $validatedData = $this->validate();
+
+        $user = User::create([
+            'email' => $this->email,
+            'password' => $this->password,
+            'user_role' => $this->user_role,
+        ]);
+    
+
+        $user->userData()->create([
+            'user_id' => $user->id,
+            'passport_number' => $this->passport_number,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'middle_name' => $this->middle_name,
+            'nickname' => $this->nickname,
+            'date_of_birth' => $this->date_of_birth,
+            'civil_status' => $this->civil_status,
+            'age' => $this->age,
+            'nationality' => $this->nationality,
+            'tel_number' => $this->tel_number,
+            'mobile_number' => $this->mobile_number,
+            'blood_type' => $this->blood_type,
+            'sex' => $this->sex,
+            'permanent_address' => $this->permanent_address,
+            'residential_address' => $this->residential_address,
+            'educational_background' => $this->educational_background,
+            'status' => $this->status,
+            'nature_of_work' => $this->nature_of_work,
+            'employer' => $this->employer,
+            'profile_picture' => $this->profile_picture,
+            'name_of_school' => $this->name_of_school,
+            'course' => $this->course,
+            'organization_name' => $this->organization_name,
+            'org_position' => $this->org_position,
+            'is_volunteer' => $this->is_volunteer,
+            'is_ip_participant' => $this->is_ip_participant,
+        ]);
+        
+
         $this->reset();
     }
 

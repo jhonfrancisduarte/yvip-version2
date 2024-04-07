@@ -16,14 +16,23 @@ class Login extends Component
 
     
     public function login(){
+        // dd($this->all());
+
         $this->validate();
+        
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            // Authentication successful
-            return redirect()->intended('/dashboard');
-        } else {
-            // Authentication failed
-            $this->addError('email', 'Invalid credentials.');
+            $user = Auth::user();
+            if ($user->user_role === 'yv' || $user->user_role === 'yip') {
+                session(['user_role' => $user->user_role]); 
+                return redirect()->intended('/dashboard');
+            }
+            elseif (in_array($user->user_role, ['sa', 'vs', 'vsa', 'ips'])) {
+                session(['user_role' => $user->user_role]); 
+                return redirect()->intended('/admin-dashboard');
+            }
         }
+
+        $this->addError('email', 'Invalid credentials.');  
     }
     
     public function render(){

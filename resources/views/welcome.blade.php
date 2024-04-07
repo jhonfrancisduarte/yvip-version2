@@ -1,4 +1,4 @@
-@extends ('layout')
+@extends ('layouts.layout')
 
 @section ('title')
     <title>NYC - YVIP</title>
@@ -21,10 +21,10 @@
         </div>
 
         <div class="welcome-header">
-            <img src="images/nyc-logo.png" width="130"/>
+            <img src="images/tentative-logo.png" width="160"/>
             <div class="title-container">
                 <h4>The NYC</h4>
-                <h1>YVIP</h1>
+                <img src="images/yvip.png" alt="" width="230">
                 <h3>Youth Volunteers & International Programs Beneficiaries Hub</h3>
             </div>
         </div>
