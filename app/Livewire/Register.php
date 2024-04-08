@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 class Register extends Component
 {
@@ -13,7 +12,7 @@ class Register extends Component
     public $last_name;
     public $middle_name;
     public $nickname;
-    public $date_of_birth ="2024-04-01";
+    public $date_of_birth;
     public $civil_status;
     public $age;
     public $nationality;
@@ -44,7 +43,7 @@ class Register extends Component
         'last_name' => 'required|min:2',
         'middle_name' => 'required|min:2',
         'nickname' => 'required|min:2',
-        'date_of_birth' => 'required|date',
+        'date_of_birth' => 'required|date_format:Y-m-d',
         'civil_status' => 'required',
         'age' => 'required|numeric|min:1',
         'nationality' => 'required|min:2',
@@ -63,8 +62,8 @@ class Register extends Component
         'course' => 'required|min:2',
         'organization_name' => 'required|min:2',
         'org_position' => 'required|min:2',
-        'is_volunteer' => 'required',
-        'is_ip_participant' => 'required',
+        'is_volunteer' => 'required_without:is_ip_participant',
+        'is_ip_participant' => 'required_without:is_volunteer',
         'password' => 'required|min:8',
         'c_password' => 'required|same:password',
     ];
@@ -75,15 +74,49 @@ class Register extends Component
         $this->profile_picture = 'images/blank_profile_pic.png';
     }
 
-    public function render(){
+    public function render()
+    {
         return view('livewire.register');
     }
 
-    public function create(){
-        // dd($this->all());
-        // $this->validate();
-        User::create($this->all());
+    public function create()
+    {
+        $this->validate();
+
+        if (!$this->is_volunteer && !$this->is_ip_participant) {
+            $this->addError('is_volunteer', 'Please select at least one option.');
+        }
+    
+        // Check if there are any validation errors
+        $errors = $this->getErrorBag()->all();
+    
+        if (count($errors) > 0) {
+            return;
+        }
+
         $this->reset();
     }
+
+    public function updatedStatus($value)
+    {
+        if ($value == 'Student') {
+            $this->reset(['nature_of_work', 'employer']);
+        } else if ($value == 'Professional') {
+            $this->reset(['name_of_school', 'course']);
+        }
+    }
+
+    public function updatedDateOfBirth($value)
+{
+    $parsedDate = Carbon::createFromFormat(['Y-m-d', 'd/m/Y', 'm/d/Y'], $value);
+    
+    if ($parsedDate) {
+        $formattedDate = $parsedDate->format('Y-m-d');
+        $this->date_of_birth = $formattedDate;
+    } else {
+        $this->date_of_birth = null;
+        $this->addError('date_of_birth', 'Invalid date format.');
+    }
+}
 
 }
