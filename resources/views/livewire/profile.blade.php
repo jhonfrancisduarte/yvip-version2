@@ -29,8 +29,8 @@
             </div>
         </div>
 
-        <div class="profile-container">
-            
+        <div class="content-container">
+            {{-- You contents here --}}
         </div>
         
     </div>

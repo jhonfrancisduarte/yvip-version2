@@ -10,7 +10,7 @@ Auth::routes();
 Route::get('/', function () {return view('welcome');});
 Route::get('/registration', function () {return view('registration');});
 
-// Unauthorized page
+// Unauthorized redirect page
 Route::view('/unauthorized', 'unauthorized')->name('unauthorized');
 
 

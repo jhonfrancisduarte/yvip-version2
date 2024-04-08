@@ -31,6 +31,21 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
+    public function scopeSearch($query, $term){
+        $term = "%$term%";
+        $query->where(function($query) use ($term){
+            $query->where('user_data.first_name', 'like', $term)
+                ->orWhere('user_data.last_name', 'like', $term)
+                ->orWhere('user_data.middle_name', 'like', $term)
+                ->orWhere('user_data.nickname', 'like', $term)
+                ->orWhere('email', 'like', $term)
+                ->orWhere('user_data.passport_number', 'like', $term)
+                ->orWhere('user_data.date_of_birth', 'like', $term)
+                ->orWhere('user_data.civil_status', 'like', $term)
+                ->orWhere('user_data.nationality', 'like', $term);
+        });
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -35,7 +35,7 @@ class Register extends Component
     public $org_position;
     public $is_volunteer;
     public $is_ip_participant;
-    public $user_role = "yip";
+    public $user_role = "yv";
     public $password;
     public $c_password;
 

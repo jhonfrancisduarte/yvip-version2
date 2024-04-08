@@ -7,9 +7,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
     @yield('title')
 
     @yield ('css') 
@@ -71,11 +68,6 @@
 
     @yield('js')
 
-    <script src="Login and Register/vendor/jquery/jquery.min.js"></script>
-    <script src="Login and Register/vendor/select2/select2.min.js"></script>
-    <script src="Login and Register/vendor/datepicker/moment.min.js"></script>
-    <script src="Login and Register/vendor/datepicker/daterangepicker.js"></script>
-    <script src="Login and Register/js/global.js"></script> 
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -86,6 +78,6 @@
     <script src="dist/js/demo.js"></script>
     <script src="dist/js/pages/dashboard.js"></script>
     <script src="js/dashboard.js"></script>
-
+    
 </body>
 </html>

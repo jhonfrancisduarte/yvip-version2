@@ -3,7 +3,6 @@
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Registration Form</h2>
-
                     <form wire:submit.prevent="create">
                         
                         <div class="row row-space">
