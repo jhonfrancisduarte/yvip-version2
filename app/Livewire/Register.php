@@ -21,7 +21,7 @@ class Register extends Component
     public $nickname;
 
     #[Rule('required')]
-    public $date_of_birth = "2024-04-01";
+    public $date_of_birth;
 
     #[Rule('required')]
     public $civil_status;
@@ -78,7 +78,7 @@ class Register extends Component
     public $org_position;
     public $is_volunteer;
     public $is_ip_participant;
-    public $user_role = "yip";
+    public $user_role = "yv";
 
     public $password;
 
@@ -108,8 +108,8 @@ class Register extends Component
     }
 
     public function create(){
-        //dd($this->all());
         try {
+            // dd($this->all());
             $this->validate();
             if (!$this->isPasswordComplex($this->password)) {
                 $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
@@ -153,7 +153,7 @@ class Register extends Component
                 'is_ip_participant' => $this->is_ip_participant,
             ]);
             session(['success' => 'Successfully Registered! Wait for admin confirmation']); 
-            $this->reset();
+            // $this->reset();
         } catch (\Exception $e) {
             session(['unsuccessful' => 'Registration failed! ' . $e ]);
             throw $e;
