@@ -27,10 +27,11 @@ return new class extends Migration
             $table->string('tel_number')->nullable();
             $table->string('mobile_number');
             $table->string('sex', 50);
-            $table->string('permanent_address', 200);
+            $table->string('selectedProvince', 200);
+            $table->string('selectedCity', 200);
             $table->string('residential_address', 200);
             $table->string('educational_background', 50);
-            $table->string('blood_type', 5);
+            $table->string('blood_type', 5)->nullable();
             $table->string('status', 50);
             $table->string('nature_of_work', 50)->nullable();
             $table->string('employer', 50)->nullable();

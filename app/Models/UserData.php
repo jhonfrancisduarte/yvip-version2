@@ -18,9 +18,9 @@ class UserData extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-    
+
     protected $fillable = [
-        'user_id', 
+        'user_id',
         'passport_number',
         'first_name',
         'last_name',
@@ -35,7 +35,8 @@ class UserData extends Model
         'email',
         'blood_type',
         'sex',
-        'permanent_address',
+        'selectedProvince',
+        'selectedCity',
         'residential_address',
         'educational_background',
         'status',

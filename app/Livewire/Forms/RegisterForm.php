@@ -4,6 +4,8 @@ namespace App\Livewire\Forms;
 
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Livewire\Attributes\Rule;
+
 
 class RegisterForm extends Form
 {
@@ -14,7 +16,7 @@ class RegisterForm extends Form
     #[Rule('required|min:2')]
     public $last_name;
 
-    
+
     public $middle_name;
     public $nickname;
 
@@ -30,7 +32,7 @@ class RegisterForm extends Form
     #[Rule('required')]
     public $nationality;
 
-    
+
     public $tel_number;
 
     #[Rule(['required', 'regex:/^\+639\d{9}$|^\d{11}$/'])]
@@ -38,7 +40,7 @@ class RegisterForm extends Form
 
     #[Rule(['required', 'email'])]
     public $email;
-    
+
     public $blood_type;
 
     #[Rule('required')]
@@ -71,7 +73,7 @@ class RegisterForm extends Form
     #[Rule('required')]
     public $course;
 
-    
+
     public $organization_name;
 
     public $org_option;
@@ -86,9 +88,9 @@ class RegisterForm extends Form
 
     public $password;
     public $c_password;
-    
+
     public function submit(){
-        
+
     }
 
 }
