@@ -67,7 +67,7 @@
     @yield('content')
 
     @yield('js')
-
+    
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -78,6 +78,6 @@
     <script src="dist/js/demo.js"></script>
     <script src="dist/js/pages/dashboard.js"></script>
     <script src="js/dashboard.js"></script>
-    
+    @livewireScripts
 </body>
 </html>

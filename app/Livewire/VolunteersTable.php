@@ -4,6 +4,7 @@ namespace App\Livewire;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class VolunteersTable extends Component
 {
@@ -13,6 +14,62 @@ class VolunteersTable extends Component
     public $age_range;
     public $civil_status;
     public $deleteVolunteerId;
+    public $disableButton = "No";
+    public $deleteMessage;
+    public $userDetails;
+
+    public function showUserData($userId){
+        $this->selectedUserDetails = User::where('users.id', $userId)
+                                ->join('user_data', 'users.id', '=', 'user_data.user_id')
+                                ->select('users.*', 'user_data.*')
+                                ->first();
+        $this->selectedUserDetails = $this->selectedUserDetails->getAttributes();
+    }
+
+    public function deleteVolunteer($userId){
+        $user = User::find($userId);
+        if ($user){
+            $user->userData()->delete();
+            $user->delete();
+            $this->deleteMessage = 'Volunteer deleted successfully.';
+            $this->disableButton = "Yes";
+        }else{
+            $this->deleteMessage = 'Volunteer deletion unsuccessfully.';
+            $this->disableButton = "Yes";
+        }
+        $this->deleteVolunteerId = null;
+    }
+
+    public function hideUserData(){
+        if($this->selectedUserDetails != null){
+            $this->selectedUserDetails = null;
+        }
+    }
+
+    public function deleteDialog($userId){
+        $this->deleteVolunteerId = $userId;
+        if($this->selectedUserDetails != null){
+            $this->selectedUserDetails = null;
+        }
+    }
+
+    public function hideDeleteDialog(){
+        $this->deleteMessage = null;
+        $this->deleteVolunteerId = null;
+        $this->disableButton = "No";
+        if($this->selectedUserDetails != null){
+            $this->selectedUserDetails = null;
+        }
+    }
+
+    public function exportToPdf(){
+        $userDetails = $this->selectedUserDetails;
+        $pdf = Pdf::loadView('pdf.volunteers-pdf', ['userDetails' => $userDetails]);
+        $pdf->setPaper('A4', 'portrait');
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, $userDetails['first_name'] . $userDetails['last_name'] . '_YV.pdf');
+    }
 
     public function render(){
         $volunteers = User::where('user_role', 'yv')
@@ -34,32 +91,5 @@ class VolunteersTable extends Component
                 ->get();
 
         return view('livewire.volunteers-table', compact('volunteers', 'ageRange'));
-    }
-
-    public function showUserData($userId){
-        $this->selectedUserDetails = User::join('user_data', 'users.id', '=', 'user_data.user_id')
-                                    ->where('users.id', $userId)
-                                    ->select('users.*', 'user_data.*')
-                                    ->first();
-    }
-
-    public function deleteVolunteer($userId){
-        $user = User::find($userId);
-        if ($user){
-            $user->userData()->delete();
-            $user->delete();
-        }
-    }
-
-    public function hideUserData(){
-        $this->selectedUserDetails = null;
-    }
-
-    public function deleteDialog($userId){
-        $this->deleteVolunteerId = $userId;
-    }
-
-    public function hideDeleteDialog(){
-        $this->deleteVolunteerId = null;
     }
 }

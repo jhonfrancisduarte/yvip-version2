@@ -18,7 +18,15 @@ class Register extends Component
     #[Rule('required|min:2')]
     public $middle_name;
     public $nickname;
+<<<<<<< HEAD
     public $date_of_birth ="2024-04-01";
+=======
+
+    #[Rule('required')]
+    public $date_of_birth;
+
+    #[Rule('required')]
+>>>>>>> 82cb7890469033fd69ab61c0d5753f25ebcb4905
     public $civil_status;
 
     #[Rule('required')]
@@ -73,7 +81,7 @@ class Register extends Component
     public $org_position;
     public $is_volunteer;
     public $is_ip_participant;
-    public $user_role = "yip";
+    public $user_role = "yv";
 
     public $password;
 
@@ -129,6 +137,7 @@ class Register extends Component
     }
 
     public function create(){
+<<<<<<< HEAD
         // dd($this->all());
         // $this->validate();
         User::create($this->all());
@@ -141,6 +150,57 @@ class Register extends Component
             $this->reset(['nature_of_work', 'employer']);
         } else if ($value == 'Professional') {
             $this->reset(['name_of_school', 'course']);
+=======
+        try {
+            // dd($this->all());
+            $this->validate();
+            if (!$this->isPasswordComplex($this->password)) {
+                $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
+                return;
+            }
+
+            $user = User::create([
+                'email' => $this->email,
+                'password' => $this->password,
+                'user_role' => $this->user_role,
+            ]);
+        
+
+            $user->userData()->create([
+                'user_id' => $user->id,
+                'passport_number' => $this->passport_number,
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'middle_name' => $this->middle_name,
+                'nickname' => $this->nickname,
+                'date_of_birth' => $this->date_of_birth,
+                'civil_status' => $this->civil_status,
+                'age' => $this->age,
+                'nationality' => $this->nationality,
+                'tel_number' => $this->tel_number,
+                'mobile_number' => $this->mobile_number,
+                'blood_type' => $this->blood_type,
+                'sex' => $this->sex,
+                'permanent_address' => $this->permanent_address,
+                'residential_address' => $this->residential_address,
+                'educational_background' => $this->educational_background,
+                'status' => $this->status,
+                'nature_of_work' => $this->nature_of_work,
+                'employer' => $this->employer,
+                'profile_picture' => $this->profile_picture,
+                'name_of_school' => $this->name_of_school,
+                'course' => $this->course,
+                'organization_name' => $this->organization_name,
+                'org_position' => $this->org_position,
+                'is_volunteer' => $this->is_volunteer,
+                'is_ip_participant' => $this->is_ip_participant,
+            ]);
+            session(['success' => 'Successfully Registered! Wait for admin confirmation']); 
+            // $this->reset();
+        } catch (\Exception $e) {
+            session(['unsuccessful' => 'Registration failed! ' . $e ]);
+            throw $e;
+>>>>>>> 82cb7890469033fd69ab61c0d5753f25ebcb4905
         }
     }
 
