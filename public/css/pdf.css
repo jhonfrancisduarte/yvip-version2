@@ -1,0 +1,14 @@
+.page-break {
+    page-break-after: always;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.header .title{
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
