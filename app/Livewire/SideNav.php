@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class SideNav extends Component
 {
-    public $selectedNavItem = 'announcements';
-
     public function logout(){
         Auth::logout();
         return Redirect::to('/');

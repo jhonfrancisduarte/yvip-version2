@@ -4,6 +4,9 @@
     <title>My Profile</title>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" href="css/profile.css">
+@endsection
 
 @section('content')
 
@@ -25,6 +28,11 @@
                 </div>
             </div>
         </div>
+
+        <div class="content-container">
+            {{-- You contents here --}}
+        </div>
+        
     </div>
 
 @endsection

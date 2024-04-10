@@ -7,13 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
     @yield('title')
 
     @yield ('css') 
-
+    @livewireStyles
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link href="Login and Register/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -32,13 +29,28 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 
-
-    <div class="wrapper">
+     <div class="wrapper">
         <!--Top Navbar Buttons -->
         <nav class="main-header navbar navbar-expand navbar-light navbar-pink">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-link admin-greetings">
+                        @if(session('user_role') == 'sa')
+                            Welcome Super Admin!
+                        @endif
+                        @if(session('user_role') == 'vs')
+                            Welcome Volunteer Secretariat
+                        @endif
+                        @if(session('user_role') == 'vsa')
+                            Welcome Volunteer Secretariat Assistant
+                        @endif
+                        @if(session('user_role') == 'ips')
+                            Welcome IP Secretariat
+                        @endif
+                    </span>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -52,14 +64,10 @@
     </div>
     
     @yield('content')
-
+  
     @yield('js')
-
-    <script src="Login and Register/vendor/jquery/jquery.min.js"></script>
-    <script src="Login and Register/vendor/select2/select2.min.js"></script>
-    <script src="Login and Register/vendor/datepicker/moment.min.js"></script>
-    <script src="Login and Register/vendor/datepicker/daterangepicker.js"></script>
-    <script src="Login and Register/js/global.js"></script> 
+ 
+    
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -70,6 +78,6 @@
     <script src="dist/js/demo.js"></script>
     <script src="dist/js/pages/dashboard.js"></script>
     <script src="js/dashboard.js"></script>
-
+    @livewireScripts
 </body>
 </html>
