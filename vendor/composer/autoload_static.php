@@ -596,12 +596,10 @@ class ComposerStaticInitf9985d2fbac80db1beb2b346fbe4e2ec
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
-<<<<<<< HEAD
         'App\\Livewire\\CategoryForm' => __DIR__ . '/../..' . '/app/Livewire/CategoryForm.php',
         'App\\Livewire\\Dashboard' => __DIR__ . '/../..' . '/app/Livewire/Dashboard.php',
         'App\\Livewire\\EventsAndTrainings' => __DIR__ . '/../..' . '/app/Livewire/EventsAndTrainings.php',
         'App\\Livewire\\Forms\\RegisterForm' => __DIR__ . '/../..' . '/app/Livewire/Forms/RegisterForm.php',
-=======
         'App\\Livewire\\AdminDashboard' => __DIR__ . '/../..' . '/app/Livewire/AdminDashboard.php',
         'App\\Livewire\\AdminSideNav' => __DIR__ . '/../..' . '/app/Livewire/AdminSideNav.php',
         'App\\Livewire\\Dashboard' => __DIR__ . '/../..' . '/app/Livewire/Dashboard.php',
@@ -609,7 +607,6 @@ class ComposerStaticInitf9985d2fbac80db1beb2b346fbe4e2ec
         'App\\Livewire\\Forms\\RegisterForm' => __DIR__ . '/../..' . '/app/Livewire/Forms/RegisterForm.php',
         'App\\Livewire\\Index' => __DIR__ . '/../..' . '/app/Livewire/Index.php',
         'App\\Livewire\\IpDashboard' => __DIR__ . '/../..' . '/app/Livewire/IpDashboard.php',
->>>>>>> master
         'App\\Livewire\\Leaderboard' => __DIR__ . '/../..' . '/app/Livewire/Leaderboard.php',
         'App\\Livewire\\Login' => __DIR__ . '/../..' . '/app/Livewire/Login.php',
         'App\\Livewire\\Messages' => __DIR__ . '/../..' . '/app/Livewire/Messages.php',
@@ -617,7 +614,6 @@ class ComposerStaticInitf9985d2fbac80db1beb2b346fbe4e2ec
         'App\\Livewire\\MyParticipations' => __DIR__ . '/../..' . '/app/Livewire/MyParticipations.php',
         'App\\Livewire\\Profile' => __DIR__ . '/../..' . '/app/Livewire/Profile.php',
         'App\\Livewire\\Register' => __DIR__ . '/../..' . '/app/Livewire/Register.php',
-<<<<<<< HEAD
         'App\\Livewire\\Rewards' => __DIR__ . '/../..' . '/app/Livewire/Rewards.php',
         'App\\Livewire\\SideNav' => __DIR__ . '/../..' . '/app/Livewire/SideNav.php',
         'App\\Livewire\\VirtualPassport' => __DIR__ . '/../..' . '/app/Livewire/VirtualPassport.php',
@@ -628,7 +624,6 @@ class ComposerStaticInitf9985d2fbac80db1beb2b346fbe4e2ec
         'App\\Models\\Volunteer' => __DIR__ . '/../..' . '/app/Models/Volunteer.php',
         'App\\Models\\VolunteerCategory' => __DIR__ . '/../..' . '/app/Models/VolunteerCategory.php',
         'App\\Models\\VolunteerSkills' => __DIR__ . '/../..' . '/app/Models/VolunteerSkills.php',
-=======
         'App\\Livewire\\RegisterAdmin' => __DIR__ . '/../..' . '/app/Livewire/RegisterAdmin.php',
         'App\\Livewire\\Rewards' => __DIR__ . '/../..' . '/app/Livewire/Rewards.php',
         'App\\Livewire\\SideNav' => __DIR__ . '/../..' . '/app/Livewire/SideNav.php',
@@ -641,7 +636,6 @@ class ComposerStaticInitf9985d2fbac80db1beb2b346fbe4e2ec
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\UserData' => __DIR__ . '/../..' . '/app/Models/UserData.php',
         'App\\Models\\admin' => __DIR__ . '/../..' . '/app/Models/admin.php',
->>>>>>> master
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
