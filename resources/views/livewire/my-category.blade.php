@@ -25,6 +25,13 @@
                 </div>
             </div>
         </div>
+
+        <div class="content">
+            <div class="container-fluid">
+                <!-- Include the Livewire component here -->
+                <livewire:category-form />
+            </div>
+        </div>
     </div>
 
 @endsection

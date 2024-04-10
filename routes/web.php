@@ -18,10 +18,12 @@ Route::middleware(['auth'])->group(function () {
      Route::get('/leaderboard', function () {return view('livewire.leaderboard');})->name('leaderboard');
      Route::get('/messages', function () {return view('livewire.messages');})->name('messages');
      Route::get('/profile', function () {return view('livewire.profile');})->name('profile');
+     
 });
 
 
 // Public pages
 Route::get('/', function () {return view('welcome');});
 Route::get('/registration', function () {return view('registration');});
+Route::get('/category-form', function () {return view('category-form');});
 
