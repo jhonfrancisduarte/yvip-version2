@@ -13,7 +13,6 @@ class UserData extends Model
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'user_data';
-    public $timestamps = false;
 
     public function user(){
         return $this->belongsTo(User::class);

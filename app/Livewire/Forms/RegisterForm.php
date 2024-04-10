@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Illuminate\Contracts\Validation\Rule;
 
 class RegisterForm extends Form
 {

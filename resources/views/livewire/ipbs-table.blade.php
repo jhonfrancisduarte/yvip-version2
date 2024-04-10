@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Youth Volunteers Management</h3> 
+                        <h3 class="card-title">IP Beneficiaries Management</h3> 
                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;"><i class="fa fa-plus">Add</i>
                         </button>
 
@@ -85,7 +85,6 @@
                                 </form>
                             </div>
                         </div>
-                        
                     </div>
                     <div class="card-header card-header1">
                         <label for="" class="label">Filter: </label>
@@ -127,7 +126,8 @@
                     <div class="card-header card-header1">
                         <label class="label">Number of Results: <span>{{ count($volunteers )}}</span></label>
                     </div>
-
+                    
+                     <!-- /.card-header -->
                     <div class="card-body">
         
                         <table id="volunteers-table" class="table table-bordered table-striped">

@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('status', 50);
             $table->string('nature_of_work', 50)->nullable();
             $table->string('employer', 50)->nullable();
-            $table->binary('profile_picture')->nullable();
+            $table->string('profile_picture')->nullable();
             $table->boolean('is_volunteer')->nullable();
             $table->boolean('is_ip_participant')->nullable();
             $table->string('name_of_school', 50)->nullable();

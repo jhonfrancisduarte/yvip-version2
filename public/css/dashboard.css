@@ -2,3 +2,9 @@
     background-color: #045C9C; 
     color: white;
 }
+
+.wrapper{
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 9 !important;
+}
