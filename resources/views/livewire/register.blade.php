@@ -4,19 +4,21 @@
                 <div class="card-body">
                     <h2 class="title">Registration Form</h2>
 
-                    <form wire:submit.prevent="create">
-                        
+
+                    <form wire:submit="create">
+
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">first name</label>
                                     <input class="input--style-4" type="text" wire:model.blur="first_name" name="first_name">
                                     @error('first_name') <span class="text-danger small" style="color: red;">{{ $message }}</span>
+
                                     @enderror
                                 </div>
-                                
-                                    
-                                
+
+
+
 
                             </div>
                             <div class="col-2">
@@ -29,7 +31,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
@@ -108,10 +110,11 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Email</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="email" name="email">
+                                    <input class="input--style-4" type="text" wire:model.blur="email" wire:change="onBlurEmail" name="email" >
                                     @error('email') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror
+
                                 </div>
                             </div>
 
@@ -146,14 +149,30 @@
                             <div class="col-4" style="width: 100%">
                                 <div class="input-group">
                                     <label class="label">permanent Address</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="permanent_address" name="permanent_address">
-                                    @error('permanent_address') <span class="text-danger small" style="color: red;">{{ $message }}</span>
-
-                                    @enderror
+                                    <label class="label" for="province">Select Province:</label>
+                                    <select class="label select-status" wire:model.live="selectedProvince" id="province" name="selectedProvince">
+                                        @if ($provinces)
+                                        @foreach ($provinces as $province)
+                                            <option class="label" value="{{ $province }}">{{ $province }}</option>
+                                        @endforeach
+                                        @else
+                                        <option class="label" value="">Select Province</option>
+                                    @endif
+                                    </select>
+                                    <label class="label" for="city">Select City:</label>
+                                    <select class="label select-status" wire:model.live="selectedCity" id="city" name="selectedCity">
+                                    @if ($cities)
+                                    @foreach ($cities as $city)
+                                        <option class="label" value="{{ $city }}">{{ $city }}</option>
+                                    @endforeach
+                                    @else
+                                        <option class="label" value="">No cities available</option>
+                                    @endif
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row row-space">
                             <div class="col-4" style="width: 100%">
                                 <div class="input-group">
@@ -177,14 +196,14 @@
                                 </div>
                             </div>
                         </div>
-                            
+
                         <div class="input-group">
                             <label class="label">Status</label>
                             <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
                                 <select  class="label select-status" id="status" wire:model.blur="status" name="status">
                                     <option selected class="label">Choose option</option>
                                     <option value="Student" class="label">Student</option>
-                                    <option value="Professional" class="label">Professional</option>    
+                                    <option value="Professional" class="label">Professional</option>
                                 </select>
                                 <div class="select-dropdown"></div>
                                 @error('status') <span class="text-danger small" style="color: red;">{{ $message }}</span>
@@ -275,8 +294,8 @@
                                 <div class="input-group">
                                     <label class="label">password</label>
                                     <input class="input--style-4" type="password" wire:model="password" name="password">
-                                    @error('password') 
-                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                    @error('password') <span class="text-danger small" style="color: red;">{{ $message }}</span>
+
                                     @enderror
                                 </div>
                             </div>
@@ -295,7 +314,7 @@
                             <div class="col-2">
                                 <div class="p-t-15">
                                     <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
-                                    
+
                                 </div>
 
                             </div>
@@ -305,15 +324,8 @@
                                 </div>
                             </div>
                         </div>
-                        @if (session('success'))
-                        <br>
-                        <div class="alert alert-success" role="alert">
-                            <span class="font-medium">{{ session('success') }}</span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        @endif
+
+
                     </form>
 
 

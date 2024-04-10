@@ -34,11 +34,12 @@
                     <div class="login-overlay"></div>
                     @livewire('login')
                 </div>
+
             </div>
     </div>
 
 @endsection
 
 @section ('js')
-    
+
 @endsection
