@@ -21,7 +21,7 @@ class Register extends Component
     public $nickname;
 
     #[Rule('required')]
-    public $date_of_birth = "2024-04-01";
+    public $date_of_birth;
 
     #[Rule('required')]
     public $civil_status;
@@ -41,20 +41,34 @@ class Register extends Component
 
     public $email;
 
+    #[Rule('required|max:4|min:1')]
     public $blood_type;
 
     #[Rule('required')]
     public $sex;
 
-
+    #[Rule('required')]
+    public $permanent_selectedProvince;
 
     #[Rule('required')]
-    public $residential_address;
+    public $permanent_selectedCity;
+
+    #[Rule('required')]
+    public $p_street_barangay;
+
+    #[Rule('required')]
+    public $residential_selectedProvince;
+
+    #[Rule('required')]
+    public $residential_selectedCity;
+
+    #[Rule('required')]
+    public $r_street_barangay;
 
     #[Rule('required')]
     public $educational_background;
 
-    #[Rule('required')]
+    #[Rule('required|min:2')]
     public $status;
 
 
@@ -75,7 +89,10 @@ class Register extends Component
     public $organization_name;
 
     public $org_position;
+
+    #[Rule('required')]
     public $is_volunteer;
+
     public $is_ip_participant;
     public $user_role = "yip";
 
@@ -131,6 +148,7 @@ class Register extends Component
         'Maguindanao',
         'Marinduque',
         'Masbate',
+        'Metro Manila',
         'Misamis Occidental',
         'Misamis Oriental',
         'Mountain Province',
@@ -166,103 +184,18 @@ class Register extends Component
         'Zamboanga Sibugay',
         // Add the 82nd province here
     ];
-    public $cities;
-    public $selectedProvince="";
-    public $selectedCity="";
+    public $permanent_cities;
+    public $residential_cities;
+
 
 
     public function mount()
     {
-        // Load provinces from a data source (e.g., database)
-        // $this->provinces = [
-        //     'Abra',
-        //     'Agusan del Norte',
-        //     'Agusan del Sur',
-        //     'Aklan',
-        //     'Albay',
-        //     'Antique',
-        //     'Apayao',
-        //     'Aurora',
-        //     'Basilan',
-        //     'Bataan',
-        //     'Batanes',
-        //     'Batangas',
-        //     'Benguet',
-        //     'Biliran',
-        //     'Bohol',
-        //     'Bukidnon',
-        //     'Bulacan',
-        //     'Cagayan',
-        //     'Camarines Norte',
-        //     'Camarines Sur',
-        //     'Camiguin',
-        //     'Capiz',
-        //     'Catanduanes',
-        //     'Cavite',
-        //     'Cebu',
-        //     'Compostela Valley',
-        //     'Cotabato',
-        //     'Davao del Norte',
-        //     'Davao del Sur',
-        //     'Davao Occidental',
-        //     'Davao Oriental',
-        //     'Dinagat Islands',
-        //     'Eastern Samar',
-        //     'Guimaras',
-        //     'Ifugao',
-        //     'Ilocos Norte',
-        //     'Ilocos Sur',
-        //     'Iloilo',
-        //     'Isabela',
-        //     'Kalinga',
-        //     'La Union',
-        //     'Laguna',
-        //     'Lanao del Norte',
-        //     'Lanao del Sur',
-        //     'Leyte',
-        //     'Maguindanao',
-        //     'Marinduque',
-        //     'Masbate',
-        //     'Misamis Occidental',
-        //     'Misamis Oriental',
-        //     'Mountain Province',
-        //     'Negros Occidental',
-        //     'Negros Oriental',
-        //     'Northern Samar',
-        //     'Nueva Ecija',
-        //     'Nueva Vizcaya',
-        //     'Occidental Mindoro',
-        //     'Oriental Mindoro',
-        //     'Palawan',
-        //     'Pampanga',
-        //     'Pangasinan',
-        //     'Quezon',
-        //     'Quirino',
-        //     'Rizal',
-        //     'Romblon',
-        //     'Western Samar',
-        //     'Sarangani',
-        //     'Siquijor',
-        //     'Sorsogon',
-        //     'South Cotabato',
-        //     'Southern Leyte',
-        //     'Sultan Kudarat',
-        //     'Sulu',
-        //     'Surigao del Norte',
-        //     'Surigao del Sur',
-        //     'Tarlac',
-        //     'Tawi-Tawi',
-        //     'Zambales',
-        //     'Zamboanga del Norte',
-        //     'Zamboanga del Sur',
-        //     'Zamboanga Sibugay',
-        //     // Add the 82nd province here
-        // ];
 
-        // Initialize cities with the cities of the first province
-        $this->selectedProvince = $this->provinces[0];
-        $this->cities = $this->getCitiesByProvince($this->selectedProvince);
-        $this->selectedCity = $this->cities[0];
+        $this->permanent_selectedProvince = null;
+        $this->permanent_selectedCity = null;
+        $this->residential_selectedProvince = null;
+        $this->residential_selectedCity = null;
         $this->profile_picture = 'images/blank_profile_pic.png';
     }
 
@@ -286,21 +219,20 @@ class Register extends Component
         ]);
     }
 
-
-
-
-
     public function render(){
         return view('livewire.register');
     }
 
-    public function updatedSelectedProvince($value)
+    public function updatedPermanentSelectedProvince($province)
     {
-        $this->selectedCity = null; // Reset selected city when province changes
-        $this->selectedProvince = $value; // Update selected province
+        $this->permanent_cities = $this->getCitiesByProvince($province);
+        $this->permanent_selectedCity = null;
+    }
 
-        // Update cities based on the selected province
-        $this->cities = $this->getCitiesByProvince($value);
+    public function updatedResidentialSelectedProvince($province)
+    {
+        $this->residential_cities = $this->getCitiesByProvince($province);
+        $this->residential_selectedCity = null;
     }
 
     private function getCitiesByProvince($province)
@@ -404,6 +336,8 @@ class Register extends Component
             return ['Boac (Capital)', 'Buenavista', 'Gasan', 'Mogpog', 'Santa Cruz', 'Torrijos'];
         case 'Masbate':
             return ['Aroroy', 'Baleno', 'Balud', 'Batuan', 'Cataingan', 'Cawayan', 'Claveria', 'Dimasalang', 'Esperanza', 'Mandaon', 'Masbate City (Capital)', 'Milagros', 'Mobo', 'Monreal', 'Palanas', 'Pio V. Corpuz (Limbuhan)', 'Placer', 'San Fernando', 'San Jacinto', 'San Pascual', 'Uson'];
+        case 'Metro Manila':
+            return ['Caloocan', 'Las Piñas', 'Makati', 'Malabon', 'Mandaluyong', 'Manila', 'Marikina', 'Muntinlupa', 'Navotas', 'Parañaque', 'Pasay', 'Pasig', 'Quezon City', 'San Juan', 'Taguig', 'Valenzuela'];
         case 'Misamis Occidental':
             return ['Aloran', 'Baliangao', 'Bonifacio', 'Calamba', 'Clarin', 'Concepcion', 'Don Victoriano Chiongbian (Don Mariano Marcos)', 'Jimenez', 'Lopez Jaena', 'Oroquieta City (Capital)', 'Ozamiz City', 'Panaon', 'Plaridel', 'Sapang Dalaga', 'Sinacaban', 'Tangub City', 'Tudela'];
         case 'Misamis Oriental':
@@ -506,9 +440,12 @@ class Register extends Component
                 'mobile_number' => $this->mobile_number,
                 'blood_type' => $this->blood_type,
                 'sex' => $this->sex,
-                'selectedProvince' => $this->selectedProvince,
-                'selectedCity' => $this->selectedCity,
-                'residential_address' => $this->residential_address,
+                'permanent_selectedProvince' => $this->permanent_selectedProvince,
+                'permanent_selectedCity' => $this->permanent_selectedCity,
+                'p_street_barangay' => $this->p_street_barangay,
+                'residential_selectedProvince' => $this->permanent_selectedProvince,
+                'residential_selectedCity' => $this->permanent_selectedCity,
+                'r_street_barangay' => $this->p_street_barangay,
                 'educational_background' => $this->educational_background,
                 'status' => $this->status,
                 'nature_of_work' => $this->nature_of_work,
@@ -521,8 +458,9 @@ class Register extends Component
                 'is_volunteer' => $this->is_volunteer,
                 'is_ip_participant' => $this->is_ip_participant,
             ]);
-
+            session()->flash('successMessage', 'User created successfully!');
             $this->reset();
+
         } catch (\Exception $e) {
 
             throw $e;
@@ -535,5 +473,6 @@ class Register extends Component
         $containsSpecialChar = preg_match('/[^A-Za-z0-9]/', $password); // Changed regex to include special characters
         return $containsUppercase && $containsNumber && $containsSpecialChar;
     }
+
 
 }
