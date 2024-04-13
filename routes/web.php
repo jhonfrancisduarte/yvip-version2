@@ -43,7 +43,7 @@ Route::middleware(['auth', 'user_role:yv'])->group(function () {
 // Public pages
 Route::get('/', function () {return view('welcome');});
 Route::get('/registration', function () {return view('registration');});
-Route::get('/category-form', function () {return view('category-form');});
+//Route::get('/category-form', function () {return view('category-form');});
 
 Route::middleware(['auth', 'user_role:yip'])->group(function () {
      // Private pages accessible only to users (ip beneficiaries)

@@ -18,9 +18,8 @@ return new class extends Migration
                 $table->unsignedBigInteger('category_id');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');  
                 $table->foreign('category_id')->references('id')->on('volunteer_categories')->onDelete('cascade');
-                $table->integer('volunteer_experience')->nullable(false)->default(0);
+                $table->string('volunteer_experience', 250);
                 $table->integer('volunteering_hours')->nullable(false)->default(0);
-                //$table->primary(['user_id']);
                 $table->timestamps();
             });
         }

@@ -21,7 +21,7 @@ class Register extends Component
     public $nickname;
 
     #[Rule('required')]
-    public $date_of_birth;
+    public $date_of_birth = "2024/04/01";
 
     #[Rule('required')]
     public $civil_status;
