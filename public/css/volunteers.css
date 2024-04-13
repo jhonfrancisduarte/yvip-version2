@@ -32,6 +32,7 @@
 
 
 .users-data-all-container .user-info{
+    overflow-y: auto;
     width: 600px;
     background-color: rgb(255, 255, 255);
     display: block;
@@ -140,5 +141,16 @@
         width: 300px;
         margin-top: 10px;
     }
+    .users-data-all-container{
+        padding-top: 150px;
+        position: absolute;
+    }
     
+}
+
+@media (min-width:768px) and (max-width:1024px) {
+    .users-data-all-container{
+        position: fixed;
+        padding-bottom: 70px;
+    }
 }

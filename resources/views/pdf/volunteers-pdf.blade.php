@@ -13,7 +13,11 @@
                         </th>
                         <th width="34%">
                             <center><h2>The NYC - YVIP</h2></center>
-                            <center><p>Volunteers' Program</p></center>
+                            @if($userDetails['user_role'] == "yv")
+                                <center><p>Volunteers' Program</p></center>
+                            @elseif($userDetails['user_role'] == "yip")
+                                <center><p>International Program</p></center>
+                            @endif
                         </th>
                         <th width="33%">
                             <center><img src="{{ $userDetails['profile_picture'] }}" width="100"></center>
@@ -74,13 +78,13 @@
             <table style="width: 100%;">
                 <tbody>
                     @if($userDetails['status'] == "Student")
-                        <tr style="border-top: 1px solid gray;">
+                        <tr style="border-top: 1px solid gray; border-bottom: 1px solid gray;">
                             <td style="padding: 5px; border-left: 1px solid gray; border-right: 1px solid gray;">School Name: {{ $userDetails['name_of_school'] }}</td>
                             <td style="padding: 5px; border-right: 1px solid gray;">Course: {{ $userDetails['course'] }}</td>
                         </tr>
                     @endif
                     @if($userDetails['status'] == "Professional")
-                        <tr style="border-top: 1px solid gray;">
+                        <tr style="border-top: 1px solid gray; border-bottom: 1px solid gray;">
                             <td style="padding: 5px; border-left: 1px solid gray; border-right: 1px solid gray;">Nature of Work: {{ $userDetails['nature_of_work'] }}</td>
                             <td style="padding: 5px; border-right: 1px solid gray;">Employer: {{ $userDetails['employer'] }}</td>
                         </tr>

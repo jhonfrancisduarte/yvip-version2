@@ -10,7 +10,7 @@
     @yield('title')
 
     @yield ('css') 
-
+    @livewireStyles
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link href="Login and Register/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -29,8 +29,7 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 
-
-    <div class="wrapper">
+     <div class="wrapper">
         <!--Top Navbar Buttons -->
         <nav class="main-header navbar navbar-expand navbar-light navbar-pink">
             <ul class="navbar-nav">
@@ -65,8 +64,9 @@
     </div>
     
     @yield('content')
-
+  
     @yield('js')
+ 
     
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

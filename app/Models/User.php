@@ -26,6 +26,9 @@ class User extends Authenticatable
     public function userData(){
         return $this->hasOne(UserData::class);
     }
+    public function announcement(){
+        return $this->hasOne(Announcement::class);
+    }
 
     public function admin(){
         return $this->hasOne(Admin::class);
