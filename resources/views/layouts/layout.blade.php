@@ -9,7 +9,7 @@
         @yield ('title')
 
         <!-- CSS FILES -->
-        @yield ('css') 
+        @yield ('css')
 
          <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,7 +23,7 @@
         <link href="Login and Register/css/main.css" rel="stylesheet" media="all">
 
     </head>
-    
+
     <body class="hold-transition sidebar-mini layout-fixed">
 
         @yield ('header')
@@ -35,13 +35,13 @@
         @yield ('footer')
 
         @yield ('js')
-      
-        
+
+
         <script src="Login and Register/vendor/jquery/jquery.min.js"></script>
         <script src="Login and Register/vendor/select2/select2.min.js"></script>
         <script src="Login and Register/vendor/datepicker/moment.min.js"></script>
         <script src="Login and Register/vendor/datepicker/daterangepicker.js"></script>
-        <script src="Login and Register/js/global.js"></script> 
+        <script src="Login and Register/js/global.js"></script>
 
     </body>
 
