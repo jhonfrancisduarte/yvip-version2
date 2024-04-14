@@ -3,26 +3,22 @@
         <div class="container-fluid">
             <div class="announcement-header">
                 <div class="card-header">
-                    <h3 class="card-title">Volunteer Announcements</h3> 
-                </div>
-                <div class="card-header header-sticky-top">
-                    <button class="btn btn-success btn-sm" wire:click="openAddForm"><i class="fa fa-plus"></i></button>
+                    <h3 class="card-title">
+                        @if(session('user_role') == 'yv')
+                            Volunteer Announcements
+                        @elseif(session('user_role') == 'yip')
+                            International Program Announcements
+                        @endif
+                    </h3> 
                 </div>
             </div>
+
+
 
             {{-- Announcements are displayed here --}}
             @foreach($announcements as $announcement)
                 <div class="announcement-container">
                     <div class="announcement-box">
-
-                        @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa' || session('user_role') == 'ips')
-                            <div class="admin-btn">
-                                <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#update"><i class="fa fa-pencil-alt"></i> 
-                                </button>
-                                <button class="btn btn-danger btn-xs" wire:click="deleteDialog({{ $announcement->id }})"><i class="fa fa-trash"></i> 
-                                </button>
-                            </div>
-                        @endif
 
                         <div class="author">
                             <img src="{{ $announcement->profile_picture }}">

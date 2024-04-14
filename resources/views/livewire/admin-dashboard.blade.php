@@ -25,6 +25,7 @@
                 </div>
             </div>
         </div>
+        @livewire('announement-table')
     </div>
 
 @endsection

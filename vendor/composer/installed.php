@@ -3,11 +3,8 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-<<<<<<< HEAD
         'reference' => '3875d96b8ffb59a7453ce8483d8b82d196cbf062',
-=======
         'reference' => '78e00d12ef146d74d6fcd0be5885d20f3849c43d',
->>>>>>> upstream/master
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -83,8 +80,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-<<<<<<< HEAD
-=======
         'danharrin/livewire-rate-limiting' => array(
             'pretty_version' => 'v1.3.0',
             'version' => '1.3.0.0',
@@ -94,7 +89,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
->>>>>>> upstream/master
         'davedevelopment/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -209,8 +203,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-<<<<<<< HEAD
-=======
         'filament/filament' => array(
             'pretty_version' => 'v3.2.66',
             'version' => '3.2.66.0',
@@ -220,7 +212,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
->>>>>>> upstream/master
         'filament/forms' => array(
             'pretty_version' => 'v3.2.66',
             'version' => '3.2.66.0',
@@ -257,8 +248,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-<<<<<<< HEAD
-=======
         'filament/tables' => array(
             'pretty_version' => 'v3.2.66',
             'version' => '3.2.66.0',
@@ -277,7 +266,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
->>>>>>> upstream/master
         'filp/whoops' => array(
             'pretty_version' => '2.15.4',
             'version' => '2.15.4.0',
@@ -575,11 +563,8 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-<<<<<<< HEAD
             'reference' => '3875d96b8ffb59a7453ce8483d8b82d196cbf062',
-=======
             'reference' => '78e00d12ef146d74d6fcd0be5885d20f3849c43d',
->>>>>>> upstream/master
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -1391,15 +1376,12 @@
             'dev_requirement' => false,
         ),
         'symfony/html-sanitizer' => array(
-<<<<<<< HEAD
             'pretty_version' => 'v7.0.4',
             'version' => '7.0.4.0',
             'reference' => 'a8543ad56bc5250378ca44bb3988516fcb073c5d',
-=======
             'pretty_version' => 'v6.4.4',
             'version' => '6.4.4.0',
             'reference' => '83e1dc8b49345e078cfa21bd4c563dfa99c5ed63',
->>>>>>> upstream/master
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/html-sanitizer',
             'aliases' => array(),

@@ -4,6 +4,10 @@
     <title>Dashboard</title>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="css/announcement.css">
+    <link rel="stylesheet" type="text/css" href="css/volunteers.css">
+@endsection
 
 @section('content')
 
@@ -25,6 +29,7 @@
                 </div>
             </div>
         </div>
+        @livewire('announcement-table')
     </div>
 
 @endsection

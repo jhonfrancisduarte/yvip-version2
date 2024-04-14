@@ -23,4 +23,8 @@ return [
     'cache_path' => base_path('bootstrap/cache/filament'),
     'livewire_loading_delay' => 'default',
 
+    'providers' => [
+        App\Http\Providers\Filament\AdminPanelProvider::class,
+    ],
+
 ];

@@ -55,6 +55,13 @@ class AnnouncementTable extends Component
     }
 
     public function render(){
+
+        $user = Auth::user();
+    $userType = $user->user_role; // Assuming user_role is a property on your User model
+
+    $announcements = null;
+
+    if ($userType === 'yv') {
         $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
             ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
             ->where('announcement.type', 'yv')
@@ -62,6 +69,15 @@ class AnnouncementTable extends Component
             ->search(trim($this->search))
             ->orderBy('announcement.created_at', 'asc')
             ->get();
+    } else if ($userType === 'yip') {
+        $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
+            ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
+            ->where('announcement.type', 'ip')
+            ->select('announcement.*', 'admin.*')
+            ->search(trim($this->search))
+            ->orderBy('announcement.created_at', 'asc')
+            ->get();
+    }
 
         $announcements->transform(function ($announcement) {
             $dateString = $announcement->created_at;
