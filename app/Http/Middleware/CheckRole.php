@@ -26,6 +26,6 @@ class CheckRole
 
         }
 
-        return redirect()->route('unauthorized');
+        return redirect('/');
     }
 }
