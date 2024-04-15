@@ -19,7 +19,7 @@
                             <div class="admin-btn">
                                 <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#update"><i class="fa fa-pencil-alt"></i> 
                                 </button>
-                                <button class="btn btn-danger btn-xs" wire:click="deleteDialog({{ $announcement->id }})"><i class="fa fa-trash"></i> 
+                                <button class="btn btn-danger btn-xs" wire:click.live="deleteDialog({{ $announcement->id }})"><i class="fa fa-trash"></i> 
                                 </button>
                             </div>
                         @endif
@@ -87,7 +87,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Title</label>
-                                                    <input type="text" class="form-control" row="5" wire:model='title' placeholder="Title...">
+                                                    <input type="text" class="form-control" row="5" wire:model.live='title' placeholder="Title...">
                                                 </div>
                                             </div>
                                         </div>
@@ -96,7 +96,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Your Announcement</label>
-                                                    <textarea class="form-control" rows="5" wire:model="content" placeholder="Enter announcement..."></textarea>                                        </div>
+                                                    <textarea class="form-control" rows="5" wire:model.live="content" placeholder="Enter announcement..."></textarea>                                        </div>
                                             </div>
                                         </div>
 
@@ -123,7 +123,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="label">Add Featured Image</label>
-                                                    <input type="file" id="featured_image" wire:model='featured_image'/>
+                                                    <input type="file" id="featured_image" wire:model.live='featured_image'/>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,7 +132,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="label">Attach File</label>
-                                                    <input type="file" id="file" wire:model='file'/>
+                                                    <input type="file" id="file" wire:model.live='file'/>
                                                 </div>
                                             </div>
                                         </div>
@@ -168,7 +168,7 @@
                         <div class="col">
                             <div class="user-data">
                                 @if($disableButton == "No")
-                                    <button class="btn-danger btn-50" wire:click="deleteVolunteer({{ $deleteAnnouncementId }})" wire:loading.attr="disabled">Yes
+                                    <button class="btn-danger btn-50" wire:click="deleteAnnouncement({{ $deleteAnnouncementId }})" wire:loading.attr="disabled">Yes
                                         {{-- <div class="loader" wire:loading></div> --}}
                                     </button>
                                     <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Cancel</button>

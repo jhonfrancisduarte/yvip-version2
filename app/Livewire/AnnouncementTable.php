@@ -38,14 +38,15 @@ class AnnouncementTable extends Component
             'type' => $type,
             'category' => $this->category,
         ]);
+
         if ($this->file) {
-            $filePath = $this->file->storeAs('announcementFiles/files', $this->file->getClientOriginalName(), 'public');
-            $announcement->update(['file' => $filePath]);
+            $filePath = $this->file->storeAs('uploads/announcementFiles/files', $this->file->getClientOriginalName(), 'public_uploads');
+            $announcement->update(['attached_file' => $filePath]);
         }
     
         if ($this->featured_image) {
             $imageName = uniqid() . '.' . $this->featured_image->getClientOriginalExtension();
-            $imagePath = $this->featured_image->storeAs('announcementFiles/images', $imageName, 'public');
+            $imagePath = $this->featured_image->storeAs('uploads/announcementFiles/images', $imageName, 'public_uploads');
             $announcement->update(['featured_image' => $imagePath]);
         }
 
@@ -57,11 +58,10 @@ class AnnouncementTable extends Component
         $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
             ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
             ->where('announcement.type', 'yv')
-            ->select('announcement.*', 'admin.*')
+            ->select('announcement.*', 'admin.first_name', 'admin.last_name', 'admin.middle_name', 'admin.profile_picture')
             ->search(trim($this->search))
             ->orderBy('announcement.created_at', 'asc')
             ->get();
-
         $announcements->transform(function ($announcement) {
             $dateString = $announcement->created_at;
             $date = new DateTime($dateString);
@@ -80,14 +80,29 @@ class AnnouncementTable extends Component
         $this->openAddAnnouncementForm = null;
     }
 
-    public function deleteDialog($userId){
-        $this->deleteAnnouncementId = $userId;
+    public function deleteDialog($annsId){
+        $this->deleteAnnouncementId = $annsId;
     }
 
     public function hideDeleteDialog(){
         $this->deleteMessage = null;
         $this->deleteAnnouncementId = null;
         $this->disableButton = "No";
+    }
+
+    public function deleteAnnouncement(){
+        if($this->deleteAnnouncementId){
+            $announcement = Announcement::find($this->deleteAnnouncementId);
+            if ($announcement){
+                $announcement->delete();
+                $this->deleteMessage = 'Announcement deleted successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Announcement deletion unsuccessfully.';
+                $this->disableButton = "Yes";
+            }
+            $this->deleteAnnouncementId = null;
+        }
     }
 
 }
