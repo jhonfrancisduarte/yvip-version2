@@ -5,12 +5,12 @@ namespace App\Livewire;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use App\Models\User;
+use App\Models\UserData;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class Register extends Component
 {
-    public $passport_number = "1253254252";
 
     #[Rule('required|min:2')]
     public $first_name;
@@ -86,13 +86,13 @@ class Register extends Component
 
 
     public $course;
-
+    public $is_org_member = 'yes';
     public $organization_name;
 
     public $org_position;
 
     #[Rule('required')]
-    public $is_volunteer;
+    public $is_volunteer=true;
 
     public $is_ip_participant;
     public $user_role = "yv";
@@ -100,7 +100,6 @@ class Register extends Component
     public $password;
     public $c_password;
     public $provinces = [
-        '',
         'Abra',
         'Agusan del Norte',
         'Agusan del Sur',
@@ -239,8 +238,6 @@ class Register extends Component
     private function getCitiesByProvince($province)
     {
     switch ($province) {
-        case '':
-            return [''];
         case 'Abra':
             return ['Bangued', 'Boliney', 'Bucay', 'Bucloc', 'Daguioman', 'Danglas', 'Dolores', 'La Paz', 'Lacub', 'Lagangilang', 'Lagayan', 'Langiden', 'Licuan-Baay', 'Luba', 'Malibcong', 'Manabo', 'Penarrubia', 'Pidigan', 'Pilar', 'Sallapadan', 'San Isidro', 'San Juan', 'San Quintin', 'Tayum', 'Tineg', 'Tubo', 'Villaviciosa'];
         case 'Agusan del Norte':
@@ -411,7 +408,8 @@ class Register extends Component
 }
 
     public function create(){
-        //dd($this->all());
+        // dd($this->all());
+        sleep(2);
         DB::beginTransaction();
         try {
             // dd($this->all());
@@ -420,7 +418,7 @@ class Register extends Component
                 $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
                 return;
             }
-
+            $passportNumber = 'YVIP' . date('Y') . $this->generateUserId();
             $user = User::create([
                 'email' => $this->email,
                 'password' => $this->password,
@@ -428,10 +426,14 @@ class Register extends Component
                 'name' => $this->first_name . " " . $this->middle_name . " " . $this->last_name,
             ]);
 
+            if (!$user) {
+                throw new \Exception('Failed to create user.');
+            }
+
 
             $userData = $user->userData()->create([
                 'user_id' => $user->id,
-                'passport_number' => $this->passport_number,
+                'passport_number' => $passportNumber,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
                 'middle_name' => $this->middle_name,
@@ -463,11 +465,11 @@ class Register extends Component
                 'is_ip_participant' => $this->is_ip_participant,
             ]);
             $user->update([
-                'name' => $userData->first_name . ' ' . $userData->last_name, // Concatenate first name and last name
+                'name' => $userData->first_name . ' ' . $userData->last_name,
             ]);
             DB::commit();
             $this->reset();
-            session()->flash('successMessage', 'User created successfully!');
+            session()->flash('successMessage', 'Successfully Registered! Please Wait for admin activation!');
 
         } catch (\Exception $e) {
             throw $e;
@@ -480,6 +482,11 @@ class Register extends Component
         $containsNumber = preg_match('/\d/', $password);
         $containsSpecialChar = preg_match('/[^A-Za-z0-9]/', $password); // Changed regex to include special characters
         return $containsUppercase && $containsNumber && $containsSpecialChar;
+    }
+    private function generateUserId() {
+        $latestUserData = UserData::latest()->first();
+        $nextUserId = $latestUserData ? $latestUserData->user_id + 1 : 1;
+        return str_pad($nextUserId, 5, '0', STR_PAD_LEFT);
     }
 
 

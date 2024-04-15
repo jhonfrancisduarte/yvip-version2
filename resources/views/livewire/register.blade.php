@@ -163,6 +163,7 @@
                                     <label class="label" for="permanent_province">Select Province:</label>
                                     <select class="label select-status" wire:model.live="permanent_selectedProvince" id="permanent_province" name="permanent_selectedProvince">
                                         @if ($provinces)
+                                        <option class="label" value="">Select Province</option>
                                         @foreach ($provinces as $province)
                                             <option class="label" value="{{ $province }}">{{ $province }}</option>
                                         @endforeach
@@ -175,14 +176,13 @@
                                     @enderror
                                     <label class="label" for="permanent_city">Select City:</label>
                                     <select class="label select-status" wire:model.live="permanent_selectedCity" id="permanent_city" name="permanent_selectedCity">
-                                        <option value="" selected>Select city</option>
-                                        @if ($permanent_cities)
-                                        @foreach ($permanent_cities as $city)
-                                            <option class="label" value="{{ $city }}">{{ $city }}</option>
-                                        @endforeach
-                                        @else
-                                            <option class="label" value="">No cities available</option>
-                                        @endif
+                                    @if ($permanent_cities)
+                                    @foreach ($permanent_cities as $city)
+                                        <option class="label" value="{{ $city }}">{{ $city }}</option>
+                                    @endforeach
+                                    @else
+                                        <option class="label" value="">No cities available</option>
+                                    @endif
                                     </select>
                                     @error('permanent_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>
 
@@ -202,6 +202,7 @@
                                     <label class="label" for="residential_province">Select Province:</label>
                                     <select class="label select-status" wire:model.live="residential_selectedProvince" id="residential_province" name="residential_selectedProvince">
                                         @if ($provinces)
+                                        <option class="label" value="">Select Province</option>
                                         @foreach ($provinces as $province)
                                             <option class="label" value="{{ $province }}">{{ $province }}</option>
                                         @endforeach
@@ -215,6 +216,7 @@
                                     <label class="label" for="residential_city">Select City:</label>
                                     <select class="label select-status" wire:model.live="residential_selectedCity" id="residential_city" name="residential_selectedCity">
                                     @if ($residential_cities)
+                                        <option class="label" value="">Select City</option>
                                     @foreach ($residential_cities as $city)
                                         <option class="label" value="{{ $city }}">{{ $city }}</option>
                                     @endforeach
@@ -249,34 +251,17 @@
                         <div class="input-group">
                             <label class="label">Status</label>
                             <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                <select  class="label select-status" id="status" wire:model="status" name="status">
+                                <select class="label select-status" id="status" wire:model="status" name="status">
                                     <option selected value="" class="label">Choose option</option>
                                     <option value="Student" class="label">Student</option>
                                     <option value="Professional" class="label">Professional</option>
                                 </select>
                                 <div class="select-dropdown"></div>
-                                @error('status') <span class="text-danger small" style="color: red;">The status field is required</span>
-
-                                @enderror
+                                @error('status') <span class="text-danger small" style="color: red;">The status field is required</span> @enderror
                             </div>
                         </div>
 
-                        <div class="row row-space professional-details">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Nature of work</label>
-                                    <input class="input--style-4" type="text" wire:model="nature_of_work" name="nature_of_work">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Employer</label>
-                                    <input class="input--style-4" type="password" wire:model.blur="employer" name="employer">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row row-space student-details">
+                        <div class="row row-space student-details" @if($status != 'Student') style="display: none;" @endif>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">School name</label>
@@ -291,17 +276,35 @@
                             </div>
                         </div>
 
+                        <div class="row row-space professional-details" @if($status != 'Professional') style="display: none;" @endif>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Nature of work</label>
+                                    <input class="input--style-4" type="text" wire:model="nature_of_work" name="nature_of_work">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Employer</label>
+                                    <input class="input--style-4" type="text" wire:model="employer" name="employer">
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">An organization member</label>
                                     <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input class="org-r1" type="radio" checked="checked" name="org_option">
+                                        <label class="radio-container m-r-45">
+                                            Yes
+                                            <input class="org-r1" type="radio" wire:model="is_org_member" value="yes">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container">No
-                                            <input class="org-r2" type="radio" name="org_option">
+                                        <label class="radio-container">
+                                            No
+                                            <input class="org-r2" type="radio" wire:model="is_org_member" value="no">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -309,7 +312,7 @@
                             </div>
                         </div>
 
-                        <div class="row row-space org-detail">
+                        <div class="row row-space org-detail" @if($is_org_member == 'no') style="display: none;" @endif>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Organization name</label>
@@ -318,25 +321,27 @@
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">position</label>
-                                    <input class="input--style-4" type="text" wire:model="org_position" name="employer">
+                                    <label class="label">Position</label>
+                                    <input class="input--style-4" type="text" wire:model="org_position" name="org_position">
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="row row-space">
                             <div class="input-group">
                                 <label class="label label-nc">Are you a</label>
                                 <div class="p-t-10">
                                     <label class="checkbox-container">Youth Volunteer
-                                        <input type="checkbox" wire:model.blur="is_volunteer" name="is_volunteer">
+                                        <input type="checkbox" wire:model="is_volunteer" name="is_volunteer" disabled>
+
                                     </label>
                                     @error('is_volunteer') <span class="text-danger small" style="color: red;">Youth Volunteer required</span>
 
                                     @enderror
 
                                     <label class="checkbox-container">International Program Participant?
-                                        <input type="checkbox" wire:model.blur="is_ip_participant" name="is_ip_participant">
+                                        <input type="checkbox" wire:model="is_ip_participant" name="is_ip_participant">
                                     </label>
                                 </div>
                             </div>
@@ -365,8 +370,12 @@
 
                         <div class="row row-space">
                             <div class="col-2">
-                                <div class="p-t-15">
-                                    <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                                <div wire:loading.delay.longest>
+                                    <label class="label" style="font-style: italic; color: green;">Submitting ...</label>
+                                </div>
+                                <div class="p-t-15" wire:loading.attr="disabled">
+
+                                    <button  class="btn btn--radius-2 btn--blue" type="submit" >Submit</button>
 
                                 </div>
 
@@ -376,13 +385,13 @@
                                     <b><a href="/" style="color:#2c6ed5">I already have an Account.</a></b>
                                 </div>
                             </div>
-                            @if(session()->has('successMessage'))
+                        </div>
+                        @if(session()->has('successMessage'))
                             <br>
-                            <div class="alert alert-success " role="alert" style="background-color: #dff0d8; border-color: #d6e9c6; color: #3c763d; padding: 15px;">
+                            <div class="alert alert-success" role="alert" style="background-color: #dff0d8; border-color: #d6e9c6; color: #3c763d; padding: 15px; display: flex; justify-content: center; align-items: center;">
                                 {{ session('successMessage') }}
                             </div>
                             @endif
-                        </div>
 
 
                     </form>
