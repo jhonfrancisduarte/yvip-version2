@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Volunteers' Dashboard</title>
+    <title>Volunteer Registration</title>
 @endsection
 
 @section('css')
@@ -18,19 +18,19 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Volunteers' Dashboard</h1>
+                        <h1 class="m-0">Volunteer Registrations</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/admin-dashboard" wire:navigate>Home</a></li>
-                            <li class="breadcrumb-item active">Volunteers' Dashboard</li>
+                            <li class="breadcrumb-item active">Volunteer Registration</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
 
-        <livewire:announcement-table :dashboardType="'yv'" />
+        
         
     </div>
 

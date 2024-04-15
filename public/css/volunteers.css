@@ -1,6 +1,6 @@
 .content-wrapper2{
     height: 100vh !important;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
 }
 
 .volunteers-table-content .card{

@@ -1,11 +1,11 @@
 <section class="content volunteers-table-content">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
+        <div class="row volunteer-row">
+            <div class="col-12 table-contain">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">IP Beneficiaries Management</h3> 
-                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;"><i class="fa fa-plus">Add</i>
+                        {{-- <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;"><i class="fa fa-plus">Add</i> --}}
                         </button>
 
                         <div class="modal fade" id="add">
@@ -85,20 +85,23 @@
                                 </form>
                             </div>
                         </div>
+                        
                     </div>
                     <div class="card-header card-header1">
-                        <label for="" class="label">Filter: </label>
+                        <label for="" class="label" style="margin-top: 5px;">Filter: </label>
                         <div class="col-md-2">
                             <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <select class="form-control" wire:model.live="civil_status">
                                 <option selected disabled>Civil Status</option>
-                                <option value="Single">Single</option>
-                                <option value="Married">Married</option>
+                                <option class="label" value="Single">Single</option>
+                                <option class="label" value="Married">Married</option>
+                                <option class="label" value="Widowed">Widowed</option>
+                                <option class="label" value="Legally Separated">Legally Separated</option>
                             </select>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <select class="form-control" wire:model.live="age_range">
                                 <option disabled selected>Age</option>
                                 @foreach($ageRange as $age)
@@ -106,20 +109,22 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-1">
-                            <select class="form-control" wire:model.live="municipality">
-                                <option disabled selected>Municipality</option>
-                                {{-- @foreach($ageRange as $age)
-                                    <option value="{{ $age->age }}">{{ $age->age }}</option>
-                                @endforeach --}}
+                        <div class="col-md-2">
+                            <select wire:model.live="selectedProvince" id="province" class="form-control">
+                                <option value="">Select Province</option>
+                                @foreach ($provinces as $province)
+                                    <option value="{{ $province->province_description }}">{{ $province->province_description }}</option>
+                                @endforeach
                             </select>
                         </div>
-                        <div class="col-md-1">
-                            <select class="form-control" wire:model.live="province">
-                                <option disabled selected>Province</option>
-                                {{-- @foreach($ageRange as $age)
-                                    <option value="{{ $age->age }}">{{ $age->age }}</option>
-                                @endforeach --}}
+                        <div class="col-md-2">
+                            <select id="city" class="form-control" wire:model.live="selectedCity">
+                                <option value="">Select City</option>
+                                @if($cities)
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city->city_municipality_description }}">{{ $city->city_municipality_description }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -128,7 +133,7 @@
                     </div>
                     
                      <!-- /.card-header -->
-                    <div class="card-body">
+                    <div class="card-body scroll-table">
         
                         <table id="volunteers-table" class="table table-bordered table-striped">
                             <thead>
@@ -178,8 +183,8 @@
                                         <td>{{ $volunteer->civil_status }}</td>
                                         <td>{{ $volunteer->nationality }}</td>
                                         <td>{{ $volunteer->blood_type }}</td>
-                                        <td>{{ $volunteer->permanent_address }}</td>
-                                        <td>{{ $volunteer->residential_address }}</td>
+                                        <td>{{ $volunteer->p_street_barangay }} {{ $volunteer->permanent_selectedCity }} {{ $volunteer->permanent_selectedProvince }}</td>
+                                        <td>{{ $volunteer->r_street_barangay }} {{ $volunteer->residential_selectedCity }} {{ $volunteer->residential_selectedProvince }}</td>
                                         <td>{{ $volunteer->educational_background }}</td>
                                         <td>{{ $volunteer->status }}</td>
                                         @if($volunteer->status == "Professional")
@@ -396,13 +401,13 @@
 
                 <div class="row1">
                     <div class="col1">
-                        <label class="label">Permanent Adrress: <span>{{ $selectedUserDetails ? $selectedUserDetails['permanent_address'] : '' }}</span></label>
+                        <label class="label">Permanent Adrress: <span>{{ $volunteer->p_street_barangay }} {{ $volunteer->permanent_selectedCity }} {{ $volunteer->permanent_selectedProvince }}</span></label>
                     </div>
                 </div>
 
                 <div class="row1">
                     <div class="col1">
-                        <label class="label">Residential Adrress: <span>{{ $selectedUserDetails ? $selectedUserDetails['residential_address'] : '' }}</span></label>
+                        <label class="label">Residential Adrress: <span>{{ $volunteer->r_street_barangay }} {{ $volunteer->residential_selectedCity }} {{ $volunteer->residential_selectedProvince }}</span></label>
                     </div>
                 </div>
 

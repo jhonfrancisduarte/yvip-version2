@@ -1,5 +1,10 @@
-<div>
-    <section class="content announcement-content">
+<section class="content announcement-content">
+        <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
+            <button type="button" class="close" wire:click="closePopup">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p>{{ $popup_message }}</p>
+        </div>
         <div class="container-fluid">
             <div class="announcement-header">
                 <div class="card-header">
@@ -7,6 +12,9 @@
                 </div>
                 <div class="card-header header-sticky-top">
                     <button class="btn btn-success btn-sm" wire:click="openAddForm"><i class="fa fa-plus"></i></button>
+                    <div class="col-md-3">
+                        <input type="search" class="form-control" wire:model.live="search" placeholder="Search announcement...">
+                    </div>
                 </div>
             </div>
 
@@ -17,7 +25,7 @@
 
                         @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa' || session('user_role') == 'ips')
                             <div class="admin-btn">
-                                <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#update"><i class="fa fa-pencil-alt"></i> 
+                                <button class="btn btn-info btn-xs" wire:click.live="openEditForm({{ $announcement->id }})"><i class="fa fa-pencil-alt"></i> 
                                 </button>
                                 <button class="btn btn-danger btn-xs" wire:click.live="deleteDialog({{ $announcement->id }})"><i class="fa fa-trash"></i> 
                                 </button>
@@ -31,8 +39,11 @@
                                 <p>{{ $announcement->formatted_created_at }} <i class="nav-icon fas fa-clock"></i></p>
                             </div>
                         </div>
-                        <div class="featured-image" style="background-image: url({{ $announcement->featured_image }})">
-                        </div>
+
+                        @if($announcement->featured_image)
+                            <div class="featured-image" style="background-image: url({{ $announcement->featured_image }})">
+                            </div>
+                        @endif
 
                         <div class="content">
                             <h3>{{ $announcement->title }}</h3>
@@ -150,6 +161,90 @@
             </div>
         @endif
 
+        {{-- Add Announcement Form --}}
+        @if($openEditAnnouncementForm)
+            <div class="anns">
+                <div class="add-announcement-container">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Announcement</h4>
+                                <button type="button" class="close" wire:click="closeEditForm">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form enctype="multipart/form-data" wire:submit.prevent='editAnnouncement'>
+                                <div class="card card-primary">
+                                    <div class="card-body">
+                                        
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Title</label>
+                                                    <input type="text" class="form-control" row="5" wire:model.live='title' placeholder="Title..." value="{{ $title }}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Your Announcement</label>
+                                                    <textarea class="form-control" rows="5" wire:model.live="content">{{ $content }}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Category</label>
+                                                    <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
+                                                        <select  class="form-control select-status" id="category" wire:model.blur="category" name="category">
+                                                            <option selected class="form-control">Choose option</option>
+                                                            <option value="Training" class="form-control">Training</option>
+                                                            <option value="Event" class="form-control">Event</option>    
+                                                        </select>
+                                                        <div class="select-dropdown"></div>
+                                                        @error('category') 
+                                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">     
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="label">Add Featured Image</label>
+                                                    <input type="file" id="featured_image" wire:model.live='featured_image' value="{{ $featured_image }}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">     
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="label">Attach File</label>
+                                                    <input type="file" id="file" wire:model.live='file' value="{{ $file }}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-footer justify-content-between">
+                                        <button class="btn btn-infos" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         @if($deleteAnnouncementId)
             <div class="users-data-all-container">
                 <div class="user-info">
@@ -182,5 +277,4 @@
             </div>    
         @endif
 
-    </section>
-</div>
+</section>

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('password', 1000);
             $table->string('name')->default('');
             $table->string('user_role', 100);
-            $table->boolean('approved')->default(false);
             $table->timestamps();
         });
     }

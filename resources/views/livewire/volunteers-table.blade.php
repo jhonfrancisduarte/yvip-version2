@@ -88,7 +88,7 @@
                         
                     </div>
                     <div class="card-header card-header1">
-                        <label for="" class="label">Filter: </label>
+                        <label for="" class="label" style="margin-top: 5px;">Filter: </label>
                         <div class="col-md-3">
                             <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
                         </div>
