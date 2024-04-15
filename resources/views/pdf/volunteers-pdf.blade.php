@@ -54,7 +54,7 @@
                     <tr style="border-top: 1px solid gray;">
                         <td style="padding: 5px; border-left: 1px solid gray; border-right: 1px solid gray;">Tel Number: {{ $userDetails['tel_number'] }}</td>
                         <td style="padding: 5px; border-right: 1px solid gray;">Mobile Number: {{ $userDetails['mobile_number'] }}</td>
-                        <td style="border-right: 1px solid gray;">Email: {{ $userDetails['email'] }}</td>
+                        <td style="padding: 5px; border-right: 1px solid gray;">Email: {{ $userDetails['email'] }}</td>
                     </tr>
                     <tr style="border-top: 1px solid gray;">
                         <td style="padding: 5px; border-left: 1px solid gray; border-right: 1px solid gray;">Blood Type: {{ $userDetails['blood_type'] }}</td>

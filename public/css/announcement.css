@@ -159,6 +159,10 @@
     top: 200px !important;
 }
 
+.announcement-info p{
+    text-transform: capitalize;
+}
+
 @media (max-width:768px){
     .announcement-box{
         width: 100%;

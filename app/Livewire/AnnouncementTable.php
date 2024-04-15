@@ -29,7 +29,6 @@ class AnnouncementTable extends Component
 
     public function createAnnouncement(){
         $this->validate();
-        // dd($this->featured_image);
         $type = "yv";
         $userId = Auth::user()->id;
         $announcement = Announcement::create([
@@ -40,12 +39,12 @@ class AnnouncementTable extends Component
             'category' => $this->category,
         ]);
         if ($this->file) {
-            $filePath = $this->file->store('announcementFiles/files', 'public');
+            $filePath = $this->file->storeAs('announcementFiles/files', $this->file->getClientOriginalName(), 'public');
             $announcement->update(['file' => $filePath]);
         }
+    
         if ($this->featured_image) {
-            // Generate a unique filename
-            $imageName = uniqid() . '.' . $this->featured_image->getClientOriginalExtension();          
+            $imageName = uniqid() . '.' . $this->featured_image->getClientOriginalExtension();
             $imagePath = $this->featured_image->storeAs('announcementFiles/images', $imageName, 'public');
             $announcement->update(['featured_image' => $imagePath]);
         }

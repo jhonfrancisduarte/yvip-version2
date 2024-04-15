@@ -4,7 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use PhilippineBarangaysTableSeeder;
+use PhilippineCitiesTableSeeder;
+use PhilippineProvincesTableSeeder;
+use PhilippineRegionsTableSeeder;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -18,5 +21,11 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $this->call([
+            PhilippineCitiesTableSeeder::class,
+            PhilippineRegionsTableSeeder::class,
+            PhilippineProvincesTableSeeder::class,
+            PhilippineBarangaysTableSeeder::class,
+        ]);
     }
 }

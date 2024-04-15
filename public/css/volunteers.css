@@ -1,6 +1,6 @@
 .content-wrapper2{
     height: 100vh !important;
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 
 .volunteers-table-content .card{
@@ -29,7 +29,42 @@
     z-index: 9999;
 }
 
+.table-contain{
+    width: 95% !important;
+    overflow-x: hidden !important;
+    border-radius: 5px;
+}
 
+.scroll-table{
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.scroll-table::-webkit-scrollbar {
+    height: 10px;
+    width: 10px; 
+}
+
+.scroll-table::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.scroll-table::-webkit-scrollbar-track {
+    background-color: #eee;
+}
+
+.table-contain .card,
+#volunteers-table{
+    width: 100%;
+}
+
+.table-contain .card,
+.scroll-table,
+#volunteers-table,
+.volunteer-row{
+    border-radius: 5px !important;
+}
 
 .users-data-all-container .user-info{
     overflow-y: auto;
@@ -100,6 +135,7 @@
 }
 
 .volunteers-table-content .card-header1{
+    width: 100%;
     display: flex;
 }
 
