@@ -14,7 +14,11 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.5",
         "livewire/livewire": "^3.4",
+<<<<<<< HEAD
         "woenel/prpcmblmts": "^1.0"
+=======
+        "munafio/chatify": "^1.6"
+>>>>>>> origin/alvindale
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

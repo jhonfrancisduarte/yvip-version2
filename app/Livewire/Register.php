@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class Register extends Component
@@ -411,6 +412,7 @@ class Register extends Component
 
     public function create(){
         //dd($this->all());
+        DB::beginTransaction();
         try {
             // dd($this->all());
             $this->validate();
@@ -423,10 +425,11 @@ class Register extends Component
                 'email' => $this->email,
                 'password' => $this->password,
                 'user_role' => $this->user_role,
+                'name' => $this->first_name . " " . $this->middle_name . " " . $this->last_name,
             ]);
 
 
-            $user->userData()->create([
+            $userData = $user->userData()->create([
                 'user_id' => $user->id,
                 'passport_number' => $this->passport_number,
                 'first_name' => $this->first_name,
@@ -459,12 +462,16 @@ class Register extends Component
                 'is_volunteer' => $this->is_volunteer,
                 'is_ip_participant' => $this->is_ip_participant,
             ]);
-
+            $user->update([
+                'name' => $userData->first_name . ' ' . $userData->last_name, // Concatenate first name and last name
+            ]);
+            DB::commit();
             $this->reset();
+            session()->flash('successMessage', 'User created successfully!');
 
         } catch (\Exception $e) {
-
             throw $e;
+            DB::rollBack();
         }
     }
 

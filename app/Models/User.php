@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,32 +11,43 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'email',
         'password',
+        'name',
         'user_role',
         'approved',
     ];
 
-    public function userData(){
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    public function userData()
+    {
         return $this->hasOne(UserData::class);
     }
-    public function announcement(){
+
+    public function announcement()
+    {
         return $this->hasOne(Announcement::class);
     }
 
-    public function admin(){
+    public function admin()
+    {
         return $this->hasOne(Admin::class);
     }
 
-    public function scopeSearch($query, $term){
+    public function scopeSearch($query, $term)
+    {
         $term = "%$term%";
-        $query->where(function($query) use ($term){
+        $query->where(function ($query) use ($term) {
             $query->where('user_data.first_name', 'like', $term)
                 ->orWhere('user_data.last_name', 'like', $term)
                 ->orWhere('user_data.middle_name', 'like', $term)
@@ -50,23 +60,20 @@ class User extends Authenticatable
         });
     }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    // Define an event listener to automatically update the name attribute
+    protected static function boot()
+    {
+        parent::boot();
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+        // Listen for the saved event of the User model
+        static::saved(function ($user) {
+            // Check if the associated UserData exists
+            if ($user->userData) {
+                // Update the name attribute based on the UserData
+                $user->name = $user->userData->first_name . ' ' . $user->userData->last_name;
+                // Save the updated User model
+                $user->saveQuietly(); // Save quietly to avoid triggering the saved event again
+            }
+        });
+    }
 }
