@@ -409,6 +409,7 @@ class Register extends Component
 
     public function create(){
         //dd($this->all());
+        sleep(2);
         DB::beginTransaction();
         try {
             // dd($this->all());
@@ -459,11 +460,11 @@ class Register extends Component
                 'is_ip_participant' => $this->is_ip_participant,
             ]);
             $user->update([
-                'name' => $userData->first_name . ' ' . $userData->last_name, // Concatenate first name and last name
+                'name' => $userData->first_name . ' ' . $userData->last_name,
             ]);
             DB::commit();
             $this->reset();
-            session()->flash('successMessage', 'User created successfully!');
+            session()->flash('successMessage', 'Successfully Registered! Please Wait for admin activation!');
 
         } catch (\Exception $e) {
 

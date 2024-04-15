@@ -349,7 +349,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">password</label>
-                                    <input class="input--style-4" type="password" wire:model.blur="password" name="password">
+                                    <input class="input--style-4" type="password" wire:model="password" name="password">
                                     @error('password') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror
@@ -358,7 +358,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">confirm password</label>
-                                    <input class="input--style-4" type="password" wire:model.blur="c_password" name="c_password">
+                                    <input class="input--style-4" type="password" wire:model="c_password" name="c_password">
                                     @error('c_password') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror
@@ -368,8 +368,12 @@
 
                         <div class="row row-space">
                             <div class="col-2">
-                                <div class="p-t-15">
-                                    <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                                <div wire:loading.delay.longest>
+                                    <label class="label" style="font-style: italic; color: green;">Submitting ...</label>
+                                </div>
+                                <div class="p-t-15" wire:loading.attr="disabled">
+
+                                    <button  class="btn btn--radius-2 btn--blue" type="submit" >Submit</button>
 
                                 </div>
 
@@ -379,13 +383,13 @@
                                     <b><a href="/" style="color:#2c6ed5">I already have an Account.</a></b>
                                 </div>
                             </div>
-                            @if(session()->has('successMessage'))
+                        </div>
+                        @if(session()->has('successMessage'))
                             <br>
-                            <div class="alert alert-success " role="alert" style="background-color: #dff0d8; border-color: #d6e9c6; color: #3c763d; padding: 15px;">
+                            <div class="alert alert-success" role="alert" style="background-color: #dff0d8; border-color: #d6e9c6; color: #3c763d; padding: 15px; display: flex; justify-content: center; align-items: center;">
                                 {{ session('successMessage') }}
                             </div>
                             @endif
-                        </div>
 
 
                     </form>
