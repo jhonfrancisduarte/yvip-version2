@@ -100,7 +100,6 @@ class Register extends Component
     public $password;
     public $c_password;
     public $provinces = [
-        '',
         'Abra',
         'Agusan del Norte',
         'Agusan del Sur',
@@ -239,8 +238,6 @@ class Register extends Component
     private function getCitiesByProvince($province)
     {
     switch ($province) {
-        case '':
-            return [''];
         case 'Abra':
             return ['Bangued', 'Boliney', 'Bucay', 'Bucloc', 'Daguioman', 'Danglas', 'Dolores', 'La Paz', 'Lacub', 'Lagangilang', 'Lagayan', 'Langiden', 'Licuan-Baay', 'Luba', 'Malibcong', 'Manabo', 'Penarrubia', 'Pidigan', 'Pilar', 'Sallapadan', 'San Isidro', 'San Juan', 'San Quintin', 'Tayum', 'Tineg', 'Tubo', 'Villaviciosa'];
         case 'Agusan del Norte':

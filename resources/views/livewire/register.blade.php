@@ -163,6 +163,7 @@
                                     <label class="label" for="permanent_province">Select Province:</label>
                                     <select class="label select-status" wire:model.live="permanent_selectedProvince" id="permanent_province" name="permanent_selectedProvince">
                                         @if ($provinces)
+                                        <option class="label" value="">Select Province</option>
                                         @foreach ($provinces as $province)
                                             <option class="label" value="{{ $province }}">{{ $province }}</option>
                                         @endforeach
@@ -176,6 +177,7 @@
                                     <label class="label" for="permanent_city">Select City:</label>
                                     <select class="label select-status" wire:model.live="permanent_selectedCity" id="permanent_city" name="permanent_selectedCity">
                                     @if ($permanent_cities)
+                                        <option class="label" value="">Select City</option>
                                     @foreach ($permanent_cities as $city)
                                         <option class="label" value="{{ $city }}">{{ $city }}</option>
                                     @endforeach
@@ -201,6 +203,7 @@
                                     <label class="label" for="residential_province">Select Province:</label>
                                     <select class="label select-status" wire:model.live="residential_selectedProvince" id="residential_province" name="residential_selectedProvince">
                                         @if ($provinces)
+                                        <option class="label" value="">Select Province</option>
                                         @foreach ($provinces as $province)
                                             <option class="label" value="{{ $province }}">{{ $province }}</option>
                                         @endforeach
@@ -214,6 +217,7 @@
                                     <label class="label" for="residential_city">Select City:</label>
                                     <select class="label select-status" wire:model.live="residential_selectedCity" id="residential_city" name="residential_selectedCity">
                                     @if ($residential_cities)
+                                        <option class="label" value="">Select City</option>
                                     @foreach ($residential_cities as $city)
                                         <option class="label" value="{{ $city }}">{{ $city }}</option>
                                     @endforeach
@@ -345,7 +349,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">password</label>
-                                    <input class="input--style-4" type="password" wire:model="password" name="password">
+                                    <input class="input--style-4" type="password" wire:model.blur="password" name="password">
                                     @error('password') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror
@@ -354,7 +358,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">confirm password</label>
-                                    <input class="input--style-4" type="password" wire:model="c_password" name="c_password">
+                                    <input class="input--style-4" type="password" wire:model.blur="c_password" name="c_password">
                                     @error('c_password') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror

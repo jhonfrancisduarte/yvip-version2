@@ -59,19 +59,18 @@ class User extends Authenticatable
         });
     }
 
-    // Define an event listener to automatically update the name attribute
     protected static function boot()
     {
         parent::boot();
 
-        // Listen for the saved event of the User model
+
         static::saved(function ($user) {
-            // Check if the associated UserData exists
+
             if ($user->userData) {
-                // Update the name attribute based on the UserData
+
                 $user->name = $user->userData->first_name . ' ' . $user->userData->last_name;
-                // Save the updated User model
-                $user->saveQuietly(); // Save quietly to avoid triggering the saved event again
+
+                $user->saveQuietly();
             }
         });
     }
