@@ -252,34 +252,17 @@
                         <div class="input-group">
                             <label class="label">Status</label>
                             <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                <select  class="label select-status" id="status" wire:model="status" name="status">
+                                <select class="label select-status" id="status" wire:model="status" name="status">
                                     <option selected value="" class="label">Choose option</option>
                                     <option value="Student" class="label">Student</option>
                                     <option value="Professional" class="label">Professional</option>
                                 </select>
                                 <div class="select-dropdown"></div>
-                                @error('status') <span class="text-danger small" style="color: red;">The status field is required</span>
-
-                                @enderror
+                                @error('status') <span class="text-danger small" style="color: red;">The status field is required</span> @enderror
                             </div>
                         </div>
 
-                        <div class="row row-space professional-details">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Nature of work</label>
-                                    <input class="input--style-4" type="text" wire:model="nature_of_work" name="nature_of_work">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Employer</label>
-                                    <input class="input--style-4" type="password" wire:model.blur="employer" name="employer">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row row-space student-details">
+                        <div class="row row-space student-details" @if($status != 'Student') style="display: none;" @endif>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">School name</label>
@@ -294,17 +277,35 @@
                             </div>
                         </div>
 
+                        <div class="row row-space professional-details" @if($status != 'Professional') style="display: none;" @endif>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Nature of work</label>
+                                    <input class="input--style-4" type="text" wire:model="nature_of_work" name="nature_of_work">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Employer</label>
+                                    <input class="input--style-4" type="text" wire:model="employer" name="employer">
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">An organization member</label>
                                     <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input class="org-r1" type="radio" checked="checked" name="org_option">
+                                        <label class="radio-container m-r-45">
+                                            Yes
+                                            <input class="org-r1" type="radio" wire:model="is_org_member" value="yes">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container">No
-                                            <input class="org-r2" type="radio" name="org_option">
+                                        <label class="radio-container">
+                                            No
+                                            <input class="org-r2" type="radio" wire:model="is_org_member" value="no">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -312,7 +313,7 @@
                             </div>
                         </div>
 
-                        <div class="row row-space org-detail">
+                        <div class="row row-space org-detail" @if($is_org_member == 'no') style="display: none;" @endif>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Organization name</label>
@@ -321,25 +322,27 @@
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">position</label>
-                                    <input class="input--style-4" type="text" wire:model="org_position" name="employer">
+                                    <label class="label">Position</label>
+                                    <input class="input--style-4" type="text" wire:model="org_position" name="org_position">
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="row row-space">
                             <div class="input-group">
                                 <label class="label label-nc">Are you a</label>
                                 <div class="p-t-10">
                                     <label class="checkbox-container">Youth Volunteer
-                                        <input type="checkbox" wire:model.blur="is_volunteer" name="is_volunteer">
+                                        <input type="checkbox" wire:model="is_volunteer" name="is_volunteer" disabled>
+
                                     </label>
                                     @error('is_volunteer') <span class="text-danger small" style="color: red;">Youth Volunteer required</span>
 
                                     @enderror
 
                                     <label class="checkbox-container">International Program Participant?
-                                        <input type="checkbox" wire:model.blur="is_ip_participant" name="is_ip_participant">
+                                        <input type="checkbox" wire:model="is_ip_participant" name="is_ip_participant">
                                     </label>
                                 </div>
                             </div>
