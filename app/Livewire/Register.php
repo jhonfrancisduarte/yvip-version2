@@ -2,6 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\VolunteerSkills;
+use App\Models\Volunteer;
+use App\Models\VolunteerCategory;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use App\Models\User;
@@ -173,92 +176,6 @@ class Register extends Component
 
     public function mount()
     {
-        // Load provinces from a data source (e.g., database)
-        // $this->provinces = [
-        //     'Abra',
-        //     'Agusan del Norte',
-        //     'Agusan del Sur',
-        //     'Aklan',
-        //     'Albay',
-        //     'Antique',
-        //     'Apayao',
-        //     'Aurora',
-        //     'Basilan',
-        //     'Bataan',
-        //     'Batanes',
-        //     'Batangas',
-        //     'Benguet',
-        //     'Biliran',
-        //     'Bohol',
-        //     'Bukidnon',
-        //     'Bulacan',
-        //     'Cagayan',
-        //     'Camarines Norte',
-        //     'Camarines Sur',
-        //     'Camiguin',
-        //     'Capiz',
-        //     'Catanduanes',
-        //     'Cavite',
-        //     'Cebu',
-        //     'Compostela Valley',
-        //     'Cotabato',
-        //     'Davao del Norte',
-        //     'Davao del Sur',
-        //     'Davao Occidental',
-        //     'Davao Oriental',
-        //     'Dinagat Islands',
-        //     'Eastern Samar',
-        //     'Guimaras',
-        //     'Ifugao',
-        //     'Ilocos Norte',
-        //     'Ilocos Sur',
-        //     'Iloilo',
-        //     'Isabela',
-        //     'Kalinga',
-        //     'La Union',
-        //     'Laguna',
-        //     'Lanao del Norte',
-        //     'Lanao del Sur',
-        //     'Leyte',
-        //     'Maguindanao',
-        //     'Marinduque',
-        //     'Masbate',
-        //     'Misamis Occidental',
-        //     'Misamis Oriental',
-        //     'Mountain Province',
-        //     'Negros Occidental',
-        //     'Negros Oriental',
-        //     'Northern Samar',
-        //     'Nueva Ecija',
-        //     'Nueva Vizcaya',
-        //     'Occidental Mindoro',
-        //     'Oriental Mindoro',
-        //     'Palawan',
-        //     'Pampanga',
-        //     'Pangasinan',
-        //     'Quezon',
-        //     'Quirino',
-        //     'Rizal',
-        //     'Romblon',
-        //     'Western Samar',
-        //     'Sarangani',
-        //     'Siquijor',
-        //     'Sorsogon',
-        //     'South Cotabato',
-        //     'Southern Leyte',
-        //     'Sultan Kudarat',
-        //     'Sulu',
-        //     'Surigao del Norte',
-        //     'Surigao del Sur',
-        //     'Tarlac',
-        //     'Tawi-Tawi',
-        //     'Zambales',
-        //     'Zamboanga del Norte',
-        //     'Zamboanga del Sur',
-        //     'Zamboanga Sibugay',
-        //     // Add the 82nd province here
-        // ];
-
         // Initialize cities with the cities of the first province
         $this->selectedProvince = $this->provinces[0];
         $this->cities = $this->getCitiesByProvince($this->selectedProvince);
@@ -285,10 +202,6 @@ class Register extends Component
             'email' => 'required|email|unique:users,email'
         ]);
     }
-
-
-
-
 
     public function render(){
         return view('livewire.register');
@@ -491,6 +404,31 @@ class Register extends Component
                 'user_role' => $this->user_role,
             ]);
 
+            $user->volunteer_skills()->create([
+                'user_id' => $user->id,
+                'skill_name' => 'No Skills',
+                'description' => "",
+            ]);
+
+            //$volunteer_skills = VolunteerSkills::first();
+            $user->user_volunteer_skills()->create([
+                'user_id' => $user->id,
+                'skill_id' => $user->id,
+            ]);
+
+            $user->volunteerCategory()->create([
+                'user_id' => $user->id,
+                'category_name' => 'No Category',
+                'description' => "",
+            ]);
+
+            //$volunteer_categories = VolunteerCategory::first();
+            $user->volunteer()->create([
+                'user_id' => $user->id,
+                'category_id' => $user->id,
+                'volunteer_experience' => "",
+                'volunteering_hours' => 1,
+            ]);
 
             $user->userData()->create([
                 'user_id' => $user->id,

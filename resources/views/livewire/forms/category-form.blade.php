@@ -8,7 +8,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Add your skillset</h3>
                             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add"
-                                style="margin-left:83.5%">Add
+                                style="margin-left:83.5%"><i class="fa fa-plus">Add</i>
                             </button>
                             <div class="modal fade" id="add">
                                 <div class="modal-dialog modal-sm" style="max-width: 40%;">
@@ -66,32 +66,41 @@
                                     padding: 10px;
                                 }
                             </style>
-                            <table class="table">
+                            <table class="table" style="">
                                 <thead>
                                     <tr>
                                         <th style="width: 50%">My Category</th>
                                         <th style="width: 50%">Experience</th>
+                                        <th style="width: 20%">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categoriesData as $category)
                                     <tr>
-                                        <td>{{ $category->category_name }}</td>
-                                        <td>{{ $category->description }}</td>
+                                        <td>
+                                            @foreach ($categories as $category => $categorySkills)
+                                                @if (count(array_intersect($categorySkills, $selectedSkills)) > 0)
+                                                    <div>
+                                                        <strong>{{ $category }}</strong>
+                                                        <ul style="padding-left: 20px;">
+                                                            @foreach ($categorySkills as $skill)
+                                                                @if(in_array($skill, $selectedSkills))
+                                                                    <li>{{ $skill }}</li>
+                                                                @endif
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td style="overflow-wrap: break-word;">{{ $experience }}</td>
                                         <td>
                                             <div class="d-flex justify-content-end">
                                                 <button type="button" class="btn btn-info btn-xs mr-2" data-toggle="modal"
-                                                    data-target="#update"><i class="fa fa-pencil-alt"></i>
-                                                </button>
-                                                
-                                                <button type="button" class="btn btn-danger btn-xs"><i
-                                                        class="fa fa-trash"></i>
+                                                    data-target="#update"><i class="fa fa-pencil-alt" style="margin: 5px; font-size: 20px"></i>
                                                 </button>
                                             </div>
                                         </td>
-                                        <td></td>
                                     </tr>
-                                    @endforeach
                                 </tbody>
                             </table>
                             <div class="modal fade" id="update">
@@ -109,7 +118,7 @@
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Experience</label>
-                                                        <input type="text" class="form-control" id="description" name="description" wire:model="description">
+                                                        <input type="text" class="form-control" id="experience" name="experience" wire:model="experience">
 
                                                     </div>
                                                 </div>

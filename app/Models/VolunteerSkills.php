@@ -7,9 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class VolunteerSkills extends Model
 {
+    use HasFactory;
+    
     protected $fillable = [
+        'user_id',
         'skill_name',
         'description',
         // Add other fillable fields as needed
     ];
+
+    public function user_volunteer_skills()
+    {
+        return $this->hasOne(UserVolunteerSkills::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

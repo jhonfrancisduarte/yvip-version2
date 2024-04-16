@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserVolunteerSkills extends Model
 {
     // Define the table associated with the model
-    protected $table = 'user_volunteer_skills';
+    //protected $table = 'user_volunteer_skills';
 
     // Disable timestamps for this model
     public $timestamps = false;
@@ -24,8 +24,8 @@ class UserVolunteerSkills extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function skill()
+    public function volunteer_skills()
     {
-        return $this->belongsTo(VolunteerSkill::class);
+        return $this->belongsTo(VolunteerSkills::class);
     }
 }
