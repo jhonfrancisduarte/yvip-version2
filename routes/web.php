@@ -50,11 +50,9 @@ Route::middleware(['auth', 'user_role:yip'])->group(function () {
      Route::get('/post-program-obligation', function () {return view('livewire.post-program-obligation');})->name('post-program-obligation');
 });
 
-Route::middleware(['auth', 'user_role:sa,vs,vsa,ips'])->group(function (){
-     // Private pages accessible to all relevant admin roles
-     Route::get('/admin-dashboard', function () {
-         return view('livewire.admin-dashboard');
-     })->name('admin-dashboard');
+Route::middleware(['auth', 'user_role:sa'])->group(function (){
+     // Private pages accessible to super admin only
+     Route::get('/admin-dashboard', function () {return view('livewire.admin-dashboard');})->name('admin-dashboard');
  });
 
 Route::middleware(['auth', 'user_role:sa,vs,vsa'])->group(function (){

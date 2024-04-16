@@ -19,9 +19,12 @@ class CheckRole
 
             if ($user->user_role === 'yv' || $user->user_role === 'yip') {
                 return redirect()->route('dashboard');
-            }else if($user->user_role === 'sa' || $user->user_role === 'vs'
-                    || $user->user_role === 'vsa' || $user->user_role === 'ips'){
+            }else if($user->user_role === 'sa'){
                 return redirect()->route('admin-dashboard');
+            }else if($user->user_role === 'vs' || $user->user_role === 'vsa'){
+                return redirect()->route('volunteer-dashboard');
+            }else if($user->user_role === 'ips'){
+                return redirect()->route('ip-dashboard');
             }
 
         }

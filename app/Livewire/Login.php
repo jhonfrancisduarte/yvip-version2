@@ -24,9 +24,17 @@ class Login extends Component
                     session(['user_role' => $user->user_role]); 
                     return redirect()->intended('/dashboard');
                 }
-                elseif (in_array($user->user_role, ['sa', 'vs', 'vsa', 'ips'])) {
+                elseif (($user->user_role === 'sa')) {
                     session(['user_role' => $user->user_role]); 
                     return redirect()->intended('/admin-dashboard');
+                }
+                elseif (($user->user_role === 'ips')) {
+                    session(['user_role' => $user->user_role]); 
+                    return redirect()->intended('/ip-dashboard');
+                }
+                elseif (in_array($user->user_role, ['vs', 'vsa'])) {
+                    session(['user_role' => $user->user_role]); 
+                    return redirect()->intended('/volunteer-dashboard');
                 }
             }
             $this->addError('status', 'Your account has not been approved yet!'); 
