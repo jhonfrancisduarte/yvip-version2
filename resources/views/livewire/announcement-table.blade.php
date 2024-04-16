@@ -98,7 +98,10 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Title</label>
-                                                    <input type="text" class="form-control" row="5" wire:model.live='title' placeholder="Title...">
+                                                    <input type="text" class="form-control" row="5" wire:model.live='title' placeholder="Title..." required>
+                                                    @error('title') 
+                                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -107,7 +110,11 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Your Announcement</label>
-                                                    <textarea class="form-control" rows="5" wire:model.live="content" placeholder="Enter announcement..."></textarea>                                        </div>
+                                                    <textarea class="form-control" rows="5" wire:model.live="content" placeholder="Enter announcement..." required></textarea>
+                                                    @error('content') 
+                                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
 
@@ -116,16 +123,16 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Category</label>
                                                     <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                                        <select  class="form-control select-status" id="category" wire:model.blur="category" name="category">
+                                                        <select  class="form-control select-status" id="category" wire:model.blur="category" name="category" required>
                                                             <option selected class="form-control">Choose option</option>
                                                             <option value="Training" class="form-control">Training</option>
                                                             <option value="Event" class="form-control">Event</option>    
                                                         </select>
                                                         <div class="select-dropdown"></div>
-                                                        @error('category') 
-                                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                                        @enderror
                                                     </div>
+                                                    @error('category') 
+                                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -181,7 +188,10 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Title</label>
-                                                    <input type="text" class="form-control" row="5" wire:model.live='title' placeholder="Title..." value="{{ $title }}">
+                                                    <input type="text" class="form-control" row="5" wire:model.live='title' placeholder="Title..." value="{{ $title }}" required>
+                                                    @error('title') 
+                                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -190,7 +200,10 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Your Announcement</label>
-                                                    <textarea class="form-control" rows="5" wire:model.live="content">{{ $content }}</textarea>
+                                                    <textarea class="form-control" rows="5" wire:model.live="content" required>{{ $content }}</textarea>
+                                                    @error('content') 
+                                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -200,15 +213,12 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Category</label>
                                                     <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                                        <select  class="form-control select-status" id="category" wire:model.blur="category" name="category">
+                                                        <select  class="form-control select-status" id="category" wire:model.blur="category" name="category" required>
                                                             <option selected class="form-control">Choose option</option>
                                                             <option value="Training" class="form-control">Training</option>
                                                             <option value="Event" class="form-control">Event</option>    
                                                         </select>
                                                         <div class="select-dropdown"></div>
-                                                        @error('category') 
-                                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>

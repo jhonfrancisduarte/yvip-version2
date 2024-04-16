@@ -57,6 +57,7 @@ class AnnouncementTable extends Component
         }
 
         $this->reset();
+        $this->popup_message = null;
         $this->popup_message = "Announcement created successfully";    
     }
 
@@ -118,11 +119,12 @@ class AnnouncementTable extends Component
                     $imagePath = "uploads/" . $imagePath;
                     $announcement->update(['featured_image' => $imagePath]);
                 }
-        
+                $this->popup_message = null;
                 $this->popup_message = 'Announcement edited successfully.';
                 $this->openEditAnnouncementForm = null;
                 $this->editAnnouncementId = null;
             }else{
+                $this->popup_message = null;
                 $this->popup_message = 'Announcement edit unsuccessfully.';
                 $this->openEditAnnouncementForm = null;
                 $this->editAnnouncementId = null;
@@ -136,9 +138,15 @@ class AnnouncementTable extends Component
 
     public function closeAddForm(){
         $this->openAddAnnouncementForm = null;
+        $this->title = null;
+        $this->category = null;
+        $this->content = null;
     }
     public function closeEditForm(){
         $this->openEditAnnouncementForm = null;
+        $this->title = null;
+        $this->category = null;
+        $this->content = null;
     }
 
     public function deleteDialog($annsId){

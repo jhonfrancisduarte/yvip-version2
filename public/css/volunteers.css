@@ -120,6 +120,12 @@
     border-radius: 5px;
 }
 
+.checkbox {
+    width: 13px;
+    height: 13px;
+    border: 1px solid #28a745;
+}
+
 .user-info .btn-danger{
     padding: 2px 5px;
     border-radius: 5px;
@@ -137,6 +143,13 @@
 .volunteers-table-content .card-header1{
     width: 100%;
     display: flex;
+}
+
+.right-action-btn{
+    position: sticky; 
+    left: -22px;
+    background: white;
+    border: 1px solid #ccc !important;
 }
 
 .loader {

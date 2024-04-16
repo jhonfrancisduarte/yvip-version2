@@ -69,8 +69,8 @@
                                             <option class="label" value="Widowed">Widowed</option>
                                             <option class="label" value="Legally Separated">Legally Separated</option>
                                         </select>
-                                    @error('civil_status') <span class="text-danger small" style="color: red;">{{ $message }}</span>
-
+                                    @error('civil_status') 
+                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>

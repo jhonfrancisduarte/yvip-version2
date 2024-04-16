@@ -7,6 +7,7 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="css/announcement.css">
     <link rel="stylesheet" type="text/css" href="css/volunteers.css">
+    <link rel="stylesheet" type="text/css" href="css/volunteerregistration.css">
 @endsection
 
 @section('content')
@@ -30,7 +31,7 @@
             </div>
         </div>
 
-        
+        @livewire('tables.volunteer-registration-table');
         
     </div>
 

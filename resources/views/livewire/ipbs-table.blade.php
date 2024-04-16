@@ -138,7 +138,7 @@
                         <table id="volunteers-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th width="7%">Actions</th>
+                                    <th width="7%" class="right-action-btn">Actions</th>
                                     <th>Passport Number</th>
                                     <th>Firstname</th>
                                     <th>Middlename</th>
@@ -165,7 +165,7 @@
                             <tbody>
                                 @foreach($volunteers as $volunteer)
                                     <tr>
-                                        <td>
+                                        <td class="right-action-btn">
                                             <button class="btn btn-info btn-xs" wire:click="showUserData({{ $volunteer->user_id }})">View</button>
                                             <button class="btn btn-danger btn-xs" wire:click="deleteDialog({{ $volunteer->user_id }})">Delete</button>
                                         </td>
@@ -201,7 +201,7 @@
 
                             <tfoot>
                                 <tr>
-                                    <th width="7%">Actions</th>
+                                    <th width="7%" class="right-action-btn">Actions</th>
                                     <th>Passport Number</th>
                                     <th>Firstname</th>
                                     <th>Middlename</th>
@@ -355,44 +355,86 @@
                         <div class="user-data">
                             <label class="label">Firstname: <span>{{ $selectedUserDetails ? $selectedUserDetails['first_name'] : '' }}</span></label>
                         </div>
-                        <div class="user-data">
-                            <label class="label">Middlename: <span>{{ $selectedUserDetails ? $selectedUserDetails['middle_name'] : '' }}</span></label>
-                        </div>
-                        <div class="user-data">
-                            <label class="label">Date of Birth: <span>{{ $selectedUserDetails ? $selectedUserDetails['date_of_birth'] : '' }}</span></label>
-                        </div>
-                        <div class="user-data">
-                            <label class="label">Age: <span>{{ $selectedUserDetails ? $selectedUserDetails['age'] : '' }}</span></label>
-                        </div>
-                        <div class="user-data">
-                            <label class="label">Tel Number: <span>{{ $selectedUserDetails ? $selectedUserDetails['tel_number'] : '' }}</span></label>
-                        </div>
-                        <div class="user-data">
-                            <label class="label">Email: <span>{{ $selectedUserDetails ? $selectedUserDetails['email'] : '' }}</span></label>
-                        </div>
-                        <div class="user-data">
-                            <label class="label">Sex at Birth: <span>{{ $selectedUserDetails ? $selectedUserDetails['sex'] : '' }}</span></label>
-                        </div>
                     </div>
                     <div class="col2">
                         <div class="user-data">
                             <label class="label">Lastname: <span>{{ $selectedUserDetails ? $selectedUserDetails['last_name'] : '' }}</span></label>
                         </div>
+                    </div>
+                </div>
+                
+                <div class="row1">
+                    <div class="col2">
+                        <div class="user-data">
+                            <label class="label">Middlename: <span>{{ $selectedUserDetails ? $selectedUserDetails['middle_name'] : '' }}</span></label>
+                        </div>
+                    </div>
+                    <div class="col2">
                         <div class="user-data">
                             <label class="label">Nickname: <span>{{ $selectedUserDetails ? $selectedUserDetails['nickname']: '' }}</span></label>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row1">
+                    <div class="col2">
+                        <div class="user-data">
+                            <label class="label">Date of Birth: <span>{{ $selectedUserDetails ? $selectedUserDetails['date_of_birth'] : '' }}</span></label>
+                        </div>
+                    </div>
+                    <div class="col2">
                         <div class="user-data">
                             <label class="label">Civil Status: <span>{{ $selectedUserDetails ? $selectedUserDetails['civil_status'] : '' }}</span></label>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row1">
+                    <div class="col2">
+                        <div class="user-data">
+                            <label class="label">Age: <span>{{ $selectedUserDetails ? $selectedUserDetails['age'] : '' }}</span></label>
+                        </div>
+                    </div>
+                    <div class="col2">
                         <div class="user-data">
                             <label class="label">Nationality: <span>{{ $selectedUserDetails ? $selectedUserDetails['nationality'] : '' }}</span></label>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row1">
+                    <div class="col2">
+                        <div class="user-data">
+                            <label class="label">Tel Number: <span>{{ $selectedUserDetails ? $selectedUserDetails['tel_number'] : '' }}</span></label>
+                        </div>
+                    </div>
+                    <div class="col2">
                         <div class="user-data">
                             <label class="label">Mobile Number: <span>{{ $selectedUserDetails ? $selectedUserDetails['mobile_number'] : '' }}</span></label>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row1">
+                    <div class="col2">
+                        <div class="user-data">
+                            <label class="label">Email: <span>{{ $selectedUserDetails ? $selectedUserDetails['email'] : '' }}</span></label>
+                        </div>
+                    </div>
+                    <div class="col2">
                         <div class="user-data">
                             <label class="label">Blood Type: <span>{{ $selectedUserDetails ? $selectedUserDetails['blood_type'] : '' }}</span></label>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row1">
+                    <div class="col2">
+                        <div class="user-data">
+                            <label class="label">Sex at Birth: <span>{{ $selectedUserDetails ? $selectedUserDetails['sex'] : '' }}</span></label>
+                        </div>
+                    </div>
+                    <div class="col2">
                         <div class="user-data">
                             <label class="label">Educational Background: <span>{{ $selectedUserDetails ? $selectedUserDetails['educational_background'] : '' }}</span></label>
                         </div>
@@ -461,6 +503,27 @@
                         </div>
                     </div>
                 @endif
+
+                <div class="row1">
+                    <div class="col2">
+                        <div class="user-data">
+                            <label class="label">Youth Volunteer: 
+                                <span>
+                                    <input type="checkbox" class="checkbox" {{ $selectedUserDetails && $selectedUserDetails['is_volunteer'] ? 'checked' : '' }} disabled>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <div class="user-data">
+                            <label class="label">IP Parcicipant: 
+                                <span>
+                                    <input type="checkbox" class="checkbox" {{ $selectedUserDetails && $selectedUserDetails['is_ip_participant'] ? 'checked' : '' }} disabled>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row1 row-footer">
                     <div class="col">

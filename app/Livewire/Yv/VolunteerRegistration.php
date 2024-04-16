@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Yv;
 
 use Livewire\Component;
 
@@ -8,6 +8,6 @@ class VolunteerRegistration extends Component
 {
     public function render()
     {
-        return view('livewire.volunteer-registration');
+        return view('livewire.yv.volunteer-registration');
     }
 }

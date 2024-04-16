@@ -27,7 +27,7 @@ class VolunteersTable extends Component
     public function showUserData($userId){
         $this->selectedUserDetails = User::where('users.id', $userId)
                                 ->join('user_data', 'users.id', '=', 'user_data.user_id')
-                                ->select('users.*', 'user_data.*')
+                                ->select('users.email', 'users.active_status', 'user_data.*')
                                 ->first();
         $this->selectedUserDetails = $this->selectedUserDetails->getAttributes();
     }
@@ -96,7 +96,7 @@ class VolunteersTable extends Component
 
         $volunteers = User::where('user_role', 'yv')
                 ->join('user_data', 'users.id', '=', 'user_data.user_id')
-                ->select('users.*', 'user_data.*')
+                ->select('users.email', 'users.active_status', 'user_data.*')
                 ->search(trim($this->search))
                 ->when($this->age_range, function ($query) {
                     return $query->where('user_data.age', $this->age_range);

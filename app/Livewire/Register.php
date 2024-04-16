@@ -189,9 +189,7 @@ class Register extends Component
 
 
 
-    public function mount()
-    {
-
+    public function mount(){
         $this->permanent_selectedProvince = null;
         $this->permanent_selectedCity = null;
         $this->residential_selectedProvince = null;
