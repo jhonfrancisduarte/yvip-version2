@@ -44,6 +44,24 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
+    public function user_volunteer_skills()
+    {
+        return $this->hasOne(UserVolunteerSkills::class);
+    }
+
+    public function volunteer_skills()
+    {
+        return $this->hasOne(VolunteerSkills::class);
+    }
+
+    public function volunteer(){
+        return $this->hasOne(Volunteer::class);
+    }
+
+    public function volunteerCategory(){
+        return $this->hasOne(VolunteerCategory::class);
+    }
+
     public function scopeSearch($query, $term)
     {
         $term = "%$term%";

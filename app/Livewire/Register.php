@@ -2,6 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\VolunteerSkills;
+use App\Models\Volunteer;
+use App\Models\VolunteerCategory;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use App\Models\User;
@@ -22,7 +25,7 @@ class Register extends Component
     public $nickname;
 
     #[Rule('required')]
-    public $date_of_birth;
+    public $date_of_birth = "2024/04/01";
 
     #[Rule('required')]
     public $civil_status;
@@ -406,11 +409,9 @@ class Register extends Component
 }
 
     public function create(){
-        // dd($this->all());
         sleep(2);
         DB::beginTransaction();
         try {
-            // dd($this->all());
             $this->validate();
             if (!$this->isPasswordComplex($this->password)) {
                 $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
@@ -424,9 +425,29 @@ class Register extends Component
                 'name' => $this->first_name . " " . $this->middle_name . " " . $this->last_name,
             ]);
 
-            if (!$user) {
-                throw new \Exception('Failed to create user.');
-            }
+            $user->volunteer_skills()->create([
+                'user_id' => $user->id,
+                'skill_name' => 'No Skills',
+                'description' => "",
+            ]);
+
+            $user->user_volunteer_skills()->create([
+                'user_id' => $user->id,
+                'skill_id' => $user->id,
+            ]);
+
+            $user->volunteerCategory()->create([
+                'user_id' => $user->id,
+                'category_name' => 'No Category',
+                'description' => "",
+            ]);
+
+            $user->volunteer()->create([
+                'user_id' => $user->id,
+                'category_id' => $user->id,
+                'volunteer_experience' => "",
+                'volunteering_hours' => 1,
+            ]);
 
 
             $userData = $user->userData()->create([
