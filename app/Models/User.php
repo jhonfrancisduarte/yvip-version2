@@ -78,6 +78,16 @@ class User extends Authenticatable
         });
     }
 
+    public function scopeSearch2($query, $term){
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('admin.first_name', 'like', $term)
+                ->orWhere('admin.last_name', 'like', $term)
+                ->orWhere('admin.middle_name', 'like', $term)
+                ->orWhere('email', 'like', $term);
+        });
+    }
+
     protected static function boot()
     {
         parent::boot();

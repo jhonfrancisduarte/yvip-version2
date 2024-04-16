@@ -18,15 +18,16 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item">
-                        <a href="{{ route('admin-dashboard') }}" class="nav-link {{ request()->routeIs('admin-dashboard') ? 'active' : '' }}" wire:navigate>
-                        <i class="nav-icon fas fa-home"></i>
-                        <p>
-                            Welcome Admin
-                        </p>
-                        </a>
-                    </li>
-
+                    @if(session('user_role') == 'sa')
+                        <li class="nav-item">
+                            <a href="{{ route('admin-dashboard') }}" class="nav-link {{ request()->routeIs('admin-dashboard') ? 'active' : '' }}" wire:navigate>
+                            <i class="nav-icon fas fa-home"></i>
+                            <p>
+                                Welcome Admin
+                            </p>
+                            </a>
+                        </li>
+                    @endif
                     {{-- <li class="nav-item">
                         <a href="#" wire:click='create' wire:navigate>
                         <i class="nav-icon fas fa-tachometer-alt"></i>

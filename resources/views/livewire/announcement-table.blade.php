@@ -81,6 +81,7 @@
         {{-- Add Announcement Form --}}
         @if($openAddAnnouncementForm)
             <div class="anns">
+                <div class="close-form" wire:click="closeAddForm"></div>
                 <div class="add-announcement-container">
                     <div class="modal-dialog modal-md">
                         <div class="modal-content">
@@ -90,7 +91,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form enctype="multipart/form-data" wire:submit.prevent='createAnnouncement'>
+                            <form enctype="multipart/form-data" wire:submit='createAnnouncement'>
                                 <div class="card card-primary">
                                     <div class="card-body">
                                         
@@ -171,6 +172,7 @@
         {{-- Add Announcement Form --}}
         @if($openEditAnnouncementForm)
             <div class="anns">
+                <div class="close-form" wire:click="closeEditForm"></div>
                 <div class="add-announcement-container">
                     <div class="modal-dialog modal-md">
                         <div class="modal-content">
@@ -257,6 +259,7 @@
 
         @if($deleteAnnouncementId)
             <div class="users-data-all-container">
+                <div class="close-form" wire:click="hideDeleteDialog"></div>
                 <div class="user-info">
 
                     <div class="row1 row-header">

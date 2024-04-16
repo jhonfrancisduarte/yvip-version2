@@ -11,7 +11,7 @@ use App\Models\User;
 use App\Models\UserData;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Log;
 class Register extends Component
 {
 
@@ -493,6 +493,7 @@ class Register extends Component
         } catch (\Exception $e) {
             throw $e;
             DB::rollBack();
+            Log::error('Error occurred while registering admin: ' . $e->getMessage());
         }
     }
 

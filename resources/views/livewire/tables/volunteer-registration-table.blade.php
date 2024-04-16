@@ -90,6 +90,7 @@
 
     @if($deleteRegistrantId)
         <div class="users-data-all-container">
+            <div class="close-form" wire:click="hideDeleteDialog"></div>
             <div class="user-info">
 
                 <div class="row1 row-header">
@@ -122,6 +123,7 @@
 
     @if($selectedUserDetails)
         <div class="users-data-all-container">
+            <div class="close-form" wire:click="hideUserData"></div>
             <div class="user-info">
                 <div class="row1">
                     <div class="col1">

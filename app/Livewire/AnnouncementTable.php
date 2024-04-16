@@ -107,13 +107,13 @@ class AnnouncementTable extends Component
                     'category' => $this->category,
                 ]);
 
-                if ($this->file) {
+                if ($this->file){
                     $filePath = $this->file->storeAs('announcementFiles/files', $this->file->getClientOriginalName(), 'public_uploads');
                     $filePath = "uploads/" . $filePath;
                     $announcement->update(['attached_file' => $filePath]);
                 }
             
-                if ($this->featured_image) {
+                if ($this->featured_image){
                     $imageName = uniqid() . '.' . $this->featured_image->getClientOriginalExtension();
                     $imagePath = $this->featured_image->storeAs('announcementFiles/images', $imageName, 'public_uploads');
                     $imagePath = "uploads/" . $imagePath;
@@ -123,11 +123,15 @@ class AnnouncementTable extends Component
                 $this->popup_message = 'Announcement edited successfully.';
                 $this->openEditAnnouncementForm = null;
                 $this->editAnnouncementId = null;
+                $this->file = null;
+                $this->featured_image = null;
             }else{
                 $this->popup_message = null;
                 $this->popup_message = 'Announcement edit unsuccessfully.';
                 $this->openEditAnnouncementForm = null;
                 $this->editAnnouncementId = null;
+                $this->file = null;
+                $this->featured_image = null;
             }
         }
     }
