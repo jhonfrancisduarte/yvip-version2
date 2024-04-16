@@ -1,8 +1,11 @@
 <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
+                <div class="reg-logo-container">
+                    <img src="images/yvip_logo.png" width="100"/>
+                </div>
                 <div class="card-body">
-                    <h2 class="title">Registration Form</h2>
+                    <center><h2 class="title reg-title">Registration Form</h2></center>
 
 
                     <form wire:submit="create">
@@ -156,85 +159,87 @@
                             </div>
                         </div>
 
-                        <div class="row row-space">
-                            <div class="col-4" style="width: 100%">
-                                <div class="input-group">
-                                    <label class="label">Permanent Address</label>
-                                    <label class="label" for="permanent_province">Select Province:</label>
-                                    <select class="label select-status" wire:model.live="permanent_selectedProvince" id="permanent_province" name="permanent_selectedProvince">
-                                        @if ($provinces)
-                                        <option class="label" value="">Select Province</option>
-                                        @foreach ($provinces as $province)
-                                            <option class="label" value="{{ $province }}">{{ $province }}</option>
+                        <fieldset class="fieldset">
+                            <legend class="label">Permanent Address</legend>
+                            <div class="row row-space">
+                                <div class="col-4" style="width: 100%">
+                                    <div class="input-group">
+                                        <label class="label" for="permanent_province">Select Province:</label>
+                                        <select class="label select-status" wire:model.live="permanent_selectedProvince" id="permanent_province" name="permanent_selectedProvince">
+                                            @if ($provinces)
+                                            <option class="label" value="">Select Province</option>
+                                            @foreach ($provinces as $province)
+                                                <option class="label" value="{{ $province }}">{{ $province }}</option>
+                                            @endforeach
+                                            @else
+                                            <option class="label" value="">Select Province</option>
+                                        @endif
+                                        </select>
+                                        @error('permanent_selectedProvince') <span class="text-danger small" style="color: red;">The Province Field is required</span>
+
+                                        @enderror
+                                        <label class="label" for="permanent_city">Select City:</label>
+                                        <select class="label select-status" wire:model.live="permanent_selectedCity" id="permanent_city" name="permanent_selectedCity">
+                                        @if ($permanent_cities)
+                                        @foreach ($permanent_cities as $city)
+                                            <option class="label" value="{{ $city }}">{{ $city }}</option>
                                         @endforeach
                                         @else
-                                        <option class="label" value="">Select Province</option>
-                                    @endif
-                                    </select>
-                                    @error('permanent_selectedProvince') <span class="text-danger small" style="color: red;">The Province Field is required</span>
+                                            <option class="label" value="">No cities available</option>
+                                        @endif
+                                        </select>
+                                        @error('permanent_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>
 
-                                    @enderror
-                                    <label class="label" for="permanent_city">Select City:</label>
-                                    <select class="label select-status" wire:model.live="permanent_selectedCity" id="permanent_city" name="permanent_selectedCity">
-                                    @if ($permanent_cities)
-                                    @foreach ($permanent_cities as $city)
-                                        <option class="label" value="{{ $city }}">{{ $city }}</option>
-                                    @endforeach
-                                    @else
-                                        <option class="label" value="">No cities available</option>
-                                    @endif
-                                    </select>
-                                    @error('permanent_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>
+                                        @enderror
+                                        <label class="label">Street, Barangay</label>
+                                        <input class="input--style-4" type="text" wire:model="p_street_barangay" name="p_street_barangay" >
+                                        @error('p_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>
 
-                                    @enderror
-                                    <label class="label">Street, Barangay</label>
-                                    <input class="input--style-4" type="text" wire:model="p_street_barangay" name="p_street_barangay" >
-                                    @error('p_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>
-
-                                    @enderror
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-4" style="width: 100%">
-                                <div class="input-group">
-                                    <label class="label">Residential Address</label>
-                                    <label class="label" for="residential_province">Select Province:</label>
-                                    <select class="label select-status" wire:model.live="residential_selectedProvince" id="residential_province" name="residential_selectedProvince">
-                                        @if ($provinces)
-                                        <option class="label" value="">Select Province</option>
-                                        @foreach ($provinces as $province)
-                                            <option class="label" value="{{ $province }}">{{ $province }}</option>
-                                        @endforeach
-                                        @else
-                                        <option class="label" value="">Select Province</option>
-                                    @endif
-                                    </select>
-                                    @error('residential_selectedProvince') <span class="text-danger small" style="color: red;">The Province field is required</span>
+                        </fieldset>
 
-                                    @enderror
-                                    <label class="label" for="residential_city">Select City:</label>
-                                    <select class="label select-status" wire:model.live="residential_selectedCity" id="residential_city" name="residential_selectedCity">
-                                    @if ($residential_cities)
-                                        <option class="label" value="">Select City</option>
-                                    @foreach ($residential_cities as $city)
-                                        <option class="label" value="{{ $city }}">{{ $city }}</option>
-                                    @endforeach
-                                    @else
-                                        <option class="label" value="">No cities available</option>
-                                    @endif
-                                    </select>
-                                    @error('residential_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>
-
-                                    @enderror
-                                    <label class="label">Street, Barangay</label>
-                                    <input class="input--style-4" type="text" wire:model="r_street_barangay" name="r_street_barangay" >
-                                    @error('r_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>
-
-                                    @enderror
+                        <fieldset class="fieldset">
+                            <legend class="label">Residential Address</legend>
+                            <div class="row row-space">
+                                <div class="col-4" style="width: 100%">
+                                    <div class="input-group">
+                                        <label class="label" for="residential_province">Select Province:</label>
+                                        <select class="label select-status" wire:model.live="residential_selectedProvince" id="residential_province" name="residential_selectedProvince">
+                                            @if ($provinces)
+                                                <option class="label" value="">Select Province</option>
+                                                @foreach ($provinces as $province)
+                                                    <option class="label" value="{{ $province }}">{{ $province }}</option>
+                                                @endforeach
+                                                @else
+                                                <option class="label" value="">Select Province</option>
+                                            @endif
+                                        </select>
+                                        @error('residential_selectedProvince') <span class="text-danger small" style="color: red;">The Province field is required</span>@enderror
+                                        
+                                        <label class="label" for="residential_city">Select City:</label>
+                                        <select class="label select-status" wire:model.live="residential_selectedCity" id="residential_city" name="residential_selectedCity">
+                                            @if ($residential_cities)
+                                                <option class="label" value="">Select City</option>
+                                            @foreach ($residential_cities as $city)
+                                                <option class="label" value="{{ $city }}">{{ $city }}</option>
+                                            @endforeach
+                                            @else
+                                                <option class="label" value="">No cities available</option>
+                                            @endif
+                                        </select>
+                                        @error('residential_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>@enderror
+                                        
+                                        <label class="label">Street, Barangay</label>
+                                        <input class="input--style-4" type="text" wire:model="r_street_barangay" name="r_street_barangay" >
+                                        
+                                        @error('r_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>@enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </fieldset>
 
                         <div class="row row-space">
                             <div class="col-4" style="width: 100%">
@@ -391,12 +396,9 @@
                             <div class="alert alert-success" role="alert" style="background-color: #dff0d8; border-color: #d6e9c6; color: #3c763d; padding: 15px; display: flex; justify-content: center; align-items: center;">
                                 {{ session('successMessage') }}
                             </div>
-                            @endif
-
+                        @endif
 
                     </form>
-
-
                 </div>
             </div>
         </div>
