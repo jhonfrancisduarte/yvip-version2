@@ -32,7 +32,7 @@ Route::middleware(['auth', 'user_role:yv'])->group(function () {
      Route::get('/leaderboard', function () {return view('livewire.leaderboard');})->name('leaderboard');
      Route::get('/messages', function () {return view('livewire.messages');})->name('messages');
      Route::get('/profile', function () {return view('livewire.profile');})->name('profile');
-     
+
 });
 
 
@@ -77,7 +77,7 @@ Route::middleware(['auth', 'user_role:sa,ips'])->group(function (){
      Route::get('/ip-messages', function () {return view('livewire.ip-messages');})->name('ip-messages');
 });
 
- 
+
 
 
 

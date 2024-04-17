@@ -75,7 +75,7 @@
                         </p>
                         </a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a href="{{ route('volunteer-rewards') }}" class="nav-link {{ request()->routeIs('volunteer-rewards') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-award"></i>
@@ -128,7 +128,7 @@
                         </p>
                         </a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a href="{{ route('ip-registration') }}" class="nav-link {{ request()->routeIs('ip-registration') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-user-check"></i>
