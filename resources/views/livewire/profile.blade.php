@@ -16,7 +16,7 @@
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
+                    {{-- <div class="col-sm-6">
                         <h1 class="m-0">My Profile</h1>
                     </div>
                     <div class="col-sm-6">
@@ -24,14 +24,12 @@
                             <li class="breadcrumb-item"><a href="/dashboard" wire:navigate>Home</a></li>
                             <li class="breadcrumb-item active">My Profile</li>
                         </ol>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
 
-        <div class="content-container">
-            {{-- You contents here --}}
-        </div>
+        @livewire('tables.my-profile')
         
     </div>
 
