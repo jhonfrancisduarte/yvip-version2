@@ -128,15 +128,15 @@ class MyProfile extends Component
         $userId = Auth::user()->id;
         $user = User::find($userId);
         if ($user && $user->userData){
-            $columnValue = null;
             if($data === "email"){
-                $columnValue = $user->get([$data])->pluck($data)->first();
+                $columnValue = $user->{$data};
+                $this->thisData = $columnValue;
             }
             else{
                 $columnValue = $user->userData->get([$data])->pluck($data)->first();
+                $this->thisData = $columnValue;
             }
             $this->toBeEdited = $data;
-            $this->thisData = $columnValue;
             $this->formattedData = str_replace('_', ' ', $data);
         }
     }
