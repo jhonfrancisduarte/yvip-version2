@@ -1,6 +1,6 @@
 .content-wrapper2{
     height: 100vh !important;
-    overflow-x: auto;
+    overflow-x: hidden !important;
 }
 
 .volunteers-table-content .card{
@@ -29,7 +29,42 @@
     z-index: 9999;
 }
 
+.table-contain{
+    width: 95% !important;
+    overflow-x: hidden !important;
+    border-radius: 5px;
+}
 
+.scroll-table{
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.scroll-table::-webkit-scrollbar {
+    height: 10px;
+    width: 10px; 
+}
+
+.scroll-table::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.scroll-table::-webkit-scrollbar-track {
+    background-color: #eee;
+}
+
+.table-contain .card,
+#volunteers-table{
+    width: 100%;
+}
+
+.table-contain .card,
+.scroll-table,
+#volunteers-table,
+.volunteer-row{
+    border-radius: 5px !important;
+}
 
 .users-data-all-container .user-info{
     overflow-y: auto;
@@ -85,6 +120,12 @@
     border-radius: 5px;
 }
 
+.checkbox {
+    width: 13px;
+    height: 13px;
+    border: 1px solid #28a745;
+}
+
 .user-info .btn-danger{
     padding: 2px 5px;
     border-radius: 5px;
@@ -100,7 +141,15 @@
 }
 
 .volunteers-table-content .card-header1{
+    width: 100%;
     display: flex;
+}
+
+.right-action-btn{
+    position: sticky; 
+    left: -22px;
+    background: white;
+    border: 1px solid #ccc !important;
 }
 
 .loader {

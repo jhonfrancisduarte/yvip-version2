@@ -22,7 +22,7 @@ class Login extends Component
         
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             $user = Auth::user();
-            if ($user->user_role === 'yv' || $user->user_role === 'yip') {
+            if (($user->user_role === 'yv' || $user->user_role === 'yip') && $user->active_status === 1) {
                 session(['user_role' => $user->user_role]); 
                 return redirect()->intended('/dashboard');
             }

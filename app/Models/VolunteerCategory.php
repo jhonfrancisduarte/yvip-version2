@@ -14,8 +14,7 @@ class VolunteerCategory extends Model
         // Add other fillable fields as needed
     ];
 
-    public function user()
-    {
+    public function user(){
         return $this->belongsTo(User::class);
     }
 

@@ -54,7 +54,7 @@
                     <tr style="border-top: 1px solid gray;">
                         <td style="padding: 5px; border-left: 1px solid gray; border-right: 1px solid gray;">Tel Number: {{ $userDetails['tel_number'] }}</td>
                         <td style="padding: 5px; border-right: 1px solid gray;">Mobile Number: {{ $userDetails['mobile_number'] }}</td>
-                        <td style="border-right: 1px solid gray;">Email: {{ $userDetails['email'] }}</td>
+                        <td style="padding: 5px; border-right: 1px solid gray;">Email: {{ $userDetails['email'] }}</td>
                     </tr>
                     <tr style="border-top: 1px solid gray;">
                         <td style="padding: 5px; border-left: 1px solid gray; border-right: 1px solid gray;">Blood Type: {{ $userDetails['blood_type'] }}</td>
@@ -67,10 +67,10 @@
             <table style="width: 100%;">
                 <tbody>
                     <tr style="border-top: 1px solid gray; border-right: 1px solid gray; border-left: 1px solid gray;">
-                        <td style="padding: 5px; ">Permanent Address: {{ $userDetails['permanent_address'] }}</td>
+                        <td style="padding: 5px; ">Permanent Address: {{ $userDetails['p_street_barangay'] }} {{ $userDetails['permanent_selectedCity'] }} {{ $userDetails['permanent_selectedProvince'] }}</td>
                     </tr>
                     <tr style="border-top: 1px solid gray; border-right: 1px solid gray; border-left: 1px solid gray;">
-                        <td style="padding: 5px; ">Residential Address: {{ $userDetails['residential_address'] }}</td>
+                        <td style="padding: 5px; ">Residential Address: {{ $userDetails['r_street_barangay'] }} {{ $userDetails['residential_selectedCity'] }} {{ $userDetails['residential_selectedProvince'] }}</td>
                     </tr>
                 </tbody>
             </table>

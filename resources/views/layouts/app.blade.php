@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" href="{{ asset('images/yvip_logo.png') }}">
 
     @yield('title')
 
@@ -79,5 +80,23 @@
     <script src="dist/js/pages/dashboard.js"></script>
     <script src="js/dashboard.js"></script>
     @livewireScripts
+
+
+<script>
+    let attrs = [
+        'snapshot',
+        'effects',
+    ]; 
+    const snap = () => { 
+        $('div').each(function () {
+            for (let i in attrs) {
+                if (typeof $(this).attr(`wire:${attrs[i]}`) !== 'undefined' ) {
+                    $(this).removeAttr(`wire:${attrs[i]}`);
+                }
+            }
+        });
+    }
+</script>
+
 </body>
 </html>

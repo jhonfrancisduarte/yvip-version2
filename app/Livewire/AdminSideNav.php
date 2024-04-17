@@ -17,11 +17,11 @@ class AdminSideNav extends Component
     // public $user_role = "sa";
     // public $profile_picture = "";
 
-    public function mount()
-    {
-        // Set default profile picture
-        // $this->profile_picture = 'images/blank_profile_pic.png';
-    }
+    // public function mount()
+    // {
+    //     // Set default profile picture
+    //     $this->profile_picture = 'images/blank_profile_pic.png';
+    // }
 
     public function logout(){
         Auth::logout();

@@ -8,11 +8,12 @@ use App\Models\VolunteerCategory;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use App\Models\User;
+use App\Models\UserData;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class Register extends Component
 {
-    public $passport_number = "1253254252";
 
     #[Rule('required|min:2')]
     public $first_name;
@@ -44,20 +45,34 @@ class Register extends Component
 
     public $email;
 
+    #[Rule('required|max:4|min:1')]
     public $blood_type;
 
     #[Rule('required')]
     public $sex;
 
-
+    #[Rule('required')]
+    public $permanent_selectedProvince;
 
     #[Rule('required')]
-    public $residential_address;
+    public $permanent_selectedCity;
+
+    #[Rule('required')]
+    public $p_street_barangay;
+
+    #[Rule('required')]
+    public $residential_selectedProvince;
+
+    #[Rule('required')]
+    public $residential_selectedCity;
+
+    #[Rule('required')]
+    public $r_street_barangay;
 
     #[Rule('required')]
     public $educational_background;
 
-    #[Rule('required')]
+    #[Rule('required|min:2')]
     public $status;
 
 
@@ -74,18 +89,20 @@ class Register extends Component
 
 
     public $course;
-
+    public $is_org_member = 'yes';
     public $organization_name;
 
     public $org_position;
-    public $is_volunteer;
+
+    #[Rule('required')]
+    public $is_volunteer=true;
+
     public $is_ip_participant;
     public $user_role = "yv";
 
     public $password;
     public $c_password;
     public $provinces = [
-        '',
         'Abra',
         'Agusan del Norte',
         'Agusan del Sur',
@@ -134,6 +151,7 @@ class Register extends Component
         'Maguindanao',
         'Marinduque',
         'Masbate',
+        'Metro Manila',
         'Misamis Occidental',
         'Misamis Oriental',
         'Mountain Province',
@@ -169,17 +187,16 @@ class Register extends Component
         'Zamboanga Sibugay',
         // Add the 82nd province here
     ];
-    public $cities;
-    public $selectedProvince="";
-    public $selectedCity="";
+    public $permanent_cities;
+    public $residential_cities;
 
 
-    public function mount()
-    {
-        // Initialize cities with the cities of the first province
-        $this->selectedProvince = $this->provinces[0];
-        $this->cities = $this->getCitiesByProvince($this->selectedProvince);
-        $this->selectedCity = $this->cities[0];
+
+    public function mount(){
+        $this->permanent_selectedProvince = null;
+        $this->permanent_selectedCity = null;
+        $this->residential_selectedProvince = null;
+        $this->residential_selectedCity = null;
         $this->profile_picture = 'images/blank_profile_pic.png';
     }
 
@@ -207,20 +224,21 @@ class Register extends Component
         return view('livewire.register');
     }
 
-    public function updatedSelectedProvince($value)
+    public function updatedPermanentSelectedProvince($province)
     {
-        $this->selectedCity = null; // Reset selected city when province changes
-        $this->selectedProvince = $value; // Update selected province
+        $this->permanent_cities = $this->getCitiesByProvince($province);
+        $this->permanent_selectedCity = null;
+    }
 
-        // Update cities based on the selected province
-        $this->cities = $this->getCitiesByProvince($value);
+    public function updatedResidentialSelectedProvince($province)
+    {
+        $this->residential_cities = $this->getCitiesByProvince($province);
+        $this->residential_selectedCity = null;
     }
 
     private function getCitiesByProvince($province)
     {
     switch ($province) {
-        case '':
-            return [''];
         case 'Abra':
             return ['Bangued', 'Boliney', 'Bucay', 'Bucloc', 'Daguioman', 'Danglas', 'Dolores', 'La Paz', 'Lacub', 'Lagangilang', 'Lagayan', 'Langiden', 'Licuan-Baay', 'Luba', 'Malibcong', 'Manabo', 'Penarrubia', 'Pidigan', 'Pilar', 'Sallapadan', 'San Isidro', 'San Juan', 'San Quintin', 'Tayum', 'Tineg', 'Tubo', 'Villaviciosa'];
         case 'Agusan del Norte':
@@ -317,6 +335,8 @@ class Register extends Component
             return ['Boac (Capital)', 'Buenavista', 'Gasan', 'Mogpog', 'Santa Cruz', 'Torrijos'];
         case 'Masbate':
             return ['Aroroy', 'Baleno', 'Balud', 'Batuan', 'Cataingan', 'Cawayan', 'Claveria', 'Dimasalang', 'Esperanza', 'Mandaon', 'Masbate City (Capital)', 'Milagros', 'Mobo', 'Monreal', 'Palanas', 'Pio V. Corpuz (Limbuhan)', 'Placer', 'San Fernando', 'San Jacinto', 'San Pascual', 'Uson'];
+        case 'Metro Manila':
+            return ['Caloocan', 'Las Piñas', 'Makati', 'Malabon', 'Mandaluyong', 'Manila', 'Marikina', 'Muntinlupa', 'Navotas', 'Parañaque', 'Pasay', 'Pasig', 'Quezon City', 'San Juan', 'Taguig', 'Valenzuela'];
         case 'Misamis Occidental':
             return ['Aloran', 'Baliangao', 'Bonifacio', 'Calamba', 'Clarin', 'Concepcion', 'Don Victoriano Chiongbian (Don Mariano Marcos)', 'Jimenez', 'Lopez Jaena', 'Oroquieta City (Capital)', 'Ozamiz City', 'Panaon', 'Plaridel', 'Sapang Dalaga', 'Sinacaban', 'Tangub City', 'Tudela'];
         case 'Misamis Oriental':
@@ -389,19 +409,20 @@ class Register extends Component
 }
 
     public function create(){
-        //dd($this->all());
+        sleep(2);
+        DB::beginTransaction();
         try {
-            // dd($this->all());
             $this->validate();
             if (!$this->isPasswordComplex($this->password)) {
                 $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
                 return;
             }
-
+            $passportNumber = 'YVIP' . date('Y') . $this->generateUserId();
             $user = User::create([
                 'email' => $this->email,
                 'password' => $this->password,
                 'user_role' => $this->user_role,
+                'name' => $this->first_name . " " . $this->middle_name . " " . $this->last_name,
             ]);
 
             $user->volunteer_skills()->create([
@@ -410,7 +431,6 @@ class Register extends Component
                 'description' => "",
             ]);
 
-            //$volunteer_skills = VolunteerSkills::first();
             $user->user_volunteer_skills()->create([
                 'user_id' => $user->id,
                 'skill_id' => $user->id,
@@ -422,7 +442,6 @@ class Register extends Component
                 'description' => "",
             ]);
 
-            //$volunteer_categories = VolunteerCategory::first();
             $user->volunteer()->create([
                 'user_id' => $user->id,
                 'category_id' => $user->id,
@@ -430,9 +449,10 @@ class Register extends Component
                 'volunteering_hours' => 1,
             ]);
 
-            $user->userData()->create([
+
+            $userData = $user->userData()->create([
                 'user_id' => $user->id,
-                'passport_number' => $this->passport_number,
+                'passport_number' => $passportNumber,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
                 'middle_name' => $this->middle_name,
@@ -445,9 +465,12 @@ class Register extends Component
                 'mobile_number' => $this->mobile_number,
                 'blood_type' => $this->blood_type,
                 'sex' => $this->sex,
-                'selectedProvince' => $this->selectedProvince,
-                'selectedCity' => $this->selectedCity,
-                'residential_address' => $this->residential_address,
+                'permanent_selectedProvince' => $this->permanent_selectedProvince,
+                'permanent_selectedCity' => $this->permanent_selectedCity,
+                'p_street_barangay' => $this->p_street_barangay,
+                'residential_selectedProvince' => $this->permanent_selectedProvince,
+                'residential_selectedCity' => $this->permanent_selectedCity,
+                'r_street_barangay' => $this->p_street_barangay,
                 'educational_background' => $this->educational_background,
                 'status' => $this->status,
                 'nature_of_work' => $this->nature_of_work,
@@ -460,11 +483,16 @@ class Register extends Component
                 'is_volunteer' => $this->is_volunteer,
                 'is_ip_participant' => $this->is_ip_participant,
             ]);
-            session(['success' => 'Successfully Registered! Wait for admin confirmation']); 
+            $user->update([
+                'name' => $userData->first_name . ' ' . $userData->last_name,
+            ]);
+            DB::commit();
             $this->reset();
-        } catch (\Exception $e) {
+            session()->flash('successMessage', 'Successfully Registered! Please Wait for admin activation!');
 
+        } catch (\Exception $e) {
             throw $e;
+            DB::rollBack();
         }
     }
 
@@ -474,5 +502,11 @@ class Register extends Component
         $containsSpecialChar = preg_match('/[^A-Za-z0-9]/', $password); // Changed regex to include special characters
         return $containsUppercase && $containsNumber && $containsSpecialChar;
     }
+    private function generateUserId() {
+        $latestUserData = UserData::latest()->first();
+        $nextUserId = $latestUserData ? $latestUserData->user_id + 1 : 1;
+        return str_pad($nextUserId, 5, '0', STR_PAD_LEFT);
+    }
+
 
 }

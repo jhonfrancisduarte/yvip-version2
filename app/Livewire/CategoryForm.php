@@ -22,10 +22,10 @@ class CategoryForm extends Component
     public $selectedCategories = [];
     public $description;
     public $experience;
+    //public $selectedSkillsByCategory = [];
 
     public function render()
     {
-        $this->selectedSkills = Session::get('selectedSkills', []);
         return view('livewire.forms.category-form');
     }
 
@@ -41,27 +41,33 @@ class CategoryForm extends Component
             ['category_name' => $categoriesString]
         );
 
+        // Update or create the skills record for the authenticated user
         $user->volunteer_skills()->updateOrCreate(
             ['user_id' => $user->id],
             ['skill_name' => $skillsString]
         );
 
+        // Remain the selected skills after the form submission
         Session::put('selectedSkills', $this->selectedSkills);
 
         return redirect()->route('my-category');
     }
 
 
-    public function updateCategoryDescription()
+    public function updateVolunteerExperience()
     {
+        // Retrieve the authenticated user
         $user = Auth::user();
 
+        // Update the volunteer_experience column
         $user->volunteer->update([
             'volunteer_experience' => $this->experience,
         ]);
 
+        // Update the session variable
         Session::put('experience', $this->experience);
 
+        // Redirect back to category dashboard
         return redirect()->route('my-category');
     }
 
@@ -96,6 +102,8 @@ class CategoryForm extends Component
         // Retrieve categories data associated with the authenticated user
         $user = Auth::user();
         $this->categoriesData = $user->volunteerCategory()->get();
+
+        $this->selectedSkills = Session::get('selectedSkills', []);
 
         $this->experience = $user->volunteer->volunteer_experience;
     }
