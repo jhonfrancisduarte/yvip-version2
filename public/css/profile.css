@@ -1,0 +1,57 @@
+.profile-content{
+    margin: 0;
+}
+
+.profile-header{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-header .cover{
+    z-index: 9 !important;
+    position: absolute;
+    top: -55px; left: -10px;
+    width: 102%;
+    background-image: url('/images/yvip_bg.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 200px;
+}
+
+.profile-body{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 100px 100px;
+    z-index: 9999 !important;
+}
+
+.profile-body .content{
+    margin-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.top-info{
+    display: flex;
+    align-items: end;
+}
+
+.top-info .name{
+    margin-left: 20px;
+    line-height: 10px;
+}
+
+.top-info img{
+    margin-top: -30px;
+    border-radius: 50%;
+    border: 2px solid white;
+}

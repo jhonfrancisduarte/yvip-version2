@@ -6,17 +6,19 @@
             <p>{{ $popup_message }}</p>
         </div>
         <div class="container-fluid">
-            <div class="announcement-header">
-                <div class="card-header">
-                    <h3 class="card-title">Volunteer Announcements</h3> 
-                </div>
-                <div class="card-header header-sticky-top">
-                    <button class="btn btn-success btn-sm" wire:click="openAddForm"><i class="fa fa-plus"></i></button>
-                    <div class="col-md-3">
-                        <input type="search" class="form-control" wire:model.live="search" placeholder="Search announcement...">
+            @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa' || session('user_role') == 'ips')
+                <div class="announcement-header">
+                    <div class="card-header">
+                        <h3 class="card-title">Volunteer Announcements</h3> 
+                    </div>
+                    <div class="card-header header-sticky-top">
+                        <button class="btn btn-success btn-sm" wire:click="openAddForm"><i class="fa fa-plus"></i></button>
+                        <div class="col-md-3">
+                            <input type="search" class="form-control" wire:model.live="search" placeholder="Search announcement...">
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
 
             {{-- Announcements are displayed here --}}
             @foreach($announcements as $announcement)

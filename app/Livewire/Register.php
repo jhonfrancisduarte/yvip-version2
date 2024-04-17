@@ -425,29 +425,29 @@ class Register extends Component
                 'name' => $this->first_name . " " . $this->middle_name . " " . $this->last_name,
             ]);
 
-            $user->volunteer_skills()->create([
-                'user_id' => $user->id,
-                'skill_name' => 'No Skills',
-                'description' => "",
-            ]);
+            // $user->volunteer_skills()->create([
+            //     'user_id' => $user->id,
+            //     'skill_name' => 'No Skills',
+            //     'description' => "",
+            // ]);
 
-            $user->user_volunteer_skills()->create([
-                'user_id' => $user->id,
-                'skill_id' => $user->id,
-            ]);
+            // $user->user_volunteer_skills()->create([
+            //     'user_id' => $user->id,
+            //     'skill_id' => 1,
+            // ]);
 
-            $user->volunteerCategory()->create([
-                'user_id' => $user->id,
-                'category_name' => 'No Category',
-                'description' => "",
-            ]);
+            // $user->volunteerCategory()->create([
+            //     'user_id' => $user->id,
+            //     'category_name' => 'No Category',
+            //     'description' => "",
+            // ]);
 
-            $user->volunteer()->create([
-                'user_id' => $user->id,
-                'category_id' => $user->id,
-                'volunteer_experience' => "",
-                'volunteering_hours' => 1,
-            ]);
+            // $user->volunteer()->create([
+            //     'user_id' => $user->id,
+            //     'category_id' => 1,
+            //     'volunteer_experience' => "",
+            //     'volunteering_hours' => 1,
+            // ]);
 
 
             $userData = $user->userData()->create([
