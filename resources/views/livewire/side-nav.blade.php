@@ -8,7 +8,7 @@
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset(auth()->user()->userData->profile_picture) }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset(auth()->user()->userData->profile_picture) }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;">
                     </div>
                     <div class="info">
                     <a href="{{ route('profile') }}" class="d-block" wire:navigate>{{ auth()->user()->userData->first_name }} {{ auth()->user()->userData->last_name }}</a>
@@ -103,7 +103,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('messages') }}" class="nav-link {{ request()->routeIs('messages') ? 'active' : '' }}" wire:navigate>
+                        <a href="/my-messages" class="nav-link" target="_blank">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             My Messages

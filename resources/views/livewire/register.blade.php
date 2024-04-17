@@ -19,11 +19,8 @@
 
                                     @enderror
                                 </div>
-
-
-
-
                             </div>
+                            
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">last name</label>

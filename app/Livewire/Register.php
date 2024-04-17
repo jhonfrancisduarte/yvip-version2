@@ -1,10 +1,6 @@
 <?php
 
 namespace App\Livewire;
-
-use App\Models\VolunteerSkills;
-use App\Models\Volunteer;
-use App\Models\VolunteerCategory;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use App\Models\User;
@@ -12,6 +8,7 @@ use App\Models\UserData;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 class Register extends Component
 {
 
@@ -448,6 +445,12 @@ class Register extends Component
             //     'volunteer_experience' => "",
             //     'volunteering_hours' => 1,
             // ]);
+            $this->permanent_selectedProvince = Str::ucfirst(Str::lower($this->permanent_selectedProvince));
+            $this->permanent_selectedCity = Str::ucfirst(Str::lower($this->permanent_selectedCity));
+            $this->p_street_barangay = Str::ucfirst(Str::lower($this->p_street_barangay));
+            $this->residential_selectedProvince = Str::ucfirst(Str::lower($this->residential_selectedProvince));
+            $this->residential_selectedCity = Str::ucfirst(Str::lower($this->residential_selectedCity));
+            $this->r_street_barangay = Str::ucfirst(Str::lower($this->r_street_barangay));
 
 
             $userData = $user->userData()->create([
@@ -468,9 +471,9 @@ class Register extends Component
                 'permanent_selectedProvince' => $this->permanent_selectedProvince,
                 'permanent_selectedCity' => $this->permanent_selectedCity,
                 'p_street_barangay' => $this->p_street_barangay,
-                'residential_selectedProvince' => $this->permanent_selectedProvince,
-                'residential_selectedCity' => $this->permanent_selectedCity,
-                'r_street_barangay' => $this->p_street_barangay,
+                'residential_selectedProvince' => $this->residential_selectedProvince,
+                'residential_selectedCity' => $this->residential_selectedCity,
+                'r_street_barangay' => $this->r_street_barangay,
                 'educational_background' => $this->educational_background,
                 'status' => $this->status,
                 'nature_of_work' => $this->nature_of_work,

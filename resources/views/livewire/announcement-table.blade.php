@@ -144,7 +144,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="label">Add Featured Image</label>
-                                                    <input type="file" id="featured_image" wire:model.live='featured_image'/>
+                                                    <input type="file" accept="image/*" id="featured_image" wire:model.live='featured_image'/>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="label">Attach File</label>
-                                                    <input type="file" id="file" wire:model.live='file'/>
+                                                    <input type="file" id="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
                                                 </div>
                                             </div>
                                         </div>

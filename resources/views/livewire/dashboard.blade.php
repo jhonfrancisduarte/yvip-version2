@@ -30,7 +30,8 @@
             </div>
         </div>
 
-        <livewire:announcement-table :dashboardType="'yv'" />
+        <livewire:announcement-table :dashboardType="{{ auth()->user()->user_role === "yip" ? 'ip' : 'yv' }}" />
+
     </div>
 
 @endsection

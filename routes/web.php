@@ -12,12 +12,8 @@ Route::get('/registration', function () {return view('registration');});
 
 Route::middleware(['auth', 'user_role:yv,yip'])->group(function (){
      // Private pages accessible to all relevant user roles
-     Route::get('/dashboard', function () {
-         return view('livewire.dashboard');
-     })->name('dashboard');
-     Route::get('/profile', function () {
-         return view('livewire.profile');
-     })->name('profile');
+     Route::get('/dashboard', function () {return view('livewire.dashboard');})->name('dashboard');
+     Route::get('/profile', function () {return view('livewire.profile');})->name('profile');
  });
 
 Route::middleware(['auth', 'user_role:yv'])->group(function () {
@@ -30,9 +26,7 @@ Route::middleware(['auth', 'user_role:yv'])->group(function () {
      Route::get('/virtual-passport', function () {return view('livewire.virtual-passport');})->name('virtual-passport');
      Route::get('/volunteer-manual', function () {return view('livewire.volunteer-manual');})->name('volunteer-manual');
      Route::get('/leaderboard', function () {return view('livewire.leaderboard');})->name('leaderboard');
-     Route::get('/messages', function () {return view('livewire.messages');})->name('messages');
-     Route::get('/profile', function () {return view('livewire.profile');})->name('profile');
-     
+     // Route::get('/messages', function () {return view('livewire.messages');})->name('messages');
 });
 
 
