@@ -88,14 +88,12 @@ class MyProfile extends Component
     public function editProfilePic($id){
         try{
             $user = User::find($id);
-    
-            if ($user->userData->profile_picture && $user->userData->profile_picture !== 'images/blank_profile_pic.png') {
-                $pathToDelete = $user->userData->profile_picture;
-                $pathToDelete = str_replace('uploads', '', $pathToDelete);
-                if (Storage::disk('public_uploads')->exists($pathToDelete)) {
-                    Storage::disk('public_uploads')->delete($pathToDelete);
-                }
-            }                            
+            
+            $pathToDelete = $user->userData->profile_picture;
+            $pathToDelete = str_replace('uploads', '', $pathToDelete);
+            if (Storage::disk('public_uploads')->exists($pathToDelete)) {
+                Storage::disk('public_uploads')->delete($pathToDelete);
+            }                       
     
             if($this->profile_picture){
                 $imageName = $this->profile_picture->getClientOriginalName();

@@ -141,7 +141,6 @@ class AdminProfileTable extends Component
     public function closePopup(){
         $this->popup_message = null;
     }
-
     public function opedEditProfileForm(){
         $this->openEditProfile = true;
     }
@@ -150,13 +149,11 @@ class AdminProfileTable extends Component
         try{
             $user = User::find($id);
     
-            if ($user->admin->profile_picture && $user->admin->profile_picture !== 'images/blank_profile_pic.png') {
-                $pathToDelete = $user->admin->profile_picture;
-                $pathToDelete = str_replace('uploads', '', $pathToDelete);
-                if (Storage::disk('public_uploads')->exists($pathToDelete)) {
-                    Storage::disk('public_uploads')->delete($pathToDelete);
-                }
-            }                            
+            $pathToDelete = $user->admin->profile_picture;
+            $pathToDelete = str_replace('uploads', '', $pathToDelete);
+            if (Storage::disk('public_uploads')->exists($pathToDelete)) {
+                Storage::disk('public_uploads')->delete($pathToDelete);
+            }                         
     
             if($this->profile_picture){
                 $imageName = $this->profile_picture->getClientOriginalName();
@@ -172,7 +169,6 @@ class AdminProfileTable extends Component
             throw $e;
         }
     }
-
     private function isPasswordComplex($password){
         $containsUppercase = preg_match('/[A-Z]/', $password);
         $containsNumber = preg_match('/\d/', $password);

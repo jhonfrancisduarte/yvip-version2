@@ -172,6 +172,7 @@
                                         <label class="label" for="permanent_city">Select City:</label>
                                         <select class="label select-status" wire:model.live="permanent_selectedCity" id="permanent_city" name="permanent_selectedCity">
                                             @if($pcities)
+                                                <option class="label" value="">Select City</option>
                                                 @foreach ($pcities as $city)
                                                     <option class="label" value="{{ $city->city_municipality_description }}">{{ $city->city_municipality_description }}</option>
                                                 @endforeach
@@ -210,6 +211,7 @@
                                         <label class="label" for="residential_city">Select City:</label>
                                         <select class="label select-status" wire:model.live="residential_selectedCity" id="residential_city" name="residential_selectedCity">
                                             @if($rcities)
+                                                <option class="label" value="">Select City</option>
                                                 @foreach ($rcities as $city)
                                                     <option class="label" value="{{ $city->city_municipality_description }}">{{ $city->city_municipality_description }}</option>
                                                 @endforeach
