@@ -6,9 +6,10 @@
                     <div class="card-header">
                         <h3 class="card-title">IP Beneficiaries Management</h3> 
                         {{-- <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;"><i class="fa fa-plus">Add</i> </button> --}}
-                        <button type="button" class="btn btn-info btn-sm" style="float: right;" wire:click="deactivatedAccounts">
+                        <button type="button" class="btn btn-info btn-sm btn-accounts" style="float: right;" wire:click="deactivatedAccounts">
                             @if($active_status === 1)
                                 Deactivated Accounts
+                                <span style="background-color: {{ count($deactivatedIPs) > 0 ? 'red' : '#343a40' }}">{{ count($deactivatedIPs) }}</span>
                             @else
                                 Active Accounts
                             @endif

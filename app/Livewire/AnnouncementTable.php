@@ -8,7 +8,6 @@ use Livewire\WithFileUploads;
 use Livewire\Component;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
 class AnnouncementTable extends Component
 {
@@ -69,10 +68,27 @@ class AnnouncementTable extends Component
             ->search(trim($this->search))
             ->orderBy('announcement.created_at', 'desc')
             ->get();
+
         $announcements->transform(function ($announcement) {
-            $dateString = $announcement->created_at;
-            $date = new DateTime($dateString);
-            $announcement->formatted_created_at = $date->format('d F Y');
+            $currentTime = now();
+            $announcementTime = $announcement->created_at;
+            $difference = $currentTime->diffInSeconds($announcementTime);
+            if ($difference < 60) {
+                $announcement->formatted_created_at = $difference . ' seconds ago';
+            } elseif ($difference < 3600) {
+                $minutes = floor($difference / 60);
+                $announcement->formatted_created_at = $minutes . ' minute' . ($minutes > 1 ? 's' : '') . ' ago';
+            } elseif ($difference < 86400) {
+                $hours = floor($difference / 3600);
+                if ($hours >= 1 && $hours < 2) {
+                    $announcement->formatted_created_at = '1 hour ago';
+                } else {
+                    $hoursDifference = round($hours);
+                    $announcement->formatted_created_at = $hoursDifference . ' hours ago';
+                }
+            } else {
+                $announcement->formatted_created_at = $announcementTime->format('d F Y');
+            }
             return $announcement;
         });
 

@@ -48,6 +48,11 @@ Route::middleware(['auth', 'user_role:sa'])->group(function (){
      // Private pages accessible to super admin only
      Route::get('/admin-dashboard', function () {return view('livewire.admin-dashboard');})->name('admin-dashboard');
  });
+ 
+Route::middleware(['auth', 'user_role:sa,vs,vsa,ips'])->group(function (){
+     // Private pages accessible to all admin user
+     Route::get('/admin-profile', function () {return view('livewire.admin.admin-profile');})->name('admin-profile');
+ });
 
 Route::middleware(['auth', 'user_role:sa,vs,vsa'])->group(function (){
      // Private pages accessible only to admin users (super admin, volunteer secretariat and assistant)

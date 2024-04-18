@@ -115,6 +115,10 @@ class IpbsTable extends Component
                 })
                 ->get();
 
+        $deactivatedIPs = User::where('user_role', 'yip')
+            ->where('users.active_status', 2)
+            ->get();
+
         $ageRange = User::where('user_role', 'yip')
                 ->join('user_data', 'users.id', '=', 'user_data.user_id')
                 ->select('user_data.age')
@@ -122,7 +126,8 @@ class IpbsTable extends Component
                 ->get();
 
         return view('livewire.ipbs-table', [
-            'volunteers' => $volunteers, 
+            'volunteers' => $volunteers,
+            'deactivatedIPs' => $deactivatedIPs,  
             'ageRange' => $ageRange, 
             'cities' => $this->cities
         ]);

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <link rel="stylesheet" type="text/css" href="Client/file.css">
     <link rel="stylesheet" type="text/css" href="css/volunteers.css">
+    <link rel="stylesheet" type="text/css" href="css/ipbs.css">
 @endsection
 
 @section('content')

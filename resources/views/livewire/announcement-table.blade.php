@@ -9,7 +9,11 @@
             @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa' || session('user_role') == 'ips')
                 <div class="announcement-header">
                     <div class="card-header">
-                        <h3 class="card-title">Volunteer Announcements</h3> 
+                        @if($dashboardType === "yv")
+                            <h3 class="card-title">Volunteer Announcements</h3>
+                        @else
+                            <h3 class="card-title">International Program Announcements</h3>
+                        @endif 
                     </div>
                     <div class="card-header header-sticky-top">
                         <button class="btn btn-success btn-sm" wire:click="openAddForm"><i class="fa fa-plus"></i></button>

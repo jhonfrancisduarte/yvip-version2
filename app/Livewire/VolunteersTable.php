@@ -117,6 +117,10 @@ class VolunteersTable extends Component
                 })
                 ->get();
 
+        $deactivatedVolunteers = User::where('user_role', 'yv')
+                ->where('users.active_status', 2)
+                ->get();
+
         $ageRange = User::where('user_role', 'yv')
                 ->join('user_data', 'users.id', '=', 'user_data.user_id')
                 ->select('user_data.age')
@@ -124,7 +128,8 @@ class VolunteersTable extends Component
                 ->get();
 
         return view('livewire.volunteers-table', [
-            'volunteers' => $volunteers, 
+            'volunteers' => $volunteers,
+            'deactivatedVolunteers' => $deactivatedVolunteers, 
             'ageRange' => $ageRange, 
             'cities' => $this->cities
         ]);
