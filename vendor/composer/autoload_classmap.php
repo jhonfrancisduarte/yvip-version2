@@ -14,6 +14,14 @@ return array(
     'AnourValar\\EloquentSerialize\\Service' => $vendorDir . '/anourvalar/eloquent-serialize/src/Service.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Filament\\Resources\\AnnouncementResource' => $baseDir . '/app/Filament/Resources/AnnouncementResource.php',
+    'App\\Filament\\Resources\\AnnouncementResource\\Pages\\CreateAnnouncement' => $baseDir . '/app/Filament/Resources/AnnouncementResource/Pages/CreateAnnouncement.php',
+    'App\\Filament\\Resources\\AnnouncementResource\\Pages\\EditAnnouncement' => $baseDir . '/app/Filament/Resources/AnnouncementResource/Pages/EditAnnouncement.php',
+    'App\\Filament\\Resources\\AnnouncementResource\\Pages\\ListAnnouncements' => $baseDir . '/app/Filament/Resources/AnnouncementResource/Pages/ListAnnouncements.php',
+    'App\\Filament\\Resources\\EventsAndTrainingsResource' => $baseDir . '/app/Filament/Resources/EventsAndTrainingsResource.php',
+    'App\\Filament\\Resources\\EventsAndTrainingsResource\\Pages\\CreateEventsAndTrainings' => $baseDir . '/app/Filament/Resources/EventsAndTrainingsResource/Pages/CreateEventsAndTrainings.php',
+    'App\\Filament\\Resources\\EventsAndTrainingsResource\\Pages\\EditEventsAndTrainings' => $baseDir . '/app/Filament/Resources/EventsAndTrainingsResource/Pages/EditEventsAndTrainings.php',
+    'App\\Filament\\Resources\\EventsAndTrainingsResource\\Pages\\ListEventsAndTrainings' => $baseDir . '/app/Filament/Resources/EventsAndTrainingsResource/Pages/ListEventsAndTrainings.php',
     'App\\Filament\\Resources\\UserDataResource' => $baseDir . '/app/Filament/Resources/UserDataResource.php',
     'App\\Filament\\Resources\\UserDataResource\\Pages\\CreateUserData' => $baseDir . '/app/Filament/Resources/UserDataResource/Pages/CreateUserData.php',
     'App\\Filament\\Resources\\UserDataResource\\Pages\\EditUserData' => $baseDir . '/app/Filament/Resources/UserDataResource/Pages/EditUserData.php',
@@ -43,7 +51,6 @@ return array(
     'App\\Livewire\\AnnouncementTable' => $baseDir . '/app/Livewire/AnnouncementTable.php',
     'App\\Livewire\\CityProvinceDropdown' => $baseDir . '/app/Livewire/CityProvinceDropdown.php',
     'App\\Livewire\\Dashboard' => $baseDir . '/app/Livewire/Dashboard.php',
-    'App\\Livewire\\EventsAndTrainings' => $baseDir . '/app/Livewire/EventsAndTrainings.php',
     'App\\Livewire\\Forms\\RegisterForm' => $baseDir . '/app/Livewire/Forms/RegisterForm.php',
     'App\\Livewire\\Index' => $baseDir . '/app/Livewire/Index.php',
     'App\\Livewire\\IpBeneficiaries' => $baseDir . '/app/Livewire/IpBeneficiaries.php',
@@ -204,11 +211,8 @@ return array(
     'Cron\\MinutesField' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
     'Cron\\MonthField' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
     'DanHarrin\\DateFormatConverter\\Converter' => $vendorDir . '/danharrin/date-format-converter/src/Converter.php',
-<<<<<<< HEAD
-=======
     'DanHarrin\\LivewireRateLimiting\\Exceptions\\TooManyRequestsException' => $vendorDir . '/danharrin/livewire-rate-limiting/src/Exceptions/TooManyRequestsException.php',
     'DanHarrin\\LivewireRateLimiting\\WithRateLimiting' => $vendorDir . '/danharrin/livewire-rate-limiting/src/WithRateLimiting.php',
->>>>>>> upstream/master
     'Database\\Factories\\UserFactory' => $baseDir . '/database/factories/UserFactory.php',
     'Database\\Seeders\\DatabaseSeeder' => $baseDir . '/database/seeders/DatabaseSeeder.php',
     'DateError' => $vendorDir . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
@@ -1414,6 +1418,7 @@ return array(
     'Filament\\Actions\\Events\\ActionCalling' => $vendorDir . '/filament/actions/src/Events/ActionCalling.php',
     'Filament\\Actions\\Exceptions\\Hold' => $vendorDir . '/filament/actions/src/Exceptions/Hold.php',
     'Filament\\Actions\\ExportAction' => $vendorDir . '/filament/actions/src/ExportAction.php',
+    'Filament\\Actions\\ExportPdfAction' => $vendorDir . '/filament/actions/src/ExportPdfAction.php',
     'Filament\\Actions\\Exports\\Concerns\\CanFormatState' => $vendorDir . '/filament/actions/src/Exports/Concerns/CanFormatState.php',
     'Filament\\Actions\\Exports\\Downloaders\\Contracts\\Downloader' => $vendorDir . '/filament/actions/src/Exports/Downloaders/Contracts/Downloader.php',
     'Filament\\Actions\\Exports\\Downloaders\\CsvDownloader' => $vendorDir . '/filament/actions/src/Exports/Downloaders/CsvDownloader.php',
@@ -1444,8 +1449,6 @@ return array(
     'Filament\\Actions\\StaticAction' => $vendorDir . '/filament/actions/src/StaticAction.php',
     'Filament\\Actions\\Testing\\TestsActions' => $vendorDir . '/filament/actions/src/Testing/TestsActions.php',
     'Filament\\Actions\\ViewAction' => $vendorDir . '/filament/actions/src/ViewAction.php',
-<<<<<<< HEAD
-=======
     'Filament\\AvatarProviders\\Contracts\\AvatarProvider' => $vendorDir . '/filament/filament/src/AvatarProviders/Contracts/AvatarProvider.php',
     'Filament\\AvatarProviders\\UiAvatarsProvider' => $vendorDir . '/filament/filament/src/AvatarProviders/UiAvatarsProvider.php',
     'Filament\\Billing\\Providers\\Contracts\\Provider' => $vendorDir . '/filament/filament/src/Billing/Providers/Contracts/Provider.php',
@@ -1479,7 +1482,6 @@ return array(
     'Filament\\FontProviders\\Contracts\\FontProvider' => $vendorDir . '/filament/filament/src/FontProviders/Contracts/FontProvider.php',
     'Filament\\FontProviders\\GoogleFontProvider' => $vendorDir . '/filament/filament/src/FontProviders/GoogleFontProvider.php',
     'Filament\\FontProviders\\LocalFontProvider' => $vendorDir . '/filament/filament/src/FontProviders/LocalFontProvider.php',
->>>>>>> upstream/master
     'Filament\\Forms\\Commands\\Aliases\\MakeFieldCommand' => $vendorDir . '/filament/forms/src/Commands/Aliases/MakeFieldCommand.php',
     'Filament\\Forms\\Commands\\Aliases\\MakeLayoutComponentCommand' => $vendorDir . '/filament/forms/src/Commands/Aliases/MakeLayoutComponentCommand.php',
     'Filament\\Forms\\Commands\\Concerns\\CanGenerateForms' => $vendorDir . '/filament/forms/src/Commands/Concerns/CanGenerateForms.php',
@@ -1653,8 +1655,6 @@ return array(
     'Filament\\Forms\\Set' => $vendorDir . '/filament/forms/src/Set.php',
     'Filament\\Forms\\Testing\\TestsComponentActions' => $vendorDir . '/filament/forms/src/Testing/TestsComponentActions.php',
     'Filament\\Forms\\Testing\\TestsForms' => $vendorDir . '/filament/forms/src/Testing/TestsForms.php',
-<<<<<<< HEAD
-=======
     'Filament\\GlobalSearch\\Actions\\Action' => $vendorDir . '/filament/filament/src/GlobalSearch/Actions/Action.php',
     'Filament\\GlobalSearch\\Contracts\\GlobalSearchProvider' => $vendorDir . '/filament/filament/src/GlobalSearch/Contracts/GlobalSearchProvider.php',
     'Filament\\GlobalSearch\\DefaultGlobalSearchProvider' => $vendorDir . '/filament/filament/src/GlobalSearch/DefaultGlobalSearchProvider.php',
@@ -1680,7 +1680,6 @@ return array(
     'Filament\\Http\\Responses\\Auth\\LogoutResponse' => $vendorDir . '/filament/filament/src/Http/Responses/Auth/LogoutResponse.php',
     'Filament\\Http\\Responses\\Auth\\PasswordResetResponse' => $vendorDir . '/filament/filament/src/Http/Responses/Auth/PasswordResetResponse.php',
     'Filament\\Http\\Responses\\Auth\\RegistrationResponse' => $vendorDir . '/filament/filament/src/Http/Responses/Auth/RegistrationResponse.php',
->>>>>>> upstream/master
     'Filament\\Infolists\\Commands\\Aliases\\MakeEntryCommand' => $vendorDir . '/filament/infolists/src/Commands/Aliases/MakeEntryCommand.php',
     'Filament\\Infolists\\Commands\\Aliases\\MakeLayoutComponentCommand' => $vendorDir . '/filament/infolists/src/Commands/Aliases/MakeLayoutComponentCommand.php',
     'Filament\\Infolists\\Commands\\MakeEntryCommand' => $vendorDir . '/filament/infolists/src/Commands/MakeEntryCommand.php',
@@ -1762,10 +1761,8 @@ return array(
     'Filament\\Infolists\\Infolist' => $vendorDir . '/filament/infolists/src/Infolist.php',
     'Filament\\Infolists\\InfolistsServiceProvider' => $vendorDir . '/filament/infolists/src/InfolistsServiceProvider.php',
     'Filament\\Infolists\\Testing\\TestsActions' => $vendorDir . '/filament/infolists/src/Testing/TestsActions.php',
-<<<<<<< HEAD
     'Filament\\Notifications\\Actions\\Action' => $vendorDir . '/filament/notifications/src/Actions/Action.php',
     'Filament\\Notifications\\Actions\\ActionGroup' => $vendorDir . '/filament/notifications/src/Actions/ActionGroup.php',
-=======
     'Filament\\Livewire\\DatabaseNotifications' => $vendorDir . '/filament/filament/src/Livewire/DatabaseNotifications.php',
     'Filament\\Livewire\\GlobalSearch' => $vendorDir . '/filament/filament/src/Livewire/GlobalSearch.php',
     'Filament\\Livewire\\Notifications' => $vendorDir . '/filament/filament/src/Livewire/Notifications.php',
@@ -1785,7 +1782,6 @@ return array(
     'Filament\\Notifications\\Actions\\ActionGroup' => $vendorDir . '/filament/notifications/src/Actions/ActionGroup.php',
     'Filament\\Notifications\\Auth\\ResetPassword' => $vendorDir . '/filament/filament/src/Notifications/Auth/ResetPassword.php',
     'Filament\\Notifications\\Auth\\VerifyEmail' => $vendorDir . '/filament/filament/src/Notifications/Auth/VerifyEmail.php',
->>>>>>> upstream/master
     'Filament\\Notifications\\BroadcastNotification' => $vendorDir . '/filament/notifications/src/BroadcastNotification.php',
     'Filament\\Notifications\\Collection' => $vendorDir . '/filament/notifications/src/Collection.php',
     'Filament\\Notifications\\Concerns\\CanBeInline' => $vendorDir . '/filament/notifications/src/Concerns/CanBeInline.php',
@@ -1805,8 +1801,6 @@ return array(
     'Filament\\Notifications\\Notification' => $vendorDir . '/filament/notifications/src/Notification.php',
     'Filament\\Notifications\\NotificationsServiceProvider' => $vendorDir . '/filament/notifications/src/NotificationsServiceProvider.php',
     'Filament\\Notifications\\Testing\\TestsNotifications' => $vendorDir . '/filament/notifications/src/Testing/TestsNotifications.php',
-<<<<<<< HEAD
-=======
     'Filament\\Pages\\Actions\\Action' => $vendorDir . '/filament/filament/src/Pages/Actions/Action.php',
     'Filament\\Pages\\Actions\\ActionGroup' => $vendorDir . '/filament/filament/src/Pages/Actions/ActionGroup.php',
     'Filament\\Pages\\Actions\\ButtonAction' => $vendorDir . '/filament/filament/src/Pages/Actions/ButtonAction.php',
@@ -1902,7 +1896,6 @@ return array(
     'Filament\\Resources\\RelationManagers\\RelationManager' => $vendorDir . '/filament/filament/src/Resources/RelationManagers/RelationManager.php',
     'Filament\\Resources\\RelationManagers\\RelationManagerConfiguration' => $vendorDir . '/filament/filament/src/Resources/RelationManagers/RelationManagerConfiguration.php',
     'Filament\\Resources\\Resource' => $vendorDir . '/filament/filament/src/Resources/Resource.php',
->>>>>>> upstream/master
     'Filament\\Support\\Assets\\AlpineComponent' => $vendorDir . '/filament/support/src/Assets/AlpineComponent.php',
     'Filament\\Support\\Assets\\Asset' => $vendorDir . '/filament/support/src/Assets/Asset.php',
     'Filament\\Support\\Assets\\AssetManager' => $vendorDir . '/filament/support/src/Assets/AssetManager.php',
@@ -1982,8 +1975,6 @@ return array(
     'Filament\\Support\\SupportServiceProvider' => $vendorDir . '/filament/support/src/SupportServiceProvider.php',
     'Filament\\Support\\View\\Components\\Modal' => $vendorDir . '/filament/support/src/View/Components/Modal.php',
     'Filament\\Support\\View\\ViewManager' => $vendorDir . '/filament/support/src/View/ViewManager.php',
-<<<<<<< HEAD
-=======
     'Filament\\Tables\\Actions\\Action' => $vendorDir . '/filament/tables/src/Actions/Action.php',
     'Filament\\Tables\\Actions\\ActionGroup' => $vendorDir . '/filament/tables/src/Actions/ActionGroup.php',
     'Filament\\Tables\\Actions\\AssociateAction' => $vendorDir . '/filament/tables/src/Actions/AssociateAction.php',
@@ -2242,7 +2233,6 @@ return array(
     'Filament\\Widgets\\Widget' => $vendorDir . '/filament/widgets/src/Widget.php',
     'Filament\\Widgets\\WidgetConfiguration' => $vendorDir . '/filament/widgets/src/WidgetConfiguration.php',
     'Filament\\Widgets\\WidgetsServiceProvider' => $vendorDir . '/filament/widgets/src/WidgetsServiceProvider.php',
->>>>>>> upstream/master
     'FontLib\\AdobeFontMetrics' => $vendorDir . '/phenx/php-font-lib/src/FontLib/AdobeFontMetrics.php',
     'FontLib\\BinaryStream' => $vendorDir . '/phenx/php-font-lib/src/FontLib/BinaryStream.php',
     'FontLib\\EOT\\File' => $vendorDir . '/phenx/php-font-lib/src/FontLib/EOT/File.php',

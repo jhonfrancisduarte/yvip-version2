@@ -28,7 +28,7 @@ class Login extends Component
             }
             elseif (in_array($user->user_role, ['sa', 'vs', 'vsa', 'ips'])) {
                 session(['user_role' => $user->user_role]); 
-                return redirect()->intended('/admin');
+                return redirect()->intended('/admin-dashboard');
             }
         }
 
