@@ -30,7 +30,19 @@
                     <div class="user-info">
                         <div class="row1 row-header">
                             <div class="col1">
-                                <label class="label">Position: <span>{{ $user ? $user['passport_number'] : '' }}</span></label>
+                                <label class="label">Position: 
+                                    <span>
+                                        @if($user['user_role'] === "sa")
+                                            Super Admin
+                                        @elseif($user['user_role'] === "vs")
+                                            Volunteer Secretariat
+                                        @elseif($user['user_role'] === "vsa")
+                                            Volunteer Secretariat Assistant
+                                        @elseif($user['user_role'] === "ips")
+                                            International Program Secretariat
+                                        @endif
+                                    </span>
+                                </label>
                             </div>
                         </div>
         
@@ -111,7 +123,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label class="label">Select picture</label>
-                                                <input type="file" accept="image/*" id="profile_picture" wire:model.live='profile_picture'/>
+                                                <input type="file" accept="image/*" id="profile_picture" wire:model.live='profile_picture' required/>
                                             </div>
                                         </div>
                                     </div>

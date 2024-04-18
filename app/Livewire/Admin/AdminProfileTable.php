@@ -9,16 +9,13 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Rule;
-use Illuminate\Support\Facades\DB;
-use App\Models\PhilippineProvinces;
-use App\Models\PhilippineCities;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
 class AdminProfileTable extends Component
 {
     use WithFileUploads;
     public $popup_message;
+    #[Rule('required')]
     public $profile_picture;
     public $openEditProfile;
     public $myInfo = true;
@@ -28,18 +25,7 @@ class AdminProfileTable extends Component
     public $value;
     #[Rule('required|min:2|max:100')]
     public $thisData;
-    public $name_of_school;
-    public $course;
-    public $nature_of_work;
-    public $employer;
-    #[Rule('required')]
-    public $selectedProvince;
-    #[Rule('required')]
-    public $selectedCity;
-    #[Rule('required|min:2')]
-    public $p_street_barangay;
-    public $provinces;
-    public $cities;
+
     #[Rule('required|min:8')]
     public $password;
     #[Rule('required|min:8')]
@@ -59,7 +45,7 @@ class AdminProfileTable extends Component
         $userId = Auth::user()->id;
         $user = User::where('users.id', $userId)
             ->join('admin', 'users.id', '=', 'admin.user_id')
-            ->select('users.email', 'admin.*')
+            ->select('users.email', 'users.user_role', 'admin.*')
             ->first();
         
         return view('livewire.admin.admin-profile-table',[
@@ -94,6 +80,104 @@ class AdminProfileTable extends Component
             $this->toBeEdited = $data;
             $this->formattedData = str_replace('_', ' ', $data);
         }
+    }
+
+    public function closeEditThis(){
+        $this->toBeEdited = null;
+    }
+
+    public function closeEditProfileForm(){
+        $this->openEditProfile = null;
+        $this->profile_picture = null;
+        $this->toBeEdited = null;
+    }
+
+    public function updateInfo($info){
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        if($user){
+            if($info === "email"){
+                $user->update([
+                    $info => $this->thisData,
+                ]);
+                $this->popup_message = null;
+                $this->popup_message =  'Email updated successfully.';
+            }
+            elseif($info === "password"){       
+                if ($this->isPasswordComplex($this->new_password) === false) {
+                    $this->addError('new_password', 'The password must contain at least one uppercase letter, one number, and one special character.');
+                    return;
+                }
+
+                if ($this->new_password !== $this->c_new_pass) {
+                    $this->addError('new_password', 'The new password do not match.');
+                    return;
+                }
+
+                if (!Hash::check($this->password, Auth::user()->password)) {
+                    $this->addError('new_password', 'The current password is incorrect.');
+                    return;
+                }
+
+                $user->update([
+                    'password' => Hash::make($this->new_password),
+                ]);
+                $this->popup_message = null;
+                $this->popup_message =  'Password updated successfully.';
+            }
+            else{
+                $user->admin()->update([
+                    $info => $this->thisData,
+                ]);
+                $this->popup_message = null;
+                $this->popup_message =  $this->formattedData . ' updated successfully.';
+            }
+            $this->toBeEdited = null;
+            $this->thisData = null;
+        }
+
+    }
+
+    public function closePopup(){
+        $this->popup_message = null;
+    }
+
+    public function opedEditProfileForm(){
+        $this->openEditProfile = true;
+    }
+
+    public function editProfilePic($id){
+        try{
+            $user = User::find($id);
+    
+            if ($user->admin->profile_picture && $user->admin->profile_picture !== 'images/blank_profile_pic.png') {
+                $pathToDelete = $user->admin->profile_picture;
+                $pathToDelete = str_replace('uploads', '', $pathToDelete);
+                if (Storage::disk('public_uploads')->exists($pathToDelete)) {
+                    Storage::disk('public_uploads')->delete($pathToDelete);
+                }
+            }                            
+    
+            if($this->profile_picture){
+                $imageName = $this->profile_picture->getClientOriginalName();
+                $imagePath = $this->profile_picture->storeAs('profilePics', $imageName, 'public_uploads');
+                $imagePath = "uploads/" . $imagePath;
+                $user->admin()->update(['profile_picture' => $imagePath]);
+            }
+            $this->popup_message = null;
+            $this->popup_message = 'Profile picture updated successfully.';
+            $this->profile_picture = null;
+            $this->openEditProfile = null;
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    private function isPasswordComplex($password){
+        $containsUppercase = preg_match('/[A-Z]/', $password);
+        $containsNumber = preg_match('/\d/', $password);
+        $containsSpecialChar = preg_match('/[^A-Za-z0-9]/', $password);
+        return $containsUppercase && $containsNumber && $containsSpecialChar;
     }
 
 }

@@ -20,16 +20,11 @@ class IpRegistrationTable extends Component
     public $popup_message;
 
     public function render(){
-        $volunteers = User::where('user_role', 'yv')
+        $volunteers = User::where('user_role', 'yip')
             ->join('user_data', 'users.id', '=', 'user_data.user_id')
             ->select('users.email', 'users.active_status', 'user_data.*')
             ->search(trim($this->search))
             ->where('users.active_status', 0)
-            ->where('user_data.is_ip_participant', 1)
-            ->where('user_data.is_volunteer', 1)
-            // ->when($this->status, function ($query) {
-            //     return $query->where('users.active_status', $this->status);
-            // })
             ->get();
 
         return view('livewire.tables.ip-registration-table',[

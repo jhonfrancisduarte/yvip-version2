@@ -201,8 +201,8 @@
                                         <td>{{ $volunteer->civil_status }}</td>
                                         <td>{{ $volunteer->nationality }}</td>
                                         <td>{{ $volunteer->blood_type }}</td>
-                                        <td>{{ $volunteer->p_street_barangay }} {{ $volunteer->permanent_selectedCity }} {{ $volunteer->permanent_selectedProvince }}</td>
-                                        <td>{{ $volunteer->r_street_barangay }} {{ $volunteer->residential_selectedCity }} {{ $volunteer->residential_selectedProvince }}</td>
+                                        <td class="label-capitalize">{{ $volunteer->p_street_barangay }}, {{ $volunteer->permanent_selectedCity }}, {{ $volunteer->permanent_selectedProvince }}</td>
+                                        <td class="label-capitalize">{{ $volunteer->r_street_barangay }}, {{ $volunteer->residential_selectedCity }}, {{ $volunteer->residential_selectedProvince }}</td>
                                         <td>{{ $volunteer->educational_background }}</td>
                                         <td>{{ $volunteer->status }}</td>
                                         @if($volunteer->status == "Professional")
@@ -496,13 +496,13 @@
 
                 <div class="row1">
                     <div class="col1">
-                        <label class="label">Permanent Adrress: <span>{{ $volunteer->p_street_barangay }} {{ $volunteer->permanent_selectedCity }} {{ $volunteer->permanent_selectedProvince }}</span></label>
+                        <label class="label label-capitalize">Permanent Adrress: <span>{{ $volunteer->p_street_barangay }}, {{ $volunteer->permanent_selectedCity }}, {{ $volunteer->permanent_selectedProvince }}</span></label>
                     </div>
                 </div>
 
                 <div class="row1">
                     <div class="col1">
-                        <label class="label">Residential Adrress: <span>{{ $volunteer->r_street_barangay }} {{ $volunteer->residential_selectedCity }} {{ $volunteer->residential_selectedProvince }}</span></label>
+                        <label class="label label-capitalize">Residential Adrress: <span>{{ $volunteer->r_street_barangay }}, {{ $volunteer->residential_selectedCity }}, {{ $volunteer->residential_selectedProvince }}</span></label>
                     </div>
                 </div>
 

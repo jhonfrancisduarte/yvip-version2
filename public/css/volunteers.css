@@ -170,6 +170,10 @@
     top: -10px; left: -10px;
 }
 
+.label-capitalize span{
+    text-transform: capitalize !important;
+}
+
 .loader {
     position: absolute;
     top: 6px; right: 5px;

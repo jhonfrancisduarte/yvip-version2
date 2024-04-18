@@ -103,7 +103,7 @@
                         </a>
 
                     <li class="nav-item">
-                        <a href="{{ route('volunteer-messages') }}" class="nav-link {{ request()->routeIs('volunteer-messages') ? 'active' : '' }}" wire:navigate>
+                        <a href="/my-messages" class="nav-link" target="_blank">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             Volunteer Messages
@@ -165,14 +165,14 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('ip-messages') }}" class="nav-link {{ request()->routeIs('ip-messages') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             IP Messages
                         </p>
                         </a>
-                    </li>
+                    </li> --}}
 
                 @endif
 

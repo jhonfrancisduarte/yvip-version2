@@ -19,6 +19,7 @@ class MyProfile extends Component
 {
     use WithFileUploads;
     public $popup_message;
+    #[Rule('required')]
     public $profile_picture;
     public $openEditProfile;
     public $myInfo = true;
@@ -52,7 +53,6 @@ class MyProfile extends Component
         'password' => 'required|min:8',
         'new_password' => 'required|min:8',
         'c_new_pass' => 'required|same:new_password',
-
     ];
 
     public function render(){
@@ -279,7 +279,6 @@ class MyProfile extends Component
     public function hideDeleteDialog(){
         $this->deleteAccDialog = null;
     }
-
 
     private function isPasswordComplex($password){
         $containsUppercase = preg_match('/[A-Z]/', $password);

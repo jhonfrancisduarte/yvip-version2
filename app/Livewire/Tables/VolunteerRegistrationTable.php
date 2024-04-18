@@ -25,11 +25,6 @@ class VolunteerRegistrationTable extends Component
         ->select('users.email', 'users.active_status', 'user_data.*')
         ->search(trim($this->search))
         ->where('users.active_status', 0)
-        ->where('user_data.is_ip_participant', null)
-        ->where('user_data.is_volunteer', 1)
-        // ->when($this->status, function ($query) {
-        //     return $query->where('users.active_status', $this->status);
-        // })
         ->get();
 
         return view('livewire.tables.volunteer-registration-table',[

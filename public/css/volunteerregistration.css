@@ -45,6 +45,9 @@
     color: #28a745;
 }
 
+.label-capitalize span{
+    text-transform: capitalize !important;
+}
 
 .checkbox {
     width: 13px;
