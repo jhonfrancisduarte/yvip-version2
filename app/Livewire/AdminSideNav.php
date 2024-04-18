@@ -34,7 +34,7 @@ class AdminSideNav extends Component
     //         'password' => $this->password,
     //         'user_role' => $this->user_role,
     //     ]);
-    
+
     //     admin::create([
     //         'user_id' => $user->id,
     //         'first_name' => $this->first_name,

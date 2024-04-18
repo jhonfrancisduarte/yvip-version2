@@ -66,4 +66,34 @@ class AdminProfileTable extends Component
             'user' => $user,
         ]);
     }
+
+    public function openEditMyInfo(){
+        $this->myInfo = null;
+        $this->editMyInfo = true;
+    }
+
+    public function closeEditMyInfo(){
+        $this->myInfo = true;
+        $this->editMyInfo = null;
+    }
+
+    public function editThis($data){
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        if ($user && $user->admin){
+            if($data === "email"){
+                $columnValue = $user->{$data};
+                $this->thisData = $columnValue;
+            }
+            elseif($data === "password"){
+            }
+            else{
+                $columnValue = $user->admin->get([$data])->pluck($data)->first();
+                $this->thisData = $columnValue;
+            }
+            $this->toBeEdited = $data;
+            $this->formattedData = str_replace('_', ' ', $data);
+        }
+    }
+
 }

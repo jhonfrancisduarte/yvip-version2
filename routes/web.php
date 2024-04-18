@@ -76,7 +76,7 @@ Route::middleware(['auth', 'user_role:sa,ips'])->group(function (){
      Route::get('/ip-messages', function () {return view('livewire.ip-messages');})->name('ip-messages');
 });
 
- 
+
 
 
 

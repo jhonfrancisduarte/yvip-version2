@@ -1,14 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Virtual Passport</title>
+    <title>My Virtual Passport</title>
 @endsection
 
-
 @section('content')
-
     @livewire('side-nav')
-
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
@@ -25,7 +22,6 @@
                 </div>
             </div>
         </div>
+        @livewire('tables.virtual-passport-table')
     </div>
-
 @endsection
-
