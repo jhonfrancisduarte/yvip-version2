@@ -45,7 +45,6 @@ Route::middleware(['auth', 'user_role:yip'])->group(function () {
      Route::get('/ip-passport', function () {return view('livewire.ip-passport');})->name('ip-passport');
      Route::get('/post-program-obligation', function () {return view('livewire.post-program-obligation');})->name('post-program-obligation');
 });
-});
 
 Route::middleware(['auth', 'user_role:sa,vs,vsa,ips'])->group(function (){
      //Private pages accessible to all relevant admin roles
