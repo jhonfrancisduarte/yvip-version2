@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Volunteers' Dashboard</title>
+    <title>Volunteers Events and Trainings</title>
 @endsection
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/announcement.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/volunteers.css') }}">
+    <link rel="stylesheet" type="text/css" href="css/announcement.css">
+    <link rel="stylesheet" type="text/css" href="css/volunteers.css">
 @endsection
 
 @section('content')
