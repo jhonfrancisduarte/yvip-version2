@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\PhilippineProvinces;
 use App\Models\PhilippineCities;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use DateTime;
+use Illuminate\Support\Facades\Session;
 class MyProfile extends Component
 {
     use WithFileUploads;
@@ -38,6 +40,20 @@ class MyProfile extends Component
     public $p_street_barangay;
     public $provinces;
     public $cities;
+    #[Rule('required|min:8')]
+    public $password;
+    #[Rule('required|min:8')]
+    public $new_password;
+    #[Rule('required|min:8')]
+    public $c_new_pass;
+    public $deleteAccDialog;
+
+    protected $rules = [
+        'password' => 'required|min:8',
+        'new_password' => 'required|min:8',
+        'c_new_pass' => 'required|same:new_password',
+
+    ];
 
     public function render(){
         if ($this->selectedProvince != null) {
@@ -132,6 +148,8 @@ class MyProfile extends Component
                 $columnValue = $user->{$data};
                 $this->thisData = $columnValue;
             }
+            elseif($data === "password"){
+            }
             else{
                 $columnValue = $user->userData->get([$data])->pluck($data)->first();
                 $this->thisData = $columnValue;
@@ -196,6 +214,30 @@ class MyProfile extends Component
                 $user->update([
                     $info => $this->thisData,
                 ]);
+                $this->popup_message = null;
+                $this->popup_message =  'Email updated successfully.';
+            }
+            elseif($info === "password"){       
+                if ($this->isPasswordComplex($this->new_password) === false) {
+                    $this->addError('new_password', 'The password must contain at least one uppercase letter, one number, and one special character.');
+                    return;
+                }
+
+                if ($this->new_password !== $this->c_new_pass) {
+                    $this->addError('new_password', 'The new password do not match.');
+                    return;
+                }
+
+                if (!Hash::check($this->password, Auth::user()->password)) {
+                    $this->addError('new_password', 'The current password is incorrect.');
+                    return;
+                }
+
+                $user->update([
+                    'password' => Hash::make($this->new_password),
+                ]);
+                $this->popup_message = null;
+                $this->popup_message =  'Password updated successfully.';
             }
             else{
                 $user->userData()->update([
@@ -216,5 +258,33 @@ class MyProfile extends Component
         }
     }
 
+    public function deleteAccount(){
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        if($user){
+            // soft deletion
+            $user->update([
+                'active_status' => 2,
+            ]);
+            Auth::logout();
+            Session::flush();
+            return redirect('/');
+        }
+    }
 
+    public function deleteDialog(){
+        $this->deleteAccDialog = true;
+    }
+
+    public function hideDeleteDialog(){
+        $this->deleteAccDialog = null;
+    }
+
+
+    private function isPasswordComplex($password){
+        $containsUppercase = preg_match('/[A-Z]/', $password);
+        $containsNumber = preg_match('/\d/', $password);
+        $containsSpecialChar = preg_match('/[^A-Za-z0-9]/', $password);
+        return $containsUppercase && $containsNumber && $containsSpecialChar;
+    }
 }

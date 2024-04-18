@@ -36,8 +36,11 @@ class Login extends Component
                     session(['user_role' => $user->user_role]); 
                     return redirect()->intended('/volunteer-dashboard');
                 }
+            }elseif($user->active_status === 2){
+                $this->addError('login', 'Invalid credentials.');
+            }else{
+                $this->addError('status', 'Your account has not been approved yet!'); 
             }
-            $this->addError('status', 'Your account has not been approved yet!'); 
         }else{
             $this->addError('login', 'Invalid credentials.');  
         }

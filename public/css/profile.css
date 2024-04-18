@@ -172,6 +172,18 @@
     display: flex;
 }
 
+.edit-footer{
+    position: relative;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    margin-top: 20px;
+    display: flex;
+}
+
+.edit-footer button{
+    margin-right: 5px;
+}
+
 .edit-title button{
     position: absolute;
     right: 0;
@@ -187,6 +199,10 @@
 
 .address-label span{
     text-transform: capitalize;
+}
+
+.anns-fixed .delete-message{
+    width: 500px;
 }
 
 @media (max-width:768px){

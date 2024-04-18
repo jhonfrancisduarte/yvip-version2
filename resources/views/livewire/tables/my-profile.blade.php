@@ -323,6 +323,11 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="edit-footer">
+                            <button class="btn btn-info btn-xs" wire:click="editThis('password')">Change Password</button>  
+                            <button class="btn btn-danger btn-xs" wire:click.live="deleteDialog">Delete Account</button>  
+                        </div>
                     </div>
                 @endif
             </div>
@@ -523,6 +528,24 @@
                                             @error('r_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>@enderror
                                         </div>
                                     </div>
+                                @elseif($toBeEdited === "password")
+                                    <div class="row1">
+                                        <div class="col2">
+                                            <label class="label label-formatted">Current Password</label>
+                                            <input class="input--style-4" type="password" wire:model.live="password" required>
+                                        </div>
+                                        <div class="col2">
+                                            <label class="label label-formatted">New Password</label>
+                                            <input class="input--style-4" type="password" wire:model.live="new_password" required>
+                                        </div>
+                                        <div class="col2">
+                                            <label class="label label-formatted">Confirm New Password</label>
+                                            <input class="input--style-4" type="password" wire:model.live="c_new_pass" required>
+                                        </div>
+                                    </div>
+                                    @error('new_password') 
+                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                    @enderror
                                 @else
                                     <div class="row1">
                                         <div class="col2">
@@ -545,6 +568,30 @@
                 </div>
             </div>
         </div>
+    @endif
+
+    @if($deleteAccDialog)
+        <div class="anns anns-fixed">
+            <div class="close-form" wire:click="hideDeleteDialog"></div>
+            <div class="user-info delete-message">
+
+                <div class="row1 row-header">
+                    <div class="col1">
+                        <label class="label">Are you sure you want to delete your account?</label>
+                    </div>
+                </div>                   
+                <div class="row1 row-footer">
+                    <div class="col">
+                        <div class="user-data">
+                            <button class="btn btn-danger btn-xs" wire:click="deleteAccount" wire:loading.attr="disabled">Yes</button>
+                            <button class="btn btn-success btn-xs" wire:click="hideDeleteDialog">Cancel</button>
+                        </div>
+                    </div>
+                
+                </div>
+
+            </div>
+        </div>    
     @endif
 
 </section>

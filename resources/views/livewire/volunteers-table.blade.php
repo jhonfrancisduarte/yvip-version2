@@ -5,7 +5,13 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Youth Volunteers Management</h3> 
-                        {{-- <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;"><i class="fa fa-plus">Add</i> --}}
+                        {{-- <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;"><i class="fa fa-plus">Add</i> </button> --}}
+                        <button type="button" class="btn btn-info btn-sm" style="float: right;" wire:click="deactivatedAccounts">
+                            @if($active_status === 1)
+                                Deactivated Accounts
+                            @else
+                                Active Accounts
+                            @endif
                         </button>
 
                         <div class="modal fade" id="add">
@@ -129,7 +135,15 @@
                         </div>
                     </div>
                     <div class="card-header card-header1">
-                        <label class="label">Number of Results: <span>{{ count($volunteers )}}</span></label>
+                        <label class="label" style="color: {{ $active_status === 2 ? 'red' : 'green' }}">
+                            @if($active_status === 2)
+                                Deactivated Accounts  
+                            @else
+                                Active Accounts 
+                            @endif
+                            <span> | </span>
+                        </label>
+                        <label class="label"> Number of Results: <span>{{ count($volunteers )}}</span></label>
                     </div>
 
                     <div class="card-body scroll-table">
@@ -165,6 +179,9 @@
                                     <tr>
                                         <td class="right-action-btn">
                                             <button class="btn btn-info btn-xs" wire:click="showUserData({{ $volunteer->user_id }})">View</button>
+                                            @if($active_status === 2)
+                                                <button class="btn btn-success btn-xs" wire:click="reactivateDialog({{ $volunteer->user_id }})">Reactivate</button>
+                                            @endif
                                             <button class="btn btn-danger btn-xs" wire:click="deleteDialog({{ $volunteer->user_id }})">Delete</button>
                                         </td>
                                         <td>{{ $volunteer->passport_number }}</td>
@@ -254,6 +271,39 @@
                                 <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Cancel</button>
                             @else
                                 <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Close</button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    @endif
+
+    @if($reactivateVolunteerId)
+        <div class="users-data-all-container">
+            <div class="close-form" wire:click="hideReactivateDialog"></div>
+            <div class="user-info">
+
+                <div class="row1 row-header">
+                    <div class="col1">
+                        @if($deleteMessage)
+                            <label class="label" style="color: green;">{{ $deleteMessage }}</label>
+                        @else
+                            <label class="label">Are you sure you want to reactivate this volunteer?</label>
+                        @endif
+                    </div>
+                </div>
+                
+                <div class="row1 row-footer">
+                    <div class="col">
+                        <div class="user-data">
+                            @if($disableButton == "No")
+                                <button class="btn-green" wire:click="reactivateVolunteer({{ $reactivateVolunteerId }})" wire:loading.attr="disabled">Yes
+                                    {{-- <div class="loader" wire:loading></div> --}}
+                                </button>
+                                <button class="btn-close-user-data btn-50" wire:click="hideReactivateDialog">Cancel</button>
+                            @else
+                                <button class="btn-close-user-data btn-50" wire:click="hideReactivateDialog">Close</button>
                             @endif
                         </div>
                     </div>
@@ -451,7 +501,11 @@
                 <div class="row1 row-footer">
                     <div class="col">
                         <div class="user-data">
-                            <button class="btn-green" wire:click="exportToPdf" wire:loading.attr="disabled">Export Data</button>
+                            @if($active_status === 2)
+                                <button class="btn-green" wire:click="reactivateDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Reactivate</button>
+                            @else
+                                <button class="btn-green" wire:click="exportToPdf" wire:loading.attr="disabled">Export Data</button>
+                            @endif
                             <button class="btn-close-user-data" wire:click="hideUserData">Close</button>
                             <button class="btn-danger" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Delete Volunteer</button>
                         </div>

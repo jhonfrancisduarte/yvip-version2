@@ -18,11 +18,12 @@ class IpbsTable extends Component
     public $disableButton = "No";
     public $deleteMessage;
     public $userDetails;
-
+    public $reactivateVolunteerId;
     public $provinces;
     public $cities;
     public $selectedProvince;
     public $selectedCity;
+    public $active_status = 1;
 
     public function showUserData($userId){
         $this->selectedUserDetails = User::where('users.id', $userId)
@@ -100,6 +101,9 @@ class IpbsTable extends Component
                 ->when($this->age_range, function ($query) {
                     return $query->where('user_data.age', $this->age_range);
                 })
+                ->when($this->active_status, function ($query) {
+                    return $query->where('users.active_status', $this->active_status);
+                })
                 ->when($this->civil_status, function ($query) {
                     return $query->where('user_data.civil_status', $this->civil_status);
                 })
@@ -122,5 +126,44 @@ class IpbsTable extends Component
             'ageRange' => $ageRange, 
             'cities' => $this->cities
         ]);
+    }
+
+    public function deactivatedAccounts(){
+        if($this->active_status == 2){
+            $this->active_status = 1;
+        }else{
+            $this->active_status = 2;
+        }
+    }
+
+    public function reactivateVolunteer($userId){
+        $user = User::find($userId);
+        if ($user){
+            $user->update([
+                'active_status' => 1,
+            ]);
+            $this->deleteMessage = 'Reactivated successfully.';
+            $this->disableButton = "Yes";
+        }else{
+            $this->deleteMessage = 'Reactivated unsuccessfully.';
+            $this->disableButton = "Yes";
+        }
+        $this->reactivateVolunteerId = null;
+    }
+
+    public function reactivateDialog($userId){
+        $this->reactivateVolunteerId = $userId;
+        if($this->selectedUserDetails != null){
+            $this->selectedUserDetails = null;
+        }
+    }
+
+    public function hideReactivateDialog(){
+        $this->deleteMessage = null;
+        $this->reactivateVolunteerId = null;
+        $this->disableButton = "No";
+        if($this->selectedUserDetails != null){
+            $this->selectedUserDetails = null;
+        }
     }
 }
