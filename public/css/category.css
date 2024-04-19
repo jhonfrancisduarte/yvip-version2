@@ -1,0 +1,74 @@
+.table th,
+.table td {
+    margin: 10px;
+    padding: 10px;
+}
+
+.table-header td {
+    border: 1px solid #ccc;
+    text-align: justify;
+}
+
+.expColumn ul {
+    padding-left: 20px;
+}
+
+.table-header th,
+.table-header {
+    border: 1px solid #ccc;
+}
+
+.action {
+    text-align: center;
+}
+
+.actionColumn .btn {
+    width: 100%;
+}
+
+.expColumn {
+    overflow-wrap: break-word;
+}
+
+.recordRow .expColumn,
+.skillsColumn,
+.actionColumn,
+.categoryColumn {
+    border: 1px solid #ccc;
+}
+
+.btn-add-skill {
+    margin-left: 81%
+}
+
+.column-skill-form {
+    column-count: 2;
+}
+
+.skill-checkbox {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
+
+.every-checkbox {
+    width: auto;
+    margin-left: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.every-label {
+    margin-left: 0;
+    margin-top: 5px;
+    max-width: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+
+.form-width {
+    max-width: 40% !important;
+}

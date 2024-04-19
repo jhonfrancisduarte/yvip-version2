@@ -25,4 +25,9 @@ class VolunteerSkills extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function all_skills()
+    {
+        return $this->belongsTo(Skills::class);
+    }
 }

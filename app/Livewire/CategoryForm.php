@@ -3,101 +3,108 @@
 namespace App\Livewire;
 
 use App\Models\VolunteerSkills;
-use Livewire\Component;
-use Illuminate\Support\Facades\Session;
 use App\Models\VolunteerCategory;
+use App\Models\Volunteer;
+use App\Models\Skills;
+use App\Models\Categories;
+use App\Models\User;
+use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryForm extends Component
 {
-    public $categories = [
-        'Support' => ['Encoding/Typing', 'Printing', 'Photocopying of Documents'],
-        'Logistics' => ['Ushers', 'Program Runners', 'Physical Set-Up', 'Cleaning', 'Maintenance', 'Marshalls', 'Photo Documentation', 'Packing of Relief Goods'],
-        'Management' => ['Organizer/Partner', 'Organization', 'Disaster Relief', 'Mobilization'],
-        'Highly Technical' => ['Artists', 'Educators', 'Performers', 'Hosting', 'Medical Practitioners', 'Expert Resource', 'Speakers', 'Paramedics']
-    ];
-
-    public $categoriesData;
+    public $skills;
     public $selectedSkills = [];
-    public $selectedCategories = [];
-    public $description;
     public $experience;
-    //public $selectedSkillsByCategory = [];
 
-    public function render()
+    public function mount()
     {
-        $this->selectedSkills = Session::get('selectedSkills', []);
-        return view('livewire.forms.category-form');
+        // Fetch skills data for checkboxes
+        $this->skills = Skills::all();
     }
 
     public function submit()
     {
-        $categoriesString = implode(', ', $this->getSelectedCategories());
-        $skillsString = implode(', ', $this->selectedSkills);
-
+        // Get the currently authenticated user
         $user = Auth::user();
-
-        $user->volunteerCategory()->updateOrCreate(
+    
+        // Fetch selected skill names directly without IDs
+        $selectedSkillIds = $this->selectedSkills;
+    
+        // Fetch category IDs associated with the selected skills
+        $categoryIds = Skills::whereIn('id', $selectedSkillIds)->pluck('category_id')->unique();
+    
+        // Fetch category names from the all_categories table
+        $categoryNames = Categories::whereIn('id', $categoryIds)->pluck('all_categories_name')->toArray();
+    
+        // Concatenate category names into a single string
+        $concatenatedCategoryNames = implode(', ', $categoryNames);
+    
+        // Store concatenated category names in the volunteer_categories table
+        VolunteerCategory::updateOrCreate(
             ['user_id' => $user->id],
-            ['category_name' => $categoriesString]
+            ['category_name' => $concatenatedCategoryNames]
         );
 
-        $user->volunteer_skills()->updateOrCreate(
-            ['user_id' => $user->id],
-            ['skill_name' => $skillsString]
-        );
+        $selectedSkillNames = Skills::whereIn('id', $this->selectedSkills)->pluck('all_skills_name')->toArray();
+    
+        // Check if a record for the user already exists
+        $existingRecord = VolunteerSkills::where('user_id', $user->id)->first();
+    
+        // Prepare data for update or create
+        $data = [
+            'skill_name' => implode(', ', $selectedSkillNames),
+            // You can add other fields if needed
+        ];
 
-        Session::put('selectedSkills', $this->selectedSkills);
-
+        Volunteer::create([
+            'user_id' => $user->id,
+            'volunteer_experience' => $this->experience,
+        ]);
+    
+        // Fetch the selected skills again after submission
+        $this->selectedSkills = VolunteerSkills::where('user_id', $user->id)->pluck('skill_name')->toArray();
+    
+        // Clear selected skills after submission
+        $this->selectedSkills = [];
+    
+        // Redirect or perform any other actions after submission
         return redirect()->route('my-category');
     }
 
+    public function render()
+    {
+        // Get the currently authenticated user
+        $user = Auth::user();
+
+        // Fetch the selected skills for the user
+        $selectedSkillNames = VolunteerSkills::where('user_id', $user->id)->pluck('skill_name')->toArray();
+        $userCategories = VolunteerCategory::where('user_id', $user->id)->pluck('category_name')->first();
+        $volunteerExperiences = Volunteer::where('user_id', Auth::id())->get();
+
+
+        return view('livewire.forms.category-form', [
+            'selectedSkillNames' => $selectedSkillNames,
+            'userCategories' => $userCategories,
+            'volunteerExperiences' => $volunteerExperiences,
+        ]);
+    }
 
     public function updateCategoryDescription()
     {
+        // Get the currently authenticated user
         $user = Auth::user();
 
-        $user->volunteer->update([
+        // Store the volunteer experience in the volunteers table
+        Volunteer::create([
+            'user_id' => $user->id,
             'volunteer_experience' => $this->experience,
         ]);
 
-        Session::put('experience', $this->experience);
+        // Reset the experience input field
+        $this->experience = '';
 
-        return redirect()->route('my-category');
-    }
-
-    private function getSelectedCategories()
-    {
-        $selectedCategories = [];
-
-        foreach ($this->categories as $category => $skills) {
-            $categorySelected = false;
-
-            foreach ($this->selectedSkills as $selectedSkill) {
-                if (in_array($selectedSkill, $skills)) {
-                    $categorySelected = true;
-                    break;
-                }
-            }
-
-            if ($categorySelected) {
-                $selectedCategories[] = $category;
-            }
-        }
-
-        if (empty($selectedCategories)) {
-            $selectedCategories[] = 'No category selected';
-        }
-
-        return $selectedCategories;
-    }
-
-    public function mount()
-    {
-        // Retrieve categories data associated with the authenticated user
-        $user = Auth::user();
-        $this->categoriesData = $user->volunteerCategory()->get();
-
-        $this->experience = $user->volunteer->volunteer_experience;
+        // Redirect or perform any other actions after submission
+       return redirect()->route('my-category');
     }
 }

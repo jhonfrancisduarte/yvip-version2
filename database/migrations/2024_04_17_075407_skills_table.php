@@ -11,25 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('users')) {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('all_skills', function (Blueprint $table) {
             $table->id();
-            $table->string('email', 50);
-            $table->string('password', 1000);
-            $table->string('name')->default('');
-            $table->string('user_role', 100);
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('all_categories')->onDelete('cascade');
+            $table->string('all_skills_name', 1000);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
-}
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        if (Schema::hasTable('users')) {
-            Schema::dropIfExists('users');
-            }
+        Schema::dropIfExists('all_skills');
     }
 };

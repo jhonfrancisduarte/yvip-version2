@@ -11,18 +11,22 @@ return new class extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('user_volunteer_skills')) {
         Schema::create('user_volunteer_skills', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('skill_id');
+            //$table->unsignedBigInteger('skill_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('skill_id')->references('id')->on('volunteer_skills')->onDelete('cascade');
+            //$table->foreign('skill_id')->references('id')->on('volunteer_skills')->onDelete('cascade');
             $table->timestamps();
         });
     }
+}
 
     public function down()
     {
-        Schema::dropIfExists('user_volunteer_skills');
+        if (Schema::hasTable('user_volunteer_skills')) {
+            Schema::dropIfExists('user_volunteer_skills');
+            }
     }
 };

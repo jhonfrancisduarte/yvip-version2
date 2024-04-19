@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/announcement.css">
     <link rel="stylesheet" type="text/css" href="css/volunteers.css">
     <link rel="stylesheet" type="text/css" href="css/volunteerregistration.css">
+    <link rel="stylesheet" type="text/css" href="css/skills-and-categories.css">
 @endsection
 
 @section('content')
