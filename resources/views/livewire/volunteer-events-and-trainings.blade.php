@@ -1,14 +1,12 @@
-<<<<<<< HEAD
-=======
 @extends('layouts.app')
 
 @section('title')
-    <title>Volunteers Events and Trainings</title>
+    <title>Volunteers Events and Trainings Dashboard</title>
 @endsection
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="css/announcement.css">
-    <link rel="stylesheet" type="text/css" href="css/volunteers.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/announcement.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/volunteers.css') }}">
 @endsection
 
 @section('content')
@@ -37,4 +35,3 @@
     </div>
 
 @endsection
->>>>>>> master

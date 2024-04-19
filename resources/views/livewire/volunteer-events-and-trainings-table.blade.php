@@ -2,12 +2,11 @@
     <div class="card-header">
         <h3 class="card-title">Volunteers Events and Trainings Announcement</h3> 
         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;">
-            <i class="fa fa-plus"></i> Add
-        </button>
+            <i class="fa fa-plus"></i> Add</button>
 
         <div class="modal fade" id="add">
             <div class="modal-dialog modal-md">
-                <form action="" method="post" id="add-volunteer-form">
+                <form wire:submit.prevent="submitForm" id="add-volunteer-form">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Events and Trainings</h4>
@@ -18,42 +17,41 @@
                         <div class="card card-primary">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Event Type</label>
-                                            <select class="form-control" id="event-type">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Event Type</label>
+                                            <select wire:model="eventType" class="form-control" id="event-type">
                                                 <option value="Event">Event</option>
                                                 <option value="Training">Training</option>
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Name of Event</label>
-                                            <input type="text" class="form-control" name="event_name" id="event-name" placeholder="Enter Event Name">
+                                            <input type="text" wire:model="eventName" class="form-control" name="event_name" id="event-name" placeholder="Enter Event Name">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Organizer/Facilitator</label>
-                                            <input type="text" class="form-control" name="organizer" placeholder="Enter Organizer/Facilitator">
+                                            <input type="text" wire:model="organizer" class="form-control" name="organizer" placeholder="Enter Organizer/Facilitator">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Date</label>
-                                            <input type="date" class="form-control" name="date">
+                                            <input type="date" wire:model="eventDate" class="form-control" name="date">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Number of applicable volunteering hours</label>
-                                            <input type="number" class="form-control" name="volunteering_hours" placeholder="Enter Number of Hours">
+                                            <input type="number" wire:model="volunteerHours" class="form-control" name="volunteering_hours" placeholder="Enter Number of Hours">
                                         </div>
-                            
                                     </div>
                                     <div class="col-12">
-                                        <!-- Other input fields here -->
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
@@ -75,7 +73,6 @@
                                     </div>
                                     <div class="col-12" id="added-tags" style="display:none;">
                                         <label>Added Tags: </label>
-                                        <!-- Selected tags will be displayed here -->
                                     </div>
                                 </div>
                             </div>

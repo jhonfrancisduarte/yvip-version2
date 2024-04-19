@@ -8,10 +8,10 @@
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset(auth()->user()->admin->profile_picture) }}" class="img-circle elevation-2" alt="User Image">
+    
                     </div>
                     <div class="info">
-                    <a href="#" class="d-block">{{ auth()->user()->admin->first_name }} {{ auth()->user()->admin->last_name }}</a>
+                    
                 </div>
             </div>
 
@@ -27,14 +27,14 @@
                         </a>
                     </li>
 
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="#" wire:click='create' wire:navigate>
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Register Admin
                         </p>
                         </a>
-                    </li>  --}}
+                    </li>  
 
                 @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa')
                     {{-- Volunteer navlinks --}}
