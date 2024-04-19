@@ -7,11 +7,9 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Add your skillset</h3>
-                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add"
-                                style="margin-left:83.5%"><i class="fa fa-plus">Add</i>
-                            </button>
+                            <button type="button" class="btn btn-success btn-sm btn-add-skill" data-toggle="modal" data-target="#add">Add Skill</button>
                             <div class="modal fade" id="add">
-                                <div class="modal-dialog modal-sm" style="max-width: 40%;">
+                                <div class="modal-dialog modal-sm form-width">
                                     <form wire:submit.prevent="submit">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -22,27 +20,13 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <div style="display: flex; justify-content: center;">
-                                                    <div style="flex: 1;">
-                                                        <div
-                                                            style="max-width: 100%; justify-content: center;">
-                                                            <!-- <form wire:submit.prevent="submit"> -->
-                                                            <div style="column-count: 2;">
-                                                                @foreach ($categories as $category => $categorySkills)
-                                                                    @foreach ($categorySkills as $skill)
-                                                                        <!-- <div style="border: 1px solid #ccc; margin-bottom: 5px; display: flex; width: 100%; border-radius: 3px;"> -->
-                                                                            <div style="border: 1px solid #ccc; display: flex; align-items: center; border-radius: 3px; ">
-                                                                                <label for="{{ $skill }}" style="margin-left: 0; margin-top: 5px; max-width: 100%; width: 100%">{{ $skill }}</label>
-                                                                                <input type="checkbox" id="{{ $skill }}" value="{{ $skill }}" wire:model="selectedSkills">
-                                                                            </div>
-                                                                        <!-- </div> -->
-                                                                    @endforeach
-                                                                @endforeach
-                                                            </div>
-                                                            <!-- <button type="submit" style="background-color: #085c9c; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">Submit</button> -->
-                                                            <!-- </form> -->
+                                                <div class="column-skill-form">
+                                                    @foreach($skills as $skill)
+                                                        <div class="skill-checkbox">
+                                                            <input type="checkbox" id="{{ $skill->id }}" wire:model="selectedSkills" value="{{ $skill->id }}" class="every-checkbox">
+                                                            <label for="{{ $skill->id }}" class="every-label">{{ $skill->all_skills_name }}</label>
                                                         </div>
-                                                    </div>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                             <div class="modal-footer justify-content-between">
@@ -50,7 +34,6 @@
                                                         class="fa fa-times"></i> Close</button>
                                                 <button type="submit" class="btn btn-primary"><i
                                                         class="fa fa-check" ></i> Submit</button>
-
                                             </div>
                                         </div>
                                     </form>
@@ -61,44 +44,40 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <style>
-                                .table th, .table td {
-                                    padding: 10px;
-                                }
-                            </style>
-                            <table class="table" style="">
+                            <table class="table">
                                 <thead>
-                                    <tr>
-                                        <th style="width: 50%">My Category</th>
-                                        <th style="width: 50%">Experience</th>
-                                        <th style="width: 20%">Actions</th>
+                                    <tr class="table-header">
+                                        <th>My Category</th>
+                                        <th>My Skills</th>
+                                        <th width="20%">Experience</th>
+                                        <th class="action" width="7%">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            @foreach ($categories as $category => $categorySkills)
-                                                @if (count(array_intersect($categorySkills, $selectedSkills)) > 0)
-                                                    <div>
-                                                        <strong>{{ $category }}</strong>
-                                                        <ul style="padding-left: 20px;">
-                                                            @foreach ($categorySkills as $skill)
-                                                                @if(in_array($skill, $selectedSkills))
-                                                                    <li>{{ $skill }}</li>
-                                                                @endif
-                                                            @endforeach
-                                                        </ul>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td style="overflow-wrap: break-word;">{{ $experience }}</td>
-                                        <td>
-                                            <div class="d-flex justify-content-end">
-                                                <button type="button" class="btn btn-info btn-xs mr-2" data-toggle="modal"
-                                                    data-target="#update"><i class="fa fa-pencil-alt" style="margin: 5px; font-size: 20px"></i>
-                                                </button>
+                                    <tr class="recordRow">
+                                        <td class="categoryColumn">
+                                            <div>
+                                                <p>{{ $userCategories }}</p>
                                             </div>
+                                        </td>
+                                        <td class="skillsColumn">
+                                            <div>
+                                                @foreach($selectedSkillNames as $skillName)
+                                                    <p>{{ $skillName }}</p>
+                                                @endforeach
+                                            </div>
+                                        </td>
+                                        <td class="expColumn">
+                                            <ul>
+                                                @foreach($volunteerExperiences as $experience)
+                                                    <li>{{ $experience->volunteer_experience }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                        <td class="actionColumn">
+                                                <button type="button" class="btn btn-info btn-xs mr-2" data-toggle="modal"
+                                                    data-target="#update">Edit Experience
+                                                </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -114,13 +93,11 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="card card-primary">
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="exampleInputEmail1">Experience</label>
-                                                        <input type="text" class="form-control" id="experience" name="experience" wire:model="experience">
-
-                                                    </div>
+                                            <div class="modal-body">
+                                                <!-- Volunteer experience input -->
+                                                <div class="form-group">
+                                                    <label for="experience">Experience</label>
+                                                    <textarea class="form-control" id="experience" name="experience" wire:model.defer="experience"></textarea>
                                                 </div>
                                             </div>
                                             <div class="modal-footer justify-content-between">

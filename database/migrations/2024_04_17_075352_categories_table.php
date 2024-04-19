@@ -11,25 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('users')) {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('all_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('email', 50);
-            $table->string('password', 1000);
-            $table->string('name')->default('');
-            $table->string('user_role', 100);
+            $table->string('all_categories_name');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
-}
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        if (Schema::hasTable('users')) {
-            Schema::dropIfExists('users');
-            }
+        Schema::dropIfExists('all_categories');
     }
 };

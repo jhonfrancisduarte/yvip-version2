@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -49,16 +50,15 @@ class User extends Authenticatable
         return $this->hasOne(UserVolunteerSkills::class);
     }
 
-    public function volunteer_skills()
-    {
-        return $this->hasOne(VolunteerSkills::class);
-    }
-
     public function volunteer(){
         return $this->hasOne(Volunteer::class);
     }
 
-    public function volunteerCategory(){
+    public function volunteer_skills(){
+        return $this->hasMany(VolunteerSkills::class, 'all_skills_id', 'id');
+    }
+
+    public function volunteer_categories(){
         return $this->hasOne(VolunteerCategory::class);
     }
 

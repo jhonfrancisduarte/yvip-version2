@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable('volunteer_skills')) {
         Schema::create('volunteer_skills', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
@@ -20,12 +21,14 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
+}
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
+        if (Schema::hasTable('volunteer_skills')) {
         Schema::dropIfExists('volunteer_skills');
+        }
     }
 };

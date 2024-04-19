@@ -14,13 +14,19 @@ class VolunteerCategory extends Model
         // Add other fillable fields as needed
     ];
 
-    public function user(){
+    public function all_categories()
+    {
+        return $this->belongsTo(Categories::class);
+    }
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
     public function volunteer()
     {
-        return $this->hasOne(Volunteer::class);
+        return $this->belongsTo(Volunteer::class);
     }
 
 }
