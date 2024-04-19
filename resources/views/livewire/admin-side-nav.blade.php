@@ -95,10 +95,10 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('volunteer-category') }}" class="nav-link {{ request()->routeIs('volunteer-category') ? 'active' : '' }}" wire:navigate>
+                        <a href="{{ route('skills-and-categories') }}" class="nav-link {{ request()->routeIs('skills-and-categories') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-passport"></i>
                         <p>
-                            Volunteer Category
+                            Skills and Category
                         </p>
                         </a>
 
