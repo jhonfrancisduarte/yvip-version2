@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        @livewire('tables.volunteer-hours-table');
+        @livewire('tables.volunteer-hours-table')
         
     </div>
 

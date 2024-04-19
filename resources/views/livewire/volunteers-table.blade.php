@@ -8,10 +8,19 @@
                         {{-- <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;"><i class="fa fa-plus">Add</i> </button> --}}
                         <button type="button" class="btn btn-info btn-sm btn-accounts" style="float: right;" wire:click="deactivatedAccounts">
                             @if($active_status === 1)
-                                Deactivated Accounts
+                                <div class="is-mobile-view">
+                                    <i class="fas fa-user-slash"></i>
+                                </div>
+                                <div class="is-desktop-view">
+                                    Deactivated Accounts
+                                </div>
                                 <span style="background-color: {{ count($deactivatedVolunteers) > 0 ? 'red' : '#343a40' }}">{{ count($deactivatedVolunteers) }}</span>
                             @else
-                                Active Accounts
+                                <div class="is-mobile-view">
+                                    <i class="fas fa-user-check"></i>                                </div>
+                                <div class="is-desktop-view">
+                                    Active Accounts
+                                </div>
                             @endif
                         </button>
 
@@ -147,7 +156,7 @@
                         <label class="label"> Number of Results: <span>{{ count($volunteers )}}</span></label>
                     </div>
 
-                    <div class="card-body scroll-table">
+                    <div class="card-body scroll-table" id="scroll-table">
                         <table id="volunteers-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -317,6 +326,7 @@
         <div class="users-data-all-container">
             <div class="close-form" wire:click="hideUserData"></div>
             <div class="user-info">
+            <div class="info">
                 <div class="row1 row-header">
                     <div class="col1">
                         <img src="{{ $selectedUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
@@ -498,8 +508,8 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="row1 row-footer">
+            </div>
+                <div class="row1">
                     <div class="col">
                         <div class="user-data">
                             @if($active_status === 2)

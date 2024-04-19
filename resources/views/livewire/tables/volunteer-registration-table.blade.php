@@ -125,11 +125,13 @@
         <div class="users-data-all-container">
             <div class="close-form" wire:click="hideUserData"></div>
             <div class="user-info">
+            <div class="info">
                 <div class="row1">
                     <div class="col1">
                         <img src="{{ $selectedUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
                     </div>
                 </div>
+
                 <div class="row1  row-header">
                     <div class="col2">
                         <div class="user-data">
@@ -142,7 +144,7 @@
                         </div>
                     </div>
                 </div>
-
+    
                 <div class="row1">
                     <div class="col2">
                         <div class="user-data">
@@ -317,6 +319,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
                 <div class="row1 row-footer">
                     <div class="col">

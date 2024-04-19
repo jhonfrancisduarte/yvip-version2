@@ -17,6 +17,7 @@
 
 .users-data-all-container{
     position: fixed;
+    overflow-y: scroll;
     top: 0;
     left: 0;
     width: 100%;
@@ -27,7 +28,31 @@
     background-color: rgba(0, 0, 0, 0.3);
     transition: .3s ease-in-out;
     z-index: 9999;
+    padding-top: 100px !important;
+
 }
+
+.user-info{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.user-info .info{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    display: block;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px rgb(206, 206, 206) solid;
+}
+
+.user-info{
+    z-index: 9;
+}
+
 
 .table-contain{
     width: 95% !important;
@@ -38,6 +63,7 @@
 .scroll-table{
     width: 100%;
     overflow-x: scroll;
+    scroll-behavior: smooth;
 }
 
 .scroll-table::-webkit-scrollbar {
@@ -91,11 +117,6 @@
 
 .user-info .row-header{
     border-bottom: 1px rgb(206, 206, 206) solid;
-}
-
-.user-info .row-footer{
-    padding-top: 10px;
-    border-top: 1px rgb(206, 206, 206) solid;
 }
 
 .user-info .col2{
@@ -190,6 +211,10 @@
     100% { transform: rotate(360deg); }
   }
 
+.is-mobile-view{
+    display: none;
+}
+
 @media (max-width:768px) {
     .user-info .row1{
         display: block;
@@ -209,12 +234,21 @@
     }
 
     .volunteers-table-content .col-md-2{
-        width: 300px;
+        width: 100%;
         margin-top: 10px;
     }
+
     .users-data-all-container{
         padding-top: 150px;
         position: absolute;
+    }
+
+    .is-mobile-view{
+        display: block;
+    }
+
+    .is-desktop-view{
+        display: none;
     }
     
 }

@@ -56,7 +56,7 @@
                                         <td>{{ $admin->email }}</td>
                                         <td>
                                             @if($admin->user_role === "sa")
-                                                <p class="green">Admin</p>
+                                                <p class="green">Super Admin</p>
                                             @elseif($admin->user_role === "vs")
                                                 <p class="blue">Volunteer Secretariat</p>
                                             @elseif($admin->user_role === "vsa")
@@ -183,8 +183,7 @@
         </div>    
     @endif
 
-      {{-- Add Announcement Form --}}
-      @if($openAddAdminForm)
+    @if($openAddAdminForm)
         <div class="anns">
             <div class="close-form" wire:click="closeAddForm"></div>
             <div class="add-announcement-container">
