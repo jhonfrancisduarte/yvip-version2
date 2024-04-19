@@ -30,6 +30,7 @@ class AnnouncementTable extends Component
     public $disableButton = "No";
     public $popup_message;
     public $dashboardType;
+    public $showFullContent = [];
 
     public function createAnnouncement(){
         $this->validate();
@@ -105,8 +106,6 @@ class AnnouncementTable extends Component
         $this->title = $this->openEditAnnouncementForm['title'];
         $this->content = $this->openEditAnnouncementForm['content'];
         $this->category = $this->openEditAnnouncementForm['category'];
-        $this->featured_image = $this->openEditAnnouncementForm['featured_image'];
-        $this->file = $this->openEditAnnouncementForm['attached_file'];
         $this->editAnnouncementId = $annsId;
     }
 
@@ -192,5 +191,4 @@ class AnnouncementTable extends Component
             }
         }
     }
-
 }

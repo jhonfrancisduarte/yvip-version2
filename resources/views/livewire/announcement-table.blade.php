@@ -59,18 +59,20 @@
                         @if($announcement->attached_file)
                             <div class="attached-file">
                                 <p>Attached File: <span>{{ pathinfo(asset($announcement->attached_file), PATHINFO_FILENAME) }}.{{ pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) }}</span> <i class="nav-icon fas fa-file"></i></p>
-
-                                <a href="{{ asset($announcement->attached_file) }}" download>
-                                    <button class="btn btn-info btn-xs">Download</button>
-                                </a>
                                 
-                                <!-- Preview button (for image files) -->
-                                @if(pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) === 'pdf' ||
-                                    pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) === 'docx' ||
-                                    pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) === 'txt' ||
-                                    pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) === 'csv')
-                                    <button class="btn btn-info btn-xs btn-resized" onclick="window.open('{{ asset($announcement->attached_file) }}', '_blank')">Preview</button>
-                                @endif
+                                <div>
+                                    <a href="{{ asset($announcement->attached_file) }}" download>
+                                        <button class="btn btn-info btn-xs">Download</button>
+                                    </a>
+                                    
+                                    <!-- Preview button (for image files) -->
+                                    @if(pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) === 'pdf' ||
+                                        pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) === 'docx' ||
+                                        pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) === 'txt' ||
+                                        pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) === 'csv')
+                                        <button class="btn btn-info btn-xs btn-resized" onclick="window.open('{{ asset($announcement->attached_file) }}', '_blank')">Preview</button>
+                                    @endif
+                                </div>
 
                             </div>
                         @endif
@@ -175,7 +177,7 @@
             </div>
         @endif
 
-        {{-- Add Announcement Form --}}
+        {{-- Edit Announcement Form --}}
         @if($openEditAnnouncementForm)
             <div class="anns">
                 <div class="close-form" wire:click="closeEditForm"></div>
@@ -236,7 +238,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="label">Add Featured Image</label>
-                                                    <input type="file" id="featured_image" wire:model.live='featured_image' value="{{ $featured_image }}"/>
+                                                    <input type="file" id="featured_image" wire:model.live='featured_image'/>
                                                 </div>
                                             </div>
                                         </div>
@@ -245,7 +247,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="label">Attach File</label>
-                                                    <input type="file" id="file" wire:model.live='file' value="{{ $file }}"/>
+                                                    <input type="file" id="file" wire:model.live='file'/>
                                                 </div>
                                             </div>
                                         </div>

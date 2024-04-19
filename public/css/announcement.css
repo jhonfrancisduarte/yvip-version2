@@ -75,7 +75,11 @@
     height: 100%;
 }
 
-.attached-file,
+.attached-file{
+    display: block;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
 .announcement-info{
     display: flex;
     padding-left: 25px;
@@ -198,6 +202,8 @@
     text-align: center;
     color: #28a745;
 }
+
+
 
 .close-form{
     width: 100%;
