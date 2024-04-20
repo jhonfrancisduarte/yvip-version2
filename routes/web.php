@@ -9,12 +9,15 @@ Auth::routes();
 // Public pages
 Route::get('/', function () {return view('welcome');});
 Route::get('/registration', function () {return view('registration');});
+Route::get('/registered', function () {return view('registered');});
+
+
 
 Route::middleware(['auth', 'user_role:yv,yip'])->group(function (){
      // Private pages accessible to all relevant user roles
      Route::get('/dashboard', function () {return view('livewire.dashboard');})->name('dashboard');
      Route::get('/profile', function () {return view('livewire.profile');})->name('profile');
- });
+});
 
 Route::middleware(['auth', 'user_role:yv'])->group(function () {
      // Private pages accessible only to users (youth volunteer)
@@ -29,12 +32,6 @@ Route::middleware(['auth', 'user_role:yv'])->group(function () {
      // Route::get('/messages', function () {return view('livewire.messages');})->name('messages');
 });
 
-
-// Public pages
-Route::get('/', function () {return view('welcome');});
-Route::get('/registration', function () {return view('registration');});
-//Route::get('/category-form', function () {return view('category-form');});
-
 Route::middleware(['auth', 'user_role:yip'])->group(function () {
      // Private pages accessible only to users (ip beneficiaries)
      Route::get('/ip-events', function () {return view('livewire.ip-events');})->name('ip-events');
@@ -47,12 +44,12 @@ Route::middleware(['auth', 'user_role:yip'])->group(function () {
 Route::middleware(['auth', 'user_role:sa'])->group(function (){
      // Private pages accessible to super admin only
      Route::get('/admin-dashboard', function () {return view('livewire.admin-dashboard');})->name('admin-dashboard');
- });
+});
  
 Route::middleware(['auth', 'user_role:sa,vs,vsa,ips'])->group(function (){
      // Private pages accessible to all admin user
      Route::get('/admin-profile', function () {return view('livewire.admin.admin-profile');})->name('admin-profile');
- });
+});
 
 Route::middleware(['auth', 'user_role:sa,vs,vsa'])->group(function (){
      // Private pages accessible only to admin users (super admin, volunteer secretariat and assistant)

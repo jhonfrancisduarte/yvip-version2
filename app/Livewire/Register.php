@@ -132,7 +132,8 @@ class Register extends Component
         $this->permanent_selectedCity = Str::ucfirst(Str::lower($this->permanent_selectedCity));
         $this->residential_selectedProvince = Str::ucfirst(Str::lower($this->residential_selectedProvince));
         $this->residential_selectedCity = Str::ucfirst(Str::lower($this->residential_selectedCity));
-
+        sleep(1);
+        DB::beginTransaction();
         try {
             $this->validate();
             if (!$this->isPasswordComplex($this->password)) {
@@ -152,29 +153,6 @@ class Register extends Component
                 'name' => $this->first_name . " " . $this->middle_name . " " . $this->last_name,
             ]);
 
-            // $user->volunteer_skills()->create([
-            //     'user_id' => $user -> id,
-            //     'all_skills_id' => $skill->id,
-            //     'description' => "",
-            // ]);
-
-            $user->user_volunteer_skills()->create([
-                'user_id' => $user->id,
-                //'skill_id' => $user->id,
-            ]);
-
-            // $user->volunteer_categories()->create([
-            //     'user_id' => $user->id,
-            //     'all_categories_id' =>$category->id,
-            //     'description' => "",
-            // ]);
-
-            $user->volunteer()->create([
-                'user_id' => $user->id,
-                //'category_id' => $user->id,
-                'volunteer_experience' => "",
-                'volunteering_hours' => 1,
-            ]);
 
             $user->userData()->create([
                 'user_id' => $user->id,
@@ -212,6 +190,8 @@ class Register extends Component
 
             $this->reset();
             session()->flash('successMessage', 'Successfully Registered! Please Wait for admin activation!');
+            sleep(1);
+            return redirect('/registered');
         } catch (\Exception $e) {
             throw $e;
             DB::rollBack();
