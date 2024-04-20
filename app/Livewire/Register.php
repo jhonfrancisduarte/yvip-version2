@@ -154,6 +154,12 @@ class Register extends Component
             ]);
 
 
+            $user->volunteer()->create([
+                'user_id' => $user->id,
+                'volunteer_experience' => "",
+                'volunteering_hours' => 1,
+            ]);
+
             $user->userData()->create([
                 'user_id' => $user->id,
                 'passport_number' => $passportNumber,

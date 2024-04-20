@@ -10,101 +10,172 @@ use App\Models\Categories;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryForm extends Component
 {
     public $skills;
     public $selectedSkills = [];
     public $experience;
+    public $addSkillForm;
+    public $addExperience;
+    public $popup_message;
+    public $ruleForExp;
+    public $selectedSkillIds = [];
+    public $editId;
+    public $editContent;
+
+    public function openAddSkillForm($userId)
+    {
+        $this->addSkillForm = true;
+    }
+
+    public function closeAddSkillForm()
+    {
+        $this->addSkillForm = null;
+    }
+
+    public function openExperienceForm($userId)
+    {
+        $this->addExperience = true;
+    }
+
+    public function closeExperienceForm()
+    {
+        $this->addExperience = null;
+    }
+
+    public function closePopup(){
+        $this->popup_message = null;
+    }
 
     public function mount()
     {
-        // Fetch skills data for checkboxes
         $this->skills = Skills::all();
+        $user = Auth::user();
+        $selectedSkillNames = VolunteerSkills::where('user_id', $user->id)->pluck('skill_name')->first();
+
+        if ($selectedSkillNames) {
+            $selectedSkillNamesArray = explode(',', $selectedSkillNames);
+            $this->selectedSkillIds = Skills::whereIn('all_skills_name', $selectedSkillNamesArray)->pluck('id')->toArray();
+        }
+
+        $this->initializeSelectedSkillIds();
+        $this->selectedSkills = $this->selectedSkillIds;
     }
 
     public function submit()
     {
-        // Get the currently authenticated user
         $user = Auth::user();
-    
-        // Fetch selected skill names directly without IDs
-        $selectedSkillIds = $this->selectedSkills;
-    
-        // Fetch category IDs associated with the selected skills
-        $categoryIds = Skills::whereIn('id', $selectedSkillIds)->pluck('category_id')->unique();
-    
-        // Fetch category names from the all_categories table
-        $categoryNames = Categories::whereIn('id', $categoryIds)->pluck('all_categories_name')->toArray();
-    
-        // Concatenate category names into a single string
-        $concatenatedCategoryNames = implode(', ', $categoryNames);
-    
-        // Store concatenated category names in the volunteer_categories table
-        VolunteerCategory::updateOrCreate(
-            ['user_id' => $user->id],
-            ['category_name' => $concatenatedCategoryNames]
-        );
 
-        $selectedSkillNames = Skills::whereIn('id', $this->selectedSkills)->pluck('all_skills_name')->toArray();
-    
-        // Check if a record for the user already exists
-        $existingRecord = VolunteerSkills::where('user_id', $user->id)->first();
-    
-        // Prepare data for update or create
-        $data = [
-            'skill_name' => implode(', ', $selectedSkillNames),
-            // You can add other fields if needed
-        ];
+        if (!empty($this->selectedSkillIds)) {
+            $categoryIds = Skills::whereIn('id', $this->selectedSkillIds)->pluck('category_id')->unique();
+            $categoryNames = Categories::whereIn('id', $categoryIds)->pluck('all_categories_name')->toArray();
+            $concatenatedCategoryNames = implode(', ', $categoryNames);
+            VolunteerCategory::updateOrCreate(
+                ['user_id' => $user->id],
+                ['category_name' => $concatenatedCategoryNames]
+            );
 
-        Volunteer::create([
-            'user_id' => $user->id,
-            'volunteer_experience' => $this->experience,
-        ]);
-    
-        // Fetch the selected skills again after submission
-        $this->selectedSkills = VolunteerSkills::where('user_id', $user->id)->pluck('skill_name')->toArray();
-    
-        // Clear selected skills after submission
-        $this->selectedSkills = [];
-    
-        // Redirect or perform any other actions after submission
-        return redirect()->route('my-category');
+            $selectedSkillNames = Skills::whereIn('id', $this->selectedSkillIds)->pluck('all_skills_name')->toArray();
+            $concatenatedSkillNames = implode(', ', $selectedSkillNames);
+            VolunteerSkills::updateOrCreate(
+                ['user_id' => $user->id],
+                ['skill_name' => $concatenatedSkillNames]
+            );
+        } else {
+            VolunteerSkills::where('user_id', $user->id)->delete();
+        }
+
+        $this->storeSelectedSkillIds();
+        $this->popup_message = null;
+        $this->popup_message = "Skills added successfully.";
+        $this->addSkillForm = null;
     }
 
     public function render()
     {
-        // Get the currently authenticated user
         $user = Auth::user();
-
-        // Fetch the selected skills for the user
-        $selectedSkillNames = VolunteerSkills::where('user_id', $user->id)->pluck('skill_name')->toArray();
+        $selectedSkillNames = VolunteerSkills::where('user_id', $user->id)->pluck('skill_name')->first();
+        $selectedSkillNamesArray = $selectedSkillNames ? explode(',', $selectedSkillNames) : [];
         $userCategories = VolunteerCategory::where('user_id', $user->id)->pluck('category_name')->first();
         $volunteerExperiences = Volunteer::where('user_id', Auth::id())->get();
 
-
         return view('livewire.forms.category-form', [
-            'selectedSkillNames' => $selectedSkillNames,
+            'selectedSkillNames' => $selectedSkillNamesArray,
             'userCategories' => $userCategories,
             'volunteerExperiences' => $volunteerExperiences,
         ]);
     }
 
-    public function updateCategoryDescription()
+    protected function initializeSelectedSkillIds()
     {
-        // Get the currently authenticated user
+        $userId = Auth::id();
+        $this->selectedSkillIds = Cache::get("user_{$userId}_selected_skill_ids", []);
+    }
+
+    protected function storeSelectedSkillIds()
+    {
+        $userId = Auth::id();
+        Cache::put("user_{$userId}_selected_skill_ids", $this->selectedSkillIds);
+    }
+
+    public function updatedSelectedSkillIds($value)
+    {
+        $this->storeSelectedSkillIds();
+    }
+
+    public function addExp()
+    {
         $user = Auth::user();
 
-        // Store the volunteer experience in the volunteers table
+        $this->validate();
+
         Volunteer::create([
             'user_id' => $user->id,
             'volunteer_experience' => $this->experience,
         ]);
 
-        // Reset the experience input field
         $this->experience = '';
+        $this->addExperience = null;
+        $this->popup_message = null;
+        $this->popup_message = "Experience added successfully.";
+    }
+    
+    public function rules()
+    {
+        return [
+            'experience' => ['required', 'min:2'],
+        ];
+    }
 
-        // Redirect or perform any other actions after submission
-       return redirect()->route('my-category');
+    public function editExpForm($id)
+    {
+        // $this->edit = true;
+        $this->editId = $id;
+        $this->editContent = Volunteer::find($id)->volunteer_experience;
+    }
+
+    public function updateExp()
+    {
+        $this->validate([
+            'editContent' => ['required', 'min:5'],
+        ]);
+    
+        $experience = Volunteer::find($this->editId);
+        $experience->volunteer_experience = $this->editContent;
+        $experience->save();
+    
+        $this->editId = null;
+        $this->editContent = '';
+    
+        $this->popup_message = "Experience updated successfully.";
+    }
+
+    public function closeEditExpForm()
+    {
+        $this->editId = null;
     }
 }
