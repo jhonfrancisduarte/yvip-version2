@@ -215,6 +215,10 @@
     display: none;
 }
 
+.list-td ul{
+    padding-left: 15px;
+}
+
 @media (max-width:768px) {
     .user-info .row1{
         display: block;
