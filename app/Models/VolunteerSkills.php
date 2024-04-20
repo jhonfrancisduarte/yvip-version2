@@ -16,11 +16,6 @@ class VolunteerSkills extends Model
         // Add other fillable fields as needed
     ];
 
-    public function user_volunteer_skills()
-    {
-        return $this->hasOne(UserVolunteerSkills::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
