@@ -82,12 +82,12 @@
 
                             <div class="modal-body">
                                 <div class="column-skill-form">
-                                    @foreach($skills as $skill)
-                                        <div class="skill-checkbox">
-                                            <input type="checkbox" id="{{ $skill->id }}" wire:model="selectedSkills" value="{{ $skill->id }}" class="every-checkbox">
-                                            <label for="{{ $skill->id }}" class="every-label">{{ $skill->all_skills_name }}</label>
-                                        </div>
-                                    @endforeach
+                                @foreach($skills as $skill)
+                                    <div class="skill-checkbox">
+                                        <input type="checkbox" id="{{ $skill->id }}" wire:model="selectedSkillIds" value="{{ $skill->id }}" class="every-checkbox" @if(in_array($skill->id, $selectedSkillIds)) checked @endif>
+                                        <label for="{{ $skill->id }}" class="every-label">{{ $skill->all_skills_name }}</label>
+                                    </div>
+                                @endforeach
                                 </div>
                             </div>
 
