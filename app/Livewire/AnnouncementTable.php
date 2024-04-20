@@ -30,7 +30,7 @@ class AnnouncementTable extends Component
     public $disableButton = "No";
     public $popup_message;
     public $dashboardType;
-    public $showFullContent = [];
+    public $contentIndexes = [];
 
     public function createAnnouncement(){
         $this->validate();
@@ -70,6 +70,12 @@ class AnnouncementTable extends Component
             ->orderBy('announcement.created_at', 'desc')
             ->get();
 
+        if (empty($this->contentIndexes)) {
+            foreach ($announcements as $announcement) {
+                $this->contentIndexes[$announcement->id] = false;
+            }
+        }
+
         $announcements->transform(function ($announcement) {
             $currentTime = now();
             $announcementTime = $announcement->created_at;
@@ -93,7 +99,13 @@ class AnnouncementTable extends Component
             return $announcement;
         });
 
-        return view('livewire.announcement-table', compact('announcements'));
+        return view('livewire.announcement-table', [
+            'announcements' => $announcements,
+        ]);
+    }
+
+    public function toggleContent($announcementId){
+        $this->contentIndexes[$announcementId] = !$this->contentIndexes[$announcementId];
     }
 
     public function openAddForm(){

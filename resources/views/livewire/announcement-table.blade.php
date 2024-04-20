@@ -46,14 +46,23 @@
                             </div>
                         </div>
 
-                        @if($announcement->featured_image)
-                            <div class="featured-image" style="background-image: url({{ $announcement->featured_image }})">
-                            </div>
-                        @endif
-
                         <div class="content">
                             <h3>{{ $announcement->title }}</h3>
-                            <p>{{ $announcement->content }}</p>
+                            @if(strlen($announcement->content) > 300)
+                                @if($contentIndexes[$announcement->id])
+                                    <p>{{ $announcement->content }}</p>
+                                    <a href="#" wire:click.prevent="toggleContent({{ $announcement->id }})">
+                                        See less
+                                    </a>
+                                @else
+                                    <p>{{ substr($announcement->content, 0, 300) }}...</p>
+                                    <a href="#" wire:click.prevent="toggleContent({{ $announcement->id }})">
+                                        See more
+                                    </a>
+                                @endif
+                            @else
+                                <p>{{ $announcement->content }}</p>
+                            @endif
                         </div>
 
                         @if($announcement->attached_file)
@@ -77,13 +86,17 @@
                             </div>
                         @endif
 
+                        @if($announcement->featured_image)
+                            <div class="featured-image" style="background-image: url({{ $announcement->featured_image }})">
+                            </div>
+                        @endif
+
                         <div class="announcement-info">
                             <p>Category: {{ $announcement->category }}</p>
                         </div>
                     </div>
                 </div>
             @endforeach
-
         </div>
 
         {{-- Add Announcement Form --}}

@@ -144,7 +144,7 @@
                                                 <label>Add Skills / Task</label>
                                                 @foreach($newSkills as $index => $skill)
                                                     <div class="add-edit-skill-input">
-                                                        <input type="text" class="form-control skill-form-control" wire:model="newSkills.{{ $index }}" placeholder="Add skill" required>
+                                                        <input type="text" class="form-control skill-form-control" wire:model="newSkills.{{ $index }}" placeholder="Add skill/task" required>
                                                         <button type="button" class="close" wire:click="removeSkill({{ $index }})"><span aria-hidden="true">&times;</span></button>
                                                     </div>
                                                 @endforeach
@@ -212,7 +212,7 @@
                                                 <label>Edit Skills / Task</label>
                                                 @foreach($newSkills as $index => $skill)
                                                     <div class="add-edit-skill-input">
-                                                        <input type="text" class="form-control skill-form-control" wire:model="newSkills.{{ $index }}" value="{{ $skill }}" placeholder="Add skill" required>
+                                                        <input type="text" class="form-control skill-form-control" wire:model="newSkills.{{ $index }}" value="{{ $skill }}" placeholder="Add skill/task" required>
                                                         <button type="button" class="close" wire:click="removeSkill({{ $index }})"><span aria-hidden="true">&times;</span></button>
                                                     </div>
                                                 @endforeach
