@@ -7,7 +7,6 @@
                 <div class="card-body">
                     <center><h2 class="title reg-title">Registration Form</h2></center>
 
-
                     <form wire:submit="create">
 
                         <div class="row row-space">
