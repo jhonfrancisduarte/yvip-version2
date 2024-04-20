@@ -20,9 +20,9 @@
                             <table class="table">
                                 <thead>
                                     <tr class="table-header">
-                                        <th>My Category</th>
-                                        <th>My Skills</th>
-                                        <th width="20%">Experience</th>
+                                        <th width="20%">My Category</th>
+                                        <th width="20%">My Skills</th>
+                                        <th>Experience</th>
                                         <th class="action" width="7%">Actions</th>
                                     </tr>
                                 </thead>
@@ -46,7 +46,9 @@
                                         <td class="expColumn">
                                             <ul>
                                                 @foreach($volunteerExperiences as $experience)
-                                                    <li>{{ $experience->volunteer_experience }}</li>
+                                                    <li>{{ $experience->volunteer_experience }}
+                                                    <button type="button" class="btn btn-primary btn-xs edit-exp-btn" wire:click="editExpForm({{ $experience->id }})">Edit</button>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         </td>
@@ -103,11 +105,11 @@
             </div>
         @endif
 
-        @if($editExperience)
+        @if($addExperience)
             <div class="add-experience">
                 <div class="close-form" wire:click="closeExperienceForm"></div>
                 <div class="modal-dialog modal-sm">
-                <form wire:submit.prevent="updateCategoryDescription" class="experience-form">
+                <form wire:submit.prevent="addExp" class="experience-form">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Your Experience</h4>
@@ -134,5 +136,38 @@
             </div>
             </div>
         @endif
+
+        @if($editId)
+            <div class="edit-experience">
+            <div class="close-form" wire:click="closeEditExpForm"></div>
+                <div class="modal-dialog modal-sm">
+                    <form wire:submit.prevent="updateExp" class="experience-form">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Experience</h4>
+                                <button type="button" class="close" wire:click="closeEditExpForm"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="editContent">Experience</label>
+                                    <textarea class="form-control" id="editContent" name="editContent" wire:model.defer="editContent"></textarea>
+                                    @error('editContent') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
+                                </div>
+                            </div>
+
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-danger" wire:click="closeEditExpForm">Close</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        @endif
+
     </section>
 

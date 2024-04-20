@@ -18,14 +18,14 @@ class CategoryForm extends Component
 {
     public $skills;
     public $selectedSkills = [];
-    #[Rules\Min(5)]
     public $experience;
     public $addSkillForm;
-    public $editExperience;
+    public $addExperience;
     public $popup_message;
     public $ruleForExp;
-
     public $selectedSkillIds = [];
+    public $editId;
+    public $editContent;
 
     public function openAddSkillForm($userId)
     {
@@ -39,12 +39,12 @@ class CategoryForm extends Component
 
     public function openExperienceForm($userId)
     {
-        $this->editExperience = true;
+        $this->addExperience = true;
     }
 
     public function closeExperienceForm()
     {
-        $this->editExperience = null;
+        $this->addExperience = null;
     }
 
     public function closePopup(){
@@ -127,7 +127,7 @@ class CategoryForm extends Component
         $this->storeSelectedSkillIds();
     }
 
-    public function updateCategoryDescription()
+    public function addExp()
     {
         $user = Auth::user();
 
@@ -139,7 +139,7 @@ class CategoryForm extends Component
         ]);
 
         $this->experience = '';
-        $this->editExperience = null;
+        $this->addExperience = null;
         $this->popup_message = null;
         $this->popup_message = "Experience added successfully.";
     }
@@ -147,7 +147,35 @@ class CategoryForm extends Component
     public function rules()
     {
         return [
-            'experience' => ['required', 'min:5'],
+            'experience' => ['required', 'min:2'],
         ];
+    }
+
+    public function editExpForm($id)
+    {
+        $this->edit = true;
+        $this->editId = $id;
+        $this->editContent = Volunteer::find($id)->volunteer_experience;
+    }
+
+    public function updateExp()
+    {
+        $this->validate([
+            'editContent' => ['required', 'min:5'],
+        ]);
+    
+        $experience = Volunteer::find($this->editId);
+        $experience->volunteer_experience = $this->editContent;
+        $experience->save();
+    
+        $this->editId = null;
+        $this->editContent = '';
+    
+        $this->popup_message = "Experience updated successfully.";
+    }
+
+    public function closeEditExpForm()
+    {
+        $this->editId = null;
     }
 }
