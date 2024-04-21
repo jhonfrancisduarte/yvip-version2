@@ -3,53 +3,76 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\VolunteerEventsAndTrainingsTable as VolunteerEvent;
 
 class VolunteerEventsAndTrainingsTable extends Component
 {
+
+    #[Rule('required')]
+    public $eventType;
+
+    #[Rule('required|min:2')]
+    public $eventName;
+
+    #[Rule('required|min:2')]
+    public $organizer;
+
+    #[Rule('required|date')]
+    public $startDate;
+
+    #[Rule('required|date')]
+    public $endDate;
+
+    #[Rule('required|integer')]
+    public $volunteerHours;
+
+    #[Rule('required')]
+    public $volunteerCategory;
+
+    #[Rule('required')]
+    public $selectedTags = [];
+
     public $showForm = false;
     public $showTags = false;
-    public $eventName;
-    public $organizer;
-    public $eventDate;
-    public $volunteerHours;
-    public $eventType;
-    public $volunteerCategory;
-    public $selectedTags = [];
 
     public function render()
     {
-        return view('livewire.volunteer-events-and-trainings-table')
-            ->with('showTags', $this->showTags)
-            ->with('selectedTags', $this->selectedTags);
+        $tags = ['Support', 'Logistics', 'Management', 'Highly Technical'];
+
+        return view('livewire.volunteer-events-and-trainings-table', [
+            'tags' => $tags,
+        ]);
     }
 
-    public function submitForm()
+    public function create()
     {
-        // Validate form input
-        $validatedData = $this->validate([
-            'eventType' => 'required',
-            'eventName' => 'required',
-            'organizer' => 'required',
-            'eventDate' => 'required|date',
-            'volunteerHours' => 'required|integer',
-            'volunteerCategory' => 'required|array',
-            // Add validation rules for other form fields as needed
-        ]);
-    
-        // Save data to the database
-        $event = new VolunteerEventsAndTrainings();
-        $event->event_type = $this->eventType;
-        $event->event_name = $this->eventName;
-        $event->organizer_facilitator = $this->organizer;
-        $event->event_date = $this->eventDate;
-        $event->volunteer_hours = $this->volunteerHours;
-        $event->volunteer_category = json_encode($this->volunteerCategory); // Convert selected categories to JSON
-        // Add other fields as needed
-        $event->save();
-    
-        // Close the form and reset form fields
-        $this->resetForm();
-    }    
+    $validatedData = $this->validate([
+        'eventType' => 'required',
+        'eventName' => 'required|min:2',
+        'organizer' => 'required|min:2',
+        'startDate' => 'required|date',
+        'endDate' => 'required|date',
+        'volunteerHours' => 'required|integer',
+        'volunteerCategory' => 'required',
+    ]);
+
+    $event = new VolunteerEvent();
+    $event->event_type = $validatedData['eventType'];
+    $event->event_name = $validatedData['eventName'];
+    $event->organizer_facilitator = $validatedData['organizer'];
+    $event->start_date = Carbon::createFromFormat('Y-m-d', $validatedData['startDate']);
+    $event->end_date = Carbon::createFromFormat('Y-m-d', $validatedData['endDate']);
+    $event->volunteer_hours = $validatedData['volunteerHours'];
+    $event->volunteer_category = $validatedData['volunteerCategory'];
+    $event->save();
+
+    session()->flash('message', 'Posted Successfully!');
+
+    $this->dispatchBrowserEvent('close-modal');
+    $this->reset(['eventType', 'eventName', 'organizer', 'startDate', 'endDate', 'volunteerHours', 'volunteerCategory', 'selectedTags']);
+    $this->emit('eventAdded');
+    $this->emit('modalClosed');
+    }
 
     public function toggleTagsVisibility()
     {
@@ -65,13 +88,4 @@ class VolunteerEventsAndTrainingsTable extends Component
         }
     }
 
-    private function resetForm()
-    {
-        $this->eventName = '';
-        $this->organizer = '';
-        $this->eventDate = '';
-        $this->volunteerHours = '';
-        $this->selectedTags = [];
-        $this->showForm = false;
-    }
 }

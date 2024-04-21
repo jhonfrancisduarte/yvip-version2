@@ -2,11 +2,12 @@
     <div class="card-header">
         <h3 class="card-title">Volunteers Events and Trainings Announcement</h3> 
         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;">
-            <i class="fa fa-plus"></i> Add</button>
+            <i class="fa fa-plus"></i> Add
+        </button>
 
         <div class="modal fade" id="add">
             <div class="modal-dialog modal-md">
-                <form wire:submit.prevent="submitForm" id="add-volunteer-form">
+                <form wire:submit.prevent="create" id="add-volunteer-form">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Events and Trainings</h4>
@@ -17,41 +18,44 @@
                         <div class="card card-primary">
                             <div class="card-body">
                                 <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Event Type</label>
-                                            <select wire:model="eventType" class="form-control" id="event-type">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Event Type</label>
+                                            <select class="form-control" id="event-type" wire:model.defer="eventType">
                                                 <option value="Event">Event</option>
                                                 <option value="Training">Training</option>
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Name of Event</label>
-                                            <input type="text" wire:model="eventName" class="form-control" name="event_name" id="event-name" placeholder="Enter Event Name">
+                                            <input type="text" class="form-control" name="event_name" id="event-name" placeholder="Enter Event Name" wire:model.defer="eventName">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Organizer/Facilitator</label>
-                                            <input type="text" wire:model="organizer" class="form-control" name="organizer" placeholder="Enter Organizer/Facilitator">
+                                            <input type="text" class="form-control" name="organizer" placeholder="Enter Organizer/Facilitator" wire:model.defer="organizer">
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-6">
                                         <div class="form-group">
-                                            <label>Date</label>
-                                            <input type="date" wire:model="eventDate" class="form-control" name="date">
+                                            <label>Start Date</label>
+                                            <input type="date" class="form-control" name="start_date" id="start-date" wire:model.defer="startDate">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>End Date</label>
+                                            <input type="date" class="form-control" name="end_date" id="end-date" wire:model.defer="endDate" min="{{ $startDate ? $startDate : '' }}">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Number of applicable volunteering hours</label>
-                                            <input type="number" wire:model="volunteerHours" class="form-control" name="volunteering_hours" placeholder="Enter Number of Hours">
+                                            <input type="number" class="form-control" name="volunteering_hours" placeholder="Enter Number of Hours" wire:model.defer="volunteerHours">
                                         </div>
-                                    </div>
-                                    <div class="col-12">
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
@@ -89,7 +93,6 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Function to update placeholder based on event type
         function updatePlaceholder(eventType) {
             var eventNameInput = document.getElementById('event-name');
             if (eventType === 'Event') {
@@ -99,7 +102,6 @@
             }
         }
 
-        // Toggle tags container visibility and change button text
         $('#toggle-tags-button').on('click', function() {
             var button = $(this);
             var tagsContainer = $('#tags-container');
@@ -112,44 +114,48 @@
             }
         });
 
-        // Listen for change event on event type dropdown
         $('#event-type').on('change', function() {
             var eventType = $(this).val();
             updatePlaceholder(eventType);
         });
 
-        // Listen for click events on tags
         $('#tags-container').on('click', '.tag', function() {
             $(this).toggleClass('selected');
             var tag = $(this).data('value');
             var addedTags = $('#added-tags');
             if ($(this).hasClass('selected')) {
-                // If tag is selected, add it to the added tags section
                 addedTags.append('<button type="button" class="added-tag btn btn-primary mr-2">' + tag + ' <i class="fa fa-times"></i></button>');
-                addedTags.slideDown(); // Show added tags section
-                $('#added-tags-label').slideDown(); // Show the label
-            } else {
-                // If tag is deselected, remove it from the added tags section
+                addedTags.slideDown(); 
+                $('#added-tags-label').slideDown(); 
+            } else {                
                 addedTags.find('button:contains("' + tag + '")').remove();
-                // Check if there are any remaining selected tags
                 if ($('#added-tags button').length === 0) {
-                    $('#added-tags-label').slideUp(); // Hide the label
+                    $('#added-tags-label').slideUp(); 
                 }
             }
         });
 
-        // Listen for click events on added tags for deselection
         $('#added-tags').on('click', '.added-tag', function() {
-            var tag = $(this).text().trim(); // Get the text of the clicked tag
-            $(this).remove(); // Remove the clicked tag from the added tags section
-            $('#tags-container').find('.tag[data-value="' + tag + '"]').removeClass('selected'); // Deselect the corresponding tag in the tags container
-            // Check if there are any remaining selected tags
+            var tag = $(this).text().trim(); 
+            $(this).remove(); 
+            $('#tags-container').find('.tag[data-value="' + tag + '"]').removeClass('selected'); 
             if ($('#added-tags button').length === 0) {
-                $('#added-tags-label').slideUp(); // Hide the label
+                $('#added-tags-label').slideUp(); 
             }
         });
 
-        // Initialize placeholder based on default event type
+        $('#start-date').on('change', function() {
+            var startDate = $(this).val();
+            $('#end-date').attr('min', startDate);
+        });
+
         updatePlaceholder($('#event-type').val());
     });
+
+    document.addEventListener('livewire:load', function () {
+        Livewire.on('modalClosed', function () {
+            $('#add').modal('hide');
+        });
+    });
+
 </script>

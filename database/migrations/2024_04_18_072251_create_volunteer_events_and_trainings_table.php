@@ -17,9 +17,10 @@ class CreateVolunteerEventsAndTrainingsTable extends Migration
             $table->string('event_type');
             $table->string('event_name');
             $table->string('organizer_facilitator');
-            $table->date('event_date');
+            $table->date('start_date')->format('d F Y');
+            $table->date('end_date')->format('d F Y');
             $table->integer('volunteer_hours');
-            $table->json('volunteer_categories')->nullable();
+            $table->string('volunteer_category')->nullable();
             $table->timestamps();
         });
     }

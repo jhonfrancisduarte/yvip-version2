@@ -5,7 +5,7 @@
 namespace Composer\Autoload;
 
 class ComposerStaticInitf9985d2fbac80db1beb2b346fbe4e2ec
-{
+{  
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -802,6 +802,8 @@ class ComposerStaticInitf9985d2fbac80db1beb2b346fbe4e2ec
         'App\\Livewire\\SideNav' => __DIR__ . '/../..' . '/app/Livewire/SideNav.php',
         'App\\Livewire\\VirtualPassport' => __DIR__ . '/../..' . '/app/Livewire/VirtualPassport.php',
         'App\\Livewire\\VolunteerDashboard' => __DIR__ . '/../..' . '/app/Livewire/VolunteerDashboard.php',
+        'App\\Livewire\\VolunteerEventsAndTrainings' => __DIR__ . '/../..' . '/app/Livewire/VolunteerEventsAndTrainings.php',
+        'App\\Livewire\\VolunteerEventsAndTrainingsTable' => __DIR__ . '/../..' . '/app/Livewire/VolunteerEventsAndTrainingsTable.php',
         'App\\Livewire\\VolunteerManual' => __DIR__ . '/../..' . '/app/Livewire/VolunteerManual.php',
         'App\\Livewire\\VolunteeringHours' => __DIR__ . '/../..' . '/app/Livewire/VolunteeringHours.php',
         'App\\Livewire\\Volunteers' => __DIR__ . '/../..' . '/app/Livewire/Volunteers.php',

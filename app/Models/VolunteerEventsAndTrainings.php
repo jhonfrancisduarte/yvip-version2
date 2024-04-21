@@ -9,15 +9,16 @@ class VolunteerEventsAndTrainings extends Model
 {
     use HasFactory;
 
+    protected $table = 'volunteer_events_and_trainings';
+
     protected $fillable = [
         'event_type',
         'event_name',
         'organizer_facilitator',
-        'date',
-        'volunteering_hours',
+        'start_date',
+        'end_date',
+        'volunteer_hours',
         'volunteer_category',
     ];
 
-    protected $table = 'volunteer_events_and_trainings';
-    public $timestamps = true;
 }
