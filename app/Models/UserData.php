@@ -53,11 +53,11 @@ class UserData extends Model
         'is_ip_participant',
     ];
 
-    // public function setAttribute($key, $value){
-    //     if (in_array($key, $this->fillable) && is_string($value)) {
-    //         $this->attributes[$key] = strtoupper($value);
-    //     } else {
-    //         parent::setAttribute($key, $value);
-    //     }
-    // }
+    public function setAttribute($key, $value){
+        if ($key !== 'profile_picture' && in_array($key, $this->fillable) && is_string($value)) {
+            $this->attributes[$key] = strtoupper($value);
+        } else {
+            parent::setAttribute($key, $value);
+        }
+    }
 }
