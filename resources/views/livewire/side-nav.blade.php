@@ -18,9 +18,9 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                
+
                     <li class="nav-item">
-                        <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" wire:navigate>
+                        <a href="{{ route('dashboard') }}"  wire:navigate class="nav-link  {{ request()->routeIs('dashboard') ? 'active' : '' }}" >
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             Home
@@ -57,7 +57,7 @@
                         </p>
                         </a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a href="{{ route('volunteering-hours') }}" class="nav-link {{ request()->routeIs('volunteering-hours') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-clock"></i>
@@ -164,14 +164,14 @@
                     </li>
                 @endif
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" wire:click="logout">
-                            <i class="nav-icon fas fa-sign-out-alt"></i>
-                            <p>
-                                Logout
-                            </p>
-                        </a>
-                    </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" wire:click.prevent="logout">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
+                </li>
                 </ul>
             </nav>
         </div>

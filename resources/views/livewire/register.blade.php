@@ -8,7 +8,7 @@
                     <center><h2 class="title reg-title">Registration Form</h2></center>
 
 
-                    <form wire:submit="create">
+                    <form wire:submit="create" >
 
                         <div class="row row-space">
                             <div class="col-2">
@@ -20,7 +20,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            
+
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">last name</label>
@@ -67,7 +67,7 @@
                                             <option class="label" value="Widowed">Widowed</option>
                                             <option class="label" value="Legally Separated">Legally Separated</option>
                                         </select>
-                                    @error('civil_status') 
+                                    @error('civil_status')
                                         <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -181,7 +181,7 @@
                                             @endif
                                         </select>
                                         @error('permanent_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>@enderror
-                                        
+
                                         <label class="label">Street, Barangay</label>
                                         <input class="input--style-4" type="text" wire:model="p_street_barangay" name="p_street_barangay" >
                                         @error('p_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>@enderror
@@ -207,7 +207,7 @@
                                             @endif
                                         </select>
                                         @error('residential_selectedProvince') <span class="text-danger small" style="color: red;">The Province field is required</span>@enderror
-                                        
+
                                         <label class="label" for="residential_city">Select City:</label>
                                         <select class="label select-status" wire:model.live="residential_selectedCity" id="residential_city" name="residential_selectedCity">
                                             @if($rcities)
@@ -220,7 +220,7 @@
                                             @endif
                                         </select>
                                         @error('residential_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>@enderror
-                                        
+
                                         <label class="label">Street, Barangay</label>
                                         <input class="input--style-4" type="text" wire:model="r_street_barangay" name="r_street_barangay" >
                                         @error('r_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>@enderror
@@ -373,7 +373,7 @@
                             </div>
                             <div class="col-2">
                                 <div class="to-login-button">
-                                    <b><a href="/" style="color:#2c6ed5">I already have an Account.</a></b>
+                                    <b><a href="/" style="color:#2c6ed5" wire:navigate>I already have an Account.</a></b>
                                 </div>
                             </div>
                         </div>
