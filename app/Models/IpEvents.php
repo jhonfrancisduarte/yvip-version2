@@ -17,6 +17,9 @@ class IpEvents extends Model
         'end',
         'qualifications',
         'participants',
+        'join_requests',
+        'disapproved',
+        'join_status',
     ];
 
     public function user(){

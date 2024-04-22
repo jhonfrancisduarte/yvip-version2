@@ -86,7 +86,7 @@
                     <div class="col">
                         <div class="user-data">
                             @if($disableButton == "No")
-                                <button class="btn-danger btn-50" wire:click="deleteAnnouncement" wire:loading.attr="disabled">Yes</button>
+                                <button class="btn-danger btn-50" wire:click="deleteCategory" wire:loading.attr="disabled">Yes</button>
                                 <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Cancel</button>
                             @else
                                 <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Close</button>

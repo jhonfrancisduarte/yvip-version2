@@ -19,7 +19,7 @@ Route::middleware(['auth', 'user_role:yv,yip'])->group(function (){
      Route::get('/profile', function () {return view('livewire.profile');})->name('profile');
 });
 
-Route::middleware(['auth', 'user_role:yv'])->group(function () {
+Route::middleware(['auth', 'user_role:yv,yip'])->group(function () {
      // Private pages accessible only to users (youth volunteer)
      Route::get('/my-category', function () {return view('livewire.my-category');})->name('my-category');
      Route::get('/events-and-trainings', function () {return view('livewire.events-and-trainings');})->name('events-and-trainings');
@@ -34,9 +34,9 @@ Route::middleware(['auth', 'user_role:yv'])->group(function () {
 
 Route::middleware(['auth', 'user_role:yip'])->group(function () {
      // Private pages accessible only to users (ip beneficiaries)
-     Route::get('/ip-events', function () {return view('livewire.ip-events');})->name('ip-events');
+     Route::get('/ip-events-list', function () {return view('livewire.ip.ip-events-list');})->name('ip-events-list');
      Route::get('/past-ip-participated-events', function () {return view('livewire.past-ip-participated-events');})->name('past-ip-participated-events');
-     Route::get('/ip-participated-events', function () {return view('livewire.ip-participated-events');})->name('ip-participated-events');
+     Route::get('/ip-participated-events', function () {return view('livewire.ip.ip-participated-events');})->name('ip-participated-events');
      Route::get('/ip-passport', function () {return view('livewire.ip-passport');})->name('ip-passport');
      Route::get('/post-program-obligation', function () {return view('livewire.post-program-obligation');})->name('post-program-obligation');
 });
