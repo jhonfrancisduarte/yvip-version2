@@ -61,6 +61,10 @@ class User extends Authenticatable
         return $this->hasMany(IpEvents::class);
     }
 
+    public function ipPostProgramObligation(){
+        return $this->hasMany(IpPostProgramObligation::class);
+    }
+
     public function scopeSearch($query, $term)
     {
         $term = "%$term%";

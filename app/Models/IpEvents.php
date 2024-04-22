@@ -26,6 +26,10 @@ class IpEvents extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function ipPostProgramObligation(){
+        return $this->hasMany(IpPostProgramObligation::class);
+    }
+
     public function scopeSearch($query, $term){
         $term = "%$term%";
         $query->where(function ($query) use ($term) {

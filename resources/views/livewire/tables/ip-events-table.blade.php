@@ -24,103 +24,6 @@
                     </div>
 
                     <div class="card-body scroll-table" id="scroll-table">
-                    @if(request()->routeIs('ip-participated-events'))
-                        <table id="thisUserDetailss-table" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Name of Exchange Program/Event</th>
-                                    <th>Organizer / Sponsor</th>
-                                    <th>Date / Period</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach($ipEvents as $event)
-                                    <tr>
-                                        @if($event->approved)
-                                            <td>{{ $event->event_name }}</td>
-                                            <td>{{ $event->organizer_sponsor }}</td>
-                                            <td>{{ $event->start }} - {{ $event->end }} </td>
-                                            <td>
-                                                <span
-                                                    @if($event->status === "Ongoing")
-                                                        class="green"
-                                                    @elseif($event->status === "Completed")
-                                                        class="blue"
-                                                    @else
-                                                        class="orange"
-                                                    @endif
-                                                    >
-                                                    {{ $event->status }}
-                                                </span>
-                                            </td>
-                                        @endif
-                                    </tr>
-                                @endforeach
-                            </tbody>
-
-                            <tfoot>
-                                <tr>
-                                    <th>Name of Exchange Program/Event</th>
-                                    <th>Organizer / Sponsor</th>
-                                    <th>Date / Period</th>
-                                    <th>Status</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    @elseif(request()->routeIs('post-program-obligation'))
-                        <table id="thisUserDetailss-table" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Name of Exchange Program/Event</th>
-                                    <th>Organizer / Sponsor</th>
-                                    <th>Date / Period</th>
-                                    <th>Status</th>
-                                    <th>Post-Program Obligation</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach($ipEvents as $event)
-                                    <tr>
-                                        @if($event->approved)
-                                            <td>{{ $event->event_name }}</td>
-                                            <td>{{ $event->organizer_sponsor }}</td>
-                                            <td>{{ $event->start }} - {{ $event->end }} </td>
-                                            <td>
-                                                <span
-                                                    @if($event->status === "Ongoing")
-                                                        class="green"
-                                                    @elseif($event->status === "Completed")
-                                                        class="blue"
-                                                    @else
-                                                        class="orange"
-                                                    @endif
-                                                    >
-                                                    {{ $event->status }}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <input type="file" id="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
-                                            </td>
-                                        @endif
-                                    </tr>
-                                @endforeach
-                            </tbody>
-
-                            <tfoot>
-                                <tr>
-                                    <th>Name of Exchange Program/Event</th>
-                                    <th>Organizer / Sponsor</th>
-                                    <th>Date / Period</th>
-                                    <th>Status</th>
-                                    <th>Post-Program Obligation</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    @else
-                        <div class="card-body scroll-table" id="scroll-table">
                             <table id="thisUserDetailss-table" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -182,6 +85,9 @@
                                                     <button class="btn btn-info btn-xs" wire:click="toggleOptions({{ $event->id }})"><i class="fas fa-cogs"></i></button>
                                                     @if($options == $event->id)
                                                         <div class="options-container">
+                                                            @if($event->status === "Completed")
+                                                                <button class="btn btn-success btn-xs" wire:click="openPpoSubmissions({{ $event->id }})">PPO Files</button>
+                                                            @endif
                                                             <button class="btn btn-info btn-xs" wire:click="openEditForm({{ $event->id }})">Edit</button>
                                                             <button class="btn btn-info btn-xs" wire:click="toggleJoinStatus({{ $event->id }})">
                                                                 @if(!$event->join_status)
@@ -231,8 +137,7 @@
                                         <th width="7%" class="action-btn">Actions</th>
                                     </tr>
                                 </tfoot>
-                            </table>
-                        @endif
+                        </table>
                     </div>
                 </div>
             </div>
@@ -491,6 +396,58 @@
         </div>
     @endif
 
+    @if($ppoSubmisions)
+        <div class="anns">
+            <div class="close-form" wire:click="closeSubmissionsTable"></div>
+            <div class="add-announcement-container">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Post-Program Obligation Submissions</h4>
+                            <button type="button" class="close" wire:click="closeSubmissionsTable">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <label style="margin-left: 20px; font-weight: 400;">Submission List</label>
+       
+                        <div class="card card-primary">
+                            <div class="card-body">
+
+                                    @foreach($ppoSubmisions as $ppoSubmision)
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group requester">
+                                                    <label class="label" wire:click="showParticipantDetails({{ $ppoSubmision->user_id }}, '')">{{ $ppoSubmision->user->userdata->first_name }} {{ $ppoSubmision->user->userdata->middle_name }} {{ $ppoSubmision->user->userdata->last_name }}</label>
+                                                    @if($ppoSubmision->file_paths)
+                                                        <p>{{ pathinfo(asset($ppoSubmision->file_paths), PATHINFO_FILENAME) }}.{{ pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) }}</p>
+                                                        <div>
+                                                            <a href="{{ asset($ppoSubmision->file_paths) }}" download>
+                                                                <button class="btn btn-info btn-xs">Download</button>
+                                                            </a>
+                                                            
+                                                            @if(pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) === 'pdf' ||
+                                                                pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) === 'docx' ||
+                                                                pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) === 'txt' ||
+                                                                pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) === 'csv')
+                                                                <button class="btn btn-info btn-xs btn-resized" onclick="window.open('{{ asset($ppoSubmision->file_paths) }}', '_blank')">Preview</button>
+                                                            @endif
+                                                        </div>
+                                                    @else
+                                                        <a href="{{ $ppoSubmision->file_links }}" target="_blank"><p class="p-break">{{ $ppoSubmision->file_links }}</p></a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     @if($thisUserDetails)
         <div class="users-data-all-container">
             <div class="close-form" wire:click="hideUserData"></div>
@@ -661,11 +618,13 @@
                 <div class="row1">
                     <div class="col">
                         <div class="user-data">
-                            @if(!$isParticipant)
-                                <button class="btn btn-success btn-xs" wire:click="approveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Approve</button>
-                                <button class="btn btn-danger btn-xs" wire:click="disapproveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Disapprove</button>
-                            @else
-                                <button class="btn btn-success btn-xs" wire:click="disapproveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Remove</button>
+                            @if(!$ppoSubmisions)
+                                @if(!$isParticipant)
+                                    <button class="btn btn-success btn-xs" wire:click="approveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Approve</button>
+                                    <button class="btn btn-danger btn-xs" wire:click="disapproveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Disapprove</button>
+                                @else
+                                    <button class="btn btn-success btn-xs" wire:click="disapproveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Remove</button>
+                                @endif
                             @endif
                             <button class="btn btn-info btn-xs" wire:click="hideUserData" wire:loading.attr="disabled">Close</button>
                         </div>

@@ -3,10 +3,12 @@
 namespace App\Livewire\Tables;
 
 use App\Models\IpEvents;
+use App\Models\IpPostProgramObligation;
 use Livewire\Component;
 use App\Models\User;
 use Livewire\Attributes\Rule;
 use Exception;
+
 use Illuminate\Support\Facades\Auth;
 
 class IpEventsTable extends Component
@@ -39,6 +41,7 @@ class IpEventsTable extends Component
     public $eventId;
     public $options;
     public $file;
+    public $ppoSubmisions;
 
     public function addSkill(){
         $this->newSkills[] = '';
@@ -47,7 +50,7 @@ class IpEventsTable extends Component
     public function removeSkill($index){
         unset($this->newSkills[$index]);
     }
-    
+
     public function render(){
         $ipEvents = IpEvents::join('users', 'users.id', '=', 'ip_events.user_id')
             ->select('users.name', 'ip_events.*')
@@ -114,10 +117,10 @@ class IpEventsTable extends Component
             $event->hasJoined = in_array($userId, $joinRequests);
             $event->approved = in_array($userId, $participantIds);
             $event->disapprovedParticipants = in_array($userId, $disapprovedIds);
-    
+
             return $event;
         });
-    
+
         return view('livewire.tables.ip-events-table', compact('ipEvents', 'joinRequestsData'));
     }
 
@@ -163,6 +166,7 @@ class IpEventsTable extends Component
 
     public function closePopup(){
         $this->popup_message = null;
+        $this->options = null;
     }
 
     public function openAddForm(){
@@ -171,6 +175,7 @@ class IpEventsTable extends Component
 
     public function closeAddForm(){
         $this->openAddEvent = null;
+        $this->options = null;
     }
 
     public function openEditForm($eventId){
@@ -193,6 +198,7 @@ class IpEventsTable extends Component
         $this->event_name = null;
         $this->organizer_sponsor = null;
         $this->start = null;
+        $this->options = null;
         $this->end = null;
     }
 
@@ -208,6 +214,7 @@ class IpEventsTable extends Component
         $this->event_name = null;
         $this->organizer_sponsor = null;
         $this->start = null;
+        $this->options = null;
         $this->end = null;
     }
 
@@ -233,6 +240,7 @@ class IpEventsTable extends Component
     public function closeJoinRequests(){
         $this->openJoinRequestsTable = null;
         $this->joinEventId = null;
+        $this->options = null;
     }
 
     public function joinEvent($eventId){
@@ -272,6 +280,7 @@ class IpEventsTable extends Component
             $this->joinEventId = null;
             $this->popup_message = null;
             $this->thisUserDetails = null;
+            $this->options = null;
             $this->popup_message = "Participant approved successfully.";
         }
     }
@@ -309,6 +318,7 @@ class IpEventsTable extends Component
             $this->joinEventId = null;
             $this->popup_message = null;
             $this->thisUserDetails = null;
+            $this->options = null;
             $this->popup_message = "Participant disapproved successfully.";
         }
     }
@@ -334,6 +344,7 @@ class IpEventsTable extends Component
     public function hideUserData(){
         $this->thisUserDetails = null;
         $this->eventId = null;
+        $this->options = null;
     }
 
     public function toggleOptions($eventId){
@@ -356,5 +367,20 @@ class IpEventsTable extends Component
             $this->options = null;
             $this->popup_message = "Event join status updated successfully.";
         }
+    }
+
+    public function openPpoSubmissions($eventId){
+        $events = IpPostProgramObligation::join('users', 'users.id', '=', 'ip_post_program_obligations.user_id')
+                                        ->join('ip_events', 'ip_events.id', '=', 'ip_post_program_obligations.event_id')
+                                        ->where('event_id', $eventId)
+                                        ->select('users.name', 'ip_post_program_obligations.*', 'ip_events.event_name')
+                                        ->get();
+        if($events){
+            $this->ppoSubmisions = $events;
+        }
+    }
+
+    public function closeSubmissionsTable(){
+        $this->ppoSubmisions = null;
     }
 }

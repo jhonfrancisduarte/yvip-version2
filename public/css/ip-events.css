@@ -123,6 +123,32 @@
     z-index:999 ;
 }
 
+.ppo-upload-file{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ppo-upload-file .form-control{
+    margin-right: 5px;
+}
+
+.ppo-upload-file button{
+    height: 100% !important;
+}
+
+.ppo-upload-file-container{
+    border: 1px solid #ccc;
+    background: #ccc;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.p-break{
+    word-wrap: break-word;
+    width: 250px;
+}
+
 @media (max-width:768px){
     .btn-add-event{
         margin-top: 5px;

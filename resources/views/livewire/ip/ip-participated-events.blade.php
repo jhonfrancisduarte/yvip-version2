@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        @livewire('tables.ip-events-table')
+        @livewire('tables.participated-ip-events-table')
 
     </div>
 
