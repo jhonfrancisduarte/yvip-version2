@@ -1,30 +1,31 @@
-.skills-list ul{
+.skills-list ul {
     padding-left: 20px !important;
 }
 
-.btn-add-skills{
+.btn-add-skills {
     margin-left: 15px;
 }
 
-.anns{
-    position: fixed; top: 0;
+.anns {
+    position: fixed;
+    top: 0;
     height: 100% !important;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.add-announcement-container{
+.add-announcement-container {
     margin-top: 0px;
     height: 100% !important;
     padding-top: 50px;
 }
 
-.add-announcement-container .modal-dialog{
+.add-announcement-container .modal-dialog {
     padding-bottom: 50px !important;
 }
 
-.anns .card-primary{
+.anns .card-primary {
     width: 100%;
 }
 
@@ -52,30 +53,31 @@
     cursor: pointer;
 }
 
-.btn-add-skill{
+.btn-add-skill {
     margin-top: 10px;
     margin-left: 0;
 }
 
-.skill-form-control{
+.skill-form-control {
     margin-bottom: 5px;
 }
 
-.add-edit-skill-input{
+.add-edit-skill-input {
     position: relative;
 }
 
-.add-edit-skill-input .close{
+.add-edit-skill-input .close {
     position: absolute;
-    top: 5px; right: 5px;
+    top: 5px;
+    right: 5px;
 }
 
-.row-footer .user-data{
+.row-footer .user-data {
     padding-top: 10px;
 }
 
-@media (max-width:768px){
-    .btn-add-skills{
+@media (max-width:768px) {
+    .btn-add-skills {
         margin-top: 5px;
         margin-left: 0;
     }

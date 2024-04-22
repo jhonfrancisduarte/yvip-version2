@@ -1,6 +1,7 @@
-.antialiased{
+.antialiased {
   overflow-x: hidden;
 }
+
 .font-robo {
   font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
 }
@@ -37,7 +38,7 @@
   width: calc((100% - 30px) / 2);
 }
 
-.main-container{
+.main-container {
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -48,7 +49,8 @@
   .col-2 {
     width: 100%;
   }
-  .antialiased{
+
+  .antialiased {
     overflow-x: hidden !important;
   }
 }
@@ -71,7 +73,9 @@ html {
   margin: 0;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   -webkit-box-sizing: inherit;
   -moz-box-sizing: inherit;
   box-sizing: inherit;
@@ -84,12 +88,23 @@ html {
  * A very simple reset that sits on top of Normalize.css.
  */
 body,
-h1, h2, h3, h4, h5, h6,
-blockquote, p, pre,
-dl, dd, ol, ul,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+blockquote,
+p,
+pre,
+dl,
+dd,
+ol,
+ul,
 figure,
 hr,
-fieldset, legend {
+fieldset,
+legend {
   margin: 0;
   padding: 0;
 }
@@ -97,8 +112,8 @@ fieldset, legend {
 /**
  * Remove trailing margins from nested lists.
  */
-li > ol,
-li > ul {
+li>ol,
+li>ul {
   margin-bottom: 0;
 }
 
@@ -139,7 +154,12 @@ body {
   font-size: 14px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 400;
 }
 
@@ -302,7 +322,7 @@ td.active {
   background-color: #2c6ed5;
 }
 
-.to-login-button{
+.to-login-button {
   display: flex;
   align-items: end;
   justify-content: center;
@@ -313,7 +333,8 @@ input[type="date" i] {
   padding: 14px;
 }
 
-.table-condensed td, .table-condensed th {
+.table-condensed td,
+.table-condensed th {
   font-size: 14px;
   font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
   font-weight: 400;
@@ -334,7 +355,8 @@ input[type="date" i] {
   margin-top: 5px;
 }
 
-.daterangepicker::after, .daterangepicker::before {
+.daterangepicker::after,
+.daterangepicker::before {
   display: none;
 }
 
@@ -385,14 +407,14 @@ input {
   transition: all 0.4s ease;
 }
 
-.checkbox-container{
+.checkbox-container {
   font-size: 16px;
   display: flex;
   flex-direction: row-reverse;
   justify-content: left;
 }
 
-.checkbox-container input{
+.checkbox-container input {
   width: 13px;
   margin-right: 7px;
 }
@@ -432,7 +454,7 @@ input {
   margin-bottom: 5px;
 }
 
-.label-nc{
+.label-nc {
   text-transform: none !important;
 }
 
@@ -455,11 +477,11 @@ input {
   cursor: pointer;
 }
 
-.radio-container input:checked ~ .checkmark {
+.radio-container input:checked~.checkmark {
   background-color: #e5e5e5;
 }
 
-.radio-container input:checked ~ .checkmark:after {
+.radio-container input:checked~.checkmark:after {
   display: block;
 }
 
@@ -510,10 +532,10 @@ input {
   margin-bottom: 22px;
 }
 
-.upload-profile{
+.upload-profile {
   border-radius: 5px !important;
   font-size: 16px;
-  background: rgb(219, 219, 219) !important; 
+  background: rgb(219, 219, 219) !important;
   color: black !important;
 }
 
@@ -671,56 +693,56 @@ input {
     padding: 50px 40px;
   }
 
-  .welcome-header{
+  .welcome-header {
     overflow: hidden;
     display: block !important;
     padding: 20px !important;
     width: 100vw !important;
     height: auto !important;
   }
-  
-  .welcome-nav{
+
+  .welcome-nav {
     padding-right: 20px !important;
     width: 100vw !important;
   }
 
-  .title-container{
+  .title-container {
     width: 100% !important;
     overflow-x: hidden !important;
   }
 
-  .login-form-container{
+  .login-form-container {
     width: 100% !important;
   }
 
-  .welcome-header .line-divider{
+  .welcome-header .line-divider {
     width: 100% !important;
   }
 
-  .welcome-header .title-container h1{
+  .welcome-header .title-container h1 {
     font-size: 30px;
   }
 }
 
 @media (min-width: 767px) and (max-width: 1024px) {
-  .welcome-header{
+  .welcome-header {
     overflow: hidden;
     display: flex !important;
     padding: 20px !important;
     width: 100vw !important;
     height: auto !important;
   }
-  
-  .welcome-nav{
+
+  .welcome-nav {
     padding-right: 20px !important;
   }
 
-  .welcome-header .title-container h1{
+  .welcome-header .title-container h1 {
     font-size: 35px;
   }
 }
 
-.welcome-nav{
+.welcome-nav {
   width: 100%;
   height: 60px;
   overflow-x: hidden;
@@ -735,18 +757,18 @@ input {
   font-size: 16px;
 }
 
-.welcome-nav .reg-button{
+.welcome-nav .reg-button {
   border: 1px solid rgb(0, 0, 0);
   border-radius: 5px;
   padding: 5px 15px;
   cursor: pointer;
 }
 
-.reg-message{
+.reg-message {
   padding: 10px;
 }
 
-.reg-message .reg-button a{
+.reg-message .reg-button a {
   border: 1px solid rgb(0, 0, 0);
   border-radius: 5px;
   width: 100px;
@@ -756,32 +778,32 @@ input {
   cursor: pointer;
 }
 
-.reg-message .reg-button a:hover{
+.reg-message .reg-button a:hover {
   background: #045C9C;
   color: white;
 }
 
-.welcome-nav .reg-button:hover{
+.welcome-nav .reg-button:hover {
   background: white;
   color: #E14843;
 }
 
-.welcome-nav .sign-in-button{
+.welcome-nav .sign-in-button {
   margin-right: 20px;
   cursor: pointer;
 }
 
-.welcome-nav .sign-in-button:hover{
+.welcome-nav .sign-in-button:hover {
   color: #E14843;
 }
 
-@media (min-width:1024px){
-  .welcome-header{
+@media (min-width:1024px) {
+  .welcome-header {
     margin-left: 100px;
   }
 }
 
-.welcome-header{
+.welcome-header {
   width: 100%;
   height: 200px;
   position: relative;
@@ -792,40 +814,41 @@ input {
   color: white;
 }
 
-.welcome-header .title-container{
+.welcome-header .title-container {
   margin-left: 20px;
 }
 
-.welcome-header .title-container h1{
+.welcome-header .title-container h1 {
   font-weight: bold;
   font-size: 40px;
   line-height: 1.1;
 }
 
-.welcome-header{
+.welcome-header {
   background-color: rgba(255, 255, 255, 0) !important;
 }
 
-.welcome-header h4{
+.welcome-header h4 {
   color: #E14843 !important;
   font-size: 28px;
   margin-bottom: -10px !important;
 }
 
-.welcome-header h3{
+.welcome-header h3 {
   padding-left: 20px;
   font-size: 20px;
   color: #1C2840 !important;
 }
 
-.welcome-nav{
+.welcome-nav {
   background-color: rgba(236, 236, 236, 0) !important;
   color: black !important;
 }
 
-.login-form-container{
-  position: absolute; 
-  top: 0; right: 0px;
+.login-form-container {
+  position: absolute;
+  top: 0;
+  right: 0px;
   z-index: 99;
   width: 450px;
   border-radius: 0px !important;
@@ -833,15 +856,16 @@ input {
   transition: 0.3s ease-in-out;
 }
 
-.login-form-container2{
+.login-form-container2 {
   width: 450px;
   border-radius: 10px !important;
   height: 75%;
   margin-top: 80px;
 }
 
-.login-container{
-  position: absolute; top: 0;
+.login-container {
+  position: absolute;
+  top: 0;
   z-index: 98;
   width: 140%;
   height: 100vh;
@@ -851,34 +875,38 @@ input {
   transition: 0.8s ease-in-out;
 }
 
-.login-container .login-overlay{
-  position: absolute; top: 0; left: 0;
+.login-container .login-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
 }
 
-.login-form-container.active{
+.login-form-container.active {
   right: 0 !important;
 }
 
-.close-button{
-  position: absolute; top: 10px; left: 15px;
+.close-button {
+  position: absolute;
+  top: 10px;
+  left: 15px;
   cursor: pointer;
 }
 
-.login-input-div{
+.login-input-div {
   width: 100% !important;
 }
 
-.login-input-div .input-group{
+.login-input-div .input-group {
   width: 100% !important;
 }
 
-.login-input-div .col-1{
+.login-input-div .col-1 {
   width: 100% !important;
 }
 
-.to-register-button{
+.to-register-button {
   position: absolute;
   bottom: 20px;
   display: flex;
@@ -886,7 +914,7 @@ input {
   justify-content: center;
 }
 
-.select-status{
+.select-status {
   width: 100%;
   border-radius: 5px;
   padding: 0 20px;
@@ -901,7 +929,7 @@ input {
   height: 50px;
 }
 
-.select-status option{
+.select-status option {
   width: 100% !important;
   padding: 20px !important;
   margin-top: 20px !important;
@@ -912,60 +940,61 @@ input {
   height: 50px !important;
 }
 
-.main-container2{
+.main-container2 {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.hr{
+.hr {
   background-color: white;
 }
 
-.nav-item .admin-greetings{
+.nav-item .admin-greetings {
   color: white !important;
 }
 
 .landing-page-hero {
   background-image: url('/images/yvip_bg.webp');
-  background-size: cover; 
-  background-position: center; 
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  width: 100%; 
+  width: 100%;
   height: 300px;
 }
 
 .registered-page-hero {
-  width: 100%; 
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.reg-message .reg-button{
+.reg-message .reg-button {
   margin-top: 20px;
 }
 
 @media screen and (max-width: 768px) {
   .landing-page-hero {
     position: relative;
-    background-size: fill; 
-    background-position: right; 
+    background-size: fill;
+    background-position: right;
     width: 100%;
     height: 550px !important;
   }
 
   .reg-message .reg-button a,
   .reg-message h3,
-  .reg-message p{
+  .reg-message p {
     text-align: center;
   }
 
-  .reg-message .reg-button{
+  .reg-message .reg-button {
     margin-top: 20px;
   }
-  .reg-message .logo{
+
+  .reg-message .logo {
     display: flex;
     justify-content: center;
     align-items: center;
