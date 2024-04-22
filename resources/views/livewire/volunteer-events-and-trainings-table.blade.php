@@ -1,9 +1,7 @@
 <div>
     <div class="card-header">
         <h3 class="card-title">Volunteers Events and Trainings Announcement</h3> 
-        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;" wire:click="eventForm({{ auth()->user()->id}})">
-            <i class="fa fa-plus"></i> Add
-        </button>
+        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;" wire:click="eventForm({{ auth()->user()->id}})">Add Event or Training</button>
 
         @if($showForm)
             <div class="show-form">
@@ -92,5 +90,35 @@
                 </div>
             </div>
         @endif
+    </div>
+    <div class="card-body scroll-table" id="scroll-table">
+        <table id="thisUserDetailss-table" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <!-- Add column headers -->
+                    <th>Event Type</th>
+                    <th>Name of Event</th>
+                    <th>Organizer / Facilitator</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Volunteering Hours</th>
+                    <th>Volunteer Category</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- Display data from the form -->
+                <tr>
+                    <!-- Replace values with data from the form -->
+                    <td>{{ $eventType }}</td>
+                    <td>{{ $eventName }}</td>
+                    <td>{{ $organizer }}</td>
+                    <td>{{ $startDate }}</td>
+                    <td>{{ $endDate }}</td>
+                    <td>{{ $volunteerHours }}</td>
+                    <td>{{ implode(', ', $selectedTags) }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

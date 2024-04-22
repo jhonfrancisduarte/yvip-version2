@@ -34,6 +34,7 @@ class VolunteerEventsAndTrainingsTable extends Component
 
     public $showForm;
     public $showTags = false;
+    public $createdEvent;
 
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
@@ -55,8 +56,10 @@ class VolunteerEventsAndTrainingsTable extends Component
             'start_date' => $this->startDate,
             'end_date' => $this->endDate,
             'volunteer_hours' => $this->volunteerHours,
-            'volunteer_category' => $this->volunteerCategory
+            'volunteer_category' => implode(', ', $this->selectedTags)
         ]);
+
+        $this->createdEvent = $event;
     }
 
     public function toggleTag($tag)
@@ -83,5 +86,67 @@ class VolunteerEventsAndTrainingsTable extends Component
     {
         $this->endDate = null;
         $this->endDateMin = $startDate;
+    }
+
+    public function closePopup(){
+        $this->popup_message = null;
+    }
+    
+    public function openEditForm($eventId){
+        $this->openEditEvent = true;
+        $event = VolunteerEventsAndTrainings::find($eventId);
+        if($event){
+            $this->eventType = $event->event_type;
+            $this->eventName = $event->event_name;
+            $this->organizer = $event->organizer_facilitator;
+            $this->startDate = $event->start_date;
+            $this->endDate = $event->end_date;
+            $this->volunteerHours = $event->volunteer_hours;
+            $this->volunteerCategory = $event->volunteer_category;
+            // Assuming $selectedTags is a string separated by commas in the database
+            $this->selectedTags = explode(', ', $event->volunteer_category);
+            $this->editEventId = $eventId;
+        }
+    }
+    
+    public function closeEditForm(){
+        $this->openEditEvent = null;
+        $this->editEventId = null;
+        $this->selectedTags = [];
+        $this->eventType = null;
+        $this->eventName = null;
+        $this->organizer = null;
+        $this->startDate = null;
+        $this->endDate = null;
+    }
+    
+    public function deleteDialog($eventId){
+        $this->deleteEventId = $eventId;
+    }
+    
+    public function hideDeleteDialog(){
+        $this->deleteMessage = null;
+        $this->deleteEventId = null;
+        $this->selectedTags = [];
+        $this->disableButton = "No";
+        $this->eventType = null;
+        $this->eventName = null;
+        $this->organizer = null;
+        $this->startDate = null;
+        $this->endDate = null;
+    }
+    
+    public function deleteEvent(){
+        if($this->deleteEventId){
+            $event = VolunteerEventsAndTrainings::find($this->deleteEventId);
+            if ($event){
+                $event->delete();
+                $this->deleteMessage = 'Event deleted successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Event deletion unsuccessful.';
+                $this->disableButton = "Yes";
+            }
+        }
     }
 }
