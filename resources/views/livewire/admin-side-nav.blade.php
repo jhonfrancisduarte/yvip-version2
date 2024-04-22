@@ -11,7 +11,7 @@
                         <img src="{{ asset(auth()->user()->admin->profile_picture) }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;">
                     </div>
                     <div class="info">
-                    <a href="/admin-profile" class="d-block">{{ auth()->user()->admin->first_name }} {{ auth()->user()->admin->last_name }}</a>
+                    <a href="/admin-profile" class="d-block" wire:navigate>{{ auth()->user()->admin->first_name }} {{ auth()->user()->admin->last_name }}</a>
                 </div>
             </div>
 
@@ -20,7 +20,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     @if(session('user_role') == 'sa')
                         <li class="nav-item">
-                            <a href="{{ route('admin-dashboard') }}" class="nav-link {{ request()->routeIs('admin-dashboard') ? 'active' : '' }}" wire:navigate>
+                            <a  href="{{ route('admin-dashboard') }}" wire:navigate class="nav-link {{ request()->routeIs('admin-dashboard') ? 'active' : '' }}" >
                             <i class="nav-icon fas fa-home"></i>
                             <p>
                                 Welcome Admin
