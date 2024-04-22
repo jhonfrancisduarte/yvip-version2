@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="/css/volunteers.css">
+    <link rel="stylesheet" href="/css/leaderboard.css">
 @endsection
 
 
