@@ -87,7 +87,7 @@ class Register extends Component
         $this->pcities = collect();
         $this->rcities = collect();
     }
-    
+
     protected $rules = [
         'password' => 'required|min:8',
         'c_password' => 'required|same:password',

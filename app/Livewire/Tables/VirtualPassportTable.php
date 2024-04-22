@@ -2,12 +2,12 @@
 
 namespace App\Livewire\Tables;
 
+use BaconQrCode\Encoder\Encoder;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class VirtualPassportTable extends Component
 {
-
     public $qrCodeUrl;
 
     public function mount()
@@ -25,10 +25,14 @@ class VirtualPassportTable extends Component
             'Date of Birth' => $userData->date_of_birth,
         ];
 
-        // Generate QR code URL using QR Code API
-        $queryString = http_build_query($details);
-        $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($queryString);
+        $text = '';
+        foreach ($details as $key => $value) {
+            $text .= "$key: $value\n";
+        }
+
+        $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($text);
     }
+
     public function render()
     {
         return view('livewire.tables.virtual-passport-table', [
