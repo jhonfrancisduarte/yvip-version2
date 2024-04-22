@@ -4,6 +4,10 @@
     <title>Leaderboard</title>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" href="/css/volunteers.css">
+@endsection
+
 
 @section('content')
 
@@ -25,6 +29,13 @@
                 </div>
             </div>
         </div>
+
+        <div class="content">
+            <div class="container-fluid">
+                <livewire:volunteer-leaderboard />
+            </div>
+        </div>
+
     </div>
 
 @endsection
