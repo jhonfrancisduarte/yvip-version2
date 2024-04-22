@@ -53,7 +53,7 @@
                     <a href="{{ route('my-participations') }}" class="nav-link {{ request()->routeIs('my-participations') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-handshake"></i>
                         <p>
-                            My Participations
+                            Participated YV Events
                         </p>
                         </a>
                     </li>
@@ -103,7 +103,7 @@
                         <a href="{{ route('ip-participated-events') }}" class="nav-link {{ request()->routeIs('ip-participated-events') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-handshake"></i>
                         <p>
-                            My Participated IP Events
+                            Participated IP Events
                         </p>
                         </a>
                     </li>

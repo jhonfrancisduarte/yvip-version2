@@ -38,7 +38,7 @@ Route::middleware(['auth', 'user_role:yip'])->group(function () {
      Route::get('/past-ip-participated-events', function () {return view('livewire.past-ip-participated-events');})->name('past-ip-participated-events');
      Route::get('/ip-participated-events', function () {return view('livewire.ip.ip-participated-events');})->name('ip-participated-events');
      Route::get('/ip-passport', function () {return view('livewire.ip-passport');})->name('ip-passport');
-     Route::get('/post-program-obligation', function () {return view('livewire.post-program-obligation');})->name('post-program-obligation');
+     Route::get('/post-program-obligation', function () {return view('livewire.ip.post-program-obligation');})->name('post-program-obligation');
 });
 
 Route::middleware(['auth', 'user_role:sa'])->group(function (){

@@ -23,8 +23,8 @@
                         </div>
                     </div>
 
-                @if( request()->routeIs('ip-participated-events'))
                     <div class="card-body scroll-table" id="scroll-table">
+                    @if(request()->routeIs('ip-participated-events'))
                         <table id="thisUserDetailss-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -66,6 +66,56 @@
                                     <th>Organizer / Sponsor</th>
                                     <th>Date / Period</th>
                                     <th>Status</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    @elseif(request()->routeIs('post-program-obligation'))
+                        <table id="thisUserDetailss-table" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name of Exchange Program/Event</th>
+                                    <th>Organizer / Sponsor</th>
+                                    <th>Date / Period</th>
+                                    <th>Status</th>
+                                    <th>Post-Program Obligation</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach($ipEvents as $event)
+                                    <tr>
+                                        @if($event->approved)
+                                            <td>{{ $event->event_name }}</td>
+                                            <td>{{ $event->organizer_sponsor }}</td>
+                                            <td>{{ $event->start }} - {{ $event->end }} </td>
+                                            <td>
+                                                <span
+                                                    @if($event->status === "Ongoing")
+                                                        class="green"
+                                                    @elseif($event->status === "Completed")
+                                                        class="blue"
+                                                    @else
+                                                        class="orange"
+                                                    @endif
+                                                    >
+                                                    {{ $event->status }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <input type="file" id="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                                            </td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            </tbody>
+
+                            <tfoot>
+                                <tr>
+                                    <th>Name of Exchange Program/Event</th>
+                                    <th>Organizer / Sponsor</th>
+                                    <th>Date / Period</th>
+                                    <th>Status</th>
+                                    <th>Post-Program Obligation</th>
                                 </tr>
                             </tfoot>
                         </table>

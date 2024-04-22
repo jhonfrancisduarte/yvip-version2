@@ -38,6 +38,7 @@ class IpEventsTable extends Component
     public $isParticipant;
     public $eventId;
     public $options;
+    public $file;
 
     public function addSkill(){
         $this->newSkills[] = '';
