@@ -1,0 +1,62 @@
+.btn-add-event{
+    margin-left: 15px;
+}
+
+.anns{
+    position: fixed; top: 0;
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-announcement-container{
+    margin-top: 0px;
+    height: 100% !important;
+    padding-top: 50px;
+}
+
+.add-announcement-container .modal-dialog{
+    padding-bottom: 50px !important;
+}
+
+.anns .card-primary{
+    width: 100%;
+}
+
+.btn-add-skill{
+    margin-top: 10px;
+    margin-left: 0;
+}
+
+.skill-form-control{
+    margin-bottom: 5px;
+}
+
+.add-edit-skill-input{
+    position: relative;
+}
+
+.add-edit-skill-input .close{
+    position: absolute;
+    top: 5px; right: 5px;
+}
+
+.list-td ul li{
+    cursor: pointer;
+}
+
+.list-td-2 ul{
+    padding-left: 15px;
+}
+
+.list-td ul li:hover{
+    color: green;
+}
+
+@media (max-width:768px){
+    .btn-add-event{
+        margin-top: 5px;
+        margin-left: 0;
+    }
+}

@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         if (!Schema::hasTable('users')) {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('email', 50);
-            $table->string('password', 1000);
-            $table->string('name')->default('');
-            $table->string('user_role', 100);
-            $table->timestamps();
-        });
+            Schema::create('users', function (Blueprint $table) {
+                $table->id();
+                $table->string('email', 50);
+                $table->string('password', 1000);
+                $table->string('name')->default('');
+                $table->string('user_role', 100);
+                $table->timestamps();
+            });
+        }
     }
-}
 
     /**
      * Reverse the migrations.

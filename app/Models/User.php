@@ -45,11 +45,6 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
-    public function user_volunteer_skills()
-    {
-        return $this->hasOne(UserVolunteerSkills::class);
-    }
-
     public function volunteer(){
         return $this->hasOne(Volunteer::class);
     }
@@ -60,6 +55,10 @@ class User extends Authenticatable
 
     public function volunteer_categories(){
         return $this->hasOne(VolunteerCategory::class);
+    }
+
+    public function ipEvents(){
+        return $this->hasMany(IpEvents::class);
     }
 
     public function scopeSearch($query, $term)
