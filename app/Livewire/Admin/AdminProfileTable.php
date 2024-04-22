@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Rule;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Session;
 class AdminProfileTable extends Component
 {
     use WithFileUploads;
@@ -174,6 +174,28 @@ class AdminProfileTable extends Component
         $containsNumber = preg_match('/\d/', $password);
         $containsSpecialChar = preg_match('/[^A-Za-z0-9]/', $password);
         return $containsUppercase && $containsNumber && $containsSpecialChar;
+    }
+
+    public function deleteAccount(){
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        if($user){
+            // soft deletion
+            $user->update([
+                'active_status' => 2,
+            ]);
+            Auth::logout();
+            Session::flush();
+            return redirect('/');
+        }
+    }
+
+    public function deleteDialog(){
+        $this->deleteAccDialog = true;
+    }
+
+    public function hideDeleteDialog(){
+        $this->deleteAccDialog = null;
     }
 
 }

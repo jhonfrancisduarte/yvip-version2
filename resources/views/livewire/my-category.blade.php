@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-<title>Dashboard</title>
+    <title>Dashboard</title>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" href="css/category.css">
+@endsection
 
 @section('content')
 
@@ -28,7 +31,6 @@
 
         <div class="content">
             <div class="container-fluid">
-                <!-- Include the Livewire component here -->
                 <livewire:category-form />
             </div>
         </div>

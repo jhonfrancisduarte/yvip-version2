@@ -75,7 +75,11 @@
     height: 100%;
 }
 
-.attached-file,
+.attached-file{
+    display: block;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
 .announcement-info{
     display: flex;
     padding-left: 25px;
@@ -92,12 +96,12 @@
 
 .attached-file a,
 .attached-file p{
-    padding-right: 20px;
+    padding-right: 5px;
 }
 
 .announcement-info{
     padding-top: 10px;
-    background: #28a745;
+    background: #343a40;
     border-radius: 0 0 5px 5px;
 }
 .announcement-info p{
@@ -108,7 +112,7 @@
 .announcement-box .content{
     margin: 15px;
     padding: 10px;
-    margin-top: -25px;
+    margin-top: -15px;
     background: white;
     border-radius: 5px;
 }
@@ -198,6 +202,8 @@
     text-align: center;
     color: #28a745;
 }
+
+
 
 .close-form{
     width: 100%;

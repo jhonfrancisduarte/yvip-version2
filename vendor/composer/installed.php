@@ -28,6 +28,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'blade-ui-kit/blade-icons' => array(
+            'pretty_version' => '1.6.0',
+            'version' => '1.6.0.0',
+            'reference' => '89660d93f9897d231e9113ba203cd17f4c5efade',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../blade-ui-kit/blade-icons',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'brick/math' => array(
             'pretty_version' => '0.11.0',
             'version' => '0.11.0.0',
@@ -427,7 +436,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'ce629b065c61fdfefce367ff1b0ced9dc9fbe395',
+            'reference' => '52ad9f3a77c40965439d3a60bdd97b61c1dd2932',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

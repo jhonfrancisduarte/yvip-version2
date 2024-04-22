@@ -132,7 +132,7 @@ class Register extends Component
         $this->permanent_selectedCity = Str::ucfirst(Str::lower($this->permanent_selectedCity));
         $this->residential_selectedProvince = Str::ucfirst(Str::lower($this->residential_selectedProvince));
         $this->residential_selectedCity = Str::ucfirst(Str::lower($this->residential_selectedCity));
-
+        sleep(1);
         try {
             $this->validate();
             if (!$this->isPasswordComplex($this->password)) {
@@ -188,6 +188,8 @@ class Register extends Component
 
             $this->reset();
             session()->flash('successMessage', 'Successfully Registered! Please Wait for admin activation!');
+            sleep(1);
+            return redirect('/registered');
         } catch (\Exception $e) {
             throw $e;
             DB::rollBack();

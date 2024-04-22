@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Skills and Categories Management</h3> 
-                        <button type="button" class="btn btn-success btn-sm btn-register" wire:click="openAddForm">Register an Admin</i>
+                        <button type="button" class="btn btn-success btn-sm btn-add-skills" wire:click="openAddForm">Add Skills and Category
                         </button>
                         
                     </div>
@@ -26,48 +26,38 @@
                         <table id="volunteers-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Firstname</th>
-                                    <th>Middlename</th>
-                                    <th>Lastname</th>
-                                    <th>Email</th>
-                                    <th>Position</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Skills / Task</th>
                                     <th width="7%" class="action-btn">Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                {{-- @foreach($categories as $category)
+                                @foreach($categories as $category)
                                     <tr>
-                                        <td>{{ $category->first_name }}</td>
-                                        <td>{{ $category->middle_name }}</td>
-                                        <td>{{ $category->last_name }}</td>
-                                        <td>{{ $category->email }}</td>
-                                        <td>
-                                            @if($category->user_role === "sa")
-                                                <p class="green">Super category</p>
-                                            @elseif($category->user_role === "vs")
-                                                <p class="blue">Volunteer Secretariat</p>
-                                            @elseif($category->user_role === "vsa")
-                                                <p class="light-blue">Volunteer Secretariat Assistant</p> 
-                                            @elseif($category->user_role === "ips")
-                                                <p class="orange">IP Secretariat</p> 
-                                            @endif
+                                        <td>{{ $category->all_categories_name }}</td>
+                                        <td>{{ $category->description }}</td>
+                                        <td class="skills-list">
+                                            <ul>
+                                                @foreach($category->all_skills as $skill)
+                                                    <li>{{ $skill->all_skills_name }}</li>
+                                                @endforeach
+                                            </ul>
                                         </td>
                                         <td class="action-btn">
-                                            <button class="btn btn-info btn-xs" wire:click="showUserData({{ $category->user_id }})">View</button>
-                                            <button class="btn btn-danger btn-xs" wire:click="deleteDialog({{ $category->user_id }})">Delete</button>
+                                            <button class="btn btn-info btn-xs" wire:click="openEditForm({{ $category->id }})">Edit</button>
+                                            <button class="btn btn-danger btn-xs" wire:click="deleteDialog({{ $category->id }})">Delete</button>
                                         </td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
 
                             <tfoot>
                                 <tr>
-                                    <th>Firstname</th>
-                                    <th>Middlename</th>
-                                    <th>Lastname</th>
-                                    <th>Email</th>
-                                    <th>Position</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Skills / Task</th>
                                     <th width="7%" class="action-btn">Actions</th>
                                 </tr>
                             </tfoot>
@@ -78,7 +68,7 @@
         </div>
     </div>
 
-    @if($deleteSkillsandCategories)
+    @if($deleteCategoryId)
         <div class="users-data-all-container">
             <div class="close-form" wire:click="hideDeleteDialog"></div>
             <div class="user-info">
@@ -87,7 +77,7 @@
                         @if($deleteMessage)
                             <label class="label" style="color: green;">{{ $deleteMessage }}</label>
                         @else
-                            <label class="label">Are you sure you want to delete this admin?</label>
+                            <label class="label">Are you sure you want to delete this category and skills?</label>
                         @endif
                     </div>
                 </div>
@@ -96,9 +86,7 @@
                     <div class="col">
                         <div class="user-data">
                             @if($disableButton == "No")
-                                <button class="btn-danger btn-50" wire:click="deleteAdmin({{ $deleteAdminId }})" wire:loading.attr="disabled">Yes
-                                    {{-- <div class="loader" wire:loading></div> --}}
-                                </button>
+                                <button class="btn-danger btn-50" wire:click="deleteAnnouncement" wire:loading.attr="disabled">Yes</button>
                                 <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Cancel</button>
                             @else
                                 <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Close</button>
@@ -110,28 +98,28 @@
         </div>    
     @endif
 
-    @if($openEditSkillsAndCategories)
+    @if($openAddSkillsAndCategories)
         <div class="anns">
-            <div class="close-form" wire:click="closeEditForm"></div>
+            <div class="close-form" wire:click="closeAddForm"></div>
             <div class="add-announcement-container">
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Edit Announcement</h4>
-                            <button type="button" class="close" wire:click="closeEditForm">
+                            <h4 class="modal-title">Add skills and category</h4>
+                            <button type="button" class="close" wire:click="closeAddForm">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form enctype="multipart/form-data" wire:submit.prevent='editAnnouncement'>
+                        <form wire:submit.prevent='createCategory'>
                             <div class="card card-primary">
                                 <div class="card-body">
                                     
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>Title</label>
-                                                <input type="text" class="form-control" row="5" wire:model.live='title' placeholder="Title..." value="{{ $title }}" required>
-                                                @error('title') 
+                                                <label>Category Name</label>
+                                                <input type="text" class="form-control" row="5" wire:model.live='category_name' placeholder="Category name..." required>
+                                                @error('category_name') 
                                                     <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -141,9 +129,9 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>Your Announcement</label>
-                                                <textarea class="form-control" rows="5" wire:model.live="content" required>{{ $content }}</textarea>
-                                                @error('content') 
+                                                <label>Description</label>
+                                                <textarea class="form-control" row="5" wire:model.live='description' placeholder="Description" required></textarea>
+                                                @error('description') 
                                                     <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -153,33 +141,16 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Category</label>
-                                                <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                                    <select  class="form-control select-status" id="category" wire:model.blur="category" name="category" required>
-                                                        <option selected class="form-control">Choose option</option>
-                                                        <option value="Training" class="form-control">Training</option>
-                                                        <option value="Event" class="form-control">Event</option>    
-                                                    </select>
-                                                    <div class="select-dropdown"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">     
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label class="label">Add Featured Image</label>
-                                                <input type="file" id="featured_image" wire:model.live='featured_image' value="{{ $featured_image }}"/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">     
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label class="label">Attach File</label>
-                                                <input type="file" id="file" wire:model.live='file' value="{{ $file }}"/>
+                                                <label>Add Skills / Task</label>
+                                                @foreach($newSkills as $index => $skill)
+                                                    <div class="add-edit-skill-input">
+                                                        <input type="text" class="form-control skill-form-control" wire:model="newSkills.{{ $index }}" placeholder="Add skill/task" required>
+                                                        <button type="button" class="close" wire:click="removeSkill({{ $index }})"><span aria-hidden="true">&times;</span></button>
+                                                    </div>
+                                                @endforeach
+                                                <button type="button" class="btn btn-success btn-sm" wire:click="addSkill">
+                                                    <i class="nav-icon fas fa-plus"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -197,28 +168,26 @@
         </div>
     @endif
 
-    @if($openAddSkillsAndCategories)
+    @if($openEditSkillsAndCategories)
         <div class="anns">
-            <div class="close-form" wire:click="closeAddForm"></div>
+            <div class="close-form" wire:click="closeEditForm"></div>
             <div class="add-announcement-container">
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Register an Admin</h4>
-                            <button type="button" class="close" wire:click="closeAddForm">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <h4 class="modal-title">Edit skills and category</h4>
+                            <button type="button" class="close" wire:click="closeEditForm"><span aria-hidden="true">&times;</span></button>
                         </div>
-                        <form enctype="multipart/form-data" wire:submit.prevent='create'>
+                        <form wire:submit.prevent='editCategory'>
                             <div class="card card-primary">
                                 <div class="card-body">
                                     
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>Firstname</label>
-                                                <input type="text" class="form-control" row="5" wire:model.live='first_name' placeholder="Firstname" required>
-                                                @error('first_name') 
+                                                <label>Category Name</label>
+                                                <input type="text" class="form-control" row="5" wire:model.live='category_name' placeholder="Category name..." value="{{ $category_name }}" required>
+                                                @error('category_name') 
                                                     <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -228,9 +197,9 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>Middlename</label>
-                                                <input type="text" class="form-control" row="5" wire:model.live='middle_name' placeholder="Middlename" required>
-                                                @error('middle_name') 
+                                                <label>Description</label>
+                                                <textarea class="form-control" row="10" wire:model.live='description' required>{{ $description }}</textarea>
+                                                @error('description') 
                                                     <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -240,71 +209,19 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>Lastname</label>
-                                                <input type="text" class="form-control" row="5" wire:model.live='last_name' placeholder="Lastname" required>
-                                                @error('last_name') 
-                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                                @enderror
+                                                <label>Edit Skills / Task</label>
+                                                @foreach($newSkills as $index => $skill)
+                                                    <div class="add-edit-skill-input">
+                                                        <input type="text" class="form-control skill-form-control" wire:model="newSkills.{{ $index }}" value="{{ $skill }}" placeholder="Add skill/task" required>
+                                                        <button type="button" class="close" wire:click="removeSkill({{ $index }})"><span aria-hidden="true">&times;</span></button>
+                                                    </div>
+                                                @endforeach
+                                                <button type="button" class="btn btn-success btn-sm" wire:click="addSkill">
+                                                    <i class="nav-icon fas fa-plus"></i>
+                                                </button>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <input type="text" class="form-control" row="5" wire:model.live='email' placeholder="Email" required>
-                                                @error('email') 
-                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Position</label>
-                                                <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                                    <select  class="form-control select-status" id="position" wire:model.blur="position" name="position" required>
-                                                        <option selected class="form-control">Choose option</option>
-                                                        <option value="sa" class="form-control">Super Admin</option>
-                                                        <option value="vs" class="form-control">Volunteer Secretariat</option>    
-                                                        <option value="vsa" class="form-control">Volunteer Secretariat Assistant</option>    
-                                                        <option value="ips" class="form-control">IP Secretariat</option>    
-                                                    </select>
-                                                    <div class="select-dropdown"></div>
-                                                </div>
-                                                @error('position') 
-                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Password</label>
-                                                <input type="password" class="form-control" row="5" wire:model.live='password' placeholder="Password" required>
-                                                @error('password') 
-                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Confirm Password</label>
-                                                <input type="password" class="form-control" row="5" wire:model.live='c_password' placeholder="Confirm Password" required>
-                                                @error('c_password') 
-                                                    <span class="text-danger small" style="color: red;">Passwords didn't match!</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </div>                                    
 
                                 </div>
 
