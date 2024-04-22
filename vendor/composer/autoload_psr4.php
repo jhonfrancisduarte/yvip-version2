@@ -95,20 +95,14 @@ return array(
     'GrahamCampbell\\ResultType\\' => array($vendorDir . '/graham-campbell/result-type/src'),
     'Fruitcake\\Cors\\' => array($vendorDir . '/fruitcake/php-cors/src'),
     'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
-<<<<<<< HEAD
-=======
     'Filament\\Widgets\\' => array($vendorDir . '/filament/widgets/src'),
     'Filament\\Tables\\' => array($vendorDir . '/filament/tables/src'),
->>>>>>> upstream/master
     'Filament\\Support\\' => array($vendorDir . '/filament/support/src'),
     'Filament\\Notifications\\' => array($vendorDir . '/filament/notifications/src'),
     'Filament\\Infolists\\' => array($vendorDir . '/filament/infolists/src'),
     'Filament\\Forms\\' => array($vendorDir . '/filament/forms/src'),
     'Filament\\Actions\\' => array($vendorDir . '/filament/actions/src'),
-<<<<<<< HEAD
-=======
     'Filament\\' => array($vendorDir . '/filament/filament/src'),
->>>>>>> upstream/master
     'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
     'Egulias\\EmailValidator\\' => array($vendorDir . '/egulias/email-validator/src'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
@@ -123,10 +117,7 @@ return array(
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     'Database\\Seeders\\' => array($baseDir . '/database/seeders', $vendorDir . '/laravel/pint/database/seeders'),
     'Database\\Factories\\' => array($baseDir . '/database/factories', $vendorDir . '/laravel/pint/database/factories'),
-<<<<<<< HEAD
-=======
     'DanHarrin\\LivewireRateLimiting\\' => array($vendorDir . '/danharrin/livewire-rate-limiting/src'),
->>>>>>> upstream/master
     'DanHarrin\\DateFormatConverter\\' => array($vendorDir . '/danharrin/date-format-converter/src'),
     'Cron\\' => array($vendorDir . '/dragonmantank/cron-expression/src/Cron'),
     'Carbon\\Doctrine\\' => array($vendorDir . '/carbonphp/carbon-doctrine-types/src/Carbon/Doctrine'),

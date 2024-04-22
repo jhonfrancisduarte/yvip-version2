@@ -10,12 +10,10 @@
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-<<<<<<< HEAD
                                     <label class="label">First Name</label>
                                     <input class="input--style-4" type="text" wire:model="first_name" name="first_name">
                                     @error('first_name') 
                                         <span class="error" style="color: red;">Please fill out this field</span> 
-=======
                                     <label class="label">first name</label>
                                     <input class="input--style-4" type="text" wire:model.blur="first_name" name="first_name">
                                     @error('first_name') <span class="text-danger small" style="color: red;">{{ $message }}</span>

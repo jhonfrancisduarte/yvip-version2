@@ -39,7 +39,6 @@ trait HasAuth
      */
     protected string | Closure | array | null $loginRouteAction = null;
 
-    // protected string $loginRouteSlug = 'login';
     protected string $loginRouteSlug = 'login';
 
     /**

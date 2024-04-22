@@ -7,6 +7,7 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/announcement.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/volunteers.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/events-and-trainings.css') }}">
 @endsection
 
 @section('content')
@@ -35,11 +36,3 @@
     </div>
 
 @endsection
-
-@push('script')
-<script>
-    window.addEventListener('close-modal', event => {
-            $('#add-volunteer-form').modal('hide');
-        })
-</script>
-@endpush

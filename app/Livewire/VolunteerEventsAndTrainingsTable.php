@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\VolunteerEventsAndTrainingsTable as VolunteerEvent;
+use App\Models\VolunteerEventsAndTrainings;
 
 class VolunteerEventsAndTrainingsTable extends Component
 {
@@ -32,7 +32,7 @@ class VolunteerEventsAndTrainingsTable extends Component
     #[Rule('required')]
     public $selectedTags = [];
 
-    public $showForm = false;
+    public $showForm;
     public $showTags = false;
 
     public function render()
@@ -45,38 +45,16 @@ class VolunteerEventsAndTrainingsTable extends Component
     }
 
     public function create()
-    {
-    $validatedData = $this->validate([
-        'eventType' => 'required',
-        'eventName' => 'required|min:2',
-        'organizer' => 'required|min:2',
-        'startDate' => 'required|date',
-        'endDate' => 'required|date',
-        'volunteerHours' => 'required|integer',
-        'volunteerCategory' => 'required',
-    ]);
-
-    $event = new VolunteerEvent();
-    $event->event_type = $validatedData['eventType'];
-    $event->event_name = $validatedData['eventName'];
-    $event->organizer_facilitator = $validatedData['organizer'];
-    $event->start_date = Carbon::createFromFormat('Y-m-d', $validatedData['startDate']);
-    $event->end_date = Carbon::createFromFormat('Y-m-d', $validatedData['endDate']);
-    $event->volunteer_hours = $validatedData['volunteerHours'];
-    $event->volunteer_category = $validatedData['volunteerCategory'];
-    $event->save();
-
-    session()->flash('message', 'Posted Successfully!');
-
-    $this->dispatchBrowserEvent('close-modal');
-    $this->reset(['eventType', 'eventName', 'organizer', 'startDate', 'endDate', 'volunteerHours', 'volunteerCategory', 'selectedTags']);
-    $this->emit('eventAdded');
-    $this->emit('modalClosed');
-    }
-
-    public function toggleTagsVisibility()
-    {
-        $this->showTags = !$this->showTags;
+    { 
+        $event = VolunteerEventsAndTrainings::create([
+            'event_type' => $this->eventType,
+            'event_name' => $this->eventName,
+            'organizer_facilitator' => $this->organizer,
+            'start_date' => $this->startDate,
+            'end_date' => $this->endDate,
+            'volunteer_hours' => $this->volunteerHours,
+            'volunteer_category' => $this->volunteerCategory
+        ]);
     }
 
     public function toggleTag($tag)
@@ -86,6 +64,16 @@ class VolunteerEventsAndTrainingsTable extends Component
         } else {
             $this->selectedTags[] = $tag;
         }
+        $this->volunteerCategory = implode(', ', $this->selectedTags);
+    }
+    
+
+    public function eventForm($userId){
+        $this->showForm = true;
+    }
+
+    public function closeEventForm(){
+        $this->showForm = null;
     }
 
 }
