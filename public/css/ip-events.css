@@ -154,4 +154,10 @@
         margin-top: 5px;
         margin-left: 0;
     }
+
+    .action-btn{
+        position: sticky; 
+        right: -22px;
+        background: white;
+    }
 }
