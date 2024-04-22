@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-
 class UserData extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'user_data';
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -52,4 +52,12 @@ class UserData extends Model
         'is_volunteer',
         'is_ip_participant',
     ];
+
+    public function setAttribute($key, $value){
+        if ($key !== 'profile_picture' && in_array($key, $this->fillable) && is_string($value)) {
+            $this->attributes[$key] = strtoupper($value);
+        } else {
+            parent::setAttribute($key, $value);
+        }
+    }
 }

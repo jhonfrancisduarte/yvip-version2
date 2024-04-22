@@ -1,0 +1,30 @@
+.gold::before {
+    content: "\f521";
+    color: #FFD700;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+.silver::before {
+    color: #C0C0C0;
+    content: "\f521";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+.bronze::before {
+    color: #CD7F32;
+    content: "\f521";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+#rank::before {
+    content: "\f521";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}

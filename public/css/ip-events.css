@@ -1,0 +1,157 @@
+.btn-add-event{
+    margin-left: 15px;
+}
+
+.anns{
+    position: fixed; top: 0;
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-announcement-container{
+    margin-top: 0px;
+    height: 100% !important;
+    padding-top: 50px;
+}
+
+.add-announcement-container .modal-dialog{
+    padding-bottom: 50px !important;
+}
+
+.anns .card-primary{
+    width: 100%;
+}
+
+.btn-add-skill{
+    margin-top: 10px;
+    margin-left: 0;
+}
+
+.skill-form-control{
+    margin-bottom: 5px;
+}
+
+.add-edit-skill-input{
+    position: relative;
+}
+
+.add-edit-skill-input .close{
+    position: absolute;
+    top: 5px; right: 5px;
+}
+
+.list-td ul li{
+    cursor: pointer;
+}
+
+.list-td-2 ul{
+    padding-left: 15px;
+}
+
+.list-td ul li:hover{
+    color: green;
+}
+
+.row-footer .user-data{
+    padding-top: 10px;
+}
+
+.green{
+    color: green;
+    font-weight: bold;
+}
+
+.blue{
+    color: #17a2b8;
+    font-weight: bold;
+}
+
+.orange{
+    color: orangered;
+    font-weight: bold;
+}
+
+.btn-accounts{
+    position: relative;
+}
+
+.btn-accounts span{
+    padding: 0px 5px;
+    border-radius: 5px;
+    position: absolute;
+    top: -10px; left: -10px;
+}
+
+.requester{
+    display: flex !important;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.requester .label{
+    cursor: pointer;
+}
+
+.requester .label:hover{
+    color: green;
+}
+
+.action-btn button{
+    width: 100% !important;
+}
+
+.requester .btn-approve{
+    float: right;
+    width: 80px !important;
+}
+
+
+.action-btn{
+    position: relative;
+}
+
+.options-container{
+    width: 100px;
+    position: absolute;
+    left: -90px; top: 50px;
+    background-color: #343a40;
+    border-radius: 5px;
+    padding: 8px;
+    z-index:999 ;
+}
+
+.ppo-upload-file{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ppo-upload-file .form-control{
+    margin-right: 5px;
+}
+
+.ppo-upload-file button{
+    height: 100% !important;
+}
+
+.ppo-upload-file-container{
+    border: 1px solid #ccc;
+    background: #ccc;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.p-break{
+    word-wrap: break-word;
+    width: 250px;
+}
+
+@media (max-width:768px){
+    .btn-add-event{
+        margin-top: 5px;
+        margin-left: 0;
+    }
+}

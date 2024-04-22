@@ -1,11 +1,13 @@
 <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
+                <div class="reg-logo-container">
+                    <img src="images/yvip_logo.png" width="100"/>
+                </div>
                 <div class="card-body">
-                    <h2 class="title">Registration Form</h2>
+                    <center><h2 class="title reg-title">Registration Form</h2></center>
 
-
-                    <form wire:submit="create">
+                    <form wire:submit="create" >
 
                         <div class="row row-space">
                             <div class="col-2">
@@ -19,11 +21,8 @@
                                     @error('first_name') <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                     @enderror
                                 </div>
-
-
-
-
                             </div>
+
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">last name</label>
@@ -66,10 +65,12 @@
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">Date of Birth</label>
+                                    <label class="label">date of birth</label>
                                     <div class="input-group-icon">
-                                        <input class="input--style-4 js-datepicker" type="text" wire:model.blur="date_of_birth" name="birthday">
-                                        <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                        <input class="input--style-4" type="date" wire:model="date_of_birth" name="date_of_birth">
+                                        @error('date_of_birth') <span class="text-danger small" style="color: red;">The date of birth field is required</span>
+
+                                    @enderror
                                     </div>
                                 </div>
                             </div>
@@ -78,10 +79,15 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">civil status</label>
-                                    <input class="input--style-4" type="text" wire:model="civil_status" name="civil_status">
+                                        <select id="civil_status" class="label select-status" wire:model="civil_status">
+                                            <option class="label" value="">Select Civil Status</option>
+                                            <option class="label" value="Single">Single</option>
+                                            <option class="label" value="Married">Married</option>
+                                            <option class="label" value="Widowed">Widowed</option>
+                                            <option class="label" value="Legally Separated">Legally Separated</option>
+                                        </select>
                                     @error('civil_status') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
->>>>>>> 326207829443e6a009cc5c8f116be3e217ae3d04
                                     @enderror
                                 </div>
                             </div>
@@ -147,10 +153,9 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Email</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="email" name="email">
+                                    <input class="input--style-4" type="text" wire:model.blur="email" wire:change="onBlurEmail" name="email" >
                                     @error('email') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
->>>>>>> 326207829443e6a009cc5c8f116be3e217ae3d04
                                     @enderror
 
                                 </div>
@@ -195,11 +200,6 @@
                         <div class="row row-space">
                             <div class="col-4" style="width: 100%">
                                 <div class="input-group">
-<<<<<<< HEAD
-                                    <label class="label">permanent Address</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="permanent_address" name="permanent_address">
-                                    @error('permanent_address') <span class="text-danger small" style="color: red;">{{ $message }}</span>
-=======
                                     <label class="label">Permanent Address</label>
                                     <label class="label" for="permanent_province">Select Province:</label>
                                     <select class="label select-status" wire:model.live="permanent_selectedProvince" id="permanent_province" name="permanent_selectedProvince">
@@ -213,27 +213,24 @@
                                     </select>
                                     @error('permanent_selectedProvince') <span class="text-danger small" style="color: red;">The Province Field is required</span>
 
-                                    @enderror
-                                    <label class="label" for="permanent_city">Select City:</label>
-                                    <select class="label select-status" wire:model.live="permanent_selectedCity" id="permanent_city" name="permanent_selectedCity">
-                                        <option value="" selected>Select city</option>
-                                        @if ($permanent_cities)
-                                        @foreach ($permanent_cities as $city)
-                                            <option class="label" value="{{ $city }}">{{ $city }}</option>
-                                        @endforeach
-                                        @else
-                                            <option class="label" value="">No cities available</option>
-                                        @endif
-                                    </select>
-                                    @error('permanent_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>
+                                        <label class="label" for="permanent_city">Select City:</label>
+                                        <select class="label select-status" wire:model.live="permanent_selectedCity" id="permanent_city" name="permanent_selectedCity">
+                                            @if($pcities)
+                                                <option class="label" value="">Select City</option>
+                                                @foreach ($pcities as $city)
+                                                    <option class="label" value="{{ $city->city_municipality_description }}">{{ $city->city_municipality_description }}</option>
+                                                @endforeach
+                                            @else
+                                                <option class="label" value="">No cities available</option>
+                                            @endif
+                                        </select>
+                                        @error('permanent_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>@enderror
 
                                     @enderror
                                     <label class="label">Street, Barangay</label>
                                     <input class="input--style-4" type="text" wire:model="p_street_barangay" name="p_street_barangay" >
                                     @error('p_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>
->>>>>>> upstream/master
 
->>>>>>> 326207829443e6a009cc5c8f116be3e217ae3d04
                                     @enderror
                                 </div>
                             </div>
@@ -241,15 +238,41 @@
                         <div class="row row-space">
                             <div class="col-4" style="width: 100%">
                                 <div class="input-group">
-                                    <label class="label">residential Address</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="residential_address" name="residential_address">
-                                    @error('residential_address') <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                    <label class="label">Residential Address</label>
+                                    <label class="label" for="residential_province">Select Province:</label>
+                                    <select class="label select-status" wire:model.live="residential_selectedProvince" id="residential_province" name="residential_selectedProvince">
+                                        @if ($provinces)
+                                        @foreach ($provinces as $province)
+                                            <option class="label" value="{{ $province }}">{{ $province }}</option>
+                                        @endforeach
+                                        @else
+                                        <option class="label" value="">Select Province</option>
+                                    @endif
+                                    </select>
+                                    @error('residential_selectedProvince') <span class="text-danger small" style="color: red;">The Province field is required</span>
 
->>>>>>> 326207829443e6a009cc5c8f116be3e217ae3d04
+                                    @enderror
+                                    <label class="label" for="residential_city">Select City:</label>
+                                    <select class="label select-status" wire:model.live="residential_selectedCity" id="residential_city" name="residential_selectedCity">
+                                    @if ($residential_cities)
+                                    @foreach ($residential_cities as $city)
+                                        <option class="label" value="{{ $city }}">{{ $city }}</option>
+                                    @endforeach
+                                    @else
+                                        <option class="label" value="">No cities available</option>
+                                    @endif
+                                    </select>
+                                    @error('residential_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>
+
+                                    @enderror
+                                    <label class="label">Street, Barangay</label>
+                                    <input class="input--style-4" type="text" wire:model="r_street_barangay" name="r_street_barangay" >
+                                    @error('r_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>
+
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </fieldset>
 
                         <div class="row row-space">
                             <div class="col-4" style="width: 100%">
@@ -272,45 +295,37 @@
                         <div class="input-group">
                             <label class="label">Status</label>
                             <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                <select  class="label select-status" id="status" wire:model.blur="status" name="status">
-                                    <option selected class="label">Choose option</option>
+                                <select  class="label select-status" id="status" wire:model="status" name="status">
+                                    <option selected value="" class="label">Choose option</option>
                                     <option value="Student" class="label">Student</option>
                                     <option value="Professional" class="label">Professional</option>
                                 </select>
                                 <div class="select-dropdown"></div>
-                                @error('status') <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                @error('status') <span class="text-danger small" style="color: red;">The status field is required</span>
 
                                 @enderror
->>>>>>> 326207829443e6a009cc5c8f116be3e217ae3d04
                             </div>
                             @error('status')
                                 <span class="error" style="color: red;">Please select at least one option</span>
                             @enderror
                         </div>
 
-                        <div class="row row-space professional-details" wire:ignore.self>
+                        <div class="row row-space professional-details">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Nature of work</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="nature_of_work" name="nature_of_work">
+                                    <input class="input--style-4" type="text" wire:model="nature_of_work" name="nature_of_work">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Employer</label>
-<<<<<<< HEAD
-                                    <input class="input--style-4" type="text" wire:model="employer" name="employer">
-                                    @error('employer')
-                                        <span class="error" style="color: red;">Please fill out this field</span>
-                                    @enderror
-=======
                                     <input class="input--style-4" type="password" wire:model.blur="employer" name="employer">
->>>>>>> 326207829443e6a009cc5c8f116be3e217ae3d04
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row row-space student-details" wire:ignore.self>
+                        <div class="row row-space student-details">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">School name</label>
@@ -325,18 +340,19 @@
                             </div>
                         </div>
 
-
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">An organization member</label>
                                     <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input class="org-r1" type="radio" checked="checked" name="org_option">
+                                        <label class="radio-container m-r-45">
+                                            Yes
+                                            <input class="org-r1" type="radio" wire:model="is_org_member" value="yes">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container">No
-                                            <input class="org-r2" type="radio" name="org_option">
+                                        <label class="radio-container">
+                                            No
+                                            <input class="org-r2" type="radio" wire:model="is_org_member" value="no">
                                             <span class="checkmark"></span>
                                         </label>
                                         @error('org_option')
@@ -347,7 +363,7 @@
                             </div>
                         </div>
 
-                        <div class="row row-space org-detail">
+                        <div class="row row-space org-detail" @if($is_org_member == 'no') style="display: none;" @endif>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Organization name</label>
@@ -357,7 +373,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">position</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="org_position" name="employer">
+                                    <input class="input--style-4" type="text" wire:model="org_position" name="employer">
                                 </div>
                             </div>
                         </div>
@@ -367,14 +383,15 @@
                                 <label class="label label-nc">Are you a</label>
                                 <div class="p-t-10">
                                     <label class="checkbox-container">Youth Volunteer
-                                        <input type="checkbox" wire:model.blur="is_volunteer" name="is_volunteer">
+                                        <input type="checkbox" wire:model="is_volunteer" name="is_volunteer" disabled>
+
                                     </label>
                                     @error('is_volunteer') <span class="text-danger small" style="color: red;">Youth Volunteer required</span>
 
                                     @enderror
 
                                     <label class="checkbox-container">International Program Participant?
-                                        <input type="checkbox" wire:model.blur="is_ip_participant" name="is_ip_participant">
+                                        <input type="checkbox" wire:model="is_ip_participant" name="is_ip_participant">
                                     </label>
                                     @if ($errors->has('is_volunteer') || $errors->has('is_ip_participant'))
                                         <span class="error" style="color: red;">Please select at least one option.</span>
@@ -412,29 +429,30 @@
 
                         <div class="row row-space">
                             <div class="col-2">
-                                <div class="p-t-15">
-                                    <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                                <div wire:loading.delay.longest>
+                                    <label class="label" style="font-style: italic; color: green;">Submitting ...</label>
+                                </div>
+                                <div class="p-t-15" wire:loading.attr="disabled">
+
+                                    <button  class="btn btn--radius-2 btn--blue" type="submit" >Submit</button>
 
                                 </div>
 
                             </div>
                             <div class="col-2">
                                 <div class="to-login-button">
-                                    <b><a href="/" style="color:#2c6ed5">I already have an Account.</a></b>
+                                    <b><a href="/" style="color:#2c6ed5" wire:navigate>I already have an Account.</a></b>
                                 </div>
                             </div>
-                            @if(session()->has('successMessage'))
+                        </div>
+                        @if(session()->has('successMessage'))
                             <br>
-                            <div class="alert alert-success " role="alert" style="background-color: #dff0d8; border-color: #d6e9c6; color: #3c763d; padding: 15px;">
+                            <div class="alert alert-success" role="alert" style="background-color: #dff0d8; border-color: #d6e9c6; color: #3c763d; padding: 15px; display: flex; justify-content: center; align-items: center;">
                                 {{ session('successMessage') }}
                             </div>
-                            @endif
-                        </div>
-
+                        @endif
 
                     </form>
-
-
                 </div>
             </div>
         </div>

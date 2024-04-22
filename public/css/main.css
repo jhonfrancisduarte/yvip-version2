@@ -1,0 +1,85 @@
+@media (max-width:768px){
+    .action-btn{
+        position: sticky; 
+        right: -22px;
+        background: white;
+    }
+}
+
+
+.pop-up-message{
+    position: absolute;
+    top: -100px;
+    right: 10px;
+    width: auto;
+    height: 60px;
+    background: white;
+    box-shadow: 0px 0px 15px 1px rgba(113, 106, 202, 0.1);
+    border: 1px solid #e6eaee;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s ease-in-out;
+    padding-left: 30px;
+    padding-right: 20px;
+    z-index: 9999;
+}
+
+.pop-up-message .close{
+   margin-top: -7px;
+   margin-left: -10px;
+}
+
+.pop-up-message p{
+    margin-top: 13px;
+    margin-left: 10px;
+    text-align: center;
+    color: #28a745;
+}
+
+td p{
+    font-weight: bold;
+}
+
+.green{
+    color: #28a745;
+}
+
+.blue{
+    color: rgb(0, 0, 255);
+}
+
+.light-blue{
+    color: rgb(0, 124, 226);
+}
+
+.orange{
+    color: orangered;
+}
+
+.card-primary{
+    width: 100%;
+}
+
+.add-announcement-container{
+    margin-top: 250px !important;
+}
+
+.close-form{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+}
+
+.btn-register{
+    margin-left: 10px;
+}
+
+@media (max-width:768px){
+    .btn-register{
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}

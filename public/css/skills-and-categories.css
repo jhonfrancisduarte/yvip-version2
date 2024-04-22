@@ -1,0 +1,84 @@
+.skills-list ul {
+    padding-left: 20px !important;
+}
+
+.btn-add-skills {
+    margin-left: 15px;
+}
+
+.anns {
+    position: fixed;
+    top: 0;
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-announcement-container {
+    margin-top: 0px;
+    height: 100% !important;
+    padding-top: 50px;
+}
+
+.add-announcement-container .modal-dialog {
+    padding-bottom: 50px !important;
+}
+
+.anns .card-primary {
+    width: 100%;
+}
+
+.skill-checkbox {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
+
+.every-checkbox {
+    width: auto;
+    margin-left: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.every-label {
+    margin-left: 0;
+    margin-top: 5px;
+    max-width: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btn-add-skill {
+    margin-top: 10px;
+    margin-left: 0;
+}
+
+.skill-form-control {
+    margin-bottom: 5px;
+}
+
+.add-edit-skill-input {
+    position: relative;
+}
+
+.add-edit-skill-input .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.row-footer .user-data {
+    padding-top: 10px;
+}
+
+@media (max-width:768px) {
+    .btn-add-skills {
+        margin-top: 5px;
+        margin-left: 0;
+    }
+}

@@ -29,12 +29,17 @@
                     </div>
                 </div>
             </div>
+
+            <b><a href="{{ route('password.request')}}" style="color:#2c6ed5">Forgot Password?</a></b>
+            
             <div class="p-t-15">
                 <button class="btn btn--radius-2 btn--blue login-button" type="submit">Sign In</button>
             </div>
 
-            @if ($errors->has('email'))
+            @if ($errors->has('login'))
                 <span style="color: red;">Invalid credentials.</span>
+            @elseif ($errors->has('status'))
+                <span style="color: red;">Your account has not been approved yet!</span>
             @endif
 
             <div class="to-register-button">

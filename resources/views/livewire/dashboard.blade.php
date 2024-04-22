@@ -29,7 +29,6 @@
                 </div>
             </div>
         </div>
-        @livewire('announcement-table')
     </div>
 
 @endsection

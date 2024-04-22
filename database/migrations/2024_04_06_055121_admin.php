@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('first_name', 50);
             $table->string('middle_name', 50)->nullable();
             $table->string('last_name', 50);
-            $table->binary('profile_picture')->nullable();
+            $table->string('profile_picture')->nullable();
             $table->timestamps();
         });
     }

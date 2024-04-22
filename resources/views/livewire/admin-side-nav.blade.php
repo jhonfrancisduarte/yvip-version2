@@ -8,10 +8,10 @@
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-    
+                        <img src="{{ asset(auth()->user()->admin->profile_picture) }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                    
+                    <a href="#" class="d-block">{{ auth()->user()->admin->first_name }} {{ auth()->user()->admin->last_name }}</a>
                 </div>
             </div>
 
@@ -27,21 +27,12 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="#" wire:click='create' wire:navigate>
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Register Admin
-                        </p>
-                        </a>
-                    </li>  
-
                 @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa')
                     {{-- Volunteer navlinks --}}
 
                     <li class="nav-item">
                         <a href="{{ route('volunteer-dashboard') }}" class="nav-link {{ request()->routeIs('volunteer-dashboard') ? 'active' : '' }}" wire:navigate>
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-ftachometer-alt"></i>
                         <p>
                             Volunteer Dashboard
                         </p>
@@ -74,7 +65,7 @@
                         </p>
                         </a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a href="{{ route('volunteer-rewards') }}" class="nav-link {{ request()->routeIs('volunteer-rewards') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-award"></i>
@@ -94,15 +85,15 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('volunteer-category') }}" class="nav-link {{ request()->routeIs('volunteer-category') ? 'active' : '' }}" wire:navigate>
+                        <a href="{{ route('skills-and-categories') }}" class="nav-link {{ request()->routeIs('skills-and-categories') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-passport"></i>
                         <p>
-                            Volunteer Category
+                            Skills and Category
                         </p>
                         </a>
 
                     <li class="nav-item">
-                        <a href="{{ route('volunteer-messages') }}" class="nav-link {{ request()->routeIs('volunteer-messages') ? 'active' : '' }}" wire:navigate>
+                        <a href="/my-messages" class="nav-link" target="_blank">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             Volunteer Messages
@@ -127,7 +118,7 @@
                         </p>
                         </a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a href="{{ route('ip-registration') }}" class="nav-link {{ request()->routeIs('ip-registration') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-user-check"></i>
@@ -164,14 +155,14 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('ip-messages') }}" class="nav-link {{ request()->routeIs('ip-messages') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             IP Messages
                         </p>
                         </a>
-                    </li>
+                    </li> --}}
 
                 @endif
 

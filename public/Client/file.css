@@ -4,7 +4,7 @@
   width: 0;
 }
 
-[type="file"] + label {
+[type="file"]+label {
   background: #e83e8c;
   border: none;
   border-radius: 80px;
@@ -20,11 +20,11 @@
   transition: all 0.3s;
   vertical-align: middle;
 
-  
+
   &:hover {
     background-color: darken(#f15d22, 10%);
   }
-  
+
   &.btn-1 {
     background-color: #e83e8c;
     box-shadow: 0 6px darken(#f79159, 10%);
@@ -35,5 +35,30 @@
       top: 2px;
     }
   }
-  
+
+}
+
+.fieldset {
+  border: 1px solid #ccc !important;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.reg-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/images/yvip_bg.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 5px 5px 0 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.reg-title {
+  margin-top: -30px;
+  text-transform: uppercase;
 }

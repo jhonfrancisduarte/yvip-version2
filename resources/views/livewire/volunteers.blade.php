@@ -28,7 +28,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/dashboard" wire:navigate>Home</a></li>
+                            <li class="breadcrumb-item"><a href="/admin-dashboard" wire:navigate>Home</a></li>
                             <li class="breadcrumb-item active">Youth Volunteers</li>
                         </ol>
                     </div>
@@ -43,5 +43,23 @@
 @endsection
 
 @section('js')
+    <script>
+        var table = document.getElementById('volunteers-table');
+        var isHovering = false;
 
+        table.addEventListener('mouseenter', function() {
+            isHovering = true;
+        });
+
+        table.addEventListener('mouseleave', function() {
+            isHovering = false;
+        });
+
+        document.getElementById('scroll-table').addEventListener('wheel', function(event) {
+            if (isHovering) {
+                event.preventDefault();
+                this.scrollLeft += event.deltaY;
+            }
+        });
+    </script>
 @endsection

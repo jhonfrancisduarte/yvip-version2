@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <link rel="stylesheet" type="text/css" href="Client/file.css">
     <link rel="stylesheet" type="text/css" href="css/volunteers.css">
+    <link rel="stylesheet" type="text/css" href="css/ipbs.css">
 @endsection
 
 @section('content')
@@ -43,5 +44,23 @@
 @endsection
 
 @section('js')
+    <script>
+        var table = document.getElementById('volunteers-table');
+        var isHovering = false;
 
+        table.addEventListener('mouseenter', function() {
+            isHovering = true;
+        });
+
+        table.addEventListener('mouseleave', function() {
+            isHovering = false;
+        });
+
+        document.getElementById('scroll-table').addEventListener('wheel', function(event) {
+            if (isHovering) {
+                event.preventDefault();
+                this.scrollLeft += event.deltaY;
+            }
+        });
+    </script>
 @endsection

@@ -16,10 +16,7 @@ class Login extends Component
 
     
     public function login(){
-        // dd($this->all());
-
         $this->validate();
-        
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             $user = Auth::user();
             if ($user->user_role === 'yv' || $user->user_role === 'yip') {

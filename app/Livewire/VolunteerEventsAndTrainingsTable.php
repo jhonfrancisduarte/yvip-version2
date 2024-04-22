@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\VolunteerEventsAndTrainings;
+use Illuminate\Validation\Rule;
 
 class VolunteerEventsAndTrainingsTable extends Component
 {
-
     #[Rule('required')]
     public $eventType;
 
@@ -34,6 +34,8 @@ class VolunteerEventsAndTrainingsTable extends Component
 
     public $showForm;
     public $showTags = false;
+
+    protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
     public function render()
     {
@@ -66,14 +68,20 @@ class VolunteerEventsAndTrainingsTable extends Component
         }
         $this->volunteerCategory = implode(', ', $this->selectedTags);
     }
-    
 
-    public function eventForm($userId){
+    public function eventForm($userId)
+    {
         $this->showForm = true;
     }
 
-    public function closeEventForm(){
+    public function closeEventForm()
+    {
         $this->showForm = null;
     }
 
+    public function setEndDateMin($startDate)
+    {
+        $this->endDate = null;
+        $this->endDateMin = $startDate;
+    }
 }

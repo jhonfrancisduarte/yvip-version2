@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/dashboard" wire:navigate>Home</a></li>
+                            <li class="breadcrumb-item"><a href="/admin-dashboard" wire:navigate>Home</a></li>
                             <li class="breadcrumb-item active">Volunteers' Dashboard</li>
                         </ol>
                     </div>
@@ -30,8 +30,12 @@
             </div>
         </div>
 
-        @livewire('announcement-table')
+        <livewire:announcement-table :dashboardType="'yv'" />
         
     </div>
+
+@endsection
+
+@section('js')
 
 @endsection
