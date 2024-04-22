@@ -4,6 +4,10 @@
     <title>My Virtual Passport</title>
 @endsection
 
+@section('css')
+<link rel="stylesheet" href="css/passport.css">
+@endsection
+
 @section('content')
     @livewire('side-nav')
     <div class="content-wrapper">

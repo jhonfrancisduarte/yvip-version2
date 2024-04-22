@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class VirtualPassportTable extends Component
 {
-
     public $qrCodeUrl;
 
     public function mount()
@@ -22,13 +21,20 @@ class VirtualPassportTable extends Component
             'Passport No.' => $userData->passport_number,
             'Name' => $userData->first_name . ' ' . $userData->last_name,
             'Nationality' => $userData->nationality,
+            'Address' => $userData->p_street_barangay . ', ' . $userData->permanent_selectedCity . ', ' . $userData->permanent_selectedProvince,
             'Date of Birth' => $userData->date_of_birth,
         ];
 
+        // Construct the QR code data manually with newline characters
+        $qrData = '';
+        foreach ($details as $key => $value) {
+            $qrData .= urlencode($key . ': ' . $value . "\n");
+        }
+
         // Generate QR code URL using QR Code API
-        $queryString = http_build_query($details);
-        $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($queryString);
+        $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . $qrData;
     }
+
     public function render()
     {
         return view('livewire.tables.virtual-passport-table', [
