@@ -20,6 +20,8 @@ class VolunteerLeaderboard extends Component
         foreach ($this->totalHoursPerUser as $record) {
             $userData = UserData::where('user_id', $record->user_id)->first();
             $record->fullname = $userData ? $userData->first_name . ' ' . $userData->middle_name . ' ' . $userData->last_name : '';
+            $record->profile_picture = $userData ? $userData->profile_picture : '';
+            $record->user_id = $userData ? $userData->user_id : '';
         }
 
         $this->totalHoursPerUser = $this->totalHoursPerUser->sortByDesc('total_volunteer_hours')->values()->all();
