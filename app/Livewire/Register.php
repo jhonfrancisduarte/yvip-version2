@@ -185,7 +185,7 @@ class Register extends Component
         $this->pcities = collect();
         $this->rcities = collect();
     }
-    
+
     protected $rules = [
         'password' => 'required|min:8',
         'c_password' => 'required|same:password',
@@ -400,7 +400,6 @@ class Register extends Component
         $this->residential_selectedProvince = Str::ucfirst(Str::lower($this->residential_selectedProvince));
         $this->residential_selectedCity = Str::ucfirst(Str::lower($this->residential_selectedCity));
         sleep(1);
-        DB::beginTransaction();
         try {
             $this->validate();
             if (!$this->isPasswordComplex($this->password)) {

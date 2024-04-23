@@ -27,7 +27,9 @@
                         </div>
                         <!-- QR Code Section -->
                         <div class="col-md-3 text-center"> <!-- Added offset-md-7 and text-right classes -->
-                            <img src="{{ $qrCodeUrl }}" alt="QR Code" style="max-width: 100px; height: auto;" class="mx-auto"> <!-- Added mx-auto class -->
+                            <a href="#qrCodeModal" data-toggle="modal" data-target="#qrCodeModal">
+                                <img src="{{ $qrCodeUrl }}" alt="QR Code" style="max-width: 100px; height: auto;" class="mx-auto"> <!-- Added mx-auto class -->
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -77,4 +79,21 @@
     </div>
 </div>
 </div>
+</div>
+
+<!-- QR Code Modal -->
+<div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="qrCodeModalLabel">My QR Code</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="{{ $qrCodeUrl }}" alt="QR Code" style="max-width: 100%; height: auto;">
+            </div>
+        </div>
+    </div>
 </div>

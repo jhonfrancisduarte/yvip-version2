@@ -14,24 +14,40 @@ class Login extends Component
     #[Rule('required')]
     public $password;
 
-    
+
     public function login(){
         $this->validate();
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             $user = Auth::user();
-            if ($user->user_role === 'yv' || $user->user_role === 'yip') {
-                session(['user_role' => $user->user_role]); 
-                return redirect()->intended('/dashboard');
+            if($user->active_status === 1){
+                if (($user->user_role === 'yv' || $user->user_role === 'yip')) {
+                    session(['user_role' => $user->user_role]);
+                    return redirect()->intended('/dashboard');
+                }
+                elseif (($user->user_role === 'sa')) {
+                    session(['user_role' => $user->user_role]);
+                    return redirect()->intended('/admin-dashboard');
+                }
+                elseif (($user->user_role === 'ips')) {
+                    session(['user_role' => $user->user_role]);
+                    return redirect()->intended('/ip-dashboard');
+                }
+                elseif (in_array($user->user_role, ['vs', 'vsa'])) {
+                    session(['user_role' => $user->user_role]);
+                    return redirect()->intended('/volunteer-dashboard');
+                }
+            }elseif($user->active_status === 2){
+                $this->addError('login', 'Invalid credentials.');
+            }else{
+                $this->addError('status', 'Your account has not been approved yet!');
             }
-            elseif (in_array($user->user_role, ['sa', 'vs', 'vsa', 'ips'])) {
-                session(['user_role' => $user->user_role]); 
-                return redirect()->intended('/admin-dashboard');
-            }
+        }else{
+            $this->addError('login', 'Invalid credentials.');
         }
 
         $this->addError('email', 'Invalid credentials.');  
     }
-    
+
     public function render(){
         return view('livewire.login');
     }

@@ -11,21 +11,31 @@
                         <img src="{{ asset(auth()->user()->admin->profile_picture) }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                    <a href="#" class="d-block">{{ auth()->user()->admin->first_name }} {{ auth()->user()->admin->last_name }}</a>
+                    <a href="/admin-profile" class="d-block">{{ auth()->user()->admin->first_name }} {{ auth()->user()->admin->last_name }}</a>
                 </div>
             </div>
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item">
-                        <a href="{{ route('admin-dashboard') }}" class="nav-link {{ request()->routeIs('admin-dashboard') ? 'active' : '' }}" wire:navigate>
-                        <i class="nav-icon fas fa-home"></i>
+                    @if(session('user_role') == 'sa')
+                        <li class="nav-item">
+                            <a href="{{ route('admin-dashboard') }}" class="nav-link {{ request()->routeIs('admin-dashboard') ? 'active' : '' }}" wire:navigate>
+                            <i class="nav-icon fas fa-home"></i>
+                            <p>
+                                Welcome Admin
+                            </p>
+                            </a>
+                        </li>
+                    @endif
+                    {{-- <li class="nav-item">
+                        <a href="#" wire:click='create' wire:navigate>
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Welcome Admin
+                            Register Admin
                         </p>
                         </a>
-                    </li>
+                    </li>  --}}
 
                 @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa')
                     {{-- Volunteer navlinks --}}
