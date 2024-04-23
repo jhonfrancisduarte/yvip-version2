@@ -42,7 +42,7 @@
 
                     <li class="nav-item">
                         <a href="{{ route('volunteer-dashboard') }}" class="nav-link {{ request()->routeIs('volunteer-dashboard') ? 'active' : '' }}" wire:navigate>
-                        <i class="nav-icon fas fa-ftachometer-alt"></i>
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Volunteer Dashboard
                         </p>
