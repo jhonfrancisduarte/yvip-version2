@@ -7,8 +7,7 @@
                 <div class="card-body">
                     <center><h2 class="title reg-title">Registration Form</h2></center>
 
-
-                    <form wire:submit="create">
+                    <form wire:submit="create" >
 
                         <div class="row row-space">
                             <div class="col-2">
@@ -373,7 +372,7 @@
                             </div>
                             <div class="col-2">
                                 <div class="to-login-button">
-                                    <b><a href="/" style="color:#2c6ed5">I already have an Account.</a></b>
+                                    <b><a href="/" style="color:#2c6ed5" wire:navigate>I already have an Account.</a></b>
                                 </div>
                             </div>
                         </div>

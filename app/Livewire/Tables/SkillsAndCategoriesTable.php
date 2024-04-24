@@ -140,7 +140,7 @@ class SkillsAndCategoriesTable extends Component
         $this->description = null;
     }
 
-    public function deleteAnnouncement(){
+    public function deleteCategory(){
         if($this->deleteCategoryId){
             $category = Categories::find($this->deleteCategoryId);
             if ($category){

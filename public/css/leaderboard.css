@@ -1,0 +1,104 @@
+#volunteers-table{
+    width: 100%;
+}
+
+.rank{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rank1{
+    font-size: 20px;
+}
+
+.rank p{
+    font-family: 'Times New Roman', Times, serif;
+    position: absolute;
+    top: 40%;
+    font-weight: bold;
+    text-shadow:
+    2px 0 white,
+    0 -2px white,
+    -2px 0 white,
+    0 2px white;
+}
+
+#volunteers-table .centered{
+    text-align: center; 
+    vertical-align: middle;
+}
+
+#volunteers-table thead{
+    background: linear-gradient(126deg, rgba(245,245,245,1) 0%, rgba(238,238,238,1) 100%);
+    padding: 20px !important;
+}
+
+#volunteers-table thead tr th{
+    padding: 13px !important;
+}
+
+#volunteers-table td{
+    padding: 10px !important;
+    border-bottom: 1px solid #cccccc3f;
+}
+
+.profile_picture{
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.my-rank{
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(126deg, rgba(255,212,175,1) 0%, rgba(238,238,238,1) 100%);
+    padding: 15px 15px 0 15px;
+    margin-bottom: 15px;
+    border-radius: 5px 5px 0 0;
+}
+
+.my-rank .rank{
+    margin-top: -20px;
+    margin-right: 20px;
+}
+
+.my-hours{
+    position: absolute;
+    right: 0;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered .fa-clock,
+.my-hours .fa-clock{
+    color: grey;
+}
+
+.r{
+    display: flex;
+}
+
+@media (max-width:768px){
+    .my-rank{
+        display: block;
+    }
+
+    .r{
+        display: block;
+        padding-top: 10px;
+    }
+
+    .my-hours{
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top: 1px solid white;
+        padding-top: 10px;
+    }
+}

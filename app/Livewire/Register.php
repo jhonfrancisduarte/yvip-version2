@@ -133,6 +133,7 @@ class Register extends Component
         $this->residential_selectedProvince = Str::ucfirst(Str::lower($this->residential_selectedProvince));
         $this->residential_selectedCity = Str::ucfirst(Str::lower($this->residential_selectedCity));
         sleep(1);
+        DB::beginTransaction();
         try {
             $this->validate();
             if (!$this->isPasswordComplex($this->password)) {
@@ -150,6 +151,13 @@ class Register extends Component
                 'password' => $this->password,
                 'user_role' => $this->user_role,
                 'name' => $this->first_name . " " . $this->middle_name . " " . $this->last_name,
+            ]);
+
+
+            $user->volunteer()->create([
+                'user_id' => $user->id,
+                'volunteer_experience' => "",
+                'volunteering_hours' => 0,
             ]);
 
             $user->userData()->create([

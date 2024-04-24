@@ -1,42 +1,43 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Home</title>
+    <title>Post-Program Obligation</title>
 @endsection
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="css/announcement.css">
     <link rel="stylesheet" type="text/css" href="css/volunteers.css">
+    <link rel="stylesheet" type="text/css" href="css/volunteerregistration.css">
+    <link rel="stylesheet" type="text/css" href="css/ip-events.css">
 @endsection
 
 @section('content')
 
     @livewire('side-nav')
 
-    <div class="content-wrapper">
+    <div class="content-wrapper content-wrapper2">
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0"></h1>
+                        <h1 class="m-0">My Post-Program Obligation</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/dashboard" wire:navigate>Home</a></li>
-                            <li class="breadcrumb-item active">Announcements</li>
+                            <li class="breadcrumb-item"><a href="/admin-dashboard" wire:navigate>Home</a></li>
+                            <li class="breadcrumb-item active">Post-Program Obligation</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
 
-        @if(auth()->user()->user_role === "yip")
-            <livewire:announcement-table :dashboardType="'ip'" />
-        @elseif(auth()->user()->user_role === "yv")
-            <livewire:announcement-table :dashboardType="'yv'" />
-        @endif
-
+        @livewire('tables.post-program-obligation-table')
+        
     </div>
 
 @endsection
 
+@section('js')
+
+@endsection

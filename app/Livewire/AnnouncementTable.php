@@ -62,13 +62,22 @@ class AnnouncementTable extends Component
     }
 
     public function render(){
-        $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
-            ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
-            ->where('announcement.type', $this->dashboardType)
-            ->select('announcement.*', 'admin.first_name', 'admin.last_name', 'admin.middle_name', 'admin.profile_picture')
-            ->search(trim($this->search))
-            ->orderBy('announcement.created_at', 'desc')
-            ->get();
+        if($this->dashboardType == "yv"){
+            $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
+                ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
+                ->where('announcement.type', $this->dashboardType)
+                ->select('announcement.*', 'admin.first_name', 'admin.last_name', 'admin.middle_name', 'admin.profile_picture')
+                ->search(trim($this->search))
+                ->orderBy('announcement.created_at', 'desc')
+                ->get();
+        }else{
+            $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
+                ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
+                ->select('announcement.*', 'admin.first_name', 'admin.last_name', 'admin.middle_name', 'admin.profile_picture')
+                ->search(trim($this->search))
+                ->orderBy('announcement.created_at', 'desc')
+                ->get();
+        }
 
         if (empty($this->contentIndexes)) {
             foreach ($announcements as $announcement) {

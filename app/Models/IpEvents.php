@@ -17,10 +17,17 @@ class IpEvents extends Model
         'end',
         'qualifications',
         'participants',
+        'join_requests',
+        'disapproved',
+        'join_status',
     ];
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function ipPostProgramObligation(){
+        return $this->hasMany(IpPostProgramObligation::class);
     }
 
     public function scopeSearch($query, $term){

@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Volunteer extends Model
+class Leaderboard extends Model
 {
+    use HasFactory;
+
+    protected $table = 'leaderboard';
 
     protected $fillable = [
         'user_id',
-        'category_id',
-        'volunteer_experience',
-        'volunteering_hours',
+        'fullname',
+        'total_hours',
         // Add other fillable fields as needed
     ];
 
@@ -21,12 +23,8 @@ class Volunteer extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function volunteer_category()
+    public function volunteer()
     {
-        return $this->belongsTo(VolunteerCategory::class);
-    }
-
-    public function leaderboard(){
-        return $this->hasOne(VolunteersLeaderboard::class);
+        return $this->belongsTo(Volunteer::class);
     }
 }
