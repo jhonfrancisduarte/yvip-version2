@@ -10,7 +10,7 @@
 
     @yield('title')
 
-    @yield ('css') 
+    @yield ('css')
     @livewireStyles
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -63,22 +63,22 @@
             </ul>
         </nav>
     </div>
-    
+
     @yield('content')
-  
+
     @yield('js')
- 
-    
+
+
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/chart.js/Chart.min.js"></script>
     <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <script src="dist/js/adminlte.js"></script>
+    {{-- <script src="dist/js/adminlte.js"></script>
     <script src="dist/js/demo.js"></script>
     <script src="dist/js/pages/dashboard.js"></script>
-    <script src="js/dashboard.js"></script>
+    <script src="js/dashboard.js"></script> --}}
     @livewireScripts
 
 </body>
