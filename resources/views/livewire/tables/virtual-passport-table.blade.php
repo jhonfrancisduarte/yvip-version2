@@ -1,9 +1,10 @@
 <div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-9">
+    <div class="row">
+        <div class="col-md-4">
             <div class="card">
-                <div class="reg-logo-container text-center">
-                    <img src="images/yvip_logo.png" width="100"/>
+                <img src="{{ asset(auth()->user()->userData->profile_picture) }}" class="card-img-top" alt="Passport Image" style="max-width: 100%; height: auto;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Profile Picture</h5>
                 </div>
                 <h3 class="card-title text-center" style="font-weight: bold; font-size: 24px; font-family: Arial, sans-serif;">Youth Volunteer Passport</h3>
                 <div class="card-body">
@@ -27,13 +28,14 @@
                         </div>
                         <!-- QR Code Section -->
                         <div class="col-md-3 text-center"> <!-- Added offset-md-7 and text-right classes -->
-                            <a href="#qrCodeModal" data-toggle="modal" data-target="#qrCodeModal">
-                                <img src="{{ $qrCodeUrl }}" alt="QR Code" style="max-width: 100px; height: auto;" class="mx-auto"> <!-- Added mx-auto class -->
-                            </a>
+                            <img src="{{ $qrCodeUrl }}" alt="QR Code" style="max-width: 100px; height: auto;" class="mx-auto"> <!-- Added mx-auto class -->
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-md-4">
+            <img src="{{ $qrCodeUrl }}" alt="QR Code" style="max-width: 100px; height: auto;">
         </div>
     </div>
     <div class="container mt-4">
@@ -79,21 +81,4 @@
     </div>
 </div>
 </div>
-</div>
-
-<!-- QR Code Modal -->
-<div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="qrCodeModalLabel">My QR Code</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body text-center">
-                <img src="{{ $qrCodeUrl }}" alt="QR Code" style="max-width: 100%; height: auto;">
-            </div>
-        </div>
-    </div>
 </div>

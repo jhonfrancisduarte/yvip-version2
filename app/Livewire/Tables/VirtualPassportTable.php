@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Livewire\Tables;
+<<<<<<< HEAD
+
+use BaconQrCode\Encoder\Encoder;
+=======
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\IpEvents;
+>>>>>>> origin/master
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -20,6 +25,24 @@ class VirtualPassportTable extends Component
 
     private function getUserIpEvents()
     {
+<<<<<<< HEAD
+        $userData = Auth::user()->userData;
+        $details = [
+            'Passport No.' => $userData->passport_number,
+            'Name' => $userData->first_name . ' ' . $userData->last_name,
+            'Nationality' => $userData->nationality,
+            'Date of Birth' => $userData->date_of_birth,
+        ];
+
+        $text = '';
+        foreach ($details as $key => $value) {
+            $text .= "$key: $value\n";
+        }
+
+        $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($text);
+    }
+
+=======
         $userId = Auth::id();
         return IpEvents::whereRaw('find_in_set(?, participants)', [$userId])->get();
     }
@@ -56,6 +79,7 @@ class VirtualPassportTable extends Component
 
     $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($qrData);
 }
+>>>>>>> origin/master
     public function render()
     {
         $ipEvents = IpEvents::join('users', 'users.id', '=', 'ip_events.user_id')
