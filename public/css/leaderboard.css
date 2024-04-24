@@ -73,7 +73,8 @@
     align-items: center;
 }
 
-.fa-clock{
+.centered .fa-clock,
+.my-hours .fa-clock{
     color: grey;
 }
 
