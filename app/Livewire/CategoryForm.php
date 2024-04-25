@@ -26,6 +26,17 @@ class CategoryForm extends Component
     public $selectedSkillIds = [];
     public $editId;
     public $editContent;
+    public $actionForm;
+
+    public function openActionForm($userId)
+    {
+        $this->actionForm = true;
+    }
+
+    public function closeActionForm()
+    {
+        $this->actionForm = null;
+    }
 
     public function openAddSkillForm($userId)
     {

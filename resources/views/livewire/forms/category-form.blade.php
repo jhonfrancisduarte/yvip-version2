@@ -12,7 +12,7 @@
 
                         <div class="card-header">
                             <h3 class="card-title">Add your skillset</h3>
-                            <button type="button" class="btn btn-success btn-sm btn-add-skill" wire:click="openAddSkillForm({{ auth()->user()->id }})">Add Skill</button>
+                            <button type="button" class="action-form-button" wire:click="openActionForm({{ auth()->user()->id }})"><i class="fa fa-ellipsis-h"></i></button>
                         </div>
                 
                         <div class="card-body">
@@ -169,5 +169,29 @@
             </div>
         @endif
 
+        @if($actionForm)
+            <div class="action-form">
+                <div class="close-form" wire:click="closeExperienceForm"></div>
+                <div class="modal-dialog modal-sm">
+                <form class="action-form-size">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Actions</h4>
+                            <button type="button" class="close" wire:click="closeActionForm"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="form-group">
+                            <button type="button" class="btn btn-success btn-sm btn-add-skill" wire:click="openAddSkillForm({{ auth()->user()->id }})">Add Skill</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </div>
+        @endif
     </section>
 

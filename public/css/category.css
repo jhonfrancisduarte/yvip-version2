@@ -37,10 +37,6 @@
     border: 1px solid #ccc;
 }
 
-.btn-add-skill {
-    margin-left: 81%
-}
-
 .column-skill-form {
     column-count: 2;
 }
@@ -166,4 +162,31 @@
 
 .expColumn ul li {
     margin-bottom: 5px;
+}
+
+.action-form-button {
+    float: right;
+    width: 7%;
+}
+
+.fa.fa-ellipsis-h {
+    font-size: 24px;
+}
+
+.action-form {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.action-form-size .modal-content {
+    width: 300px;
+    height: 300px;
 }
