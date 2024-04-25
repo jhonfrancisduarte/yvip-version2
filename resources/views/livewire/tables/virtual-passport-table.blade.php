@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <p class="card-text" style="font-family: Arial, sans-serif;"> <!-- Added font-family style -->
+                            <p class="card-text" style="font-family: Arial, sans-serif;">
                                 Passport No. : {{ auth()->user()->userData->passport_number }} <br>
                                 Full Name : {{ auth()->user()->userData->first_name }} {{ auth()->user()->userData->last_name }}<br>
                                 Nationality : {{ auth()->user()->userData->nationality }}<br>
@@ -26,8 +26,8 @@
                                 Date of Birth : {{ auth()->user()->userData->date_of_birth }}
                             </p>
                         </div>
-                        <!-- QR Code Section -->
-                        <div class="col-md-3 text-center"> <!-- Added offset-md-7 and text-right classes -->
+
+                        <div class="col-md-3 text-center">
                             <img src="{{ $qrCodeUrl }}" alt="QR Code" style="max-width: 100px; height: auto;" class="mx-auto"> <!-- Added mx-auto class -->
                         </div>
                     </div>

@@ -75,10 +75,10 @@
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/chart.js/Chart.min.js"></script>
     <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    {{-- <script src="dist/js/adminlte.js"></script>
+    <script src="dist/js/adminlte.js"></script>
     <script src="dist/js/demo.js"></script>
     <script src="dist/js/pages/dashboard.js"></script>
-    <script src="js/dashboard.js"></script> --}}
+    <script src="js/dashboard.js"></script>
     @livewireScripts
 
 </body>
