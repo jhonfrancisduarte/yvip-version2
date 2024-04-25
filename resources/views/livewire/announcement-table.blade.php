@@ -42,7 +42,7 @@
                             <img src="{{ $announcement->profile_picture }}">
                             <div class="author-info">
                                 <h4>{{ $announcement->first_name }} {{ $announcement->last_name }}</h4>
-                                <p>{{ $announcement->formatted_created_at }} <i class="nav-icon fas fa-clock"></i></p>
+                                <p>{{ $announcement->formatted_created_at }} <i class="bi bi-clock"></i> • {{ $announcement->category }} <i class="bi bi-bookmark"></i></p>
                             </div>
                         </div>
 
@@ -90,10 +90,6 @@
                             <div class="featured-image" style="background-image: url({{ $announcement->featured_image }})">
                             </div>
                         @endif
-
-                        <div class="announcement-info">
-                            <p>Category: {{ $announcement->category }}</p>
-                        </div>
                     </div>
                 </div>
             @endforeach
