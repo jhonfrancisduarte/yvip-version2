@@ -28,7 +28,7 @@
                                 <thead>
                                     <tr>
                                         @if(session('user_role') == 'sa')
-                                            <th>Posted By</th>
+                                            <th width="15%">Posted By</th>
                                         @endif
                                         <th>Name of Exchange Program/Event</th>
                                         <th>Organizer / Sponsor</th>

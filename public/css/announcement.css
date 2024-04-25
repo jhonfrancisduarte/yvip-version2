@@ -68,6 +68,7 @@
     height: 250px;
     background-position: center;
     background-size: cover;
+    border-radius: 0 0 5px 5px;
 }
 
 .featured-image img{
@@ -101,7 +102,7 @@
 
 .announcement-info{
     padding-top: 10px;
-    background: #343a40;
+    background: #0262C6;
     border-radius: 0 0 5px 5px;
 }
 .announcement-info p{
