@@ -28,7 +28,7 @@
             </div>
 
             <b><a href="{{ route('password.request')}}" style="color:#2c6ed5">Forgot Password?</a></b>
-            
+
             <div class="p-t-15">
                 <button class="btn btn--radius-2 btn--blue login-button" type="submit">Sign In</button>
             </div>

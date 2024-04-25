@@ -1,5 +1,4 @@
-
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a href="#" class="brand-link" wire:navigate>
             <img src="images/yvip_logo.png" alt="yvip logo" class="brand-image brand-image1" style="opacity: .8">
             <span class="brand-text font-weight-bold">THE NYC - YVIP</span>
@@ -183,7 +182,7 @@
                         </p>
                     </a>
                 </li>
-                </ul>
-            </nav>
-        </div>
-    </aside>
+            </ul>
+        </nav>
+    </div>
+</aside>

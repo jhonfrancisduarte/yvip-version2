@@ -21,6 +21,7 @@ class VirtualPassport extends Component
             'Passport No.' => $userData->passport_number,
             'Name' => $userData->first_name . ' ' . $userData->last_name,
             'Nationality' => $userData->nationality,
+            'Sex' => $userData->sex,
             'Date of Birth' => $userData->date_of_birth,
         ];
 
