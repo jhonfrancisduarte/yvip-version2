@@ -77,14 +77,6 @@
                                                         @endforeach
                                                         </div>
                                                     </tbody>
-<!-- 
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th width="10%">Level</th>
-                                                            <th width="30%">Number of Hours</th>
-                                                            <th>Reward</th>
-                                                        </tr>
-                                                    </tfoot> -->
                                                 </table>
                                             </div>
 
