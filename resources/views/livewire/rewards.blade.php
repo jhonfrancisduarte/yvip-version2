@@ -4,6 +4,10 @@
     <title>Rewards</title>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" href="/css/rewards.css">
+@endsection
+
 
 @section('content')
 
@@ -23,6 +27,12 @@
                         </ol>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="container-fluid">
+                <livewire:volunteer-rewards />
             </div>
         </div>
     </div>

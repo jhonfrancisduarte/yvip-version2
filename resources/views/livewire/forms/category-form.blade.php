@@ -47,14 +47,14 @@
                                             <ul>
                                                 @foreach($volunteerExperiences as $experience)
                                                     <li>{{ $experience->volunteer_experience }}
-                                                    <button type="button" class="btn btn-primary btn-xs edit-exp-btn" wire:click="editExpForm({{ $experience->id }})"> <i class="nav-icon fas fa-edit"> </i></button>
+                                                    <button type="button" class="btn btn-info btn-xs edit-exp-btn" wire:click="editExpForm({{ $experience->id }})"> <i class="nav-icon fas fa-edit"> </i></button>
                                                     </li>
                                                 @endforeach
                                             </ul>
                                         </td>
 
                                         <td class="actionColumn">
-                                                <button type="button" class="btn btn-info btn-xs mr-2" required wire:click="openExperienceForm({{ auth()->user()->id }})">Add Experience
+                                                <button type="button" class="btn btn-success btn-xs mr-2" required wire:click="openExperienceForm({{ auth()->user()->id }})">Add Experience
                                                 </button>
                                         </td>
                                     </tr>
@@ -94,9 +94,9 @@
                             </div>
 
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-danger" wire:click="closeAddSkillForm"><i
+                                <button type="button" class="btn btn-info" wire:click="closeAddSkillForm"><i
                                         class="fa fa-times"></i> Close</button>
-                                <button type="submit" class="btn btn-primary"><i
+                                <button type="submit" class="btn btn-success"><i
                                         class="fa fa-check" ></i> Submit</button>
                             </div>
                         </div>
@@ -128,8 +128,8 @@
                         </div>
 
                         <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-danger" wire:click="closeExperienceForm">Close</button>
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="button" class="btn btn-info" wire:click="closeExperienceForm"><i class="fa fa-times"></i> Close</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Add</button>
                         </div>
                     </div>
                 </form>
@@ -160,8 +160,8 @@
                             </div>
 
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-danger" wire:click="closeEditExpForm">Close</button>
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="button" class="btn btn-info" wire:click="closeEditExpForm"><i class="fa fa-times"></i> Close</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Update</button>
                             </div>
                         </div>
                     </form>
