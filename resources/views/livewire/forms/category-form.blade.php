@@ -11,8 +11,13 @@
                     <div class="card">
 
                         <div class="card-header">
-                            <h3 class="card-title">Add your skillset</h3>
-                            <button type="button" class="action-form-button" wire:click="openActionForm({{ auth()->user()->id }})"><i class="fa fa-ellipsis-h"></i></button>
+                            <a href="#" wire:click="openActionForm"><i class="fas fa-ellipsis-h nav-for-action" width="10%"></i></a>
+                            @if($actionForm)
+                                <div class="actions-container">
+                                    <button type="button" class="btn btn-info btn-sm btn-add-skill" wire:click="openAddSkillForm({{ auth()->user()->id }})">Add Skill</button>
+                                    <button type="button" class="btn btn-info btn-xs mr-2 btn-add-experience" required wire:click="openExperienceForm({{ auth()->user()->id }})">Add Experience</button>
+                                </div>
+                            @endif
                         </div>
                 
                         <div class="card-body">
@@ -20,10 +25,9 @@
                             <table class="table">
                                 <thead>
                                     <tr class="table-header">
-                                        <th width="20%">My Category</th>
-                                        <th width="20%">My Skills</th>
-                                        <th>Experience</th>
-                                        <th class="action" width="7%">Actions</th>
+                                        <th width="30%">My Category</th>
+                                        <th width="30%">My Skills</th>
+                                        <th width="30%">Experience</th>
                                     </tr>
                                 </thead>
 
@@ -47,15 +51,10 @@
                                             <ul>
                                                 @foreach($volunteerExperiences as $experience)
                                                     <li>{{ $experience->volunteer_experience }}
-                                                    <button type="button" class="btn btn-info btn-xs edit-exp-btn" wire:click="editExpForm({{ $experience->id }})"> <i class="nav-icon fas fa-edit"> </i></button>
+                                                    <button type="button" class="btn btn-info btn-xs edit-exp-btn" wire:click="editExpForm({{ $experience->id }})"> <i class="nav-icon bi bi-pencil"></i> </i></button>
                                                     </li>
                                                 @endforeach
                                             </ul>
-                                        </td>
-
-                                        <td class="actionColumn">
-                                                <button type="button" class="btn btn-success btn-xs mr-2" required wire:click="openExperienceForm({{ auth()->user()->id }})">Add Experience
-                                                </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -97,7 +96,7 @@
                                 <button type="button" class="btn btn-info" wire:click="closeAddSkillForm"><i
                                         class="fa fa-times"></i> Close</button>
                                 <button type="submit" class="btn btn-success"><i
-                                        class="fa fa-check" ></i> Submit</button>
+                                        class="fa fa-check" ></i> Add</button>
                             </div>
                         </div>
                     </form>
@@ -166,31 +165,6 @@
                         </div>
                     </form>
                 </div>
-            </div>
-        @endif
-
-        @if($actionForm)
-            <div class="action-form">
-                <div class="close-form" wire:click="closeExperienceForm"></div>
-                <div class="modal-dialog modal-sm">
-                <form class="action-form-size">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Actions</h4>
-                            <button type="button" class="close" wire:click="closeActionForm"
-                                aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-                            <div class="form-group">
-                            <button type="button" class="btn btn-success btn-sm btn-add-skill" wire:click="openAddSkillForm({{ auth()->user()->id }})">Add Skill</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
             </div>
         @endif
     </section>

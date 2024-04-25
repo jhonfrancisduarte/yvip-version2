@@ -1,14 +1,11 @@
 <?php
 
 namespace App\Livewire\Tables;
-<<<<<<< HEAD
 
 use BaconQrCode\Encoder\Encoder;
-=======
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\IpEvents;
->>>>>>> origin/master
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -23,9 +20,7 @@ class VirtualPassportTable extends Component
         $this->generateQrCodeUrl();
     }
 
-    private function getUserIpEvents()
-    {
-<<<<<<< HEAD
+    private function getUserIpEvents(){
         $userData = Auth::user()->userData;
         $details = [
             'Passport No.' => $userData->passport_number,
@@ -40,26 +35,23 @@ class VirtualPassportTable extends Component
         }
 
         $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($text);
-    }
 
-=======
         $userId = Auth::id();
         return IpEvents::whereRaw('find_in_set(?, participants)', [$userId])->get();
     }
 
-    public function generateQrCodeUrl()
-{
-    $userData = Auth::user()->userData;
-    $userId = Auth::user()->id;
-    $details = [
-        'Passport No.: ' . $userData->passport_number,
-        'Name: ' . $userData->first_name . ' ' . $userData->last_name,
-        'Nationality: ' . $userData->nationality,
-        'Sex: ' . $userData->sex,
-        'Address: ' . $userData->p_street_barangay . ', ' . $userData->permanent_selectedCity . ', ' . $userData->permanent_selectedProvince,
-        'Date of Birth: ' . $userData->date_of_birth,
-        'My IP Events:',
-        'EventName|Sponsor|Start Date|End Date',
+    public function generateQrCodeUrl(){
+        $userData = Auth::user()->userData;
+        $userId = Auth::user()->id;
+        $details = [
+            'Passport No.: ' . $userData->passport_number,
+            'Name: ' . $userData->first_name . ' ' . $userData->last_name,
+            'Nationality: ' . $userData->nationality,
+            'Sex: ' . $userData->sex,
+            'Address: ' . $userData->p_street_barangay . ', ' . $userData->permanent_selectedCity . ', ' . $userData->permanent_selectedProvince,
+            'Date of Birth: ' . $userData->date_of_birth,
+            'My IP Events:',
+            'EventName|Sponsor|Start Date|End Date',
     ];
 
 
@@ -79,9 +71,7 @@ class VirtualPassportTable extends Component
 
     $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($qrData);
 }
->>>>>>> origin/master
-    public function render()
-    {
+    public function render(){
         $ipEvents = IpEvents::join('users', 'users.id', '=', 'ip_events.user_id')
             ->select('users.name', 'ip_events.*')
             ->orderBy('ip_events.created_at', 'desc')

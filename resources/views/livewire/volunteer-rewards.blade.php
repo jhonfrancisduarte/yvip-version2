@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title title">Volunteer Rewards</h3>
-                        <button type="button" class="btn btn-info btn-sm btn-show-reward" wire:click="seeRewards">See Rewards</button>
+                        <button type="button" class="btn btn-info btn-sm btn-show-reward" wire:click="seeRewards">Rewards Matrix</button>
                     </div>
 
                     <div class="card-body scroll-table">

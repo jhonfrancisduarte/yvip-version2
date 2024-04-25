@@ -28,9 +28,12 @@ class CategoryForm extends Component
     public $editContent;
     public $actionForm;
 
-    public function openActionForm($userId)
-    {
-        $this->actionForm = true;
+    public function openActionForm(){
+        if($this->actionForm){
+            $this->actionForm = null;
+        }else{
+            $this->actionForm = true;
+        }
     }
 
     public function closeActionForm()

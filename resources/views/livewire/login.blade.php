@@ -1,10 +1,7 @@
-<div class="card card-4 login-form-container">
-    <div class="card-body">
-        <p class="close-button">✖</p>
+<div class="login-form-container">
         <h2 class="title">Sign in to your account</h2>
 
         <form wire:submit.prevent="login">
-            @csrf
             <div class="row row-space login-input-div">
                 <div class="col-1">
                     <div class="input-group">
@@ -13,7 +10,7 @@
                                 <span style="color: red;">{{ $message }}</span>
                             @enderror
                         </label>
-                        <input class="input--style-4" type="text" id="email" name="email" required wire:model="email">
+                        <input class="input--style-4" type="text" id="email" name="email" required wire:model="email" placeholder="Enter your email..">
                     </div>
                 </div>
             </div>
@@ -25,7 +22,7 @@
                                 <span style="color: red;">{{ $message }}</span>
                             @enderror
                         </label>
-                        <input class="input--style-4" type="password" id="password" name="password" required wire:model="password">
+                        <input class="input--style-4" type="password" id="password" name="password" required wire:model="password" placeholder="Eneter your assword...">
                     </div>
                 </div>
             </div>
@@ -46,5 +43,4 @@
                 <b><a href="/registration" style="color:#2c6ed5" wire:navigate>I don't have an account yet!</a></b>
             </div>
         </form>
-    </div>
 </div>

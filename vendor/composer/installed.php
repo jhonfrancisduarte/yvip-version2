@@ -4,6 +4,7 @@
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
         'reference' => '7e3adc61735a876acbdec9af542bde833fdf8228',
+
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -437,6 +438,7 @@
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
             'reference' => '7e3adc61735a876acbdec9af542bde833fdf8228',
+
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

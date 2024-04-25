@@ -65,7 +65,7 @@
                     <div class="userpanel">
                         <div class="info">
                             @if(session('user_role') == 'yv' || session('user_role') == 'yip') 
-                            <a href="{{ route('profile') }}" class="d-block" wire:navigate>{{ auth()->user()->name }}</a>
+                                <a href="{{ route('profile') }}" class="d-block" wire:navigate>{{ auth()->user()->name }}</a>
                             @else
                                 <a href="{{ route('admin-profile') }}" class="d-block" wire:navigate>{{ auth()->user()->name }}</a>
                             @endif

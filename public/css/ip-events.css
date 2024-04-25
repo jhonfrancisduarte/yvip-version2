@@ -1,171 +1,175 @@
-.btn-add-event{
+.btn-add-event {
     margin-left: 15px;
 }
 
-.anns{
-    position: fixed; top: 0;
+.anns {
+    position: fixed;
+    top: 0;
     height: 100% !important;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.add-announcement-container{
+.add-announcement-container {
     margin-top: 0px;
     height: 100% !important;
     padding-top: 50px;
 }
 
-.add-announcement-container .modal-dialog{
+.add-announcement-container .modal-dialog {
     padding-bottom: 50px !important;
 }
 
-.anns .card-primary{
+.anns .card-primary {
     width: 100%;
 }
 
-.btn-add-skill{
+.btn-add-skill {
     margin-top: 10px;
     margin-left: 0;
 }
 
-.skill-form-control{
+.skill-form-control {
     margin-bottom: 5px;
 }
 
-.add-edit-skill-input{
+.add-edit-skill-input {
     position: relative;
 }
 
-.add-edit-skill-input .close{
+.add-edit-skill-input .close {
     position: absolute;
-    top: 5px; right: 5px;
+    top: 5px;
+    right: 5px;
 }
 
-.list-td ul li{
+.list-td ul li {
     cursor: pointer;
 }
 
-.list-td-2 ul{
+.list-td-2 ul {
     padding-left: 15px;
 }
 
-.list-td ul li:hover{
+.list-td ul li:hover {
     color: green;
 }
 
-.row-footer .user-data{
+.row-footer .user-data {
     padding-top: 10px;
 }
 
-.green{
+.green {
     color: green;
     font-weight: bold;
 }
 
-.blue{
+.blue {
     color: #17a2b8;
     font-weight: bold;
 }
 
-.orange{
+.orange {
     color: orangered;
     font-weight: bold;
 }
 
-.btn-accounts{
+.btn-accounts {
     position: relative;
 }
 
-.btn-accounts span{
+.btn-accounts span {
     padding: 0px 5px;
     border-radius: 5px;
     position: absolute;
-    top: -10px; left: -10px;
+    top: -10px;
+    left: -10px;
 }
 
-.requester{
+.requester {
     display: flex !important;
     justify-content: space-between;
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
 }
 
-.requester .label{
+.requester .label {
     cursor: pointer;
 }
 
-.requester .label:hover{
+.requester .label:hover {
     color: green;
 }
 
-.action-btn button{
+.action-btn button {
     width: 100% !important;
 }
 
-.requester .btn-approve{
+.requester .btn-approve {
     float: right;
     width: 80px !important;
 }
 
 
-.action-btn{
+.action-btn {
     position: relative;
 }
 
-.options-container{
+.options-container {
     width: 100px;
     position: absolute;
-    left: -90px; top: 50px;
+    left: -90px;
+    top: 50px;
     background-color: #343a40;
     border-radius: 5px;
     padding: 8px;
-    z-index:999 ;
+    z-index: 999;
 }
 
-.ppo-upload-file{
+.ppo-upload-file {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.ppo-upload-file .form-control{
+.ppo-upload-file .form-control {
     margin-right: 5px;
 }
 
-.ppo-upload-file button{
+.ppo-upload-file button {
     height: 100% !important;
 }
 
-.ppo-upload-file-container{
+.ppo-upload-file-container {
     border: 1px solid #ccc;
     background: #ccc;
     border-radius: 3px;
     padding: 5px;
 }
 
-.p-break{
+.p-break {
     word-wrap: break-word;
     width: 250px;
 }
 
-.search-bar{
+.search-bar {
     display: flex;
 }
 
-.search-bar input{
+.search-bar input {
     margin-left: 5px;
     width: 300px;
 }
 
-@media (max-width:768px){
-    .btn-add-event{
+@media (max-width:768px) {
+    .btn-add-event {
         margin-top: 5px;
         margin-left: 0;
     }
 
-    .action-btn{
-        position: sticky; 
+    .action-btn {
+        position: sticky;
         right: -22px;
         background: white;
     }
