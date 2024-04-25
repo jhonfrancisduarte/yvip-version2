@@ -6,6 +6,7 @@
 
 @section ('css')
     <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 @endsection
 
 
@@ -13,14 +14,7 @@
 
     <div class="main-container">
             <div class="landing-page-hero">
-                <div class="welcome-nav">
-                    <div class="contact-info">
-
-                    </div>
-                    <p class="sign-in-button">Sign In</p>
-                    <p class="reg-button"><a href="/registration" wire:navigate >Register</a></p>
-                </div>
-
+                
                 <div class="welcome-header">
                     <img src="images/yvip_logo.png" width="160"/>
                     <div class="title-container">
