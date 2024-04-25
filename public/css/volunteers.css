@@ -195,6 +195,19 @@
     text-transform: capitalize !important;
 }
 
+.viewer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-left: 100px;
+    overflow-x: hidden;
+}
+
+.content-wrapper{
+    overflow-x: hidden !important;
+}
+
 .loader {
     position: absolute;
     top: 6px;
@@ -263,11 +276,33 @@
         display: none;
     }
 
+    .viewer{
+        width: 100%; 
+        overflow-x: hidden;
+        margin-left: 0;
+    }
+
+    #pdf-viewer {
+        display: inline-block; 
+        max-width: 100%; 
+        vertical-align: middle; 
+    }
+    
+    canvas {
+        max-width: 100%;
+    }
+
 }
 
 @media (min-width:768px) and (max-width:1024px) {
     .users-data-all-container {
         position: fixed;
         padding-bottom: 70px;
+    }
+
+    .viewer{
+        width: 100%; 
+        overflow-x: hidden;
+        margin-left: 0;
     }
 }

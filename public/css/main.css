@@ -119,9 +119,9 @@ td p{
     .welcome-header .title-container h1 {
       font-size: 30px;
     }
-  }
+}
   
-  @media (min-width: 767px) and (max-width: 1024px) {
+@media (min-width: 767px) and (max-width: 1024px) {
     .welcome-header {
       overflow: hidden;
       display: flex !important;
@@ -137,7 +137,7 @@ td p{
     .welcome-header .title-container h1 {
       font-size: 35px;
     }
-  }
+}
   
   .welcome-nav {
     width: 100%;
@@ -201,60 +201,89 @@ td p{
   }
   
   .welcome-header {
-    width: 100%;
-    height: 200px;
+    width: 40%;
+    height: auto;
     position: relative;
     overflow-x: hidden;
     display: flex;
     align-items: center;
-    padding-left: 100px;
+    justify-content: start;
+    padding-left: 50px;
     color: white;
   }
   
   .welcome-header .title-container {
     margin-left: 20px;
   }
-  
-  .welcome-header .title-container h1 {
-    font-weight: bold;
-    font-size: 40px;
-    line-height: 1.1;
+
+  .info-container{
+    position: absolute;
+    bottom: 100px;
+    color: black;
   }
   
-  .welcome-header {
-    background-color: rgba(255, 255, 255, 0) !important;
+  .welcome-header .title-container h1{
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 1.1;
   }
   
   .welcome-header h4 {
     color: #E14843 !important;
-    font-size: 28px;
-    margin-bottom: -10px !important;
+    font-size: 22px;
   }
   
   .welcome-header h3 {
-    padding-left: 20px;
     font-size: 20px;
     color: #1C2840 !important;
+  }
+
+  .welcome-header .logo{
+    filter: drop-shadow(0px 4px 4px rgba(255, 255, 255, 0.7));
   }
   
   .welcome-nav {
     background-color: rgba(236, 236, 236, 0) !important;
     color: black !important;
   }
-  
-.login-form-container {
-    background: white;
-    border-radius: 10px;
-    padding: 30px;
-    z-index: 99;
-    width: 450px;
-    height: 80%;
-    transition: 0.3s ease-in-out;
-    overflow: hidden;
-    box-shadow: 0px 0px 15px 1px rgba(113, 106, 202, 0.1);
+
+.remember-me{
+  display: flex;
+  height: 17px;
+  align-items: center;
+  justify-content: start;
+  position: relative;
 }
 
+.remember-me input{
+  width: 14px;
+  margin-right: 10px;
+}
 
+.forget{
+  position: absolute;
+  right: 0;
+}
+  
+.login-form-container {
+    background: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    padding: 30px;
+    margin-right: 150px;
+    z-index: 99;
+    width: 450px;
+    transition: 0.3s ease-in-out;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px 1px rgba(113, 106, 202, 0.2);
+}
+
+.login-button{
+  background: #00C6ED !important;
+}
+
+.p{
+  margin-top: 15px;
+}
   
 .login-form-container form{
     border-radius: 10px !important;
@@ -268,7 +297,7 @@ td p{
     overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
   }
   
   .login-container .login-overlay {
@@ -354,7 +383,9 @@ td p{
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
-    height: 300px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
   }
   
   .registered-page-hero {

@@ -14,10 +14,11 @@ class Login extends Component
     #[Rule('required')]
     public $password;
 
+    public $remember = false;
 
     public function login(){
         $this->validate();
-        if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+        if (Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             $user = Auth::user();
             if($user->active_status === 1){
                 if (($user->user_role === 'yv' || $user->user_role === 'yip')) {
