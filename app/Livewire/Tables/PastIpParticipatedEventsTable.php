@@ -11,7 +11,7 @@ class PastIpParticipatedEventsTable extends Component
     public $openAddEvent = false;
     public $eventName;
     public $organizerSponsor;
-    public $sponsorCategory = 'Fully Sponsored';
+    public $sponsorCategory;
     public $dateStart;
     public $dateEnd;
     public $editEventId;
@@ -43,12 +43,18 @@ class PastIpParticipatedEventsTable extends Component
 
     public function saveEvent()
     {
-        // Validate the form fields
+        // Validate the form fields with custom error messages
         $this->validate([
-            'eventName' => 'required',
-            'organizerSponsor' => 'required',
+            'eventName' => 'required|string|max:255', // Added max length validation
+            'organizerSponsor' => 'required|string|max:255', // Added max length validation
+            'sponsorCategory' => 'required|string', // Added string validation
             'dateStart' => 'required|date',
             'dateEnd' => 'required|date|after_or_equal:dateStart',
+        ], [
+            'eventName.required' => 'The event name is required.',
+            'organizerSponsor.required' => 'The organizer/sponsor is required.',
+            'sponsorCategory.required' => 'The sponsor category is required.',
+            'dateEnd.after_or_equal' => 'The end date must be after or equal to the start date.'
         ]);
 
         // Save or update the event based on whether editEventId is set
