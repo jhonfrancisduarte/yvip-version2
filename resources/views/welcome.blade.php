@@ -30,8 +30,7 @@
                     </div>
                 </div>
 
-                <div class="login-container">.
-                    <div class="login-overlay"></div>
+                <div class="login-container">
                     @livewire('login')
                 </div>
 

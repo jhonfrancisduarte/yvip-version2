@@ -1,10 +1,8 @@
 <div class="card card-4 login-form-container">
     <div class="card-body">
-        <p class="close-button">✖</p>
         <h2 class="title">Sign in to your account</h2>
 
         <form wire:submit.prevent="login">
-            @csrf
             <div class="row row-space login-input-div">
                 <div class="col-1">
                     <div class="input-group">

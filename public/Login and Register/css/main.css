@@ -686,6 +686,8 @@ input {
 .card-4 .card-body {
   padding: 57px 65px;
   padding-bottom: 65px;
+  overflow-y: hidden;
+  height: 100%;
 }
 
 @media (max-width: 767px) {
@@ -846,14 +848,12 @@ input {
 }
 
 .login-form-container {
-  position: absolute;
-  top: 0;
-  right: 0px;
   z-index: 99;
   width: 450px;
   border-radius: 0px !important;
-  height: 100vh;
+  height: 80%;
   transition: 0.3s ease-in-out;
+  overflow: hidden;
 }
 
 .login-form-container2 {
@@ -866,13 +866,12 @@ input {
 .login-container {
   position: absolute;
   top: 0;
-  z-index: 98;
-  width: 140%;
+  width: 100%;
   height: 100vh;
   overflow: hidden;
-  display: none;
-  background: rgba(0, 0, 0, 0.2);
-  transition: 0.8s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-container .login-overlay {
