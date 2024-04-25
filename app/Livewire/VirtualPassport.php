@@ -25,7 +25,6 @@ class VirtualPassport extends Component
             'Date of Birth' => $userData->date_of_birth,
         ];
 
-        // Generate QR code URL using QR Code API
         $queryString = http_build_query($details);
         $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($queryString);
     }

@@ -10,7 +10,7 @@
 
     @yield('title')
 
-    @yield ('css') 
+    @yield ('css')
     @livewireStyles
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -65,7 +65,7 @@
                     <div class="userpanel">
                         <div class="info">
                             @if(session('user_role') == 'yv' || session('user_role') == 'yip') 
-                            <a href="{{ route('profile') }}" class="d-block" wire:navigate>{{ auth()->user()->name }}</a>
+                                <a href="{{ route('profile') }}" class="d-block" wire:navigate>{{ auth()->user()->name }}</a>
                             @else
                                 <a href="{{ route('admin-profile') }}" class="d-block" wire:navigate>{{ auth()->user()->name }}</a>
                             @endif
@@ -82,12 +82,12 @@
             </ul>
         </nav>
     </div>
-    
+
     @yield('content')
-  
+
     @yield('js')
- 
-    
+
+
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>

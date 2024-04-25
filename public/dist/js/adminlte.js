@@ -226,27 +226,29 @@
     var _proto = CardWidget.prototype;
 
     _proto.collapse = function collapse() {
-      var _this = this;
-
-      this._parent.addClass(CLASS_NAME_COLLAPSING).children(SELECTOR_CARD_BODY + ", " + SELECTOR_CARD_FOOTER).slideUp(this._settings.animationSpeed, function () {
-        _this._parent.addClass(CLASS_NAME_COLLAPSED).removeClass(CLASS_NAME_COLLAPSING);
-      });
-
-      this._parent.find("> " + SELECTOR_CARD_HEADER + " " + this._settings.collapseTrigger + " ." + this._settings.collapseIcon).addClass(this._settings.expandIcon).removeClass(this._settings.collapseIcon);
-
-      this._element.trigger($__default['default'].Event(EVENT_COLLAPSED), this._parent);
+        var _this = this;
+        this._parent.addClass(CLASS_NAME_COLLAPSING).children(SELECTOR_CARD_BODY + ", " + SELECTOR_CARD_FOOTER).slideUp(this._settings.animationSpeed, function () {
+            _this._parent.addClass(CLASS_NAME_COLLAPSED).removeClass(CLASS_NAME_COLLAPSING);
+            // Check if Livewire is available
+            if (typeof Livewire !== 'undefined') {
+                Livewire.restart();
+            }
+        });
+        this._parent.find("> " + SELECTOR_CARD_HEADER + " " + this._settings.collapseTrigger + " ." + this._settings.collapseIcon).addClass(this._settings.expandIcon).removeClass(this._settings.collapseIcon);
+        this._element.trigger($.Event(EVENT_COLLAPSED), this._parent);
     };
 
     _proto.expand = function expand() {
-      var _this2 = this;
-
-      this._parent.addClass(CLASS_NAME_EXPANDING).children(SELECTOR_CARD_BODY + ", " + SELECTOR_CARD_FOOTER).slideDown(this._settings.animationSpeed, function () {
-        _this2._parent.removeClass(CLASS_NAME_COLLAPSED).removeClass(CLASS_NAME_EXPANDING);
-      });
-
-      this._parent.find("> " + SELECTOR_CARD_HEADER + " " + this._settings.collapseTrigger + " ." + this._settings.expandIcon).addClass(this._settings.collapseIcon).removeClass(this._settings.expandIcon);
-
-      this._element.trigger($__default['default'].Event(EVENT_EXPANDED), this._parent);
+        var _this2 = this;
+        this._parent.addClass(CLASS_NAME_EXPANDING).children(SELECTOR_CARD_BODY + ", " + SELECTOR_CARD_FOOTER).slideDown(this._settings.animationSpeed, function () {
+            _this2._parent.removeClass(CLASS_NAME_COLLAPSED).removeClass(CLASS_NAME_EXPANDING);
+            // Check if Livewire is available
+            if (typeof Livewire !== 'undefined') {
+                Livewire.restart();
+            }
+        });
+        this._parent.find("> " + SELECTOR_CARD_HEADER + " " + this._settings.collapseTrigger + " ." + this._settings.expandIcon).addClass(this._settings.collapseIcon).removeClass(this._settings.expandIcon);
+        this._element.trigger($.Event(EVENT_EXPANDED), this._parent);
     };
 
     _proto.remove = function remove() {

@@ -6,15 +6,6 @@
             </a>
 
             <div class="sidebar">
-                {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="{{ asset(auth()->user()->admin->profile_picture) }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;">
-                    </div>
-                    <div class="info">
-
-                        <a href="/admin-profile" class="d-block">{{ auth()->user()->admin->first_name }} {{ auth()->user()->admin->last_name }}</a>
-                    </div>
-                </div> --}}
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
@@ -23,7 +14,6 @@
                         <li class="nav-item">
                             <a href="{{ route('admin-dashboard') }}" class="nav-link {{ request()->routeIs('admin-dashboard') ? 'active' : '' }}" wire:navigate>
                             <i class="nav-icon bi bi-house"></i>
-
                             <p>
                                 Home
                             </p>
@@ -173,7 +163,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>   
+                    </li>
                 @endif
 
                     <li class="nav-item">
