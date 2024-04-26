@@ -17,7 +17,7 @@
                     <div class="col-sm-6">
                         <h1 class="m-0">My Virtual Passport</h1>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" class="profile-pic">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/dashboard" wire:navigate>Home</a></li>
                             <li class="breadcrumb-item active">My Virtual Passport</li>

@@ -15,12 +15,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Add "active" class to the clicked nav link
             this.classList.add("active");
-            
+
             // Get the href attribute of the clicked nav link
             var href = this.getAttribute("href");
 
-            // Navigate to the URL specified in the href attribute
-            window.location.href = href;
+            // Extract the Livewire component name and parameters from the href
+            var components = href.split("?")[0].split("/");
+            var component = components[components.length - 1];
+            var params = href.split("?")[1];
+
+            // Trigger Livewire navigation
+            Livewire.emit("navigate", {
+                component: component,
+                params: params
+            });
         });
     });
 });

@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="card-body scroll-table">
-                        <table id="volunteers-table" class="table table-bordered table-striped">
+                        <table id="volunteers-table" class="table-main">
                             <thead>
                                 <tr>
                                     <th>Firstname</th>
@@ -43,7 +43,7 @@
                                     <th>Lastname</th>
                                     <th>Email</th>
                                     <th>Position</th>
-                                    <th width="7%" class="action-btn">Actions</th>
+                                    <th width="10%" class="action-btn"></th>
                                 </tr>
                             </thead>
 
@@ -65,24 +65,13 @@
                                                 <p class="orange">IP Secretariat</p> 
                                             @endif
                                         </td>
-                                        <td class="action-btn">
-                                            <button class="btn btn-info btn-xs" wire:click="showUserData({{ $admin->user_id }})">View</button>
-                                            <button class="btn btn-danger btn-xs" wire:click="deleteDialog({{ $admin->user_id }})">Delete</button>
+                                        <td width="10%" class="action-btn">
+                                            <button class="btn btn-xs light-blue" wire:click="showUserData({{ $admin->user_id }})"><i class="bi bi-eye"></i> View</button>
+                                            <button class="btn btn-xs red" wire:click="deleteDialog({{ $admin->user_id }})"><i class="bi bi-trash3"></i> Delete</button>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
-
-                            <tfoot>
-                                <tr>
-                                    <th>Firstname</th>
-                                    <th>Middlename</th>
-                                    <th>Lastname</th>
-                                    <th>Email</th>
-                                    <th>Position</th>
-                                    <th width="7%" class="action-btn">Actions</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>

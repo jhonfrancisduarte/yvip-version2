@@ -419,6 +419,13 @@ class Register extends Component
                 'name' => $this->first_name . " " . $this->middle_name . " " . $this->last_name,
             ]);
 
+
+            $user->volunteer()->create([
+                'user_id' => $user->id,
+                'volunteer_experience' => "",
+                'volunteering_hours' => 0,
+            ]);
+
             $user->userData()->create([
                 'user_id' => $user->id,
                 'passport_number' => $passportNumber,

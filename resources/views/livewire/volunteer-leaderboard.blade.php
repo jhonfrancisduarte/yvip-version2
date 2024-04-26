@@ -4,41 +4,93 @@
         <div class="row volunteer-row">
             <div class="col-12 table-contain">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Volunteers Rankings</h3> 
-                    </div>
- 
                     <div class="card-body scroll-table">
-                        <table id="volunteers-table" class="table table-bordered table-striped">
+                        @php $myRank = 1; $previousHours = null;@endphp
+                        @foreach ($totalHoursPerUser as $record)
+                            @if($previousHours !== $record->total_volunteer_hours && $previousHours !== null)
+                                @php $myRank++; @endphp
+                            @endif
+                            @if(auth()->user()->id === $record->user_id)
+                                <div class="my-rank">
+                                    <div class="r">
+                                        <div class="rank">
+                                            @if($myRank === 1)
+                                                <img src="images/rank1.png" alt="rank icon" width="48">
+                                            @elseif($myRank === 2)
+                                                <img src="images/rank2.png" alt="rank icon" width="48">
+                                            @elseif($myRank === 3)
+                                                <img src="images/rank3.png" alt="rank icon" width="48">
+                                            @else
+                                                <img src="images/norank.png" alt="rank icon" width="48">
+                                            @endif
+                                            <p @if($myRank === 1)class="rank1"@endif>{{ $myRank }}</p>
+                                        </div>
+                                        <div>
+                                            <p><img class="profile_picture" src="{{ $record->profile_picture }}" alt="profile picture" width="40">{{ $record->fullname }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="my-hours">
+                                        <p><i class="fas fa-clock"></i> {{ $record->total_volunteer_hours }}</p>
+                                    </div>
+                                </div>
+                                @break
+                            @endif
+                            @php
+                                $previousHours = $record->total_volunteer_hours;
+                            @endphp
+                        @endforeach
+                        <table id="volunteers-table">
                             <thead>
                                 <tr>
-                                    <th width="10%">Ranks</th>
-                                    <th>Names</th>
-                                    <th width="15%">Total of Hours</th>
+                                    <th width="20%" class="centered">Ranking</th>
+                                    <th>Name</th>
+                                    <th width="20%" class="centered">Total Number of Hours</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <div>
-                                @php $rank = 1; @endphp
+                                    @php 
+                                        $rank = 1; 
+                                        $previousHours = null;
+                                    @endphp
                                     @foreach ($totalHoursPerUser as $record)
+                                        @if($previousHours !== $record->total_volunteer_hours && $previousHours !== null)
+                                            @php $rank++; @endphp
+                                        @endif
                                         <tr>
-                                            <td id="rank" @if($rank === 1 ) class="gold" @elseif($rank === 2 ) class="silver" @elseif($rank === 3 ) class="bronze" @endif >{{ $rank }}</td>
-                                            <td>{{ $record->fullname }}</td>
-                                            <td>{{ $record->total_volunteer_hours }}</td>
+                                            <td class="centered">
+                                                <div class="rank">
+                                                    @if($rank === 1)
+                                                        <img src="images/rank1.png" alt="rank icon" width="48">
+                                                    @elseif($rank === 2)
+                                                        <img src="images/rank2.png" alt="rank icon" width="44">
+                                                    @elseif($rank === 3)
+                                                        <img src="images/rank3.png" alt="rank icon" width="40">
+                                                    @else
+                                                        <img src="images/norank.png" alt="rank icon" width="35">
+                                                    @endif
+                                                    <p @if($rank === 1)class="rank1"@endif>{{ $rank }}</p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <img class="profile_picture" src="{{ $record->profile_picture }}" alt="profile picture" width="40">
+                                                {{ $record->fullname }}
+                                            </td>
+                                            <td class="centered">
+                                                <i class="fas fa-clock"></i> {{ $record->total_volunteer_hours }}
+                                            </td>
                                         </tr>
-                                        @php $rank++; @endphp
+                                        @if($rank === 10)
+                                            @break
+                                        @endif
+                                        @php
+                                            $previousHours = $record->total_volunteer_hours;
+                                        @endphp
                                     @endforeach
+
                                 </div>
                             </tbody>
-
-                            <tfoot>
-                                <tr>
-                                    <th width="10%">Ranks</th>
-                                    <th>Names</th>
-                                    <th width="15%">Total of Hours</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
 

@@ -149,9 +149,24 @@
     width: 250px;
 }
 
+.search-bar{
+    display: flex;
+}
+
+.search-bar input{
+    margin-left: 5px;
+    width: 300px;
+}
+
 @media (max-width:768px){
     .btn-add-event{
         margin-top: 5px;
         margin-left: 0;
+    }
+
+    .action-btn{
+        position: sticky; 
+        right: -22px;
+        background: white;
     }
 }

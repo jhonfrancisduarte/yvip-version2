@@ -6,6 +6,7 @@
 
 @section ('css')
     <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 @endsection
 
 
@@ -13,25 +14,20 @@
 
     <div class="main-container">
             <div class="landing-page-hero">
-                <div class="welcome-nav">
-                    <div class="contact-info">
-
-                    </div>
-                    <p class="sign-in-button">Sign In</p>
-                    <p class="reg-button"><a href="/registration" wire:navigate >Register</a></p>
-                </div>
-
+                
                 <div class="welcome-header">
-                    <img src="images/yvip_logo.png" width="160"/>
+                    <img class="logo" src="images/yvip_logo.png" width="230"/>
                     <div class="title-container">
                         <h4>The NYC</h4>
-                        <img src="images/yvip.png" alt="" width="230">
+                        <img src="images/yvip.png" alt="" width="100">
                         <h3>Youth Volunteers & International Programs Beneficiaries Hub</h3>
                     </div>
+                    {{-- <div class="info-container">
+                        <p>Some custom info can be placed here such as contacts or other details</p>
+                    </div> --}}
                 </div>
 
-                <div class="login-container">.
-                    <div class="login-overlay"></div>
+                <div class="login-container">
                     @livewire('login')
                 </div>
 
