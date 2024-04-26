@@ -209,6 +209,10 @@
     border: 1px solid #ccc;
 }
 
+.m-0 a{
+    margin-top: 10px !important;
+}
+
 .no-padding{
     padding-top: 0 !important
 }
@@ -227,7 +231,7 @@
     text-transform: capitalize !important;
 }
 
-.viewer{
+.viewer {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -236,7 +240,7 @@
     overflow-x: hidden;
 }
 
-.content-wrapper{
+.content-wrapper {
     overflow-x: hidden !important;
 }
 
@@ -308,18 +312,18 @@
         display: none;
     }
 
-    .viewer{
-        width: 100%; 
+    .viewer {
+        width: 100%;
         overflow-x: hidden;
         margin-left: 0;
     }
 
     #pdf-viewer {
-        display: inline-block; 
-        max-width: 100%; 
-        vertical-align: middle; 
+        display: inline-block;
+        max-width: 100%;
+        vertical-align: middle;
     }
-    
+
     canvas {
         max-width: 100%;
     }
@@ -332,8 +336,8 @@
         padding-bottom: 70px;
     }
 
-    .viewer{
-        width: 100%; 
+    .viewer {
+        width: 100%;
         overflow-x: hidden;
         margin-left: 0;
     }

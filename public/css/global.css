@@ -297,8 +297,9 @@ z-index: -1;
     transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
 
-
-
+.table-full-width{
+    width: 100%;
+}
 
 .modal-footer{
     box-shadow: none !important;

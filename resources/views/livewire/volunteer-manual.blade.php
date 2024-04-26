@@ -19,10 +19,10 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1 class="m-0">Volunteer Manual
-                            <a href="{{ asset('uploads/NYVP-Operational-Guidelines.pdf') }}" download>
-                                <button class="btn btn-info btn-xs">Download Manual</button>
-                            </a>
                         </h1>
+                        <a href="{{ asset('uploads/NYVP-Operational-Guidelines.pdf') }}" download>
+                            <button class="btn-submit">Download Manual</button>
+                        </a>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">

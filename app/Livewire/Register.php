@@ -71,7 +71,7 @@ class Register extends Component
     public $rcities;
     public $permanent_cities;
     public $residential_cities;
-
+    
 
     public function mount(){
         $this->permanent_selectedProvince = null;
@@ -150,13 +150,6 @@ class Register extends Component
                 'password' => $this->password,
                 'user_role' => $this->user_role,
                 'name' => $this->first_name . " " . $this->middle_name . " " . $this->last_name,
-            ]);
-
-
-            $user->volunteer()->create([
-                'user_id' => $user->id,
-                'volunteer_experience' => "",
-                'volunteering_hours' => 0,
             ]);
 
             $user->userData()->create([

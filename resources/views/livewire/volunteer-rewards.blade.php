@@ -1,16 +1,15 @@
-<section class="content volunteers-table-content">
+<section class="content rewards-table-content">
     
     <div class="container-fluid">
-        <div class="row volunteer-row">
+        <div class="row rewards-row">
             <div class="col-12 table-contain">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title title">Volunteer Rewards</h3>
-                        <button type="button" class="btn btn-info btn-sm btn-show-reward" wire:click="seeRewards">See Rewards</button>
+                        <button type="button" class="btn-submit btn-show-reward" wire:click="seeRewards">Rewards Matrix</button>
                     </div>
 
-                    <div class="card-body scroll-table">
-                        <table id="volunteers-table" class="table table-bordered table-striped">
+                    <div class="card-body">
+                        <table id="rewards-table" class="table-main">
                             <thead>
                                 <tr>
                                     <th width="30%">Name</th>
@@ -52,15 +51,15 @@
                             </div>
 
                             <div class="container-fluid">
-                                <div class="row volunteer-row">
+                                <div class="row rewards-row">
                                     <div class="col-12 table-contain">
-                                        <div class="card">
+                                        <div class="card1">
 
-                                            <div class="card-body scroll-table">
-                                                <table id="volunteers-table" class="table table-bordered table-striped">
+                                            <div class="card-body">
+                                                <table id="rewards-table" class="table-main">
                                                     <thead>
                                                         <tr>
-                                                            <th width="10%">Level</th>
+                                                            <th width="30%">Level</th>
                                                             <th width="30%">Number of Hours</th>
                                                             <th>Reward</th>
                                                         </tr>

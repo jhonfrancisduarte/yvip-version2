@@ -80,7 +80,7 @@
                                             <td class="action-btn2">
                                                 @if(session('user_role') == 'sa' || session('user_role') == 'ips')
                                                     <p class="green p-centered" wire:click="openJoinRequests({{ $event->id }})">Join Requests
-                                                        <span style="background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : 'rgb(245, 245, 245)' }}">{{ count($joinRequestsData[$event->id] ?? []) }}</span>
+                                                        <span style="color: black; background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? '#FFCCBC' : 'rgb(245, 245, 245)' }};">{{ count($joinRequestsData[$event->id] ?? []) }}</span>
                                                     </p>                                                    </button>
                                                     <p class="light-blue" wire:click="toggleOptions({{ $event->id }})"><i class="bi bi-gear"></i> Options</p>
                                                     @if($options == $event->id)
@@ -405,16 +405,16 @@
                                                     <label class="label" wire:click="showParticipantDetails({{ $ppoSubmision->user_id }}, '')">{{ $ppoSubmision->user->userdata->first_name }} {{ $ppoSubmision->user->userdata->middle_name }} {{ $ppoSubmision->user->userdata->last_name }}</label>
                                                     @if($ppoSubmision->file_paths)
                                                         <p>{{ pathinfo(asset($ppoSubmision->file_paths), PATHINFO_FILENAME) }}.{{ pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) }}</p>
-                                                        <div>
+                                                        <div class="anns-buttons">
                                                             <a href="{{ asset($ppoSubmision->file_paths) }}" download>
-                                                                <button class="btn btn-info btn-xs">Download</button>
+                                                                <i class="bi bi-file-earmark-arrow-down"></i> Download
                                                             </a>
                                                             
                                                             @if(pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) === 'pdf' ||
                                                                 pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) === 'docx' ||
                                                                 pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) === 'txt' ||
                                                                 pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) === 'csv')
-                                                                <button class="btn btn-info btn-xs btn-resized" onclick="window.open('{{ asset($ppoSubmision->file_paths) }}', '_blank')">Preview</button>
+                                                                <a href="#" onclick="window.open('{{ asset($ppoSubmision->file_paths) }}', '_blank')"><i class="bi bi-eye"></i> Preview</a>
                                                             @endif
                                                         </div>
                                                     @else

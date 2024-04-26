@@ -30,9 +30,9 @@
             </div>
         </div>
 
-        @if(auth()->user()->user_role === "yip" && auth()->user()->user_role === "ips")
+        @if(auth()->user()->user_role === "yip" || auth()->user()->user_role === "ips")
             <livewire:announcement-table :dashboardType="'ip'" />
-        @elseif(auth()->user()->user_role === "yv" && auth()->user()->user_role === "vs" && auth()->user()->user_role === "vsa")
+        @elseif(auth()->user()->user_role === "yv" || auth()->user()->user_role === "vs" || auth()->user()->user_role === "vsa")
             <livewire:announcement-table :dashboardType="'yv'" />
         @endif
 
