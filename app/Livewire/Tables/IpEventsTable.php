@@ -57,22 +57,22 @@ class IpEventsTable extends Component
             ->search(trim($this->search))
             ->orderBy('ip_events.created_at', 'desc')
             ->get();
-    
+
         $joinRequestsData = [];
-    
+
         $ipEvents->transform(function ($event) use (&$joinRequestsData) {
             $participantIds = explode(',', $event->participants);
             $disapprovedIds = explode(',', $event->disapproved);
             $participantData = [];
             $userId = auth()->user()->id;
-    
+
             foreach ($participantIds as $participantId) {
                 $participantId = trim($participantId);
-    
+
                 if (!empty($participantId)) {
                     $user = User::find($participantId);
                     $userData = $user->userData;
-    
+
                     if ($userData) {
                         $name = trim($userData->first_name . ' ' . $userData->middle_name . ' ' . $userData->last_name);
                         $participantData[] = [
@@ -82,17 +82,17 @@ class IpEventsTable extends Component
                     }
                 }
             }
-    
+
             // Fetch join_requests data for the current event
             $joinRequests = explode(',', $event->join_requests);
             $joinRequestsData[$event->id] = [];
             foreach ($joinRequests as $joinRequest) {
                 $joinRequest = trim($joinRequest);
-    
+
                 if (!empty($joinRequest)) {
                     $user = User::find($joinRequest);
                     $userData = $user->userData;
-    
+
                     if ($userData) {
                         $name = trim($userData->first_name . ' ' . $userData->middle_name . ' ' . $userData->last_name);
                         $joinRequestsData[$event->id][] = [
@@ -102,7 +102,7 @@ class IpEventsTable extends Component
                     }
                 }
             }
-    
+
             $currentDate = now();
             if ($currentDate >= $event->start && $currentDate <= $event->end) {
                 $event->status = 'Ongoing';
@@ -111,7 +111,7 @@ class IpEventsTable extends Component
             } else {
                 $event->status = 'Upcoming';
             }
-    
+
             $event->participantData = $participantData;
             $event->qualifications = explode(',', $event->qualifications);
             $event->hasJoined = in_array($userId, $joinRequests);
@@ -170,7 +170,10 @@ class IpEventsTable extends Component
     }
 
     public function openAddForm(){
-        $this->openAddEvent = true;
+
+        if (!$this->openAddEvent) {
+            $this->openAddEvent = true;
+        }
     }
 
     public function closeAddForm(){
@@ -332,7 +335,7 @@ class IpEventsTable extends Component
                 $participantIds = explode(',', $event->participants);
                 $this->isParticipant = in_array($userId, $participantIds);
             }
-            
+
             $this->thisUserDetails = User::where('users.id', $userId)
                 ->join('user_data', 'users.id', '=', 'user_data.user_id')
                 ->select('users.email', 'users.active_status', 'user_data.*')
