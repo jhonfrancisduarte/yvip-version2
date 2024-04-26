@@ -76,6 +76,8 @@ return array(
     'App\\Livewire\\Tables\\VolunteerHoursTable' => $baseDir . '/app/Livewire/Tables/VolunteerHoursTable.php',
     'App\\Livewire\\Tables\\VolunteerRegistrationTable' => $baseDir . '/app/Livewire/Tables/VolunteerRegistrationTable.php',
     'App\\Livewire\\VolunteerDashboard' => $baseDir . '/app/Livewire/VolunteerDashboard.php',
+    'App\\Livewire\\VolunteerEventsAndTrainings' => $baseDir . '/app/Livewire/VolunteerEventsAndTrainings.php',
+    'App\\Livewire\\VolunteerEventsAndTrainingsTable' => $baseDir . '/app/Livewire/VolunteerEventsAndTrainingsTable.php',
     'App\\Livewire\\VolunteerLeaderboard' => $baseDir . '/app/Livewire/VolunteerLeaderboard.php',
     'App\\Livewire\\VolunteerManual' => $baseDir . '/app/Livewire/VolunteerManual.php',
     'App\\Livewire\\VolunteerRewards' => $baseDir . '/app/Livewire/VolunteerRewards.php',

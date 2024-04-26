@@ -40,7 +40,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                <a href="{{ route('events-and-trainings') }}" class="nav-link {{ request()->routeIs('events-and-trainings') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('volunteer-events-and-trainings') }}" class="nav-link {{ request()->routeIs('events-and-trainings') ? 'active' : '' }}" wire:navigate>
                                     <i class="nav-icon bi bi-card-list"></i>
                                     <p>
                                         Events and Trainings List

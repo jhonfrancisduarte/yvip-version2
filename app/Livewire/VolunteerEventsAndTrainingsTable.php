@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\VolunteerEventsAndTrainings;
 use Illuminate\Validation\Rule;
 
+use Illuminate\Support\Facades\Auth;
+
 class VolunteerEventsAndTrainingsTable extends Component
 {
     #[Rule('required')]
@@ -44,6 +46,15 @@ class VolunteerEventsAndTrainingsTable extends Component
 
     public $selectedEventId;
 
+    public $eventId;
+
+    public $openEditEvent = false;
+    public $editEventId;
+
+    public $deleteEventId;
+    public $deleteMessage;
+    public $disableButton = "No";
+
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
     public function render()
@@ -60,8 +71,6 @@ class VolunteerEventsAndTrainingsTable extends Component
 
     public function create()
     { 
-            dd($this->all());
-
             $event = VolunteerEventsAndTrainings::create([
                 'event_type' => $this->eventType,
                 'event_name' => $this->eventName,
@@ -76,6 +85,17 @@ class VolunteerEventsAndTrainingsTable extends Component
             $this->popup_message = "Event added successfully.";
 
             $this->createdEvent = $event;
+            $this->resetForm();
+    }
+
+    public function resetForm(){
+    $this->eventType = null;
+    $this->eventName = null;
+    $this->organizer = null;
+    $this->startDate = null;
+    $this->endDate = null;
+    $this->volunteerHours = null;
+    $this->selectedTags = [];
     }
 
     public function toggleTag($tag)
@@ -86,7 +106,17 @@ class VolunteerEventsAndTrainingsTable extends Component
             $this->selectedTags[] = $tag;
         }
         $this->volunteerCategory = implode(', ', $this->selectedTags);
-    }    
+    }   
+    
+    public function toggleSettings($eventId)
+    {
+        if ($this->selectedEventId === $eventId) {
+            $this->showEditDeleteButtons = !$this->showEditDeleteButtons;
+        } else {
+            $this->selectedEventId = $eventId;
+            $this->showEditDeleteButtons = true;
+        }
+    }
 
     public function eventForm($userId){
         $this->showForm = true;}
@@ -113,7 +143,28 @@ class VolunteerEventsAndTrainingsTable extends Component
             $this->volunteerCategory = $event->volunteer_category;
             $this->selectedTags = explode(', ', $event->volunteer_category);
             $this->editEventId = $eventId;
+            
         }
+    }
+
+    public function editEvent(){
+            $userId = Auth::user()->id;
+            $event = VolunteerEventsAndTrainings::find($this->editEventId);
+            if ($event) {
+                $event->update([
+                    'event_type' => $this->eventType,
+                    'event_name' => $this->eventName,
+                    'organizer_facilitator' => $this->organizer,
+                    'start_date' => $this->startDate,
+                    'end_date' => $this->endDate,
+                    'volunteer_hours' => $this->volunteerHours,
+                    'volunteer_category' => implode(', ', $this->selectedTags)
+                ]);
+  
+                $this->popup_message = "Event updated successfully.";
+                $this->closeEditForm();
+            }
+        
     }
     
     public function closeEditForm(){
@@ -128,10 +179,6 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->volunteerHours = null;
     }
     
-    public function deleteDialog($eventId){
-        $this->deleteEventId = $eventId;
-    }
-    
     public function hideDeleteDialog(){
         $this->deleteMessage = null;
         $this->deleteEventId = null;
@@ -144,18 +191,8 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->endDate = null;
     }
 
-    public function toggleSettings($eventId)
-    {
-        if ($this->selectedEventId === $eventId) {
-            $this->insideSettingsButtonsShow = !$this->insideSettingsButtonsShow;
-        }else {
-            $this->selectedEventId = $eventId;
-            $this->insideSettingsButtonsShow = true;
-        }
-    }
-
-    public function hideInsideSettingsButtons(){
-        $this->insideSettingsButtonsShown = false;
+    public function deleteDialog($eventId){
+        $this->deleteEventId = $eventId;
     }
     
     public function deleteEvent(){
@@ -169,6 +206,45 @@ class VolunteerEventsAndTrainingsTable extends Component
                 $this->deleteMessage = 'Event deletion unsuccessful.';
                 $this->disableButton = "Yes";
             }
+        }
+    }
+
+    public function openJoinRequests($eventId){
+        $this->openJoinRequestsTable = true;
+        $this->joinEventId = $eventId;
+    }
+
+    public function closeJoinRequests(){
+        $this->openJoinRequestsTable = null;
+        $this->joinEventId = null;
+        $this->options = null;
+    }
+
+    public function joinEvent($eventId){
+        $userId = Auth::user()->id;
+        $event = IpEvents::find($eventId);
+
+        if ($event) {
+            $joinRequests = explode(',', $event->join_requests);
+            if (!in_array($userId, $joinRequests)) {
+                $joinRequests[] = $userId;
+                $event->join_requests = implode(',', $joinRequests);
+                $event->save();
+            }
+        }
+    }
+
+    public function toggleJoinStatus($eventId){
+        $event = IpEvents::find($eventId);
+        if($event){
+            $event->update([
+                'join_status' => !$event->join_status,
+                'join_requests' => '',
+            ]);
+
+            $this->popup_message = null;
+            $this->options = null;
+            $this->popup_message = "Event join status updated successfully.";
         }
     }
 

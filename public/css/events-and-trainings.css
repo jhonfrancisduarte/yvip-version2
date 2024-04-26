@@ -32,12 +32,14 @@
 
 .inside-settings-buttons {
     position: absolute;
-    left: -80%;
+    right: 102%;
+    top: 65%;
     background-color: #000;
     padding: 5px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    z-index: 1;
 }
 
 .inside-settings-buttons button {
@@ -45,5 +47,9 @@
 }
 
 .show-buttons {
-    display: flex !important; /* Show the buttons when this class is applied */
+    display: flex !important;
+}
+
+.settings{
+    width: 100%;
 }

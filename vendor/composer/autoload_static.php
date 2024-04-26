@@ -828,6 +828,8 @@ class ComposerStaticInitf9985d2fbac80db1beb2b346fbe4e2ec
         'App\\Livewire\\Tables\\VolunteerHoursTable' => __DIR__ . '/../..' . '/app/Livewire/Tables/VolunteerHoursTable.php',
         'App\\Livewire\\Tables\\VolunteerRegistrationTable' => __DIR__ . '/../..' . '/app/Livewire/Tables/VolunteerRegistrationTable.php',
         'App\\Livewire\\VolunteerDashboard' => __DIR__ . '/../..' . '/app/Livewire/VolunteerDashboard.php',
+        'App\\Livewire\\VolunteerEventsAndTrainings' => __DIR__ . '/../..' . '/app/Livewire/VolunteerEventsAndTrainings.php',
+        'App\\Livewire\\VolunteerEventsAndTrainingsTable' => __DIR__ . '/../..' . '/app/Livewire/VolunteerEventsAndTrainingsTable.php',
         'App\\Livewire\\VolunteerLeaderboard' => __DIR__ . '/../..' . '/app/Livewire/VolunteerLeaderboard.php',
         'App\\Livewire\\VolunteerManual' => __DIR__ . '/../..' . '/app/Livewire/VolunteerManual.php',
         'App\\Livewire\\VolunteerRewards' => __DIR__ . '/../..' . '/app/Livewire/VolunteerRewards.php',
