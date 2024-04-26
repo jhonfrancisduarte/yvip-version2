@@ -188,7 +188,7 @@
                                 @foreach($volunteers as $volunteer)
                                     <tr>
                                         <td class="right-action-btn">
-                                            <button class="btn btn-info btn-xs" wire:click="showUserData({{ $volunteer->user_id }})">View</button>
+                                            <button class="btn btn-info btn-xs" wire:click="showUserData({{ $volunteer->user_id }})"><i class="bi bi-eye"></i></button>
                                             @if($active_status === 2)
                                                 <button class="btn btn-success btn-xs" wire:click="reactivateDialog({{ $volunteer->user_id }})">Reactivate</button>
                                             @endif

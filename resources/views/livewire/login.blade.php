@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <div class="row row-space login-input-div">
+            <div class="row row-space login-input-div2">
                 <div class="col-2">
                     <div class="input-group">
                         <div class="remember-me">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-2 col-forget">
                     <div class="input-group">
                         <p class="forget"><a href="{{ route('password.request')}}">Forgot Password?</a></p>
                     </div>

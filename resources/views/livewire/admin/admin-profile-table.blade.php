@@ -23,7 +23,7 @@
                 </div>
                 
                 <div class="content-actions">
-                    <button class="btn btn-info btn-xs" wire:click.live="openEditMyInfo"><i class="nav-icon fas fa-edit"></i> Edit Profile</button>
+                    <button class="btn btn-info btn-xs" wire:click.live="openEditMyInfo"><i class="nav-icon bi bi-pencil-square"></i> Edit Profile</button>
                 </div>
 
                 @if($myInfo)
@@ -66,12 +66,12 @@
                         <div class="row1">
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Firstname: <span>{{ $user ? $user['first_name'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('first_name')"></i></label>
+                                    <label class="label">Firstname: <span>{{ $user ? $user['first_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('first_name')"></i></label>
                                 </div>
                             </div>
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Lastname: <span>{{ $user ? $user['last_name'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('last_name')"></i></label>
+                                    <label class="label">Lastname: <span>{{ $user ? $user['last_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('last_name')"></i></label>
                                 </div>
                             </div>
                         </div>
@@ -79,12 +79,12 @@
                         <div class="row1">
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Middlename: <span>{{ $user ? $user['middle_name'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('middle_name')"></i></label>
+                                    <label class="label">Middlename: <span>{{ $user ? $user['middle_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('middle_name')"></i></label>
                                 </div>
                             </div>
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Email: <span>{{ $user ? $user['email'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('email')"></i></label>
+                                    <label class="label">Email: <span>{{ $user ? $user['email'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('email')"></i></label>
                                 </div>
                             </div>
                         </div>
@@ -136,200 +136,6 @@
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
-    @if($toBeEdited)
-        <div class="anns anns-fixed">
-            <div class="close-form" wire:click="closeEditProfileForm"></div>
-            <div class="add-announcement-container">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        @if($toBeEdited === "permanent_selectedProvince")
-                            <h4 class="modal-title">Edit permanent address</h4>
-                        @elseif($toBeEdited === "residential_selectedProvince")
-                            <h4 class="modal-title">Edit residential address</h4>
-                        @else
-                            <h4 class="modal-title">Edit {{ $formattedData }}</h4>
-                        @endif
-                        <button type="button" class="close" wire:click="closeEditThis">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form wire:submit.prevent="updateInfo('{{ $toBeEdited }}')">
-                        <div class="card card-primary">
-                            <div class="card-body">
-
-                                @if($toBeEdited === "date_of_birth")
-                                    <div class="row1">
-                                        <div class="col2">
-                                            <label class="label">date of birth</label>
-                                            <div class="input-group-icon">
-                                                <input class="input--style-4" type="date" wire:model="thisData" name="date_of_birth">
-                                            </div>
-                                            @error('thisData') <span class="text-danger small" style="color: red;">The date of birth field is required</span>@enderror
-                                        </div>
-                                    </div>
-                                @elseif($toBeEdited === "civil_status")
-                                    <div class="row1">
-                                        <div class="col2">
-                                            <label class="label">civil status</label>
-                                                <select id="civil_status" class="label select-status" wire:model="thisData" required>
-                                                    <option class="label" value="">Select Civil Status</option>
-                                                    <option class="label" value="Single">Single</option>
-                                                    <option class="label" value="Married">Married</option>
-                                                    <option class="label" value="Widowed">Widowed</option>
-                                                    <option class="label" value="Legally Separated">Legally Separated</option>
-                                                </select>
-                                            @error('thisData') 
-                                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                @elseif($toBeEdited === "sex")
-                                    <div class="row1">
-                                        <div class="col2">
-                                            <label class="label">Sex at birth</label>
-                                                <select id="civil_status" class="label select-status" wire:model="thisData" required>
-                                                    <option class="label" value="">Sex at birth</option>
-                                                    <option class="label" value="Male">Male</option>
-                                                    <option class="label" value="Female">Female</option>
-                                                </select>
-                                            @error('thisData') 
-                                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                @elseif($toBeEdited === "status")
-                                    <div class="row1">
-                                        <div class="col2">
-                                            <label class="label">Status</label>
-                                            <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                                <select class="label select-status" id="status" wire:model.live="thisData" name="status">
-                                                    <option selected value="" class="label">Choose option</option>
-                                                    <option value="Student" class="label">Student</option>
-                                                    <option value="Professional" class="label">Professional</option>
-                                                </select>
-                                                <div class="select-dropdown"></div>
-                                            </div>
-                                            @error('status') <span class="text-danger small" style="color: red;">The status field is required</span> @enderror
-                                        </div>
-                                    </div>
-
-                                    @if($thisData === "Student")
-                                        <div class="row1">
-                                            <div class="col2">
-                                                <label class="label">School name</label>
-                                                <input class="input--style-4" type="text" wire:model.live="name_of_school" name="name_of_school">
-                                            </div>
-                                            <div class="col2">
-                                                <label class="label">Course</label>
-                                                <input class="input--style-4" type="text" wire:model.live="course" name="course">
-                                            </div>
-                                        </div>
-                                    @elseif($thisData === "Professional")
-                                        <div class="row1">
-                                            <div class="col2">
-                                                <label class="label">Nature of work</label>
-                                                <input class="input--style-4" type="text" wire:model.live="nature_of_work" name="nature_of_work">        
-                                            </div>
-                                            <div class="col2">
-                                                <label class="label">Employer</label>
-                                                <input class="input--style-4" type="text" wire:model.live="employer" name="employer">                          
-                                            </div>
-                                        </div>
-                                    @endif
-                                @elseif($toBeEdited === "permanent_selectedProvince")
-                                    <div class="row1">
-                                        <div class="col2"> 
-                                            <label class="label">Province</label>
-                                            <select wire:model.live="selectedProvince" id="province" class="form-control">
-                                                <option value="">Select Province</option>
-                                                @foreach ($provinces as $province)
-                                                    <option value="{{ $province->province_description }}">{{ $province->province_description }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('permanent_selectedProvince') <span class="text-danger small" style="color: red;">The Province Field is required</span>@enderror
-                                            <label class="label">City</label>
-                                            <select id="city" class="form-control" wire:model.live="selectedCity">
-                                                <option value="">Select City</option>
-                                                @if($cities)
-                                                    @foreach ($cities as $city)
-                                                        <option value="{{ $city->city_municipality_description }}">{{ $city->city_municipality_description }}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                            @error('permanent_selectedCity') <span class="text-danger small" style="color: red;">The Province Field is required</span>@enderror
-                                            <label class="label">House number | Street | Subdivision | Barangay</label>
-                                            <input class="input--style-4" type="text" wire:model="p_street_barangay" name="p_street_barangay" >
-                                            @error('p_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>@enderror
-                                        </div>
-                                    </div>
-                                @elseif($toBeEdited === "residential_selectedProvince")
-                                    <div class="row1">
-                                        <div class="col2"> 
-                                            <label class="label">Province</label>
-                                            <select wire:model.live="selectedProvince" id="province" class="form-control">
-                                                <option value="">Select Province</option>
-                                                @foreach ($provinces as $province)
-                                                    <option value="{{ $province->province_description }}">{{ $province->province_description }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('residential_selectedProvince') <span class="text-danger small" style="color: red;">The Province Field is required</span>@enderror
-                                            <label class="label">City</label>
-                                            <select id="city" class="form-control" wire:model.live="selectedCity">
-                                                <option value="">Select City</option>
-                                                @if($cities)
-                                                    @foreach ($cities as $city)
-                                                        <option value="{{ $city->city_municipality_description }}">{{ $city->city_municipality_description }}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                            @error('residential_selectedCity') <span class="text-danger small" style="color: red;">The Province Field is required</span>@enderror
-                                            <label class="label">House number | Street | Subdivision | Barangay</label>
-                                            <input class="input--style-4" type="text" wire:model="p_street_barangay" name="p_street_barangay" >
-                                            @error('r_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>@enderror
-                                        </div>
-                                    </div>
-                                @elseif($toBeEdited === "password")
-                                    <div class="row1">
-                                        <div class="col2">
-                                            <label class="label label-formatted">Current Password</label>
-                                            <input class="input--style-4" type="password" wire:model.live="password" required>
-                                        </div>
-                                        <div class="col2">
-                                            <label class="label label-formatted">New Password</label>
-                                            <input class="input--style-4" type="password" wire:model.live="new_password" required>
-                                        </div>
-                                        <div class="col2">
-                                            <label class="label label-formatted">Confirm New Password</label>
-                                            <input class="input--style-4" type="password" wire:model.live="c_new_pass" required>
-                                        </div>
-                                    </div>
-                                    @error('new_password') 
-                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                    @enderror
-                                @else
-                                    <div class="row1">
-                                        <div class="col2">
-                                                <label class="label label-formatted">{{ $formattedData }}</label>
-                                                <input class="input--style-4" type="text" wire:model.live="thisData" value="{{ $thisData }}" required>
-                                        </div>
-                                        @error('thisData') 
-                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                @endif
-
-                            </div>
-
-                            <div class="modal-footer justify-content-between">
-                                <button class="btn btn-infos" type="submit">Submit</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

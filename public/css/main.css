@@ -1,11 +1,24 @@
-@media (max-width:768px){
-    .action-btn{
-        position: sticky; 
-        right: -22px;
-        background: white;
-    }
+/* global css */
+.table-main thead{
+  background: linear-gradient(126deg, rgba(245,245,245,1) 0%, rgba(238,238,238,1) 100%);
+  padding: 20px !important;
 }
 
+.table-main thead tr th{
+  padding: 13px !important;
+}
+
+.table-main td{
+  padding: 10px !important;
+  border-bottom: 1px solid #cccccc3f;
+}
+
+.table-main .action-btn{
+  text-align: left !important;
+}
+
+
+/* end global css */
 
 .pop-up-message{
     position: absolute;
@@ -43,15 +56,19 @@ td p{
 }
 
 .green{
-    color: #28a745;
+    color: #1fbd6e !important;
+}
+
+.red{
+  color: rgb(223, 60, 60) !important;
 }
 
 .blue{
-    color: rgb(0, 0, 255);
+    color: rgb(0, 0, 255) !important;
 }
 
 .light-blue{
-    color: rgb(0, 124, 226);
+    color: rgb(0, 124, 226) !important;
 }
 
 .orange{
@@ -82,10 +99,11 @@ td p{
         margin-left: 0;
         margin-top: 10px;
     }
-}
-
-
-@media (max-width: 767px) {
+    .action-btn{
+      position: sticky; 
+      right: -22px;
+      background: white;
+  }
     .card-4 .card-body {
       padding: 50px 40px;
     }
@@ -400,9 +418,10 @@ td p{
     margin-top: 20px;
   }
   
-  @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .landing-page-hero {
       position: relative;
+      display: block;
       background-size: fill;
       background-position: right;
       width: 100%;
@@ -424,5 +443,85 @@ td p{
       justify-content: center;
       align-items: center;
     }
-  
+
+    .login-form-container {
+      margin-right: 10px;
+      margin-left: 10px;
+      padding: 20px;
   }
+
+  .login-container {
+    position: relative;
+    height: 100%;
+    margin-top: -50px;
+  }
+
+  .welcome-header .logo{
+    margin-top: 50px;
+    width: 200px;
+  }
+
+  .login-input-div2{
+    position: relative;
+  }
+
+  .col-forget{
+    position: absolute;
+  }
+  
+}
+  
+@media (max-width: 1024px) and (min-width: 768px){
+    .landing-page-hero {
+      position: relative;
+      display: block !important;
+      background-size: fill;
+      background-position: right;
+      width: 100%;
+      height: 550px !important;
+    }
+
+  .login-container {
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      margin-top: -50px;
+    }
+  
+  .reg-message .reg-button {
+      margin-top: 20px;
+    }
+  
+  .reg-message .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+  .login-form-container {
+      padding: 20px;
+      margin: 0;
+  }
+
+  .login-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: -300px;
+  }
+  .welcome-header{
+    padding-left: 100px !important;
+    padding-right: 100px !important;
+    width: 100%;
+    display: block !important;
+  }
+
+  .welcome-header .logo{
+    margin-top: 50px;
+    width: 200px;
+  }
+  
+}
