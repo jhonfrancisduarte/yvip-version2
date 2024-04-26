@@ -47,12 +47,11 @@
         </div>
     </div>
 
-    <!-- Add Event Modal -->
-    <!-- Add Event Modal -->
+
 @if($openAddEvent)
-<div class="modal" tabindex="-1" role="dialog" style="display: {{ $openAddEvent ? 'block' : 'none' }};">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+<div class="modal" tabindex="-1" role="dialog" style="display: {{ $openAddEvent ? 'block' : 'none' }};" style="width: 500px>
+    <div class="modal-dialog modal-dialog-centered" role="document" >
+        <div class="modal-content" >
             <div class="modal-header">
                 <h5 class="modal-title">Add Past Event</h5>
                 <button type="button" class="close" aria-label="Close" wire:click="closeAddEventModal">

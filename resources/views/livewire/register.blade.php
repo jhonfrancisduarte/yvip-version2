@@ -150,11 +150,9 @@
                             </div>
                         </div>
                     </div>
-
-<<<<<<< HEAD
                     <fieldset class="fieldset">
                         <legend class="label">Permanent Address</legend>
-=======
+
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
