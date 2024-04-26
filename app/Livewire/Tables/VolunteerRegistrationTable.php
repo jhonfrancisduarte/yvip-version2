@@ -94,7 +94,6 @@ class VolunteerRegistrationTable extends Component
             $this->deleteMessage = 'Registrant deletion unsuccessfully.';
             $this->disableButton = "Yes";
         }
-        $this->deleteRegistrantId = null;
     }
 
 }

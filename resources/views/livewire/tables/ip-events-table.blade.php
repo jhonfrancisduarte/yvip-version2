@@ -12,19 +12,18 @@
                     @if(session('user_role') == 'sa' || session('user_role') == 'ips')
                         <div class="card-header">
                                 <h3 class="card-title">International Program Events Management</h3> 
-                                <button type="button" class="btn btn-success btn-sm btn-add-event" wire:click="openAddForm">Add Event</button>
+                                <button type="button" class="btn btn-submit btn-add-event float-right" wire:click="openAddForm">Add Event</button>
                         </div>
                     @endif
 
                     <div class="card-header card-header1">
-                        <label for="" class="label" style="margin-top: 5px;">Filter: </label>
                         <div class="col-md-3">
                             <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
                         </div>
                     </div>
 
                     <div class="card-body scroll-table" id="scroll-table">
-                            <table id="thisUserDetailss-table" class="table table-bordered table-striped">
+                            <table id="volunteers-table" class="table-main">
                                 <thead>
                                     <tr>
                                         @if(session('user_role') == 'sa')
@@ -37,7 +36,7 @@
                                         @if(session('user_role') == 'sa' || session('user_role') == 'ips')
                                             <th>Participants</th>
                                         @endif
-                                        <th width="7%" class="action-btn">Actions</th>
+                                        <th class="action-btn2 th-action-btn"></th>
                                     </tr>
                                 </thead>
 
@@ -78,25 +77,26 @@
                                                     </ul>
                                                 </td>
                                             @endif
-                                            <td class="action-btn">
+                                            <td class="action-btn2">
                                                 @if(session('user_role') == 'sa' || session('user_role') == 'ips')
-                                                    <button class="btn btn-success btn-xs btn-accounts" wire:click="openJoinRequests({{ $event->id }})">Join Requests
-                                                        <span style="background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : '#343a40' }}">{{ count($joinRequestsData[$event->id] ?? []) }}</span>                                                    </button>
-                                                    <button class="btn btn-info btn-xs" wire:click="toggleOptions({{ $event->id }})"><i class="fas fa-cogs"></i></button>
+                                                    <p class="green p-centered" wire:click="openJoinRequests({{ $event->id }})">Join Requests
+                                                        <span style="background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : 'rgb(245, 245, 245)' }}">{{ count($joinRequestsData[$event->id] ?? []) }}</span>
+                                                    </p>                                                    </button>
+                                                    <p class="light-blue" wire:click="toggleOptions({{ $event->id }})"><i class="bi bi-gear"></i> Options</p>
                                                     @if($options == $event->id)
                                                         <div class="options-container">
                                                             @if($event->status === "Completed")
-                                                                <button class="btn btn-success btn-xs" wire:click="openPpoSubmissions({{ $event->id }})">PPO Files</button>
+                                                                <button class="btn-submit" wire:click="openPpoSubmissions({{ $event->id }})"><i class="bi bi-file-earmark-check"></i> PPO Files</button>
                                                             @endif
-                                                            <button class="btn btn-info btn-xs" wire:click="openEditForm({{ $event->id }})">Edit</button>
-                                                            <button class="btn btn-info btn-xs" wire:click="toggleJoinStatus({{ $event->id }})">
+                                                            <button class="btn-submit" wire:click="openEditForm({{ $event->id }})"> <i class="bi bi-pencil-square"></i> Edit</button>
+                                                            <button class="btn-submit" wire:click="toggleJoinStatus({{ $event->id }})">
                                                                 @if(!$event->join_status)
-                                                                    Close Event
+                                                                <i class="bi bi-x-circle"></i> Close Event
                                                                 @else
-                                                                    Reopen
+                                                                <i class="bi bi-door-open"></i> Reopen
                                                                 @endif
                                                             </button>
-                                                            <button class="btn btn-danger btn-xs" wire:click="deleteDialog({{ $event->id }})">Delete</button>
+                                                            <button class="btn-delete" wire:click="deleteDialog({{ $event->id }})"><i class="bi bi-trash3"></i> Delete</button>
                                                         </div>
                                                     @endif
                                                 @endif
@@ -121,22 +121,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-
-                                <tfoot>
-                                    <tr>
-                                        @if(session('user_role') == 'sa')
-                                            <th>Posted By</th>
-                                        @endif
-                                        <th>Name of Exchange Program/Event</th>
-                                        <th>Organizer / Sponsor</th>
-                                        <th>Date / Period</th>
-                                        <th>Participant Qualifications</th>
-                                        @if(session('user_role') == 'sa' || session('user_role') == 'ips')
-                                            <th>Participants</th>
-                                        @endif
-                                        <th width="7%" class="action-btn">Actions</th>
-                                    </tr>
-                                </tfoot>
                         </table>
                     </div>
                 </div>
@@ -145,37 +129,38 @@
     </div>
 
     @if($deleteEventId)
-        <div class="users-data-all-container">
+        <div class="users-data-all-container no-padding">
             <div class="close-form" wire:click="hideDeleteDialog"></div>
-            <div class="user-info">
-                <div class="row1 row-header">
-                    <div class="col1">
-                        @if($deleteMessage)
-                            <label class="label" style="color: green;">{{ $deleteMessage }}</label>
-                        @else
-                            <label class="label">Are you sure you want to delete this Ip Event?</label>
-                        @endif
-                    </div>
+            <div class="user-info user-infos">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    @if($deleteMessage)
+                        <p style="color: green;">{{ $deleteMessage }}</p>
+                    @else
+                        <p>Are you sure you want to deactivate this event?</p>
+                    @endif
                 </div>
                 
-                <div class="row1 row-footer">
-                    <div class="col">
-                        <div class="user-data">
-                            @if($disableButton == "No")
-                                <button class="btn-danger btn-50" wire:click="deleteEvent" wire:loading.attr="disabled">Yes</button>
-                                <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Cancel</button>
-                            @else
-                                <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Close</button>
-                            @endif
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    @if($disableButton == "No")
+                        <button class="btn-delete" wire:click="deleteEvent" wire:loading.attr="disabled">Yes</button>
+                        <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                    @else
+                        <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                    @endif
                 </div>
             </div>
         </div>    
     @endif
 
     @if($openAddEvent)
-        <div class="anns">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="closeAddForm"></div>
             <div class="add-announcement-container">
                 <div class="modal-dialog modal-md">
@@ -245,8 +230,8 @@
                                                         <button type="button" class="close" wire:click="removeSkill({{ $index }})"><span aria-hidden="true">&times;</span></button>
                                                     </div>
                                                 @endforeach
-                                                <button type="button" class="btn btn-success btn-sm" wire:click="addSkill">
-                                                    <i class="nav-icon fas fa-plus"></i>
+                                                <button type="button" class="btn-submit" wire:click="addSkill">
+                                                    <i class="bi bi-plus-lg"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -255,7 +240,7 @@
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button class="btn btn-infos" type="submit">Submit</button>
+                                    <button class="btn-submit" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -266,7 +251,7 @@
     @endif
 
     @if($openEditEvent)
-        <div class="anns">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="closeEditForm"></div>
             <div class="add-announcement-container">
                 <div class="modal-dialog modal-md">
@@ -336,8 +321,8 @@
                                                         <button type="button" class="close" wire:click="removeSkill({{ $index }})"><span aria-hidden="true">&times;</span></button>
                                                     </div>
                                                 @endforeach
-                                                <button type="button" class="btn btn-success btn-sm" wire:click="addSkill">
-                                                    <i class="nav-icon fas fa-plus"></i>
+                                                <button type="button" class="btn-submit" wire:click="addSkill">
+                                                    <i class="bi bi-plus-lg"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -346,7 +331,7 @@
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button class="btn btn-infos" type="submit">Submit</button>
+                                    <button class="btn-submit" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -380,8 +365,8 @@
                                                 <div class="form-group requester">
                                                     <label class="label" wire:click="showParticipantDetails({{ $requester['user_id'] }}, '')">{{ $requester['name'] }}</label>
                                                     <div class="btn-approval">
-                                                        <button class="btn btn-danger btn-xs btn-approve" wire:click="disapproveParticipant({{ $requester['user_id'] }})">Disapprove</button>
-                                                        <button class="btn btn-success btn-xs btn-approve" wire:click="approveParticipant({{ $requester['user_id'] }})" style="margin-right: 5px;">Approve</button>
+                                                        <button class="btn btn-delete btn-approve" wire:click="disapproveParticipant({{ $requester['user_id'] }})">Disapprove</button>
+                                                        <button class="btn btn-submit btn-approve" wire:click="approveParticipant({{ $requester['user_id'] }})" style="margin-right: 5px;">Approve</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -620,13 +605,13 @@
                         <div class="user-data">
                             @if(!$ppoSubmisions)
                                 @if(!$isParticipant)
-                                    <button class="btn btn-success btn-xs" wire:click="approveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Approve</button>
-                                    <button class="btn btn-danger btn-xs" wire:click="disapproveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Disapprove</button>
+                                    <button class="btn-submit" wire:click="approveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Approve</button>
+                                    <button class="btn-delete" wire:click="disapproveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Disapprove</button>
                                 @else
-                                    <button class="btn btn-success btn-xs" wire:click="disapproveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Remove</button>
+                                    <button class="btn-delete" wire:click="disapproveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Remove</button>
                                 @endif
                             @endif
-                            <button class="btn btn-info btn-xs" wire:click="hideUserData" wire:loading.attr="disabled">Close</button>
+                            <button class="btn-cancel" wire:click="hideUserData" wire:loading.attr="disabled">Close</button>
                         </div>
                     </div>
                 </div>

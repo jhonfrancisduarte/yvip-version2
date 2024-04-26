@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="css/global.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
@@ -87,6 +88,25 @@
 
     @yield('js')
 
+    <script>
+        var table = document.getElementById('volunteers-table');
+        var isHovering = false;
+
+        table.addEventListener('mouseenter', function() {
+            isHovering = true;
+        });
+
+        table.addEventListener('mouseleave', function() {
+            isHovering = false;
+        });
+
+        document.getElementById('scroll-table').addEventListener('wheel', function(event) {
+            if (isHovering) {
+                event.preventDefault();
+                this.scrollLeft += event.deltaY;
+            }
+        });
+    </script>
 
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

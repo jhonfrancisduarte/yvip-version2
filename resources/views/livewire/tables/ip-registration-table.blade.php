@@ -14,26 +14,16 @@
                     </div>
 
                     <div class="card-header card-header1">
-                        <label for="" class="label" style="margin-top: 5px;">Filter: </label>
                         <div class="col-md-3">
                             <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
                         </div>
-                        {{-- <label for="" class="label" style="margin-top: 5px;">Status: </label>
-                        <div class="col-md-2">
-                            <select class="form-control" wire:model.live="status">
-                                <option class="label" selected>Status</option>
-                                <option class="label" value="0">Pending</option>
-                                <option class="label" value="1">Approved</option>
-                            </select>
-                        </div> --}}
-    
                     </div>
                     <div class="card-header card-header1">
                         <label class="label">Number of Results: <span>{{ count($volunteers )}}</span></label>
                     </div>
 
                     <div class="card-body scroll-table">
-                        <table id="volunteers-table" class="table table-bordered table-striped">
+                        <table id="volunteers-table" class="table-main">
                             <thead>
                                 <tr>
                                     <th>Passport Number</th>
@@ -42,7 +32,7 @@
                                     <th>Lastname</th>
                                     <th>Email</th>
                                     <th>Status</th>
-                                    <th width="7%" class="action-btn">Actions</th>
+                                    <th width="13%" class="action-btn2 th-action-btn"></th>
                                 </tr>
                             </thead>
 
@@ -56,31 +46,19 @@
                                         <td>{{ $volunteer->email }}</td>
                                         <td> 
                                             @if($volunteer->active_status === 0)
-                                                <p class="red">Pending</p>
+                                                Pending
                                             @else
-                                                <p class="green">Active</p>
+                                                Active
                                             @endif
                                         </td>
-                                        <td class="action-btn">
-                                            <button class="btn btn-info btn-xs" wire:click="showUserData({{ $volunteer->user_id }})">View</button>
-                                            <button class="btn btn-success btn-xs" wire:click="approveUser({{ $volunteer->user_id }})">Approve</button>
-                                            <button class="btn btn-danger btn-xs" wire:click="deleteDialog({{ $volunteer->user_id }})">Delete</button>
+                                        <td class="action-btn2">
+                                            <p class="light-blue" wire:click="showUserData({{ $volunteer->user_id }})"><i class="bi bi-eye"></i> View</p>
+                                            <p class="green" wire:click="approveUser({{ $volunteer->user_id }})"><i class="bi bi-check2-circle"></i> Approve</p>
+                                            <p class="red" wire:click="deleteDialog({{ $volunteer->user_id }})"><i class="bi bi-ban"></i> Disapprove</p>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
-
-                            <tfoot>
-                                <tr>
-                                    <th>Passport Number</th>
-                                    <th>Firstname</th>
-                                    <th>Middlename</th>
-                                    <th>Lastname</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                    <th width="7%" class="action-btn">Actions</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -89,33 +67,32 @@
     </div>
 
     @if($deleteRegistrantId)
-        <div class="users-data-all-container">
+        <div class="users-data-all-container no-padding">
             <div class="close-form" wire:click="hideDeleteDialog"></div>
-            <div class="user-info">
+            <div class="user-info user-infos">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Deactivation</h5>
+                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-                <div class="row1 row-header">
-                    <div class="col1">
-                        @if($deleteMessage)
-                            <label class="label" style="color: green;">{{ $deleteMessage }}</label>
-                        @else
-                            <label class="label">Are you sure you want to delete this registrant?</label>
-                        @endif
-                    </div>
+                <div class="modal-body">
+                    @if($deleteMessage)
+                        <p style="color: green;">{{ $deleteMessage }}</p>
+                    @else
+                        <p>Are you sure you want to disapprove this registrant?</p>
+                    @endif
                 </div>
                 
-                <div class="row1 row-footer">
-                    <div class="col">
-                        <div class="user-data">
-                            @if($disableButton == "No")
-                                <button class="btn-danger btn-50" wire:click="deleteRegistrant({{ $deleteRegistrantId }})" wire:loading.attr="disabled">Yes
-                                    {{-- <div class="loader" wire:loading></div> --}}
-                                </button>
-                                <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Cancel</button>
-                            @else
-                                <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Close</button>
-                            @endif
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    @if($disableButton == "No")
+                        <button class="btn-delete" wire:click="deleteRegistrant({{ $deleteRegistrantId }})" wire:loading.attr="disabled">Yes
+                        </button>
+                        <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                    @else
+                        <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                    @endif
                 </div>
             </div>
         </div>    
@@ -324,9 +301,9 @@
                 <div class="row1">
                     <div class="col">
                         <div class="user-data">
-                            <button class="btn-green" wire:click="approveUser({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Approve</button>
-                            <button class="btn-close-user-data" wire:click="hideUserData">Close</button>
-                            <button class="btn-danger" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Delete</button>
+                            <button class="btn-submit" wire:click="approveUser({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Approve</button>
+                            <button class="btn-cancel" wire:click="hideUserData">Close</button>
+                            <button class="btn-delete" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Delete</button>
                         </div>
                     </div>
                 </div>

@@ -60,6 +60,9 @@ class User extends Authenticatable
     public function ipEvents(){
         return $this->hasMany(IpEvents::class);
     }
+    public function pastIpEvent(){
+        return $this->hasMany(IpEvents::class);
+    }
 
     public function ipPostProgramObligation(){
         return $this->hasMany(IpPostProgramObligation::class);

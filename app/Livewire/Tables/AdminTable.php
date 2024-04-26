@@ -135,12 +135,13 @@ class AdminTable extends Component{
     public function deleteAdmin($userId){
         $user = User::find($userId);
         if ($user){
-            $user->admin()->delete();
-            $user->delete();
-            $this->deleteMessage = 'Volunteer deleted successfully.';
+            $user->update([
+                'active_status' => 2,
+            ]);
+            $this->deleteMessage = 'Admin deactivated successfully.';
             $this->disableButton = "Yes";
         }else{
-            $this->deleteMessage = 'Volunteer deletion unsuccessfully.';
+            $this->deleteMessage = 'Admin deactivated unsuccessfully.';
             $this->disableButton = "Yes";
         }
     }

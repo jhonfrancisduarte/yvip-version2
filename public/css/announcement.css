@@ -159,6 +159,10 @@
     margin-top: 100px;
 }
 
+.tox-tinymce {
+    min-height: 250px;
+}
+
 .announcement-header{
     position: relative;
 }
@@ -171,6 +175,28 @@
 
 .announcement-info p{
     text-transform: capitalize;
+}
+
+.anns-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.anns-buttons a{
+    color: white;
+    background: #1796aa;
+    text-align: center;
+    vertical-align:middle;
+    margin-right: 7px;
+    padding: 1px 7px 3px 7px;
+    border-radius: 3px;
+    transition: .3s ease-in-out;
+}
+
+.anns-buttons a:hover{
+    color: white;
+    background: #10798a;
 }
 
 .pop-up-message{
