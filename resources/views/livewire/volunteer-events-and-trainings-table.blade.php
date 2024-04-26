@@ -1,7 +1,9 @@
 <div>
     <div class="card-header">
         <h3 class="card-title">Volunteers Events and Trainings Announcement</h3> 
-        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;" wire:click="eventForm({{ auth()->user()->id}})">Add Event or Training</button>
+        @if(session('user_role') == 'sa' || session('user_role') == 'ips')
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;" wire:click="eventForm({{ auth()->user()->id}})">Add Event or Training</button>
+        @endif
 
         @if($showForm)
             <div class="show-form">
@@ -91,34 +93,62 @@
             </div>
         @endif
     </div>
-    <div class="card-body scroll-table" id="scroll-table">
-        <table id="thisUserDetailss-table" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <!-- Add column headers -->
-                    <th>Event Type</th>
-                    <th>Name of Event</th>
-                    <th>Organizer / Facilitator</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Volunteering Hours</th>
-                    <th>Volunteer Category</th>
-                </tr>
-            </thead>
+<div>
 
-            <tbody>
-                <!-- Display data from the form -->
-                <tr>
-                    <!-- Replace values with data from the form -->
-                    <td>{{ $eventType }}</td>
-                    <td>{{ $eventName }}</td>
-                    <td>{{ $organizer }}</td>
-                    <td>{{ $startDate }}</td>
-                    <td>{{ $endDate }}</td>
-                    <td>{{ $volunteerHours }}</td>
-                    <td>{{ implode(', ', $selectedTags) }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
+    <button type="button" class="close" wire:click="closePopup">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <p>{{ $popup_message }}</p>
+</div>
+
+<div class="card-body scroll-table" id="scroll-table">
+    <table id="thisUserDetailss-table" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                @if(session('user_role') == 'sa')
+                    <th>Posted By</th>
+                @endif
+                <th>Event Type</th>
+                <th>Name of Event</th>
+                <th>Organizer / Facilitator</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Volunteering Hours</th>
+                <th>Volunteer Category</th>
+                <th width="7%" class="action-btn">Settings</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach($events as $event)
+            <tr>
+                @if(session('user_role') == 'sa')
+                    <td>{{ $event->posted_by }}</td>
+                @endif
+                <td>{{ $event->event_type }}</td>
+                <td>{{ $event->event_name }}</td>
+                <td>{{ $event->organizer_facilitator }}</td>
+                <td>{{ $event->start_date }}</td>
+                <td>{{ $event->end_date }}</td>
+                <td>{{ $event->volunteer_hours }}</td>
+                <td>{{ $event->volunteer_category }}</td>
+                <td>
+                    <div class="action-buttons">
+                        @if($showEditDeleteButtons && $selectedEventId == $event->id)
+                            <div class="inside-settings-buttons" wire:click.away="hideInsideSettingsButtons">
+                                <button class="btn btn-info btn-xs" wire:click="editEvent({{ $event->id }})">Edit</button>
+                                <button class="btn btn-danger btn-xs delete-button" wire:click="deleteEvent({{ $event->id }})">Delete</button>
+                            </div>
+                        @endif
+                        <button class="btn btn-info btn-xs" wire:click="toggleSettings({{ $event->id }})"><i class="fas fa-cogs"></i></button>
+                    </div>
+                </td>
+
+
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    
 </div>

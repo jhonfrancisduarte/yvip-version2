@@ -36,30 +36,46 @@ class VolunteerEventsAndTrainingsTable extends Component
     public $showTags = false;
     public $createdEvent;
 
+    public $popup_message;
+
+    public $insideSettingsButtonsShow = false;
+
+    public $showEditDeleteButtons = false;
+
+    public $selectedEventId;
+
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
     public function render()
     {
+        $events = VolunteerEventsAndTrainings::all();
+
         $tags = ['Support', 'Logistics', 'Management', 'Highly Technical'];
 
         return view('livewire.volunteer-events-and-trainings-table', [
+            'events' => $events,
             'tags' => $tags,
         ]);
     }
 
     public function create()
     { 
-        $event = VolunteerEventsAndTrainings::create([
-            'event_type' => $this->eventType,
-            'event_name' => $this->eventName,
-            'organizer_facilitator' => $this->organizer,
-            'start_date' => $this->startDate,
-            'end_date' => $this->endDate,
-            'volunteer_hours' => $this->volunteerHours,
-            'volunteer_category' => implode(', ', $this->selectedTags)
-        ]);
+            dd($this->all());
 
-        $this->createdEvent = $event;
+            $event = VolunteerEventsAndTrainings::create([
+                'event_type' => $this->eventType,
+                'event_name' => $this->eventName,
+                'organizer_facilitator' => $this->organizer,
+                'start_date' => $this->startDate,
+                'end_date' => $this->endDate,
+                'volunteer_hours' => $this->volunteerHours,
+                'volunteer_category' => implode(', ', $this->selectedTags)
+            ]);
+
+            $this->popup_message = null;
+            $this->popup_message = "Event added successfully.";
+
+            $this->createdEvent = $event;
     }
 
     public function toggleTag($tag)
@@ -70,26 +86,18 @@ class VolunteerEventsAndTrainingsTable extends Component
             $this->selectedTags[] = $tag;
         }
         $this->volunteerCategory = implode(', ', $this->selectedTags);
-    }
+    }    
 
-    public function eventForm($userId)
-    {
-        $this->showForm = true;
-    }
-
-    public function closeEventForm()
-    {
+    public function eventForm($userId){
+        $this->showForm = true;}
+  
+    public function closeEventForm(){
         $this->showForm = null;
     }
 
-    public function setEndDateMin($startDate)
-    {
+    public function setEndDateMin($startDate){
         $this->endDate = null;
         $this->endDateMin = $startDate;
-    }
-
-    public function closePopup(){
-        $this->popup_message = null;
     }
     
     public function openEditForm($eventId){
@@ -103,7 +111,6 @@ class VolunteerEventsAndTrainingsTable extends Component
             $this->endDate = $event->end_date;
             $this->volunteerHours = $event->volunteer_hours;
             $this->volunteerCategory = $event->volunteer_category;
-            // Assuming $selectedTags is a string separated by commas in the database
             $this->selectedTags = explode(', ', $event->volunteer_category);
             $this->editEventId = $eventId;
         }
@@ -118,6 +125,7 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->organizer = null;
         $this->startDate = null;
         $this->endDate = null;
+        $this->volunteerHours = null;
     }
     
     public function deleteDialog($eventId){
@@ -135,6 +143,20 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->startDate = null;
         $this->endDate = null;
     }
+
+    public function toggleSettings($eventId)
+    {
+        if ($this->selectedEventId === $eventId) {
+            $this->insideSettingsButtonsShow = !$this->insideSettingsButtonsShow;
+        }else {
+            $this->selectedEventId = $eventId;
+            $this->insideSettingsButtonsShow = true;
+        }
+    }
+
+    public function hideInsideSettingsButtons(){
+        $this->insideSettingsButtonsShown = false;
+    }
     
     public function deleteEvent(){
         if($this->deleteEventId){
@@ -148,5 +170,10 @@ class VolunteerEventsAndTrainingsTable extends Component
                 $this->disableButton = "Yes";
             }
         }
+    }
+
+    public function closePopup()
+    {
+        $this->popup_message = null;
     }
 }
