@@ -55,10 +55,16 @@ class VolunteerEventsAndTrainingsTable extends Component
     public $deleteMessage;
     public $disableButton = "No";
 
+    public $options;
+
+    public $openJoinRequestsTable = false;
+    public $joinRequestsData = [];
+    public $joinEventId = null;
+
+
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
-    public function render()
-    {
+    public function render(){
         $events = VolunteerEventsAndTrainings::all();
 
         $tags = ['Support', 'Logistics', 'Management', 'Highly Technical'];
@@ -69,37 +75,43 @@ class VolunteerEventsAndTrainingsTable extends Component
         ]);
     }
 
-    public function create()
-    { 
-            $event = VolunteerEventsAndTrainings::create([
-                'event_type' => $this->eventType,
-                'event_name' => $this->eventName,
-                'organizer_facilitator' => $this->organizer,
-                'start_date' => $this->startDate,
-                'end_date' => $this->endDate,
-                'volunteer_hours' => $this->volunteerHours,
-                'volunteer_category' => implode(', ', $this->selectedTags)
-            ]);
+    public function create(){ 
+        $event = VolunteerEventsAndTrainings::create([
+            'event_type' => $this->eventType,
+            'event_name' => $this->eventName,
+            'organizer_facilitator' => $this->organizer,
+            'start_date' => $this->startDate,
+            'end_date' => $this->endDate,
+            'volunteer_hours' => $this->volunteerHours,
+            'volunteer_category' => implode(', ', $this->selectedTags),
+            'event_status' => $this->eventStatus,
+            'participant' => $this->participant,
+            'join_requests' => $this->joinRequests,
+            'disapproved' => $this->disapproved
+        ]);
 
-            $this->popup_message = null;
-            $this->popup_message = "Event added successfully.";
+        $this->popup_message = null;
+        $this->popup_message = "Event added successfully.";
 
-            $this->createdEvent = $event;
-            $this->resetForm();
+        $this->createdEvent = $event;
+        $this->resetForm();
     }
 
     public function resetForm(){
-    $this->eventType = null;
-    $this->eventName = null;
-    $this->organizer = null;
-    $this->startDate = null;
-    $this->endDate = null;
-    $this->volunteerHours = null;
-    $this->selectedTags = [];
+        $this->eventType = null;
+        $this->eventName = null;
+        $this->organizer = null;
+        $this->startDate = null;
+        $this->endDate = null;
+        $this->volunteerHours = null;
+        $this->selectedTags = [];
+        $this->eventStatus = null;
+        $this->participant = null;
+        $this->joinRequests = null;
+        $this->disapproved = null;
     }
 
-    public function toggleTag($tag)
-    {
+    public function toggleTag($tag){
         if (in_array($tag, $this->selectedTags)) {
             $this->selectedTags = array_diff($this->selectedTags, [$tag]);
         } else {
@@ -108,8 +120,7 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->volunteerCategory = implode(', ', $this->selectedTags);
     }   
     
-    public function toggleSettings($eventId)
-    {
+    public function toggleSettings($eventId){
         if ($this->selectedEventId === $eventId) {
             $this->showEditDeleteButtons = !$this->showEditDeleteButtons;
         } else {
@@ -119,7 +130,8 @@ class VolunteerEventsAndTrainingsTable extends Component
     }
 
     public function eventForm($userId){
-        $this->showForm = true;}
+        $this->showForm = true;
+    }
   
     public function closeEventForm(){
         $this->showForm = null;
@@ -142,6 +154,10 @@ class VolunteerEventsAndTrainingsTable extends Component
             $this->volunteerHours = $event->volunteer_hours;
             $this->volunteerCategory = $event->volunteer_category;
             $this->selectedTags = explode(', ', $event->volunteer_category);
+            $this->eventStatus = $event->event_status;
+            $this->participant = $event->participant;
+            $this->joinRequests = $event->join_requests;
+            $this->disapproved = $event->disapproved;
             $this->editEventId = $eventId;
             
         }
@@ -158,7 +174,11 @@ class VolunteerEventsAndTrainingsTable extends Component
                     'start_date' => $this->startDate,
                     'end_date' => $this->endDate,
                     'volunteer_hours' => $this->volunteerHours,
-                    'volunteer_category' => implode(', ', $this->selectedTags)
+                    'volunteer_category' => implode(', ', $this->selectedTags),
+                    'event_status' => $this->evenStatus,
+                    'participant' => $this->participant,
+                    'join_requests' => $this->joinRequests,
+                    'disapproved' => $this->disapproved
                 ]);
   
                 $this->popup_message = "Event updated successfully.";
@@ -177,6 +197,10 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->startDate = null;
         $this->endDate = null;
         $this->volunteerHours = null;
+        $this->eventStatus = null;
+        $this->participant = null;
+        $this->joinRequests = null;
+        $this->disapproved = null;
     }
     
     public function hideDeleteDialog(){
@@ -212,17 +236,25 @@ class VolunteerEventsAndTrainingsTable extends Component
     public function openJoinRequests($eventId){
         $this->openJoinRequestsTable = true;
         $this->joinEventId = $eventId;
+        $event = VolunteerEventsAndTrainings::find($eventId);
+
+        if ($event) {
+        $joinRequests = explode(',', $event->join_requests);
+
+        $this->joinRequestsData = $joinRequests;
+        }
     }
 
     public function closeJoinRequests(){
-        $this->openJoinRequestsTable = null;
+        $this->openJoinRequestsTable = false;
         $this->joinEventId = null;
+        $this->joinRequestsData = [];
         $this->options = null;
     }
 
     public function joinEvent($eventId){
         $userId = Auth::user()->id;
-        $event = IpEvents::find($eventId);
+        $event = VolunteerEventsAndTrainings::find($eventId);
 
         if ($event) {
             $joinRequests = explode(',', $event->join_requests);
@@ -235,7 +267,7 @@ class VolunteerEventsAndTrainingsTable extends Component
     }
 
     public function toggleJoinStatus($eventId){
-        $event = IpEvents::find($eventId);
+        $event = VolunteerEventsAndTrainings::find($eventId);
         if($event){
             $event->update([
                 'join_status' => !$event->join_status,
@@ -244,12 +276,11 @@ class VolunteerEventsAndTrainingsTable extends Component
 
             $this->popup_message = null;
             $this->options = null;
-            $this->popup_message = "Event join status updated successfully.";
+            $this->popup_message = "Event Status Updated Successfully.";
         }
     }
 
-    public function closePopup()
-    {
+    public function closePopup(){
         $this->popup_message = null;
     }
 }

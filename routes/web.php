@@ -22,7 +22,7 @@ Route::middleware(['auth', 'user_role:yv,yip'])->group(function (){
 Route::middleware(['auth', 'user_role:yv,yip'])->group(function () {
      // Private pages accessible only to users (youth volunteer)
      Route::get('/my-category', function () {return view('livewire.my-category');})->name('my-category');
-     Route::get('/volunteer-events-and-trainings', function () {return view('livewire.volunteer-events-and-trainings');})->name('volunteer-events-and-trainings');
+     Route::get('/events-and-trainings-list', function () {return view('livewire.volunteer-events-and-trainings');})->name('events-and-trainings-list');
      Route::get('/my-participations', function () {return view('livewire.my-participations');})->name('my-participations');
      Route::get('/volunteering-hours', function () {return view('livewire.volunteering-hours');})->name('volunteering-hours');
      Route::get('/rewards', function () {return view('livewire.rewards');})->name('rewards');

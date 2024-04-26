@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-
-    <div>
-        <div class="card-header">
-            <h3 class="card-title">Volunteers Events and Trainings Announcement</h3> 
-            @if(session('user_role') == 'sa' || session('user_role') == 'ips')
-                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;" wire:click="eventForm({{ auth()->user()->id}})">Add Event or Training</button>
-            @endif
-            
-        </div>
-    <div>
-
+<div>
     <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
             <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
         <p>{{ $popup_message }}</p>
-    </div>
+        </div>
+            <div class="card-header">
+                <h3 class="card-title">Volunteers Events and Trainings Announcement</h3> 
+                @if(session('user_role') == 'sa' || session('user_role') == 'ips')
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;" wire:click="eventForm({{ auth()->user()->id}})">Add Event or Training</button>
+                @endif
+            </div>
+        <div>
 
         <div class="card-body scroll-table" id="scroll-table">
             <table id="thisUserDetailss-table" class="table table-bordered table-striped">
@@ -33,68 +29,6 @@
                 </thead>
 
                 <tbody>
-    @foreach($events as $event)
-    <tr>
-        <td>{{ $event->event_type }}</td>
-        <td>{{ $event->event_name }}</td>
-        <td>{{ $event->organizer_facilitator }}</td>
-        <td>{{ $event->start_date }}</td>
-        <td>{{ $event->end_date }}</td>
-        <td>{{ $event->volunteer_hours }}</td>
-        <td>{{ $event->volunteer_category }}</td>
-        <td>
-            <div class="action-buttons">
-
-                <button class="btn btn-success btn-xs btn-accounts" wire:click="openJoinRequests({{ $event->id }})">Join Requests
-                    <span style="background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : '#343a40' }}">{{ count($joinRequestsData[$event->id] ?? []) }}</span></button>
-                <button class="btn btn-info btn-xs settings" wire:click="toggleSettings({{ $event->id }})">
-                    <i class="fas fa-cogs"></i>
-                </button>
-                @if($showEditDeleteButtons && $selectedEventId == $event->id)
-                <div class="inside-settings-buttons">
-                    <button class="btn btn-info btn-xs" wire:click="openEditForm({{ $event->id }})">Edit</button>
-                    <button class="btn btn-danger btn-xs delete-button" wire:click="deleteDialog({{ $event->id }})">Delete</button>
-                </div>
-                @endif
-            </div>
-        </td>
-    </tr>
-    @endforeach
-</tbody>
-
-@if($deleteEventId)
-<div class="users-data-all-container">
-    <div class="close-form" wire:click="hideDeleteDialog"></div>
-    <div class="user-info">
-        <div class="row1 row-header">
-            <div class="col1">
-                @if($deleteMessage)
-                <label class="label" style="color: green;">{{ $deleteMessage }}</label>
-                @else
-                <label class="label">Are you sure you want to delete this Event?</label>
-                @endif
-            </div>
-        </div>
-
-        <div class="row1 row-footer">
-            <div class="col">
-                <div class="user-data">
-                    @if($disableButton == "No")
-                    <button class="btn-danger btn-50" wire:click="deleteEvent" wire:loading.attr="disabled">Yes</button>
-                    <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Cancel</button>
-                    @else
-                    <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Close</button>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
-</div>
-
-
-                <tbody>
                     @foreach($events as $event)
                     <tr>
                         <td>{{ $event->event_type }}</td>
@@ -106,17 +40,44 @@
                         <td>{{ $event->volunteer_category }}</td>
                         <td>
                         <div class="action-buttons">
-
-                        <button class="btn btn-success btn-xs btn-accounts" wire:click="openJoinRequests({{ $event->id }})">Join Requests
-                            <span style="background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : '#343a40' }}">{{ count($joinRequestsData[$event->id] ?? []) }}</span></button>
-                            <button class="btn btn-info btn-xs settings" wire:click="toggleSettings({{ $event->id }})">
-                                <i class="fas fa-cogs"></i>
-                            </button>
-                            @if($showEditDeleteButtons && $selectedEventId == $event->id)
-                                <div class="inside-settings-buttons">
-                                    <button class="btn btn-info btn-xs" wire:click="openEditForm({{ $event->id }})">Edit</button>
-                                    <button class="btn btn-danger btn-xs delete-button" wire:click="deleteDialog({{ $event->id }})">Delete</button>
-                                </div>
+                            @if(session('user_role') == 'sa' || session('user_role') == 'ips')
+                                <button class="btn btn-success btn-xs btn-accounts" wire:click="openJoinRequests({{ $event->id }})">Join Requests
+                                    <span style="background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : '#343a40' }}">{{ count($joinRequestsData[$event->id] ?? []) }}
+                                </span>
+                                </button>
+                                <button class="btn btn-info btn-xs settings" wire:click="toggleSettings({{ $event->id }})">
+                                    <i class="fas fa-cogs"></i>
+                                </button>
+                                @if($showEditDeleteButtons && $selectedEventId == $event->id)
+                                    <div class="inside-settings-buttons">
+                                    <button class="btn btn-info btn-xs" wire:click="toggleJoinStatus({{ $event->id }})">
+                                        @if(!$event->join_status)
+                                            Close Event
+                                        @else
+                                            Reopen
+                                        @endif
+                                    </button>
+                                        <button class="btn btn-info btn-xs" wire:click="openEditForm({{ $event->id }})">Edit</button>
+                                        <button class="btn btn-danger btn-xs delete-button" wire:click="deleteDialog({{ $event->id }})">Delete</button>
+                                    </div>
+                                @endif
+                            @endif
+                            @if(session('user_role') == 'yip')
+                                @if(!$event->hasJoined && !$event->approved && !$event->disapprovedParticipants && !$event->join_status)
+                                    @if($event->status === "Completed" || $event->status === "Ongoing")
+                                        {{-- No action --}}
+                                    @else
+                                        <button class="btn btn-success btn-xs join-btn" wire:click="joinEvent({{ $event->id }})">Join</button>
+                                    @endif
+                                @elseif($event->join_status)
+                                    <span class="orange">Closed</span>
+                                @elseif($event->approved)
+                                    <span class="green">Joined</span>
+                                @elseif($event->disapprovedParticipants)
+                                    <span class="orange">Sorry! You are not qualified for this event.</span>
+                                @else
+                                    <span class="blue">Waiting for approval</span>
+                                @endif
                             @endif
                         </div>
                     </td>
@@ -331,5 +292,47 @@
                     </div>
                 </div>
             @endif
+
+            @if($openJoinRequestsTable)
+                <div class="join-requests-table">
+                    <div class="close-form" wire:click="closeJoinRequests"></div>
+                    <div class="join-requests-table-container">
+                        <div class="modal-dialog modal-md">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Event and Training Join Requests</h4>
+                                    <button type="button" class="close" wire:click="closeJoinRequests">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <label style="margin-left: 20px; font-weight: 400;">Requests List</label>
+                                <div class="card card-primary">
+                                    <div class="card-body">
+                                        @if(empty($joinRequestsData[$joinEventId]))
+                                            <p>No Join Requests Yet...</p>
+                                        @else
+                                            {{-- Display actual data --}}
+                                            @foreach($joinRequestsData[$joinEventId] as $requester)
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group requester">
+                                                            <label class="label" wire:click="showParticipantDetails({{ $requester['user_id'] }}, '')">{{ $requester['name'] }}</label>
+                                                            <div class="btn-approval">
+                                                                <button class="btn btn-danger btn-xs btn-approve" wire:click="disapproveParticipant({{ $requester['user_id'] }})">Disapprove</button>
+                                                                <button class="btn btn-success btn-xs btn-approve" wire:click="approveParticipant({{ $requester['user_id'] }})" style="margin-right: 5px;">Approve</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
 
     </div>
