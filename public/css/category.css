@@ -15,7 +15,7 @@
 
 .table-header th,
 .table-header {
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 .action {
@@ -34,7 +34,7 @@
 .skillsColumn,
 .actionColumn,
 .categoryColumn {
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 .column-skill-form {
@@ -164,10 +164,14 @@
     margin-bottom: 5px;
 }
 
-.action-form-button {
+.skillsColumn li {
+    margin-bottom: 5px;
+}
+
+/* .action-form-button {
     float: right;
     width: 5%;
-}
+} */
 
 .fa.fa-ellipsis-h {
     font-size: 16px;

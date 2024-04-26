@@ -13,6 +13,7 @@ class Login extends Component
     public $email;
     #[Rule('required')]
     public $password;
+    public $showPassword = false;
 
     public $remember = false;
 
@@ -49,5 +50,10 @@ class Login extends Component
 
     public function render(){
         return view('livewire.login');
+    }
+
+    public function togglePasswordVisibility()
+    {
+        $this->showPassword = !$this->showPassword;
     }
 }

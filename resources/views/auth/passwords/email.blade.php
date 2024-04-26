@@ -50,7 +50,7 @@
                             </div>
 
                             <div class="to-login-button">
-                                    <b><a href="/" style="color:#2c6ed5">Back to login</a></b>
+                                    <p><a href="/" wire:navigate>Back to Login</a></p>
                                 </div>
                         </form>
                     </div>

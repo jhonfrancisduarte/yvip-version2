@@ -51,7 +51,7 @@
                                             <ul>
                                                 @foreach($volunteerExperiences as $experience)
                                                     <li>{{ $experience->volunteer_experience }}
-                                                    <button type="button" class="btn btn-info btn-xs edit-exp-btn" wire:click="editExpForm({{ $experience->id }})"> <i class="nav-icon bi bi-pencil"></i> </i></button>
+                                                        <button class="btn btn-xs edit-exp-btn" wire:click="editExpForm({{ $experience->id }})"> <i class="nav-icon bi bi-pencil-square"></i> </i></button>
                                                     </li>
                                                 @endforeach
                                             </ul>
