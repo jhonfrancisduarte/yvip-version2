@@ -30,3 +30,6 @@
     right: 10px;
     cursor: pointer;
 }
+.modal-dialog {
+    max-width: 500px !important;
+}

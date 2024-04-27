@@ -343,8 +343,8 @@
                             <div class="input-group">
                                 <label class="label">password</label>
                                 <input class="input--style-4" type="password" wire:model="password" name="password">
-                                
-                                @error('password') 
+
+                                @error('password')
                                     <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>
