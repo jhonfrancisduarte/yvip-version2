@@ -20,6 +20,7 @@
                                     <tr>
                                         <th>Event Name</th>
                                         <th>Organizer / Sponsor</th>
+                                        <th>Sponsor Category</th>
                                         <th>Date / Period</th>
                                         <th>Actions</th>
                                     </tr>
@@ -29,37 +30,49 @@
                                     <tr>
                                         <td>{{ $event->event_name }}</td>
                                         <td>{{ $event->organizer_sponsor }}</td>
+                                        <td>{{ $event->sponsor_category }}</td>
                                         <td>{{ $event->start }} - {{ $event->end }}</td>
                                         <td class="text-center">
-                                            <!-- Edit button -->
-                                            <button type="button" class="btn btn-sm btn-info" wire:click="editEvent({{ $event->id }})">Edit</button>
-                                            <!-- Delete button -->
-                                            <button type="button" class="btn btn-sm btn-danger" wire:click="deleteEvent({{ $event->id }})">Delete</button>
+                                            <div class="btn-group" role="group">
+                                                <!-- Edit button -->
+                                                <button type="button" class="btn btn-sm btn-info" wire:click="editEvent({{ $event->id }})">
+                                                    <i class="bi bi-pencil-fill"></i>
+                                                </button>
+                                                <!-- Delete button -->
+                                                <button type="button" class="btn btn-sm btn-danger" wire:click="deleteEvent({{ $event->id }})">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
+
+
+
                     </div>
+
+
                 </div>
+
             </div>
         </div>
     </div>
 
 
+
 @if($openAddEvent)
-<div class="modal" tabindex="-1" role="dialog" style="display: {{ $openAddEvent ? 'block' : 'none' }};" style="width: 500px>
-    <div class="modal-dialog modal-dialog-centered" role="document" >
-        <div class="modal-content" >
+<div class="modal fade show" tabindex="-1" role="dialog" style="display: {{ $openAddEvent ? 'block' : 'none' }};">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px;">
+        <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Past Event</h5>
-                <button type="button" class="close" aria-label="Close" wire:click="closeAddEventModal">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title">Your Past Event</h5>
+                <button type="button" class="btn-close" aria-label="Close" wire:click="closeAddEventModal"></button>
             </div>
             <div class="modal-body">
-                <!-- Form to add a new event -->
+                <button type="button" class="btn-close" aria-label="Close" wire:click="closeAddEventModal"></button> <!-- Close button -->
                 <form wire:submit.prevent="saveEvent">
                     <div class="form-group">
                         <label for="eventName">Event Name</label>
@@ -94,6 +107,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" wire:click="closeAddEventModal">Cancel</button>
                 </form>
             </div>
         </div>
