@@ -1,7 +1,7 @@
 <div>
     <!-- QR Code Modal -->
-    <div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="qrCodeModalLabel" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered" >
+    <div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="width: 500px">
                 <div class="modal-header">
                     <h5 class="modal-title" id="qrCodeModalLabel">QR Code</h5>
@@ -96,6 +96,11 @@
                                 </tbody>
                             </table>
                         </div>
+
+                    </div>
+                    <!-- Pagination -->
+                    <div class="m-3">
+                        {{ $ipEvents->links('livewire::bootstrap') }}
                     </div>
                 </div>
             </div>

@@ -49,15 +49,12 @@
                         </div>
 
                     </div>
-
-                </div>
-                <nav aria-label="page-item">
-                    <span aria-hidden="true"></span>
-                    <ul class="mt-4 center">
+                    <div class="m-3">
 
                         {{ $pastIpEvents->links('livewire::bootstrap') }}
-                    </ul>
-                </nav>
+                    </div>
+                </div>
+
 
             </div>
         </div>
