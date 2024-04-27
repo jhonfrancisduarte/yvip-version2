@@ -23,7 +23,7 @@
                 </div>
                 
                 <div class="content-actions">
-                    <button class="btn btn-info btn-xs" wire:click.live="openEditMyInfo"><i class="nav-icon fas fa-edit"></i> Edit Profile</button>
+                    <button class="btn" wire:click.live="openEditMyInfo"><i class="nav-icon bi bi-pencil-square"></i> Edit Profile</button>
                 </div>
 
                 @if($myInfo)
@@ -168,18 +168,18 @@
                     <div class="user-info">
                         <div class="edit-title">
                             <h5>Edit profile</h5>
-                            <button class="btn btn-success btn-xs" wire:click.live="closeEditMyInfo">Cancel</button>  
+                            <button class="btn-cancel" wire:click.live="closeEditMyInfo">Cancel</button>  
                         </div>
                         
                         <div class="row1">
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Firstname: <span>{{ $user ? $user['first_name'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('first_name')"></i></label>
+                                    <label class="label">Firstname: <span>{{ $user ? $user['first_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('first_name')"></i></label>
                                 </div>
                             </div>
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Lastname: <span>{{ $user ? $user['last_name'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('last_name')"></i></label>
+                                    <label class="label">Lastname: <span>{{ $user ? $user['last_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('last_name')"></i></label>
                                 </div>
                             </div>
                         </div>
@@ -187,12 +187,12 @@
                         <div class="row1">
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Middlename: <span>{{ $user ? $user['middle_name'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('middle_name')"></i></label>
+                                    <label class="label">Middlename: <span>{{ $user ? $user['middle_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('middle_name')"></i></label>
                                 </div>
                             </div>
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Nickname: <span>{{ $user ? $user['nickname'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('nickname')"></i></label>
+                                    <label class="label">Nickname: <span>{{ $user ? $user['nickname'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('nickname')"></i></label>
                                 </div>
                             </div>
                         </div>
@@ -200,12 +200,12 @@
                         <div class="row1">
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Date of Birth: <span>{{ $user ? $user['formatted_date_of_birth'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('date_of_birth')"></i></label>
+                                    <label class="label">Date of Birth: <span>{{ $user ? $user['formatted_date_of_birth'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('date_of_birth')"></i></label>
                                 </div>
                             </div>
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Civil Status: <span>{{ $user ? $user['civil_status'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('civil_status')"></i></label>
+                                    <label class="label">Civil Status: <span>{{ $user ? $user['civil_status'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('civil_status')"></i></label>
                                 </div>
                             </div>
                         </div>
@@ -213,12 +213,12 @@
                         <div class="row1">
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Age: <span>{{ $user ? $user['age'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('age')"></i></label>
+                                    <label class="label">Age: <span>{{ $user ? $user['age'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('age')"></i></label>
                                 </div>
                             </div>
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Nationality: <span>{{ $user ? $user['nationality'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('nationality')"></i></label>
+                                    <label class="label">Nationality: <span>{{ $user ? $user['nationality'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('nationality')"></i></label>
                                 </div>
                             </div>
                         </div>
@@ -226,12 +226,12 @@
                         <div class="row1">
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Tel Number: <span>{{ $user ? $user['tel_number'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('tel_number')"></i></label>
+                                    <label class="label">Tel Number: <span>{{ $user ? $user['tel_number'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('tel_number')"></i></label>
                                 </div>
                             </div>
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Mobile Number: <span>{{ $user ? $user['mobile_number'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('mobile_number')"></i></label>
+                                    <label class="label">Mobile Number: <span>{{ $user ? $user['mobile_number'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('mobile_number')"></i></label>
                                 </div>
                             </div>
                         </div>
@@ -239,12 +239,12 @@
                         <div class="row1">
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Email: <span>{{ $user ? $user['email'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('email')"></i></label>
+                                    <label class="label">Email: <span>{{ $user ? $user['email'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('email')"></i></label>
                                 </div>
                             </div>
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Blood Type: <span>{{ $user ? $user['blood_type'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('blood_type')"></i></label>
+                                    <label class="label">Blood Type: <span>{{ $user ? $user['blood_type'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('blood_type')"></i></label>
                                 </div>
                             </div>
                         </div>
@@ -252,31 +252,31 @@
                         <div class="row1">
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Sex at Birth: <span>{{ $user ? $user['sex'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('sex')"></i></label>
+                                    <label class="label">Sex at Birth: <span>{{ $user ? $user['sex'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('sex')"></i></label>
                                 </div>
                             </div>
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Educational Background: <span>{{ $user ? $user['educational_background'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('educational_background')"></i></label>
+                                    <label class="label">Educational Background: <span>{{ $user ? $user['educational_background'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('educational_background')"></i></label>
                                 </div>
-                            </div>
-                        </div>
-        
-                        <div class="row1">
-                            <div class="col1">
-                                <label class="label address-label">Permanent Adrress: <span>{{ $user->p_street_barangay }} {{ $user->permanent_selectedCity }} {{ $user->permanent_selectedProvince }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('permanent_selectedProvince')"></i></label>
                             </div>
                         </div>
         
                         <div class="row1">
                             <div class="col1">
-                                <label class="label address-label">Residential Adrress: <span>{{ $user->r_street_barangay }} {{ $user->residential_selectedCity }} {{ $user->residential_selectedProvince }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('residential_selectedProvince')"></i></label>
+                                <label class="label address-label">Permanent Adrress: <span>{{ $user->p_street_barangay }} {{ $user->permanent_selectedCity }} {{ $user->permanent_selectedProvince }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('permanent_selectedProvince')"></i></label>
                             </div>
                         </div>
         
                         <div class="row1">
                             <div class="col1">
-                                <label class="label">Status: <span>{{ $user ? $user['status'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('status')"></i></label>
+                                <label class="label address-label">Residential Adrress: <span>{{ $user->r_street_barangay }} {{ $user->residential_selectedCity }} {{ $user->residential_selectedProvince }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('residential_selectedProvince')"></i></label>
+                            </div>
+                        </div>
+        
+                        <div class="row1">
+                            <div class="col1">
+                                <label class="label">Status: <span>{{ $user ? $user['status'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('status')"></i></label>
                             </div>
                         </div>
         
@@ -314,19 +314,19 @@
                         <div class="row1">
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Organization Name: <span>{{ $user ? $user['organization_name'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('organization_name')"></i></label>
+                                    <label class="label">Organization Name: <span>{{ $user ? $user['organization_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('organization_name')"></i></label>
                                 </div>
                             </div>
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Position: <span>{{ $user ? $user['org_position'] : '' }}</span> <i class="nav-icon fas fa-edit" wire:click="editThis('org_position')"></i></label>
+                                    <label class="label">Position: <span>{{ $user ? $user['org_position'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('org_position')"></i></label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="edit-footer">
-                            <button class="btn btn-info btn-xs" wire:click="editThis('password')">Change Password</button>  
-                            <button class="btn btn-danger btn-xs" wire:click.live="deleteDialog">Delete Account</button>  
+                            <button class="btn-submit" wire:click="editThis('password')">Change Password</button>  
+                            <button class="btn-delete" wire:click.live="deleteDialog">Delete Account</button>  
                         </div>
                     </div>
                 @endif
@@ -335,7 +335,7 @@
     </div>
 
     @if($openEditProfile)
-        <div class="anns anns-fixed">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="closeEditProfileForm"></div>
             <div class="add-announcement-container">
                 <div class="modal-dialog modal-md">
@@ -346,7 +346,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form enctype="multipart/form-data" wire:submit='editProfilePic({{ $user->user_id }})'>
+                        <form enctype="multipart/form-data" wire:submit="editProfilePic('{{ $user->user_id }}')">
                             <div class="card card-primary">
                                 <div class="card-body">
 
@@ -366,7 +366,7 @@
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button class="btn btn-infos" type="submit">Submit</button>
+                                    <button class="btn-submit" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>

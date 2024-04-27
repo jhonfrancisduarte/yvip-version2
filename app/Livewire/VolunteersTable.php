@@ -7,6 +7,7 @@ use App\Models\PhilippineCities;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Exception;
 
 class VolunteersTable extends Component
 {
@@ -35,17 +36,21 @@ class VolunteersTable extends Component
     }
 
     public function deleteVolunteer($userId){
-        $user = User::find($userId);
-        if ($user){
-            $user->userData()->delete();
-            $user->delete();
-            $this->deleteMessage = 'Volunteer deleted successfully.';
-            $this->disableButton = "Yes";
-        }else{
-            $this->deleteMessage = 'Volunteer deletion unsuccessfully.';
-            $this->disableButton = "Yes";
+        try{
+            $user = User::where('id', $userId)->first();
+            if ($user){
+                $user->userData()->delete();
+                $user->delete();
+                $this->deleteMessage = 'Volunteer deleted successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Volunteer deletion unsuccessfully.';
+                $this->disableButton = "Yes";
+            }
+            $this->deleteVolunteerId = null;
+        }catch(Exception $e){
+            throw $e;
         }
-        $this->deleteVolunteerId = null;
     }
 
     public function hideUserData(){
@@ -80,12 +85,16 @@ class VolunteersTable extends Component
     }
 
     public function exportToPdf(){
-        $userDetails = $this->selectedUserDetails;
-        $pdf = Pdf::loadView('pdf.volunteers-pdf', ['userDetails' => $userDetails]);
-        $pdf->setPaper('A4', 'portrait');
-        return response()->streamDownload(function () use ($pdf) {
-            echo $pdf->stream();
-        }, $userDetails['first_name'] . $userDetails['last_name'] . '_YV.pdf');
+        try{
+            $userDetails = $this->selectedUserDetails;
+            $pdf = Pdf::loadView('pdf.volunteers-pdf', ['userDetails' => $userDetails]);
+            $pdf->setPaper('A4', 'portrait');
+            return response()->streamDownload(function () use ($pdf) {
+                echo $pdf->stream();
+            }, $userDetails['first_name'] . $userDetails['last_name'] . '_YV.pdf');
+        }catch(Exception $e){
+            throw $e;
+        }
     }
 
     public function render(){
@@ -144,18 +153,22 @@ class VolunteersTable extends Component
     }
 
     public function reactivateVolunteer($userId){
-        $user = User::find($userId);
-        if ($user){
-            $user->update([
-                'active_status' => 1,
-            ]);
-            $this->deleteMessage = 'Reactivated successfully.';
-            $this->disableButton = "Yes";
-        }else{
-            $this->deleteMessage = 'Reactivated unsuccessfully.';
-            $this->disableButton = "Yes";
+        try{
+            $user = User::where('id', $userId)->first();
+            if ($user){
+                $user->update([
+                    'active_status' => 1,
+                ]);
+                $this->deleteMessage = 'Reactivated successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Reactivated unsuccessfully.';
+                $this->disableButton = "Yes";
+            }
+            $this->reactivateVolunteerId = null;
+        }catch(Exception $e){
+            throw $e;
         }
-        $this->reactivateVolunteerId = null;
     }
 
     public function reactivateDialog($userId){

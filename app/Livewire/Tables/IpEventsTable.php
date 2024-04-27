@@ -261,86 +261,98 @@ class IpEventsTable extends Component
     }
 
     public function approveParticipant($userId){
-        $user = User::find($userId);
-        $event = IpEvents::find($this->joinEventId);
-        if($event && $user){
-            // Remove user ID from join_requests column
-            $joinRequests = array_filter(explode(',', $event->join_requests), function ($value) use ($userId) {
-                return trim($value) !== (string) $userId;
-            });
-            $event->join_requests = implode(',', array_filter($joinRequests));
-
-            // Add user ID to participants column
-            $participants = explode(',', $event->participants);
-            if (!in_array($userId, $participants)) {
-                $participants[] = $userId;
-                $event->participants = implode(',', $participants);
+        try{
+            $user = User::where('id', $userId)->first();
+            $event = IpEvents::find($this->joinEventId);
+            if($event && $user){
+                // Remove user ID from join_requests column
+                $joinRequests = array_filter(explode(',', $event->join_requests), function ($value) use ($userId) {
+                    return trim($value) !== (string) $userId;
+                });
+                $event->join_requests = implode(',', array_filter($joinRequests));
+    
+                // Add user ID to participants column
+                $participants = explode(',', $event->participants);
+                if (!in_array($userId, $participants)) {
+                    $participants[] = $userId;
+                    $event->participants = implode(',', $participants);
+                }
+    
+                $event->save();
+    
+                $this->openJoinRequestsTable = null;
+                $this->joinEventId = null;
+                $this->popup_message = null;
+                $this->thisUserDetails = null;
+                $this->options = null;
+                $this->popup_message = "Participant approved successfully.";
             }
-
-            $event->save();
-
-            $this->openJoinRequestsTable = null;
-            $this->joinEventId = null;
-            $this->popup_message = null;
-            $this->thisUserDetails = null;
-            $this->options = null;
-            $this->popup_message = "Participant approved successfully.";
+        }catch(Exception $e){
+            throw $e;
         }
     }
 
     public function disapproveParticipant($userId){
-        $user = User::find($userId);
-        $event = IpEvents::find($this->joinEventId);
-        if($event == null){
-            $event = IpEvents::find($this->eventId);
-        }
-
-        if($event && $user){
-            // Remove user ID from join_requests column
-            $joinRequests = array_filter(explode(',', $event->join_requests), function ($value) use ($userId) {
-                return trim($value) !== (string) $userId;
-            });
-            $event->join_requests = implode(',', array_filter($joinRequests));
-
-            // Remove user ID from participants column
-            $thisParticipants = array_filter(explode(',', $event->participants), function ($value) use ($userId) {
-                return trim($value) !== (string) $userId;
-            });
-            $event->participants = implode(',', array_filter($thisParticipants));
-
-            // Add user ID to disapproved column
-            $participants = explode(',', $event->disapproved);
-            if (!in_array($userId, $participants)) {
-                $participants[] = $userId;
-                $event->disapproved = implode(',', $participants);
+        try{
+            $user = User::where('id', $userId)->first();
+            $event = IpEvents::find($this->joinEventId);
+            if($event == null){
+                $event = IpEvents::find($this->eventId);
             }
-
-            $event->save();
-
-            $this->openJoinRequestsTable = null;
-            $this->joinEventId = null;
-            $this->popup_message = null;
-            $this->thisUserDetails = null;
-            $this->options = null;
-            $this->popup_message = "Participant disapproved successfully.";
+    
+            if($event && $user){
+                // Remove user ID from join_requests column
+                $joinRequests = array_filter(explode(',', $event->join_requests), function ($value) use ($userId) {
+                    return trim($value) !== (string) $userId;
+                });
+                $event->join_requests = implode(',', array_filter($joinRequests));
+    
+                // Remove user ID from participants column
+                $thisParticipants = array_filter(explode(',', $event->participants), function ($value) use ($userId) {
+                    return trim($value) !== (string) $userId;
+                });
+                $event->participants = implode(',', array_filter($thisParticipants));
+    
+                // Add user ID to disapproved column
+                $participants = explode(',', $event->disapproved);
+                if (!in_array($userId, $participants)) {
+                    $participants[] = $userId;
+                    $event->disapproved = implode(',', $participants);
+                }
+    
+                $event->save();
+    
+                $this->openJoinRequestsTable = null;
+                $this->joinEventId = null;
+                $this->popup_message = null;
+                $this->thisUserDetails = null;
+                $this->options = null;
+                $this->popup_message = "Participant disapproved successfully.";
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 
     public function showParticipantDetails($userId, $eventId){
-        $user = User::find($userId);
-        $event = IpEvents::find($eventId);
-        if($user){
-            if($event){
-                $this->eventId = $eventId;
-                $participantIds = explode(',', $event->participants);
-                $this->isParticipant = in_array($userId, $participantIds);
+        try{
+            $user = User::where('id', $userId)->first();
+            $event = IpEvents::find($eventId);
+            if($user){
+                if($event){
+                    $this->eventId = $eventId;
+                    $participantIds = explode(',', $event->participants);
+                    $this->isParticipant = in_array($userId, $participantIds);
+                }
+    
+                $this->thisUserDetails = User::where('users.id', $userId)
+                    ->join('user_data', 'users.id', '=', 'user_data.user_id')
+                    ->select('users.email', 'users.active_status', 'user_data.*')
+                    ->first();
+                $this->thisUserDetails = $this->thisUserDetails->getAttributes();
             }
-
-            $this->thisUserDetails = User::where('users.id', $userId)
-                ->join('user_data', 'users.id', '=', 'user_data.user_id')
-                ->select('users.email', 'users.active_status', 'user_data.*')
-                ->first();
-            $this->thisUserDetails = $this->thisUserDetails->getAttributes();
+        }catch(Exception $e){
+            throw $e;
         }
     }
 

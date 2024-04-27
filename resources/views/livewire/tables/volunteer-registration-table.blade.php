@@ -53,9 +53,9 @@
                                             @endif
                                         </td>
                                         <td class="action-btn2">
-                                            <button class="btn btn-xs light-blue" wire:click="showUserData({{ $volunteer->user_id }})"><i class="bi bi-eye"></i> View</button>
-                                            <button class="btn btn-xs green" wire:click="approveUser({{ $volunteer->user_id }})"><i class="bi bi-check2-circle"></i> Approve</button>
-                                            <button class="btn btn-xs red" wire:click="deleteDialog({{ $volunteer->user_id }})"><i class="bi bi-ban"></i> Disapprove</button>
+                                            <p class="light-blue" wire:click="showUserData('{{ $volunteer->user_id }}')"><i class="bi bi-eye"></i> View</p>
+                                            <p class="green" wire:click="approveUser('{{ $volunteer->user_id }}')"><i class="bi bi-check2-circle"></i> Approve</p>
+                                            <p class="red" wire:click="deleteDialog('{{ $volunteer->user_id }}')"><i class="bi bi-ban"></i> Disapprove</p>
                                         </td>
                                     </tr>
                                 @endforeach

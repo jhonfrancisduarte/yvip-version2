@@ -17,7 +17,7 @@
                         </div>
                     </div>
 
-                    <div class="card-body">
+                    {{-- <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped">
                                 <thead>
@@ -53,10 +53,9 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="m-3">
-
                         {{ $pastIpEvents->links('livewire::bootstrap') }}
                     </div>
 
@@ -87,13 +86,14 @@
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
-    @if($openAddEvent)
+<!-- Modal -->
+@if($openAddEvent)
     <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px;">
             <div class="modal-content">
@@ -134,8 +134,13 @@
                             <input type="date" class="form-control" id="dateEnd" placeholder="Enter date end" wire:model.defer="dateEnd" :min="$dateStart">
                             @error('dateEnd') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 
-<<<<<<< HEAD
 @if($openAddEvent)
     <div class="modal" tabindex="-1" role="dialog" style="display: {{ $openAddEvent ? 'block' : 'none' }};" style="width: 500px">
         <div class="modal-dialog modal-dialog-centered" role="document" >
@@ -182,26 +187,16 @@
                         </div>
 
                         <button type="submit" class="btn-submit">Submit</button>
-=======
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-secondary" wire:click="closeAddEventModal">Cancel</button>
->>>>>>> origin/alvindale
+                        <button type="button" class="btn-cancel" wire:click="closeAddEventModal">Cancel</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-<<<<<<< HEAD
 @endif
 
 <!-- Confirmation Modal -->
 @if($confirmingDelete)
-=======
-    @endif
-
-    <!-- Confirmation Modal -->
-    @if($confirmingDelete)
->>>>>>> origin/alvindale
     <div class="modal" tabindex="-1" role="dialog" style="display: {{ $confirmingDelete ? 'block' : 'none' }};">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -215,16 +210,12 @@
                     Are you sure you want to delete this event?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="$set('confirmingDelete', false)">Cancel</button>
-                    <button type="button" class="btn btn-danger" wire:click="confirmDelete">Delete</button>
+                    <button type="button" class="btn-cancel" wire:click="$set('confirmingDelete', false)">Cancel</button>
+                    <button type="button" class="btn-delete" wire:click="confirmDelete">Delete</button>
                 </div>
             </div>
         </div>
     </div>
-<<<<<<< HEAD
 @endif
 
-=======
-    @endif
->>>>>>> origin/alvindale
 </div>

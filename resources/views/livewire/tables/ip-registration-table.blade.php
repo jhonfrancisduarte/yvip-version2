@@ -52,9 +52,9 @@
                                             @endif
                                         </td>
                                         <td class="action-btn2">
-                                            <p class="light-blue" wire:click="showUserData({{ $volunteer->user_id }})"><i class="bi bi-eye"></i> View</p>
-                                            <p class="green" wire:click="approveUser({{ $volunteer->user_id }})"><i class="bi bi-check2-circle"></i> Approve</p>
-                                            <p class="red" wire:click="deleteDialog({{ $volunteer->user_id }})"><i class="bi bi-ban"></i> Disapprove</p>
+                                            <p class="light-blue" wire:click="showUserData('{{ $volunteer->user_id }}')"><i class="bi bi-eye"></i> View</p>
+                                            <p class="green" wire:click="approveUser('{{ $volunteer->user_id }}')"><i class="bi bi-check2-circle"></i> Approve</p>
+                                            <p class="red" wire:click="deleteDialog('{{ $volunteer->user_id }}')"><i class="bi bi-ban"></i> Disapprove</p>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -87,7 +87,7 @@
                 
                 <div class="modal-footer">
                     @if($disableButton == "No")
-                        <button class="btn-delete" wire:click="deleteRegistrant({{ $deleteRegistrantId }})" wire:loading.attr="disabled">Yes
+                        <button class="btn-delete" wire:click="deleteRegistrant('{{ $deleteRegistrantId }}')" wire:loading.attr="disabled">Yes
                         </button>
                         <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
                     @else
@@ -301,9 +301,9 @@
                 <div class="row1">
                     <div class="col">
                         <div class="user-data">
-                            <button class="btn-submit" wire:click="approveUser({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Approve</button>
+                            <button class="btn-submit" wire:click="approveUser('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Approve</button>
                             <button class="btn-cancel" wire:click="hideUserData">Close</button>
-                            <button class="btn-delete" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Delete</button>
+                            <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete</button>
                         </div>
                     </div>
                 </div>

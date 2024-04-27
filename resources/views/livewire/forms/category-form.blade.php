@@ -14,8 +14,8 @@
                             <a href="#" wire:click="openActionForm"><i class="fas fa-ellipsis-h nav-for-action" width="10%"></i></a>
                             @if($actionForm)
                                 <div class="actions-container">
-                                    <button type="button" class="btn-submit btn-add-skill" wire:click="openAddSkillForm({{ auth()->user()->id }})">Add Skill</button>
-                                    <button type="button" class="btn-submit btn-add-experience" required wire:click="openExperienceForm({{ auth()->user()->id }})">Add Experience</button>
+                                    <button type="button" class="btn-submit btn-add-skill" wire:click="openAddSkillForm('{{ auth()->user()->id }}')">Add Skill</button>
+                                    <button type="button" class="btn-submit btn-add-experience" required wire:click="openExperienceForm('{{ auth()->user()->id }}')">Add Experience</button>
                                 </div>
                             @endif
                         </div>

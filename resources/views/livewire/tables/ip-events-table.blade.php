@@ -72,7 +72,7 @@
                                                 <td class="list-td">
                                                     <ul>
                                                         @foreach($event->participantData as $participant)
-                                                            <li wire:click="showParticipantDetails({{ $participant['user_id'] }}, {{ $event->id }})">{{ $participant['name'] }}</li>
+                                                            <li wire:click="showParticipantDetails('{{ $participant['user_id'] }}', {{ $event->id }})">{{ $participant['name'] }}</li>
                                                         @endforeach
                                                     </ul>
                                                 </td>
@@ -105,7 +105,7 @@
                                                         @if($event->status === "Completed" || $event->status === "Ongoing")
                                                             {{-- No action --}}
                                                         @else
-                                                            <button class="btn btn-success btn-xs" wire:click="joinEvent({{ $event->id }})">Join</button>
+                                                            <button class="btn-submit" wire:click="joinEvent({{ $event->id }})">Join</button>
                                                         @endif
                                                     @elseif($event->join_status)
                                                         <span class="orange">Closed</span>
@@ -114,7 +114,7 @@
                                                     @elseif($event->disapprovedParticipants)
                                                         <span class="orange">Sorry! You are not qualified for this event.</span>
                                                     @else
-                                                        <span class="blue">Waiting for approval</span>
+                                                        <span class="light-blue">Waiting for approval</span>
                                                     @endif
                                                 @endif
                                             </td>
@@ -363,10 +363,10 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group requester">
-                                                    <label class="label" wire:click="showParticipantDetails({{ $requester['user_id'] }}, '')">{{ $requester['name'] }}</label>
+                                                    <label class="label" wire:click="showParticipantDetails('{{ $requester['user_id'] }}', '')">{{ $requester['name'] }}</label>
                                                     <div class="btn-approval">
-                                                        <button class="btn btn-delete btn-approve" wire:click="disapproveParticipant({{ $requester['user_id'] }})">Disapprove</button>
-                                                        <button class="btn btn-submit btn-approve" wire:click="approveParticipant({{ $requester['user_id'] }})" style="margin-right: 5px;">Approve</button>
+                                                        <button class="btn-delete" wire:click="disapproveParticipant('{{ $requester['user_id'] }}')">Disapprove</button>
+                                                        <button class="btn-submit" wire:click="approveParticipant('{{ $requester['user_id'] }}')" style="margin-right: 5px;">Approve</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -605,10 +605,10 @@
                         <div class="user-data">
                             @if(!$ppoSubmisions)
                                 @if(!$isParticipant)
-                                    <button class="btn-submit" wire:click="approveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Approve</button>
-                                    <button class="btn-delete" wire:click="disapproveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Disapprove</button>
+                                    <button class="btn-submit" wire:click="approveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Approve</button>
+                                    <button class="btn-delete" wire:click="disapproveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Disapprove</button>
                                 @else
-                                    <button class="btn-delete" wire:click="disapproveParticipant({{ $thisUserDetails['user_id'] }})" wire:loading.attr="disabled">Remove</button>
+                                    <button class="btn-delete" wire:click="disapproveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Remove</button>
                                 @endif
                             @endif
                             <button class="btn-cancel" wire:click="hideUserData" wire:loading.attr="disabled">Close</button>

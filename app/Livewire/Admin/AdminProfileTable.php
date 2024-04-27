@@ -38,7 +38,6 @@ class AdminProfileTable extends Component
         'password' => 'required|min:8',
         'new_password' => 'required|min:8',
         'c_new_pass' => 'required|same:new_password',
-
     ];
 
     public function render(){
@@ -146,9 +145,8 @@ class AdminProfileTable extends Component
     }
 
     public function editProfilePic($id){
-        dd($id);
         try{
-            $user = User::find($id);
+            $user = User::where('id', $id)->first();
     
             $pathToDelete = $user->admin->profile_picture;
             $pathToDelete = str_replace('uploads', '', $pathToDelete);
@@ -170,6 +168,7 @@ class AdminProfileTable extends Component
             throw $e;
         }
     }
+
     private function isPasswordComplex($password){
         $containsUppercase = preg_match('/[A-Z]/', $password);
         $containsNumber = preg_match('/\d/', $password);

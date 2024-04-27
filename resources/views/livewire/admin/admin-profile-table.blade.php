@@ -111,10 +111,10 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form enctype="multipart/form-data" wire:submit.prevent="editProfilePic({{ $user->user_id }})" wire:ignore>
+                        <form enctype="multipart/form-data" wire:submit.prevent="editProfilePic('{{ $user->user_id }}')" wire:ignore>
                             <div class="card card-primary">
-                                <div class="card-body">
 
+                                <div class="card-body">
                                     <div class="row">     
                                         <div class="col-12">
                                             <div class="form-group">
@@ -123,12 +123,12 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn-submit" type="submit">Submit</button>
+                                    <button class="btn-submit" type="submit">Submit</button>
                                 </div>
+                                
                             </div>
                         </form>
                     </div>

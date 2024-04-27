@@ -4,6 +4,7 @@ namespace App\Livewire\Tables;
 use App\Models\User;
 use Livewire\Component;
 use App\Mail\UserApprovalNotification;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -42,7 +43,7 @@ class VolunteerRegistrationTable extends Component
 
     public function approveUser($userId){
         $admin = Auth::user()->email;
-        $registrant = User::find($userId);
+        $registrant = User::where('id', $userId)->first();
         if ($registrant){
             $registrant->update([
                 'active_status' => 1,
@@ -84,15 +85,19 @@ class VolunteerRegistrationTable extends Component
     }
 
     public function deleteRegistrant($userId){
-        $user = User::find($userId);
-        if ($user){
-            $user->userData()->delete();
-            $user->delete();
-            $this->deleteMessage = 'Registrant deleted successfully.';
-            $this->disableButton = "Yes";
-        }else{
-            $this->deleteMessage = 'Registrant deletion unsuccessfully.';
-            $this->disableButton = "Yes";
+        try{ 
+            $user = User::where('id', $userId)->first();
+            if ($user){
+                $user->userData()->delete();
+                $user->delete();
+                $this->deleteMessage = 'Registrant disapproved successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Registrant disapproved unsuccessfully.';
+                $this->disableButton = "Yes";
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 

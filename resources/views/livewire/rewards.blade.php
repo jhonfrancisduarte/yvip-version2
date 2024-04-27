@@ -10,7 +10,7 @@
 
 @section('content')
 
-    @if(session('user_role') !== 'yv')
+    @if(session('user_role') !== 'yv' && session('user_role') !== 'yip')
         @livewire('admin-side-nav')
     @else
         @livewire('side-nav')

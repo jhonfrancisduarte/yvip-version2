@@ -3,6 +3,7 @@
     font-size: 14px !important;
     font-weight: 400;
     cursor: pointer;
+    line-height: 1px;
 }
 
 .red{
@@ -10,6 +11,7 @@
   font-size: 14px !important;
   font-weight: 400;
   cursor: pointer;
+  line-height: 1px;
 }
 
 .blue{
@@ -17,6 +19,7 @@
     font-size: 14px !important;
     font-weight: 400;
     cursor: pointer;
+    line-height: 1px;
 }
 
 .light-blue{
@@ -24,6 +27,7 @@
     font-size: 14px !important;
     font-weight: 400;
     cursor: pointer;
+    line-height: 1px;
 }
 
 .modal-content{
@@ -32,6 +36,7 @@
 
 .p-centered{
     text-align: center;
+    line-height: 15px;
 }
 
 .width{

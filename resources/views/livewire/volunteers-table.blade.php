@@ -141,12 +141,12 @@
                                             <td style="color: #ccc;">N/A</td>
                                         @endif
                                         <td class="action-btn width">
-                                            <p class="light-blue" wire:click="showUserData({{ $volunteer->user_id }})"><i class="bi bi-eye"></i> View</p>
+                                            <p class="light-blue" wire:click="showUserData('{{ $volunteer->user_id }}')"><i class="bi bi-eye"></i> View</p>
                                             @if($active_status === 2)
-                                                <p class="green" wire:click="reactivateDialog({{ $volunteer->user_id }})"><i class="bi bi-person-check"></i> Reactivate</p>
+                                                <p class="green" wire:click="reactivateDialog('{{ $volunteer->user_id }}')"><i class="bi bi-person-check"></i> Reactivate</p>
                                             @endif
                                             @if(session('user_role') !== 'vsa')
-                                                <p class="red" wire:click="deleteDialog({{ $volunteer->user_id }})"><i class="bi bi-trash3"></i> Delete</p>
+                                                <p class="red" wire:click="deleteDialog('{{ $volunteer->user_id }}')"><i class="bi bi-trash3"></i> Delete</p>
                                             @endif
                                         </td>
                                     </tr>
@@ -180,7 +180,7 @@
                 
                 <div class="modal-footer">
                     @if($disableButton == "No")
-                        <button class="btn-delete" wire:click="deleteVolunteer({{ $deleteVolunteerId }})" wire:loading.attr="disabled">Yes</button>
+                        <button class="btn-delete" wire:click="deleteVolunteer('{{ $deleteVolunteerId }}')" wire:loading.attr="disabled">Yes</button>
                         <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
                     @else
                         <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
@@ -209,7 +209,7 @@
                     <div class="col">
                         <div class="user-data">
                             @if($disableButton == "No")
-                                <button class="btn-green" wire:click="reactivateVolunteer({{ $reactivateVolunteerId }})" wire:loading.attr="disabled">Yes
+                                <button class="btn-green" wire:click="reactivateVolunteer('{{ $reactivateVolunteerId }}')" wire:loading.attr="disabled">Yes
                                     {{-- <div class="loader" wire:loading></div> --}}
                                 </button>
                                 <button class="btn-close-user-data btn-50" wire:click="hideReactivateDialog">Cancel</button>
@@ -414,12 +414,12 @@
                     <div class="col">
                         <div class="user-data">
                             @if($active_status === 2)
-                                <button class="btn-submit" wire:click="reactivateDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Reactivate</button>
+                                <button class="btn-submit" wire:click="reactivateDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Reactivate</button>
                             @else
                                 <button class="btn-submit" wire:click="exportToPdf" wire:loading.attr="disabled">Export Data</button>
                             @endif
                             <button class="btn-cancel" wire:click="hideUserData">Close</button>
-                            <button class="btn-delete" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Delete Volunteer</button>
+                            <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete Volunteer</button>
                         </div>
                     </div>
                 </div>
