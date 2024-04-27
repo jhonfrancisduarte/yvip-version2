@@ -29,7 +29,7 @@ class VolunteersTable extends Component
     public function showUserData($userId){
         $this->selectedUserDetails = User::where('users.id', $userId)
                                 ->join('user_data', 'users.id', '=', 'user_data.user_id')
-                                ->select('users.email', 'users.active_status', 'user_data.*')
+                                ->select('users.email', 'users.user_role', 'users.active_status', 'user_data.*')
                                 ->first();
         $this->selectedUserDetails = $this->selectedUserDetails->getAttributes();
     }

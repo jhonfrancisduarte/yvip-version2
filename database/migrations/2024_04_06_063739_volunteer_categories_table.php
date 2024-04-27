@@ -14,7 +14,7 @@ return new class extends Migration
         if (!Schema::hasTable('volunteer_categories')) {
         Schema::create('volunteer_categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('category_name');
             $table->text('description')->nullable();

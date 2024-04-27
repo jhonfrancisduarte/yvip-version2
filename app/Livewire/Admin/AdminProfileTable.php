@@ -146,6 +146,7 @@ class AdminProfileTable extends Component
     }
 
     public function editProfilePic($id){
+        dd($id);
         try{
             $user = User::find($id);
     

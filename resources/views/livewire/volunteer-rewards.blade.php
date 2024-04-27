@@ -1,5 +1,4 @@
 <section class="content rewards-table-content">
-    
     <div class="container-fluid">
         <div class="row rewards-row">
             <div class="col-12 table-contain">
@@ -9,26 +8,47 @@
                     </div>
 
                     <div class="card-body">
-                        <table id="rewards-table" class="table-main">
-                            <thead>
-                                <tr>
-                                    <th width="30%">Name</th>
-                                    <th width="30%">Total of hours</th>
-                                    <th>Reward</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <div>
+                        @if(session('user_role') !== 'yv')
+                            <table id="rewards-table" class="table-main">
+                                <thead>
                                     <tr>
-                                        <td>{{ Auth::user()->name }}</td>
-                                        <td>{{ $totalVolunteerHours }} hours</td>
-                                        <td>{{ $reward }}</td>
+                                        <th width="30%">Name</th>
+                                        <th width="30%">Total of hours</th>
+                                        <th>Reward</th>
                                     </tr>
-                                </div>
-                            </tbody>
+                                </thead>
 
-                        </table>
+                                <tbody>
+                                    <div>
+                                        <tr>
+                                            <td>{{ Auth::user()->name }}</td>
+                                            <td>{{ $totalVolunteerHours }} hours</td>
+                                            <td>{{ $reward }}</td>
+                                        </tr>
+                                    </div>
+                                </tbody>
+                            </table>
+                        @else
+                            <table id="rewards-table" class="table-main">
+                                <thead>
+                                    <tr>
+                                        <th width="30%">Name</th>
+                                        <th width="30%">Total of hours</th>
+                                        <th>Reward</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <div>
+                                        <tr>
+                                            <td>{{ Auth::user()->name }}</td>
+                                            <td>{{ $totalVolunteerHours }} hours</td>
+                                            <td>{{ $reward }}</td>
+                                        </tr>
+                                    </div>
+                                </tbody>
+                            </table>
+                        @endif
                     </div>
 
                 </div>

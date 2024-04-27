@@ -12,7 +12,12 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
+        'id',
         'email',
         'password',
         'name',
@@ -30,18 +35,15 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function userData()
-    {
+    public function userData(){
         return $this->hasOne(UserData::class);
     }
 
-    public function announcement()
-    {
+    public function announcement(){
         return $this->hasOne(Announcement::class);
     }
 
-    public function admin()
-    {
+    public function admin(){
         return $this->hasOne(Admin::class);
     }
 
@@ -68,8 +70,7 @@ class User extends Authenticatable
         return $this->hasMany(IpPostProgramObligation::class);
     }
 
-    public function scopeSearch($query, $term)
-    {
+    public function scopeSearch($query, $term){
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
             $query->where('user_data.first_name', 'like', $term)
@@ -94,8 +95,7 @@ class User extends Authenticatable
         });
     }
 
-    protected static function boot()
-    {
+    protected static function boot(){
         parent::boot();
 
 

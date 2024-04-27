@@ -14,7 +14,7 @@ return new class extends Migration
         if (!Schema::hasTable('ip_post_program_obligations')) {
             Schema::create('ip_post_program_obligations', function (Blueprint $table) {
                 $table->id();
-                $table->unsignedBigInteger('event_id');
+                $table->uuid('event_id');
                 $table->foreign('event_id')->references('id')->on('ip_events')->onDelete('cascade');
                 $table->unsignedBigInteger('user_id');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

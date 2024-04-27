@@ -100,7 +100,7 @@
     </div>
 
     @if($openEditProfile)
-        <div class="anns anns-fixed">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="closeEditProfileForm"></div>
             <div class="add-announcement-container">
                 <div class="modal-dialog modal-md">
@@ -111,13 +111,9 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form enctype="multipart/form-data" wire:submit='editProfilePic({{ $user->user_id }})'>
+                        <form enctype="multipart/form-data" wire:submit.prevent="editProfilePic({{ $user->user_id }})" wire:ignore>
                             <div class="card card-primary">
                                 <div class="card-body">
-
-                                    <div class="row">
-                                        <img src="" alt="" class="selected-image">
-                                    </div>
 
                                     <div class="row">     
                                         <div class="col-12">
@@ -131,7 +127,7 @@
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button class="btn btn-infos" type="submit">Submit</button>
+                                    <button type="button" class="btn-submit" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -155,25 +151,37 @@
                     <form wire:submit.prevent="updateInfo('{{ $toBeEdited }}')">
                         <div class="card card-primary">
                             <div class="card-body">
-                                <div class="row1">
-                                    <div class="col2">
-                                        <input class="input--style-4" type="password" wire:model.live="password" placeholder="Current Password" required>
+                                @if($toBeEdited === "password")
+                                    <div class="row1">
+                                        <div class="col2">
+                                            <input class="input--style-4" type="password" wire:model.live="password" placeholder="Current Password" required>
+                                        </div>
+                                        <div class="col2">
+                                            <label for=""></label>
+                                            <input class="input--style-4" type="password" wire:model.live="new_password" placeholder="New Password" required>
+                                        </div>
+                                        <div class="col2">
+                                            <label for=""></label>
+                                            <input class="input--style-4" type="password" wire:model.live="c_new_pass" placeholder="Confirm New Password" required>
+                                        </div>
                                     </div>
-                                    <div class="col2">
-                                        <label for=""></label>
-                                        <input class="input--style-4" type="password" wire:model.live="new_password" placeholder="New Password" required>
+                                    @error('new_password') 
+                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                    @enderror
+                                @else
+                                    <div class="row1">
+                                        <div class="col2">
+                                                <label class="label label-formatted">{{ $formattedData }}</label>
+                                                <input class="input--style-4" type="text" wire:model.live="thisData" value="{{ $thisData }}" required>
+                                        </div>
+                                        @error('thisData') 
+                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="col2">
-                                        <label for=""></label>
-                                        <input class="input--style-4" type="password" wire:model.live="c_new_pass" placeholder="Confirm New Password" required>
-                                    </div>
-                                </div>
-                                @error('new_password') 
-                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                @enderror
+                                @endif
                             </div>
 
-                            <div class="modal-footer">
+                            <div class="modal-footer justify-content-between">
                                 <button class="btn-submit" type="submit">Submit</button>
                             </div>
                         </div>
@@ -194,7 +202,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to delete this your account?</p>
+                    <p>Are you sure you want to delete your account?</p>
                 </div>                
                 <div class="modal-footer">
                     <button class="btn-delete" wire:click="deleteAccount" wire:loading.attr="disabled">Yes</button>

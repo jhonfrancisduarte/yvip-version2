@@ -57,7 +57,7 @@ Route::middleware(['auth', 'user_role:sa,vs,vsa'])->group(function (){
      Route::get('/volunteer-registration', function () {return view('livewire.yv.volunteer-registration');})->name('volunteer-registration');
      Route::get('/volunteers', function () {return view('livewire.volunteers');})->name('volunteers');
      Route::get('/volunteer-hours', function () {return view('livewire.yv.volunteer-hours');})->name('volunteer-hours');
-     Route::get('/volunteer-rewards', function () {return view('livewire.volunteer-rewards');})->name('volunteer-rewards');
+     Route::get('/volunteer-rewards', function () {return view('livewire.rewards');})->name('volunteer-rewards');
      Route::get('/volunteer-events-and-trainings', function () {return view('livewire.volunteer-events-and-trainings');})->name('volunteer-events-and-trainings');
      Route::get('/skills-and-categories', function () {return view('livewire.yv.skills-and-categories');})->name('skills-and-categories');
      Route::get('/volunteer-messages', function () {return view('livewire.volunteer-messages');})->name('volunteer-messages');

@@ -42,7 +42,7 @@
             </div>
 
             <div class="p-t-15">
-                <button class="btn btn--radius-2 btn--blue login-button" type="submit">Sign In</button>
+                <button class="login-button" type="submit">Sign In</button>
             </div>
 
             @if ($errors->has('login'))

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Rewards;
 use App\Models\Volunteer;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class VolunteerRewards extends Component
@@ -14,8 +15,7 @@ class VolunteerRewards extends Component
     public $totalVolunteerHours;
     public $reward;
 
-    public function mount()
-    {
+    public function mount(){
         $this->rewards = Rewards::all();
         $this->fetchTotalVolunteerHours();
     }
@@ -32,21 +32,28 @@ class VolunteerRewards extends Component
         $this->openRewards = null;
     }
 
-    private function fetchTotalVolunteerHours()
-    {
-        $user = Auth::user();
-        $this->totalVolunteerHours = Volunteer::where('user_id', $user->id)->sum('volunteering_hours');
+    private function fetchTotalVolunteerHours(){
+        try{
+            if(session('user_role') !== 'yv'){
 
-        if ($this->totalVolunteerHours < 8) {
-            $this->reward = 'No Rewards';
-        } elseif ($this->totalVolunteerHours >= 8 && $this->totalVolunteerHours < 100) {
-            $this->reward = 'PYDP Pin/NYC Pin Badge';
-        } elseif ($this->totalVolunteerHours >= 100 && $this->totalVolunteerHours < 200) {
-            $this->reward = 'Tote bag';
-        } elseif ($this->totalVolunteerHours >= 200 && $this->totalVolunteerHours < 500) {
-            $this->reward = 'Tumbler';
-        } else {
-            $this->reward = 'Shirt or Jacket';
+            }else{
+                $user = Auth::user();
+                $this->totalVolunteerHours = Volunteer::where('user_id', $user->id)->sum('volunteering_hours');
+        
+                if ($this->totalVolunteerHours < 8) {
+                    $this->reward = 'No Rewards';
+                } elseif ($this->totalVolunteerHours >= 8 && $this->totalVolunteerHours < 100) {
+                    $this->reward = 'PYDP Pin/NYC Pin Badge';
+                } elseif ($this->totalVolunteerHours >= 100 && $this->totalVolunteerHours < 200) {
+                    $this->reward = 'Tote bag';
+                } elseif ($this->totalVolunteerHours >= 200 && $this->totalVolunteerHours < 500) {
+                    $this->reward = 'Tumbler';
+                } else {
+                    $this->reward = 'Shirt or Jacket';
+                }
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 }

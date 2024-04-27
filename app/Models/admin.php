@@ -14,7 +14,11 @@ class admin extends AuthenticatableUser implements Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'admin';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
+        'id',
         'user_id', 
         'first_name',
         'last_name',

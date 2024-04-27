@@ -145,7 +145,9 @@
                                             @if($active_status === 2)
                                                 <p class="green" wire:click="reactivateDialog({{ $volunteer->user_id }})"><i class="bi bi-person-check"></i> Reactivate</p>
                                             @endif
-                                            <p class="red" wire:click="deleteDialog({{ $volunteer->user_id }})"><i class="bi bi-trash3"></i> Delete</p>
+                                            @if(session('user_role') !== 'vsa')
+                                                <p class="red" wire:click="deleteDialog({{ $volunteer->user_id }})"><i class="bi bi-trash3"></i> Delete</p>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

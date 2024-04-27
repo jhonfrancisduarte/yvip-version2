@@ -146,6 +146,7 @@ class Register extends Component
 
             $passportNumber = 'YVIP' . date('Y') . $this->generateUserId();
             $user = User::create([
+                'id' => Str::uuid(),
                 'email' => $this->email,
                 'password' => $this->password,
                 'user_role' => $this->user_role,
@@ -153,6 +154,7 @@ class Register extends Component
             ]);
 
             $user->userData()->create([
+                'id' => Str::uuid(),
                 'user_id' => $user->id,
                 'passport_number' => $passportNumber,
                 'first_name' => $this->first_name,
@@ -204,8 +206,10 @@ class Register extends Component
         return $containsUppercase && $containsNumber && $containsSpecialChar;
     }
     private function generateUserId() {
-        $latestUserData = UserData::latest()->first();
-        $nextUserId = $latestUserData ? $latestUserData->user_id + 1 : 1;
-        return str_pad($nextUserId, 5, '0', STR_PAD_LEFT);
+        // $latestUserData = UserData::latest()->first();
+        // $nextUserId = $latestUserData ? $latestUserData->user_id + 1 : 1;
+        $nextUserId = mt_rand(10000, 99999);
+        return strval($nextUserId);
+        // return str_pad($nextUserId, 5, '0', STR_PAD_LEFT);
     }
 }

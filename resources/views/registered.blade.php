@@ -5,7 +5,7 @@
 @endsection
 
 @section ('css')
-    <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 @endsection
 
 
@@ -23,8 +23,7 @@
                             <br><br>
                             We will notify you through your email.
                         </p>
-
-                        <p class="reg-button"><a href="/" wire:navigate >Login</a></p>
+                        <a href="/" wire:navigate><button class="login-button" type="submit">Sign In</button></a>
                 </div>
             </div>
     </div>
