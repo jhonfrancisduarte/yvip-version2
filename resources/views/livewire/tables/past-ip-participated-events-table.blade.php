@@ -47,8 +47,18 @@
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
+
                 </div>
+                <nav aria-label="page-item">
+                    <span aria-hidden="true"></span>
+                    <ul class="mt-4 center">
+
+                        {{ $pastIpEvents->links('livewire::bootstrap') }}
+                    </ul>
+                </nav>
+
             </div>
         </div>
     </div>
@@ -56,7 +66,7 @@
     <!-- Modal -->
     @if($openAddEvent)
     <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Your Past Event</h5>

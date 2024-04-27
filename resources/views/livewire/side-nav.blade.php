@@ -117,7 +117,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{ route('past-ip-participated-events') }}" class="nav-link {{ request()->routeIs('past-ip-participated-events') ? 'active' : '' }}" >
+                                    <a href="{{ route('past-ip-participated-events') }}" class="nav-link {{ request()->routeIs('past-ip-participated-events') ? 'active' : '' }}" wire:navigate>
                                     <i class="nav-icon bi bi-clipboard-plus"></i>
                                     <p>
                                     Past Participated IP Events
