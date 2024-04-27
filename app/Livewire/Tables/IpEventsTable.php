@@ -226,10 +226,10 @@ class IpEventsTable extends Component
             $event = IpEvents::find($this->deleteEventId);
             if ($event){
                 $event->delete();
-                $this->deleteMessage = 'Category and skills deleted successfully.';
+                $this->deleteMessage = 'Event deleted successfully.';
                 $this->disableButton = "Yes";
             }else{
-                $this->deleteMessage = 'Category and skills deletion unsuccessfully.';
+                $this->deleteMessage = 'Event deletion unsuccessfully.';
                 $this->disableButton = "Yes";
             }
         }

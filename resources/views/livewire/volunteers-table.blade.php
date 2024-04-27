@@ -5,104 +5,29 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Youth Volunteers Management</h3> 
-                        {{-- <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;"><i class="fa fa-plus">Add</i> </button> --}}
-                        <button type="button" class="btn btn-info btn-sm btn-accounts" style="float: right;" wire:click="deactivatedAccounts">
-                            @if($active_status === 1)
-                                <div class="is-mobile-view">
-                                    <i class="fas fa-user-slash"></i>
-                                </div>
-                                <div class="is-desktop-view">
-                                    Deactivated Accounts
-                                </div>
-                                <span style="background-color: {{ count($deactivatedVolunteers) > 0 ? 'red' : '#343a40' }}">{{ count($deactivatedVolunteers) }}</span>
-                            @else
-                                <div class="is-mobile-view">
-                                    <i class="fas fa-user-check"></i>                                </div>
-                                <div class="is-desktop-view">
-                                    Active Accounts
-                                </div>
-                            @endif
-                        </button>
-
-                        <div class="modal fade" id="add">
-                            <div class="modal-dialog modal-md">
-                                <form action="" method="post" id="add-volunteer-form" >
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Add User</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="card card-primary">
-                                            <div class="card-body">
-                                            <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Fullname</label>
-                                                <input type="text" class="form-control" row="5" id="" name="" placeholder="-          Firstname           -        Middlename         -         Lastname          -">
-                                            </div>
-                                            </div>
-                                            <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Username</label>
-                                                <input type="text" class="form-control" row="5" id="" name="" placeholder="Enter Username ..">
-                                            </div>
-                                            </div>
-                                            <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Password</label>
-                                                <input type="password" class="form-control" row="5" id="" name="" placeholder="Enter Password ..">
-                                            </div>
-                                            </div>
-                                            <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Contact</label>
-                                                <input type="text" class="form-control" row="5" id="" name="" placeholder="Enter Contact ..">
-                                            </div>
-                                            </div>
-                                            <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Email</label>
-                                                <input type="text" class="form-control" row="5" id="" name="" placeholder="Enter Email ..">
-                                            </div>
-                                            </div>
-                                            <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Category</label>
-                                                <input type="text" class="form-control" row="5" id="" name="" placeholder="Enter User Category ..">
-                                            </div>
-                                            </div>
-                                            <div class="col-6">
-                                            <div class="form-group">
-                                            <label>Status</label>
-                                            <select class="form-control">
-                                                <option>Active</option>
-                                                <option>Inactive</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            
-                                            
-                                            <div class="col-12">
-                                            <div class="form-group">
-                                                <input type="file" id="file" />
-                                                <label for="file" class="btn-2"><i class="fa fa-file-image"></i> Avatar</label>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                                            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-                                        </div>
+                        <div class="top-buttons">
+                            <button type="button" class="btn btn-submit btn-accounts" style="float: right;" wire:click="deactivatedAccounts">
+                                @if($active_status === 1)
+                                    <div class="is-mobile-view">
+                                        <i class="fas fa-user-slash"></i>
                                     </div>
-                                </form>
-                            </div>
-                        </div>
-                        
+                                    <div class="is-desktop-view">
+                                        Deactivated Accounts
+                                    </div>
+                                @else
+                                    <div class="is-mobile-view">
+                                        <i class="fas fa-user-check"></i>                                </div>
+                                    <div class="is-desktop-view">
+                                        Active Accounts
+                                    </div>
+                                @endif
+                            </button>
+                            @if($active_status === 1)
+                                <span style="background-color: {{ count($deactivatedVolunteers) > 0 ? 'red' : 'rgb(245, 245, 245)' }}">{{ count($deactivatedVolunteers) }}</span>
+                            @endif
+                        </div> 
                     </div>
+
                     <div class="card-header card-header1">
                         <label for="" class="label" style="margin-top: 5px;">Filter: </label>
                         <div class="col-md-3">
@@ -157,10 +82,9 @@
                     </div>
 
                     <div class="card-body scroll-table" id="scroll-table">
-                        <table id="volunteers-table" class="table table-bordered table-striped">
+                        <table id="volunteers-table" class="table-main">
                             <thead>
                                 <tr>
-                                    <th width="7%" class="right-action-btn">Actions</th>
                                     <th>Passport Number</th>
                                     <th>Firstname</th>
                                     <th>Middlename</th>
@@ -181,19 +105,13 @@
                                     <th>Status</th>
                                     <th>Work/School</th>
                                     <th>Employer/Course</th>
+                                    <th class="action-btn width th-action-btn"></th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 @foreach($volunteers as $volunteer)
                                     <tr>
-                                        <td class="right-action-btn">
-                                            <button class="btn btn-info btn-xs" wire:click="showUserData({{ $volunteer->user_id }})">View</button>
-                                            @if($active_status === 2)
-                                                <button class="btn btn-success btn-xs" wire:click="reactivateDialog({{ $volunteer->user_id }})">Reactivate</button>
-                                            @endif
-                                            <button class="btn btn-danger btn-xs" wire:click="deleteDialog({{ $volunteer->user_id }})">Delete</button>
-                                        </td>
                                         <td>{{ $volunteer->passport_number }}</td>
                                         <td>{{ $volunteer->first_name }}</td>
                                         <td>{{ $volunteer->middle_name }}</td>
@@ -215,40 +133,23 @@
                                         @if($volunteer->status == "Professional")
                                             <td>{{ $volunteer->nature_of_work }}</td>
                                             <td>{{ $volunteer->employer }}</td>
-                                        @endif
-                                        @if($volunteer->status == "Student")
+                                        @elseif($volunteer->status == "Student")
                                             <td>{{ $volunteer->name_of_school }}</td>
                                             <td>{{ $volunteer->course }}</td>
+                                        @else
+                                            <td style="color: #ccc;">N/A</td>
+                                            <td style="color: #ccc;">N/A</td>
                                         @endif
+                                        <td class="action-btn width">
+                                            <p class="light-blue" wire:click="showUserData({{ $volunteer->user_id }})"><i class="bi bi-eye"></i> View</p>
+                                            @if($active_status === 2)
+                                                <p class="green" wire:click="reactivateDialog({{ $volunteer->user_id }})"><i class="bi bi-person-check"></i> Reactivate</p>
+                                            @endif
+                                            <p class="red" wire:click="deleteDialog({{ $volunteer->user_id }})"><i class="bi bi-trash3"></i> Delete</p>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
-
-                            <tfoot>
-                                <tr>
-                                    <th width="7%" class="right-action-btn">Actions</th>
-                                    <th>Passport Number</th>
-                                    <th>Firstname</th>
-                                    <th>Middlename</th>
-                                    <th>Lastname</th>
-                                    <th>Nickname</th>
-                                    <th>Tel Number</th>
-                                    <th>Mobile Number</th>
-                                    <th>Email</th>
-                                    <th>Sex at Birth</th>
-                                    <th>Age</th>
-                                    <th>Date of Birth</th>
-                                    <th>Civil Status</th>
-                                    <th>Nationality</th>
-                                    <th>Blood Type</th>
-                                    <th>Permanent Address</th>
-                                    <th>Residential Address</th>
-                                    <th>Educational Background</th>
-                                    <th>Status</th>
-                                    <th>Work/School</th>
-                                    <th>Employer/Course</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -257,33 +158,31 @@
     </div>
 
     @if($deleteVolunteerId)
-        <div class="users-data-all-container">
+        <div class="users-data-all-container no-padding">
             <div class="close-form" wire:click="hideDeleteDialog"></div>
-            <div class="user-info">
+            <div class="user-info user-infos">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-                <div class="row1 row-header">
-                    <div class="col1">
-                        @if($deleteMessage)
-                            <label class="label" style="color: green;">{{ $deleteMessage }}</label>
-                        @else
-                            <label class="label">Are you sure you want to delete this volunteer?</label>
-                        @endif
-                    </div>
+                <div class="modal-body">
+                    @if($deleteMessage)
+                        <p style="color: green;">{{ $deleteMessage }}</p>
+                    @else
+                        <p>Are you sure you want to delete this volunteer?</p>
+                    @endif
                 </div>
                 
-                <div class="row1 row-footer">
-                    <div class="col">
-                        <div class="user-data">
-                            @if($disableButton == "No")
-                                <button class="btn-danger btn-50" wire:click="deleteVolunteer({{ $deleteVolunteerId }})" wire:loading.attr="disabled">Yes
-                                    {{-- <div class="loader" wire:loading></div> --}}
-                                </button>
-                                <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Cancel</button>
-                            @else
-                                <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Close</button>
-                            @endif
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    @if($disableButton == "No")
+                        <button class="btn-delete" wire:click="deleteVolunteer({{ $deleteVolunteerId }})" wire:loading.attr="disabled">Yes</button>
+                        <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                    @else
+                        <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                    @endif
                 </div>
             </div>
         </div>    
@@ -513,12 +412,12 @@
                     <div class="col">
                         <div class="user-data">
                             @if($active_status === 2)
-                                <button class="btn-green" wire:click="reactivateDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Reactivate</button>
+                                <button class="btn-submit" wire:click="reactivateDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Reactivate</button>
                             @else
-                                <button class="btn-green" wire:click="exportToPdf" wire:loading.attr="disabled">Export Data</button>
+                                <button class="btn-submit" wire:click="exportToPdf" wire:loading.attr="disabled">Export Data</button>
                             @endif
-                            <button class="btn-close-user-data" wire:click="hideUserData">Close</button>
-                            <button class="btn-danger" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Delete Volunteer</button>
+                            <button class="btn-cancel" wire:click="hideUserData">Close</button>
+                            <button class="btn-delete" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Delete Volunteer</button>
                         </div>
                     </div>
                 </div>

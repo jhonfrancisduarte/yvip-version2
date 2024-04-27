@@ -5,20 +5,13 @@
 @endsection
 
 @section ('css')
-
     <link href="Login and Register/css/main.css" rel="stylesheet" media="all">
-    <link rel="stylesheet" type="text/css" href="client/file.css">
-
-
+    <link rel="stylesheet" type="text/css" href="/Client/file.css">
 @endsection
 
 
 @section ('main-content')
 
     @livewire('register')
-
-@endsection
-
-@section ('js')
 
 @endsection
