@@ -155,7 +155,7 @@
                                                 @endif
                                                 @if(session('user_role') == 'yip')
                                                     @if(!$event->hasJoined && !$event->approved && !$event->disapprovedParticipants && !$event->join_status)
-                                                        @if($event->status === "Completed" || $event->status === "Ongoing")
+                                                        @if($event->status === "Completed")
                                                             {{-- No action --}}
                                                         @else
                                                             <button class="btn-submit" wire:click="joinEvent({{ $event->id }})">Join</button>
