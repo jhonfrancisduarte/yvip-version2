@@ -7,7 +7,7 @@ use App\Models\PastIpEvent;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class PastIpParticipatedEventsTable extends Component
+class AdminIpValidation extends Component
 {
     use WithPagination;
 
@@ -27,7 +27,7 @@ class PastIpParticipatedEventsTable extends Component
     {
         $pastIpEvents = PastIpEvent::paginate(5);
 
-        return view('livewire.tables.past-ip-participated-events-table', [
+        return view('livewire.tables.admin-ip-validation', [
             'pastIpEvents' => $pastIpEvents,
         ]);
     }
