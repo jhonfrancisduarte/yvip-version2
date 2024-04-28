@@ -22,10 +22,10 @@ class VolunteerEventsAndTrainings extends Migration
             $table->date('end_date')->format('d F Y');
             $table->integer('volunteer_hours');
             $table->string('volunteer_category')->nullable();
-            $table->string('event_status');
-            $table->string('participant');
-            $table->string('join_requests');
-            $table->string('disapproved');
+            $table->string('participants', 1000)->nullable();
+            $table->string('join_requests', 1000)->nullable();
+            $table->string('disapproved', 1000)->nullable();
+            $table->boolean('join_status')->default(0);
             $table->timestamps();
         });
     }

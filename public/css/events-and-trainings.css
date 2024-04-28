@@ -73,3 +73,18 @@
 .join-btn{
     width: 100%;
 }
+
+.green{
+    color: green;
+    font-weight: bold;
+}
+
+.blue{
+    color: #17a2b8;
+    font-weight: bold;
+}
+
+.orange{
+    color: orangered;
+    font-weight: bold;
+}

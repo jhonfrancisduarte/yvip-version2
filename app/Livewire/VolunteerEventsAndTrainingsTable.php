@@ -4,7 +4,9 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\VolunteerEventsAndTrainings;
+use App\Models\User;
 use Illuminate\Validation\Rule;
+use Exception;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -61,6 +63,7 @@ class VolunteerEventsAndTrainingsTable extends Component
     public $joinRequestsData = [];
     public $joinEventId = null;
 
+    public $disapproved = false;
 
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
@@ -84,10 +87,6 @@ class VolunteerEventsAndTrainingsTable extends Component
             'end_date' => $this->endDate,
             'volunteer_hours' => $this->volunteerHours,
             'volunteer_category' => implode(', ', $this->selectedTags),
-            'event_status' => $this->eventStatus,
-            'participant' => $this->participant,
-            'join_requests' => $this->joinRequests,
-            'disapproved' => $this->disapproved
         ]);
 
         $this->popup_message = null;
@@ -105,10 +104,6 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->endDate = null;
         $this->volunteerHours = null;
         $this->selectedTags = [];
-        $this->eventStatus = null;
-        $this->participant = null;
-        $this->joinRequests = null;
-        $this->disapproved = null;
     }
 
     public function toggleTag($tag){
@@ -154,10 +149,6 @@ class VolunteerEventsAndTrainingsTable extends Component
             $this->volunteerHours = $event->volunteer_hours;
             $this->volunteerCategory = $event->volunteer_category;
             $this->selectedTags = explode(', ', $event->volunteer_category);
-            $this->eventStatus = $event->event_status;
-            $this->participant = $event->participant;
-            $this->joinRequests = $event->join_requests;
-            $this->disapproved = $event->disapproved;
             $this->editEventId = $eventId;
             
         }
@@ -197,10 +188,6 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->startDate = null;
         $this->endDate = null;
         $this->volunteerHours = null;
-        $this->eventStatus = null;
-        $this->participant = null;
-        $this->joinRequests = null;
-        $this->disapproved = null;
     }
     
     public function hideDeleteDialog(){
@@ -234,21 +221,35 @@ class VolunteerEventsAndTrainingsTable extends Component
     }
 
     public function openJoinRequests($eventId){
-        $this->openJoinRequestsTable = true;
         $this->joinEventId = $eventId;
+
         $event = VolunteerEventsAndTrainings::find($eventId);
-
+    
         if ($event) {
-        $joinRequests = explode(',', $event->join_requests);
-
-        $this->joinRequestsData = $joinRequests;
+            $joinRequests = explode(',', $event->join_requests);
+    
+            $joinRequestsData = [];
+    
+            foreach ($joinRequests as $userId) {
+                $user = User::find($userId);
+    
+                if ($user) {
+                    $joinRequestsData[] = [
+                        'user_id' => $user->id,
+                        'name' => $user->name,
+                    ];
+                }
+            }
+    
+            $this->joinRequestsData[$eventId] = $joinRequestsData;
         }
+    
+        $this->openJoinRequestsTable = true;
     }
 
     public function closeJoinRequests(){
-        $this->openJoinRequestsTable = false;
+        $this->openJoinRequestsTable = null;
         $this->joinEventId = null;
-        $this->joinRequestsData = [];
         $this->options = null;
     }
 
@@ -257,26 +258,143 @@ class VolunteerEventsAndTrainingsTable extends Component
         $event = VolunteerEventsAndTrainings::find($eventId);
 
         if ($event) {
+            $participants = explode(',', $event->participants);
             $joinRequests = explode(',', $event->join_requests);
-            if (!in_array($userId, $joinRequests)) {
+            $disapprovedParticipants = explode(',', $event->disapproved);
+
+            if (in_array($userId, $participants)) {
+            } elseif (in_array($userId, $disapprovedParticipants)) {
+                $this->disapproved = true;
+            } else {
                 $joinRequests[] = $userId;
                 $event->join_requests = implode(',', $joinRequests);
                 $event->save();
             }
         }
+    } 
+
+    public function mount(){
+        $this->joinRequestsData = $this->fetchJoinRequestsData();
+    }
+
+    private function fetchJoinRequestsData(){
+        $events = VolunteerEventsAndTrainings::all();
+        $joinRequestsData = [];
+
+        foreach ($events as $event) {
+            $joinRequests = explode(',', $event->join_requests);
+
+            $eventJoinRequestsData = [];
+
+            foreach ($joinRequests as $userId) {
+                $user = User::find($userId);
+
+                if ($user) {
+                    $eventJoinRequestsData[] = [
+                        'user_id' => $user->id,
+                        'name' => $user->name,
+                    ];
+                }
+            }
+
+            $joinRequestsData[$event->id] = $eventJoinRequestsData;
+        }
+
+        return $joinRequestsData;
+    }
+
+    public function approveParticipant($userId){
+        $user = User::find($userId);
+        $event = VolunteerEventsAndTrainings::find($this->joinEventId);
+        if($event && $user){
+
+            $joinRequests = array_filter(explode(',', $event->join_requests), function ($value) use ($userId) {
+                return trim($value) !== (string) $userId;
+            });
+            $event->join_requests = implode(',', array_filter($joinRequests));
+
+            $participants = explode(',', $event->participants);
+            if (!in_array($userId, $participants)) {
+                $participants[] = $userId;
+                $event->participants = implode(',', $participants);
+            }
+
+            $event->save();
+
+            $this->openJoinRequestsTable = null;
+            $this->joinEventId = null;
+            $this->popup_message = null;
+            $this->thisUserDetails = null;
+            $this->options = null;
+            $this->popup_message = "Participant approved successfully.";
+        }
+    }
+
+    public function disapproveParticipant($userId){
+        $user = User::find($userId);
+        $event = VolunteerEventsAndTrainings::find($this->joinEventId);
+        if($event == null){
+            $event = VolunteerEventsAndTrainings::find($this->eventId);
+        }
+
+        if($event && $user){
+            $joinRequests = array_filter(explode(',', $event->join_requests), function ($value) use ($userId) {
+                return trim($value) !== (string) $userId;
+            });
+            $event->join_requests = implode(',', array_filter($joinRequests));
+
+            $thisParticipants = array_filter(explode(',', $event->participants), function ($value) use ($userId) {
+                return trim($value) !== (string) $userId;
+            });
+            $event->participants = implode(',', array_filter($thisParticipants));
+
+            $participants = explode(',', $event->disapproved);
+            if (!in_array($userId, $participants)) {
+                $participants[] = $userId;
+                $event->disapproved = implode(',', $participants);
+            }
+
+            $event->save();
+
+            $this->openJoinRequestsTable = null;
+            $this->joinEventId = null;
+            $this->popup_message = null;
+            $this->thisUserDetails = null;
+            $this->options = null;
+            $this->popup_message = "Participant disapproved successfully.";
+        }
     }
 
     public function toggleJoinStatus($eventId){
         $event = VolunteerEventsAndTrainings::find($eventId);
-        if($event){
-            $event->update([
-                'join_status' => !$event->join_status,
-                'join_requests' => '',
-            ]);
 
-            $this->popup_message = null;
-            $this->options = null;
-            $this->popup_message = "Event Status Updated Successfully.";
+        if ($event) {
+            \Log::info('Current join_status: ' . $event->join_status);
+    
+            $event->join_status = $event->join_status == 0 ? 1 : 0;
+            $event->save();
+    
+            \Log::info('Updated join_status: ' . $event->join_status);
+    
+            return redirect()->back()->with('message', 'Join status updated successfully.');
+        }
+    }    
+
+    public function showParticipantDetails($userId, $eventId){
+        $user = User::find($userId);
+        $event = VolunteerEventsAndTrainings::find($eventId);
+        if($user){
+            if($event){
+                $this->eventId = $eventId;
+                $participantIds = explode(',', $event->participants);
+                $this->isParticipant = in_array($userId, $participantIds);
+            }
+            
+            $this->thisUserDetails = User::where('users.id', $userId)
+                ->join('user_data', 'users.id', '=', 'user_data.user_id')
+                ->select('users.email', 'users.active_status', 'user_data.*')
+                ->first();
+            $this->thisUserDetails = $this->thisUserDetails->getAttributes();
         }
     }
 

@@ -18,10 +18,6 @@ return new class extends Migration
             $table->date('date');
             $table->integer('volunteering_hours');
             $table->string('volunteer_category');
-            $table->string('event_status');
-            $table->string('participant');
-            $table->string('join_requests');
-            $table->string('disapproved');
             $table->timestamps();
         });
     }

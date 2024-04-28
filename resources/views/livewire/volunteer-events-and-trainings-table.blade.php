@@ -41,42 +41,53 @@
                         <td>
                         <div class="action-buttons">
                             @if(session('user_role') == 'sa' || session('user_role') == 'ips')
-                                <button class="btn btn-success btn-xs btn-accounts" wire:click="openJoinRequests({{ $event->id }})">Join Requests
-                                    <span style="background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : '#343a40' }}">{{ count($joinRequestsData[$event->id] ?? []) }}
-                                </span>
+                                <button class="btn btn-success btn-xs btn-accounts" wire:click="openJoinRequests({{ $event->id }})">
+                                    Join Requests <span style="background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : '#343a40' }}">
+                                    {{ count($joinRequestsData[$event->id] ?? []) }}</span>
                                 </button>
+
                                 <button class="btn btn-info btn-xs settings" wire:click="toggleSettings({{ $event->id }})">
                                     <i class="fas fa-cogs"></i>
                                 </button>
                                 @if($showEditDeleteButtons && $selectedEventId == $event->id)
                                     <div class="inside-settings-buttons">
-                                    <button class="btn btn-info btn-xs" wire:click="toggleJoinStatus({{ $event->id }})">
-                                        @if(!$event->join_status)
+                                    <button class="btn btn-info btn-xs" wire:click="toggleJoinStatus({{ $event->id }})" wire:loading.attr="disabled">
+                                        @if($event->join_status == 0)
                                             Close Event
                                         @else
                                             Reopen
                                         @endif
+                                    </button>
                                     </button>
                                         <button class="btn btn-info btn-xs" wire:click="openEditForm({{ $event->id }})">Edit</button>
                                         <button class="btn btn-danger btn-xs delete-button" wire:click="deleteDialog({{ $event->id }})">Delete</button>
                                     </div>
                                 @endif
                             @endif
-                            @if(session('user_role') == 'yip')
+                            @if(session('user_role') == 'yip' || session('user_role') == 'yv')
                                 @if(!$event->hasJoined && !$event->approved && !$event->disapprovedParticipants && !$event->join_status)
                                     @if($event->status === "Completed" || $event->status === "Ongoing")
                                         {{-- No action --}}
                                     @else
-                                        <button class="btn btn-success btn-xs join-btn" wire:click="joinEvent({{ $event->id }})">Join</button>
+                                        @php
+                                            $userId = Auth::user()->id;
+                                            $participants = explode(',', $event->participants);
+                                            $disapprovedParticipants = explode(',', $event->disapproved);
+                                            $joinRequests = explode(',', $event->join_requests);
+                                        @endphp
+
+                                        @if (in_array($userId, $participants))
+                                            <span class="green">Joined</span>
+                                        @elseif (in_array($userId, $disapprovedParticipants))
+                                            <span class="orange">Not Qualified</span>
+                                        @elseif (in_array($userId, $joinRequests))
+                                            <span class="blue">Pending...</span>
+                                        @else
+                                            <button class="btn btn-success btn-xs join-btn" wire:click="joinEvent({{ $event->id }})">Join</button>
+                                        @endif
                                     @endif
                                 @elseif($event->join_status)
                                     <span class="orange">Closed</span>
-                                @elseif($event->approved)
-                                    <span class="green">Joined</span>
-                                @elseif($event->disapprovedParticipants)
-                                    <span class="orange">Sorry! You are not qualified for this event.</span>
-                                @else
-                                    <span class="blue">Waiting for approval</span>
                                 @endif
                             @endif
                         </div>
