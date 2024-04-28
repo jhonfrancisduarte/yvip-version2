@@ -81,8 +81,7 @@
                         </label>
                         <label class="label"> Number of Results: <span>{{ count($volunteers )}}</span></label>
                     </div>
-                    
-                     <!-- /.card-header -->
+
                     <div class="card-body scroll-table" id="scroll-table">
         
                         <table id="volunteers-table" class="table-main">
@@ -154,6 +153,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="m-3">
+                        {{ $volunteers->links('livewire::bootstrap') }}
                     </div>
                 </div>
             </div>

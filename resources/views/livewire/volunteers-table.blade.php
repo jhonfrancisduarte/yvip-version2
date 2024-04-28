@@ -154,6 +154,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="m-3">
+                        {{ $volunteers->links('livewire::bootstrap') }}
+                    </div>
                 </div>
             </div>
         </div>

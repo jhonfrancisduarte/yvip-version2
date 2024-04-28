@@ -1,4 +1,4 @@
-<div class="login-form-container">
+<div class="login-form">
         <h2 class="title">Sign in to your account</h2>
         <form wire:submit.prevent="login">
             <div class="row row-space login-input-div">
@@ -36,7 +36,8 @@
                 </div>
                 <div class="col-2 col-forget">
                     <div class="input-group">
-                        <p class="forget"><a href="{{ route('password.request')}}">Forgot Password?</a></p>
+                        {{-- <p class="forget" id="forget"><a href="{{ route('password.request')}}">Forgot Password?</a></p> --}}
+                        <p class="forget" id="forget">Forgot Password?</p>
                     </div>
                 </div>
             </div>
@@ -52,5 +53,8 @@
             @endif
  
             <p class="p"><a href="/registration" wire:navigate>I don't have an account yet!</a></p>
+            @if (session('status'))
+                <p class="green">{{ session('status') }}</p>
+            @endif
         </form>
 </div>

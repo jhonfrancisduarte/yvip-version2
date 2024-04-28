@@ -366,15 +366,13 @@
                                 <label class="label" style="font-style: italic; color: green;">Submitting ...</label>
                             </div>
                             <div class="p-t-15" wire:loading.attr="disabled">
-
-                                <button  class="btn btn--radius-2 btn--blue" type="submit" >Submit</button>
-
+                                <button  class="register-button" type="submit" >Submit</button>
                             </div>
 
                         </div>
                         <div class="col-2">
                             <div class="to-login-button">
-                                <b><a href="/" style="color:#2c6ed5" wire:navigate>I already have an Account.</a></b>
+                                <b><a href="/" style="color:#0061C4" wire:navigate>I already have an Account.</a></b>
                             </div>
                         </div>
                     </div>

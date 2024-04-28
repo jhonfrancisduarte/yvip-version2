@@ -18,6 +18,7 @@ return new class extends Migration
                 $table->string('organizer_sponsor', 1000);
                 $table->date('start')->format('d F Y');
                 $table->date('end')->format('d F Y');
+                $table->string('status')->nullable();
                 $table->string('qualifications', 1000);
                 $table->string('participants', 2000)->nullable();
                 $table->string('join_requests', 2000)->nullable();

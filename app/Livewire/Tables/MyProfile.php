@@ -101,6 +101,7 @@ class MyProfile extends Component
                 $imagePath = "uploads/" . $imagePath;
                 $user->userData()->update(['profile_picture' => $imagePath]);
             }
+            
             $this->popup_message = null;
             $this->popup_message = 'Profile picture updated successfully.';
             $this->profile_picture = null;

@@ -26,7 +26,7 @@ class IpRegistrationTable extends Component
             ->select('users.email', 'users.active_status', 'user_data.*')
             ->search(trim($this->search))
             ->where('users.active_status', 0)
-            ->get();
+            ->paginate(10);
 
         return view('livewire.tables.ip-registration-table',[
             'volunteers' => $volunteers, 

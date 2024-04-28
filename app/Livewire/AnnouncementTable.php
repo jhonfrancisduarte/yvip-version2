@@ -74,7 +74,7 @@ class AnnouncementTable extends Component
     }
 
     public function render(){
-        if($this->dashboardType == "yv"){
+        if($this->dashboardType == "yv" || $this->dashboardType == "vs" || $this->dashboardType == "vsa"){
             $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
                 ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
                 ->where('announcement.type', $this->dashboardType)

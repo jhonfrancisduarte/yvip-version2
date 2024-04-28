@@ -7,9 +7,11 @@ use App\Mail\UserApprovalNotification;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Livewire\WithPagination;
 
 class VolunteerRegistrationTable extends Component
 {
+    use WithPagination;
     public $selectedUserDetails;
     public $search;
     public $age_range;
@@ -26,7 +28,7 @@ class VolunteerRegistrationTable extends Component
         ->select('users.email', 'users.active_status', 'user_data.*')
         ->search(trim($this->search))
         ->where('users.active_status', 0)
-        ->get();
+        ->paginate(5);
 
         return view('livewire.tables.volunteer-registration-table',[
             'volunteers' => $volunteers, 

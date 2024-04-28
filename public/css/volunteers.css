@@ -176,11 +176,6 @@
     background: white;
 }
 
-.action-btn2 {
-    position: sticky;
-    right: 0px;
-    background: white;
-}
 
 .th-action-btn {
     background: rgba(238,238,238,1) !important;
@@ -326,6 +321,13 @@
 
     canvas {
         max-width: 100%;
+    }
+
+    .action-btn2,
+    .action-btn {
+        position: sticky;
+        right: -22px;
+        background: white;
     }
 
 }

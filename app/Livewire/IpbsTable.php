@@ -119,7 +119,7 @@ class IpbsTable extends Component
                 ->when($this->selectedCity, function ($query) {
                     return $query->where('user_data.permanent_selectedCity', $this->selectedCity);
                 })
-                ->get();
+                ->paginate(10);
 
         $deactivatedIPs = User::where('user_role', 'yip')
             ->where('users.active_status', 2)

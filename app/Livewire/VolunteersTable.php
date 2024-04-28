@@ -124,7 +124,7 @@ class VolunteersTable extends Component
                 ->when($this->selectedCity, function ($query) {
                     return $query->where('user_data.permanent_selectedCity', $this->selectedCity);
                 })
-                ->get();
+                ->paginate(10);
 
         $deactivatedVolunteers = User::where('user_role', 'yv')
                 ->where('users.active_status', 2)
