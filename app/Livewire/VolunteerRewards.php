@@ -5,7 +5,11 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Rewards;
 use App\Models\Volunteer;
+use App\Models\User;
+use App\Models\ClaimRequest;
+use App\Models\VolunteerRewards as VolunteerReward; 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class VolunteerRewards extends Component
 {
@@ -13,15 +17,34 @@ class VolunteerRewards extends Component
     public $openRewards;
     public $totalVolunteerHours;
     public $reward;
+    public $rewardType;
+    public $userHoursArray = [];
+    public $thisUserId;
+    public $userRewards;
+    public $openRequest;
+    public $popup_message;
+    public $disabledButtons = [];
 
     public function mount()
     {
         $this->rewards = Rewards::all();
         $this->fetchTotalVolunteerHours();
+        $this->fetchUserRewards();
+        $this->disabledButtons = Session::get('disabledButtons', []);
     }
     public function render()
     {
-        return view('livewire.volunteer-rewards');
+        $claimRequests = ClaimRequest::whereNotNull('pending')->get();
+        
+        return view('livewire.volunteer-rewards', ['claimRequests' => $claimRequests]);
+    }
+
+    public function closePopup(){
+        $this->popup_message = null;
+    }
+
+    public function seeRequests(){
+        $this->openRequest = true;
     }
 
     public function seeRewards(){
@@ -30,23 +53,126 @@ class VolunteerRewards extends Component
 
     public function closeRewards(){
         $this->openRewards = null;
+        $this->thisUserId = null;
+        $this->openRequest = null;
+    }
+
+    public function grantReward($userId){
+        $this->thisUserId = $userId;
+    }
+
+    public function approveRequest($claimRequestId)
+    {
+        try {
+            $claimRequest = ClaimRequest::findOrFail($claimRequestId);
+
+            $claimRequest->update([
+                'approved' => '1',
+                'pending' => null,
+                'disapproved' => null
+            ]);
+            
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function claimReward($rewardId)
+    {
+        try {
+            $userId = Auth::id();
+
+            $this->disabledButtons[$rewardId] = true;
+            
+            // Store the updated disabled buttons state in the session
+            Session::put('disabledButtons', $this->disabledButtons);
+            
+            ClaimRequest::create([
+                'user_id' => $userId,
+                'pending' => true,
+            ]);
+
+            $this->popup_message = "Request sent successfully.";
+    
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     private function fetchTotalVolunteerHours()
     {
-        $user = Auth::user();
-        $this->totalVolunteerHours = Volunteer::where('user_id', $user->id)->sum('volunteering_hours');
+        try{
+            if(session('user_role') !== "yv" && session('user_role') !== "yip"){
+                $volunteers = Volunteer::all();
 
-        if ($this->totalVolunteerHours < 8) {
-            $this->reward = 'No Rewards';
-        } elseif ($this->totalVolunteerHours >= 8 && $this->totalVolunteerHours < 100) {
-            $this->reward = 'PYDP Pin/NYC Pin Badge';
-        } elseif ($this->totalVolunteerHours >= 100 && $this->totalVolunteerHours < 200) {
-            $this->reward = 'Tote bag';
-        } elseif ($this->totalVolunteerHours >= 200 && $this->totalVolunteerHours < 500) {
-            $this->reward = 'Tumbler';
-        } else {
-            $this->reward = 'Shirt or Jacket';
+                $totalHoursPerUser = $volunteers->groupBy('user_id')->map(function ($group) {
+                    return $group->sum('volunteering_hours');
+                });
+
+                foreach ($totalHoursPerUser as $userId => $totalHours) {
+                    $user = User::find($userId);
+                    if ($user) {
+                        $userName = $user->name;
+                        $userRewards = VolunteerReward::where('user_id', $userId)->get();
+                        $rewardsArray = [];
+                        foreach ($userRewards as $reward) {
+                            $rewardsArray[] = $reward->rewards;
+                        }
+                        $this->userHoursArray[] = [
+                            'user_id' => $userId,
+                            'user_name' => $userName,
+                            'total_hours' => $totalHours,
+                            'rewards' => $rewardsArray,
+                        ];
+                    }
+                }
+
+            }else{
+                try {
+                    $user = Auth::user();
+                    $this->totalVolunteerHours = Volunteer::where('user_id', $user->id)->sum('volunteering_hours');
+                    
+                    $userId = Auth::id();
+                    $rewardRecord = VolunteerReward::where('user_id', $userId)->first();
+            
+                    if ($rewardRecord) {
+                        $this->reward = $rewardRecord->rewards;
+                    } else {
+                        $this->reward = 'No Rewards';
+                    }
+                } catch (Exception $e) {
+                    throw $e;
+                }
+            }
+            
+        }catch (Exception $e){
+            throw $e;
         }
     }
+
+    private function fetchUserRewards()
+    {
+        $userId = Auth::id();
+        $this->userRewards = VolunteerReward::where('user_id', $userId)->get();
+    }
+
+    public function submitReward()
+    {
+        try{
+            $thisVolunteerHours = Volunteer::where('user_id', $this->thisUserId)->sum('volunteering_hours');
+
+            $reward = VolunteerReward::create([
+                'user_id'=>$this->thisUserId,
+                'number_of_hours'=>$thisVolunteerHours,
+                'rewards'=>$this->rewardType,
+                'award_date'=>now(),
+            ]);
+
+            $this->thisUserId = null;
+
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
 }

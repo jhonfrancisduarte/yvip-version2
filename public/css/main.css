@@ -449,19 +449,6 @@ td p {
   padding-right: 30px;
 }
 
-/* .input-group-register {
-  position: relative;
+.to-login-button b a {
+  text-decoration: none;
 }
-
-.toggle-password-register {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
-.toggle-password-register i {
-  font-size: 1.2em;
-  color: #666;
-} */

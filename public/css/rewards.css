@@ -52,3 +52,96 @@
 .rewards-row {
     border-radius: 5px !important;
 }
+
+.rewards ul li button {
+    float: right;
+    cursor: default;
+    pointer-events: none;
+}
+
+.btn-claim {
+    float: right;
+}
+
+.claim-reward {
+    list-style-type: none;
+}
+
+.reward-list li {
+    margin-bottom: 15px;
+}
+
+.reward-actions li {
+    list-style-type: none;
+}
+
+.pop-up-message {
+    position: absolute;
+    top: -100px;
+    right: 10px;
+    width: auto;
+    height: 60px;
+    background: white;
+    box-shadow: 0px 0px 15px 1px rgba(113, 106, 202, 0.1);
+    border: 1px solid #e6eaee;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s ease-in-out;
+    padding-left: 30px;
+    padding-right: 20px;
+    z-index: 9999;
+}
+
+.pop-up-message .close {
+    margin-top: -7px;
+    margin-left: -10px;
+}
+
+.pop-up-message p {
+    margin-top: 13px;
+    margin-left: 10px;
+    text-align: center;
+    color: #28a745;
+}
+
+.main-div-request {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.request-form-container .request-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-div-request .card-primary {
+    width: 100%;
+    height: 100%;
+}
+
+.requester {
+    display: flex !important;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.requester .btn-approve {
+    float: right;
+    width: 80px !important;
+}
+
+.request-form .modal-content {
+    width: 600px;
+}

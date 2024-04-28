@@ -184,7 +184,7 @@ class CategoryForm extends Component
     
         $this->editId = null;
         $this->editContent = '';
-    
+
         $this->popup_message = "Experience updated successfully.";
     }
 

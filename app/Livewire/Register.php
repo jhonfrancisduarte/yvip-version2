@@ -71,7 +71,6 @@ class Register extends Component
     public $rcities;
     public $permanent_cities;
     public $residential_cities;
-    
 
     public function mount(){
         $this->permanent_selectedProvince = null;

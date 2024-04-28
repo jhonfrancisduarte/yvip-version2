@@ -343,14 +343,13 @@
                             <div class="input-group">
                                 <label class="label">password</label>
                                 <input class="input--style-4" type="password" wire:model="password" name="password">
-                                
                                 @error('password') 
                                     <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
                         <div class="col-2">
-                            <div class="input-group input-group-register">
+                            <div class="input-group">
                                 <label class="label">confirm password</label>
                                 <input class="input--style-4" type="password" wire:model="c_password" name="c_password">
                                 @error('c_password') <span class="text-danger small" style="color: red;">{{ $message }}</span>
@@ -374,7 +373,7 @@
                         </div>
                         <div class="col-2">
                             <div class="to-login-button">
-                                <b><a href="/" style="color:#2c6ed5" wire:navigate>I already have an Account.</a></b>
+                                <p><a href="/" style="color: black; text-decoration: none; " wire:navigate>I already have an Account.</a></p>
                             </div>
                         </div>
                     </div>

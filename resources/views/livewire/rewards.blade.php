@@ -11,8 +11,12 @@
 
 @section('content')
 
-    @livewire('side-nav')
-
+    @if(session('user_role') !== "yv")
+        @livewire('admin-side-nav')
+    @else
+        @livewire('side-nav')
+    @endif
+    
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">

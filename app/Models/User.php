@@ -68,6 +68,14 @@ class User extends Authenticatable
         return $this->hasMany(IpPostProgramObligation::class);
     }
 
+    public function volunteerRewards(){
+        return $this->hasMany(VolunteerRewards::class);
+    }
+
+    public function claimRequest(){
+        return $this->hasMany(ClaimRequest::class);
+    }
+
     public function scopeSearch($query, $term)
     {
         $term = "%$term%";
