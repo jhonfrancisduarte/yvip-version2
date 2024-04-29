@@ -20,6 +20,7 @@
                                         <th>Organizer / Sponsor</th>
                                         <th>Sponsor Category</th>
                                         <th>Date / Period</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -30,10 +31,11 @@
                                         <td>{{ $event->organizer_sponsor }}</td>
                                         <td>{{ $event->sponsor_category }}</td>
                                         <td>{{ $event->start }} - {{ $event->end }}</td>
+                                        <td>{{ $event->confirmed ? 'Confirmed' : 'Pending' }}</td>
                                         <td class="text-center">
                                             <div class="btn-group" role="group">
                                                 <!-- Edit button -->
-                                                <button type="button" class="btn btn-sm btn-info" wire:click="editEvent({{ $event->id }})">
+                                                <button type="button" class="btn btn-sm btn-info" wire:click="editEvent({{ $event->id }})" @if($event->confirmed) disabled @endif>
                                                     <i class="bi bi-pencil-fill"></i>
                                                 </button>
                                                 <!-- Delete button -->

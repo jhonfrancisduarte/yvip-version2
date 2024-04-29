@@ -34,20 +34,23 @@
                                         <td>{{ $event->start }} - {{ $event->end }}</td>
                                         <td>{{ $event->confirmed ? 'Confirmed' : 'Pending' }}</td>
                                         <td class="text-center">
+                                            @if (!$event->confirmed)
+                                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
+                                                    Approve
+                                                </button>
+                                            @endif
                                             <div class="btn-group" role="group">
                                                 <button type="button" class="btn btn-sm btn-info" wire:click="editEvent({{ $event->id }})">
                                                     <i class="bi bi-pencil-fill"></i>
                                                 </button>
+                                                <!-- Add spacing between Edit and Delete buttons -->
+                                                <div class="mx-1"></div>
                                                 <button type="button" class="btn btn-sm btn-danger" wire:click="deleteEvent({{ $event->id }})">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
-                                                @if (!$event->confirmed)
-                                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
-                                                    Approve
-                                                </button>
-                                                @endif
                                             </div>
                                         </td>
+
                                     </tr>
                                     @endforeach
                                 </tbody>

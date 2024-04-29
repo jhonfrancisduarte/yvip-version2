@@ -34,7 +34,13 @@ class AdminIpValidation extends Component
 
     public function render()
     {
-        $pastIpEvents = PastIpEvent::with('user')->paginate(5);
+        $pastIpEvents = PastIpEvent::with('user')
+        ->leftJoin('users', 'past_ip_events.user_id', '=', 'users.id') // Join the users table
+        ->select('past_ip_events.*', 'users.name as user_name') // Select the name column from users
+        ->orderBy('confirmed', 'asc') // Pending status first
+        ->orderByDesc('past_ip_events.created_at') // Latest inserted events first
+        ->orderBy('user_name') // Sort by user's name
+        ->paginate(5);
 
         return view('livewire.tables.admin-ip-validation', [
             'pastIpEvents' => $pastIpEvents,
