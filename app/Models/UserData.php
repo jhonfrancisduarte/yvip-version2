@@ -12,6 +12,9 @@ class UserData extends Model
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'user_data';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     public function user()
     {
@@ -19,6 +22,7 @@ class UserData extends Model
     }
 
     protected $fillable = [
+        'id',
         'user_id',
         'passport_number',
         'first_name',

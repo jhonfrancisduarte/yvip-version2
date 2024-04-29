@@ -23,10 +23,10 @@
                         <table id="rewards-table" class="table">
                             <thead>
                                 <tr>
-                                    <th width="25%">Name</th>
+                                    <th width="20%">Name</th>
                                     <th width="20%">Total of hours</th>
                                     <th width="30%">Reward</th>
-                                    <th></th>
+                                    <th width="10%">Actions</th>
                                 </tr>
                             </thead>
 
@@ -41,9 +41,7 @@
                                                 <ul>
                                                     @foreach($user['rewards'] as $rwrd)
                                                         @if($rwrd !== null)
-                                                            <li>{{ $rwrd }}
-                                                                <button>Unclaim</button>
-                                                            </li>
+                                                            <li>{{ $rwrd }}</li>
                                                         @endif
                                                     @endforeach
                                                 </ul>
@@ -71,8 +69,8 @@
                                 <th width="30%">Name</th>
                                 <th width="20%">Total of hours</th>
                                 <th width="20%">Reward</th>
-                                <th width="15%">Claim Status</th>
-                                <th width="15%">Actions</th>
+                                <th width="20%">Claim Status</th>
+                                <th width="10%">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -90,7 +88,13 @@
                                         No Rewards
                                     @endif
                                 </td>
-                                <td>Unclaim</td>
+                                <td class="claim-status">
+                                    @foreach($userRewards as $reward)
+                                        <li>
+                                            {{ $reward->claim_status ? 'Claimed' : 'Unclaimed' }}
+                                        </li>
+                                    @endforeach
+                                </td>
                                 <td>
                                 @foreach($userRewards as $reward)
                                     <li class="claim-reward">
@@ -244,7 +248,9 @@
                                                 <label class="label">{{ $request->user->name }}</label>
                                                 
                                                 <div class="btn-approval">
-                                                    <button class="btn btn-success btn-xs btn-approve" style="margin-right: 5px;" wire:click="approveRequest({{ $request->id }})">Approve</button>
+                                                    @foreach($claimRequests as $claimRequest)
+                                                        <button type="button" wire:click="approveRequest({{ $claimRequest->id }})">Approve</button>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>

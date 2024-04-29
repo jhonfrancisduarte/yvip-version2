@@ -14,15 +14,15 @@
                             <a href="#" wire:click="openActionForm"><i class="fas fa-ellipsis-h nav-for-action" width="10%"></i></a>
                             @if($actionForm)
                                 <div class="actions-container">
-                                    <button type="button" class="btn btn-info btn-sm btn-add-skill" wire:click="openAddSkillForm({{ auth()->user()->id }})">Add Skill</button>
-                                    <button type="button" class="btn btn-info btn-xs mr-2 btn-add-experience" required wire:click="openExperienceForm({{ auth()->user()->id }})">Add Experience</button>
+                                    <button type="button" class="btn-submit btn-add-skill" wire:click="openAddSkillForm('{{ auth()->user()->id }}')">Add Skill</button>
+                                    <button type="button" class="btn-submit btn-add-experience" required wire:click="openExperienceForm('{{ auth()->user()->id }}')">Add Experience</button>
                                 </div>
                             @endif
                         </div>
                 
                         <div class="card-body">
 
-                            <table class="table">
+                            <table class="table-main table-full-width">
                                 <thead>
                                     <tr class="table-header">
                                         <th width="30%">My Category</th>
@@ -93,10 +93,7 @@
                             </div>
 
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-info" wire:click="closeAddSkillForm"><i
-                                        class="fa fa-times"></i> Close</button>
-                                <button type="submit" class="btn btn-success"><i
-                                        class="fa fa-check" ></i> Add</button>
+                                <button type="submit" class="btn-submit">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -111,7 +108,7 @@
                 <form wire:submit.prevent="addExp" class="experience-form">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Your Experience</h4>
+                            <h4 class="modal-title">Add Experience</h4>
                             <button type="button" class="close" wire:click="closeExperienceForm"
                                 aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -120,15 +117,14 @@
 
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="experience">Experience</label>
+                                <label for="experience">Your experience</label>
                                 <textarea class="form-control" id="experience" name="experience" wire:model.defer="experience"></textarea>
                                 @error('experience') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
                             </div>
                         </div>
 
                         <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-info" wire:click="closeExperienceForm"><i class="fa fa-times"></i> Close</button>
-                            <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Add</button>
+                            <button type="submit" class="btn-submit">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -159,8 +155,7 @@
                             </div>
 
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-info" wire:click="closeEditExpForm"><i class="fa fa-times"></i> Close</button>
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Update</button>
+                                <button type="submit" class="btn-submit">Submit</button>
                             </div>
                         </div>
                     </form>

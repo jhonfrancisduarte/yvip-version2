@@ -15,6 +15,7 @@ class IpEvents extends Model
         'organizer_sponsor',
         'start',
         'end',
+        'status',
         'qualifications',
         'participants',
         'join_requests',

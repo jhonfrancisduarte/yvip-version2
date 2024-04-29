@@ -28,7 +28,10 @@
                 </div>
 
                 <div class="login-container">
-                    @livewire('login')
+                    <div class="login-form-container">
+                        @livewire('login')
+                        @livewire('forgot-password')
+                    </div>
                 </div>
 
             </div>
@@ -37,5 +40,18 @@
 @endsection
 
 @section ('js')
+<script>
+    const container = document.getElementById('forgot-pass-form');
+    const toggleButtons = document.getElementsByClassName('forget');
 
+    for (let i = 0; i < toggleButtons.length; i++) {
+        toggleButtons[i].addEventListener('click', () => {
+        if (container.style.left === '0px') {
+            container.style.left = '-500px';
+        } else {
+            container.style.left = '0px';
+        }
+        });
+    }
+</script>
 @endsection

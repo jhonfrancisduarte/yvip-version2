@@ -5,12 +5,6 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="css/announcement.css">
-    <link rel="stylesheet" type="text/css" href="css/volunteers.css">
-    <link rel="stylesheet" type="text/css" href="css/volunteerregistration.css">
-    <link rel="stylesheet" type="text/css" href="css/ip-events.css">
-    <link rel="stylesheet" type="text/css" href="css/past-participated-event.css">
-
 
 @endsection
 

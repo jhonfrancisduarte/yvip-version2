@@ -1,4 +1,4 @@
-<div class="login-form-container">
+<div class="login-form">
         <h2 class="title">Sign in to your account</h2>
         <form wire:submit.prevent="login">
             <div class="row row-space login-input-div">
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="row row-space login-input-div">
+            <div class="row row-space login-input-div2">
                 <div class="col-2">
                     <div class="input-group">
                         <div class="remember-me">
@@ -34,15 +34,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-2 col-forget">
                     <div class="input-group">
-                        <p class="forget"><a href="{{ route('password.request')}}">Forgot Password?</a></p>
+                        {{-- <p class="forget" id="forget"><a href="{{ route('password.request')}}">Forgot Password?</a></p> --}}
+                        <p class="forget" id="forget">Forgot Password?</p>
                     </div>
                 </div>
             </div>
 
             <div class="p-t-15">
-                <button class="btn btn--radius-2 btn--blue login-button" type="submit">Sign In</button>
+                <button class="login-button" type="submit">Sign In</button>
             </div>
 
             @if ($errors->has('login'))
@@ -51,6 +52,9 @@
                 <span style="color: red;">Your account has not been approved yet!</span>
             @endif
  
-            <p class="p"><a href="/registration">I don't have an account yet!</a></p>
+            <p class="p"><a href="/registration" wire:navigate>I don't have an account yet!</a></p>
+            @if (session('status'))
+                <p class="green">{{ session('status') }}</p>
+            @endif
         </form>
 </div>

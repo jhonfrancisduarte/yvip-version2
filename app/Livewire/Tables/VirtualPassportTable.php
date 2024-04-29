@@ -2,15 +2,17 @@
 
 namespace App\Livewire\Tables;
 
-use BaconQrCode\Encoder\Encoder;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\IpEvents;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class VirtualPassportTable extends Component
 {
+    use WithPagination; // Import WithPagination trait
+
     public $qrCodeUrl;
     public $search;
     public $myEvents = [];
@@ -20,7 +22,8 @@ class VirtualPassportTable extends Component
         $this->generateQrCodeUrl();
     }
 
-    private function getUserIpEvents(){
+    private function getUserIpEvents()
+    {
         $userData = Auth::user()->userData;
         $details = [
             'Passport No.' => $userData->passport_number,
@@ -40,7 +43,8 @@ class VirtualPassportTable extends Component
         return IpEvents::whereRaw('find_in_set(?, participants)', [$userId])->get();
     }
 
-    public function generateQrCodeUrl(){
+    public function generateQrCodeUrl()
+    {
         $userData = Auth::user()->userData;
         $userId = Auth::user()->id;
         $details = [
@@ -52,34 +56,34 @@ class VirtualPassportTable extends Component
             'Date of Birth: ' . $userData->date_of_birth,
             'My IP Events:',
             'EventName|Sponsor|Start Date|End Date',
-    ];
+        ];
 
+        $userIpEvents = $this->getUserIpEvents();
 
-    $userIpEvents = $this->getUserIpEvents();
+        foreach ($userIpEvents as $event) {
+            $details[] = implode(' | ', [
+                $event->event_name,
+                $event->organizer_sponsor,
+                Carbon::parse($event->start)->format('Y-m-d'),
+                Carbon::parse($event->end)->format('Y-m-d'),
+            ]);
+        }
 
-    foreach ($userIpEvents as $event) {
-        $details[] = implode(' | ', [
-            $event->event_name,
-            $event->organizer_sponsor,
-            Carbon::parse($event->start)->format('Y-m-d'),
-            Carbon::parse($event->end)->format('Y-m-d'),
-        ]);
+        $qrData = implode("\n", $details);
+
+        $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($qrData);
     }
 
+    public function render()
+    {
+        $userIpEvents = $this->getUserIpEvents();
 
-    $qrData = implode("\n", $details);
-
-    $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($qrData);
-}
-    public function render(){
         $ipEvents = IpEvents::join('users', 'users.id', '=', 'ip_events.user_id')
             ->select('users.name', 'ip_events.*')
             ->orderBy('ip_events.created_at', 'desc')
-            ->get();
+            ->paginate(5); // Adjust the number of items per page as needed
 
-        $joinRequestsData = [];
-
-        $ipEvents->transform(function ($event) use (&$joinRequestsData) {
+        $ipEvents->transform(function ($event) use ($userIpEvents) {
             $participantIds = explode(',', $event->participants);
             $participantData = [];
             $userId = auth()->user()->id;

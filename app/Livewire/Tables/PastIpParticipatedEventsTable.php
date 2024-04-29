@@ -5,9 +5,12 @@ namespace App\Livewire\Tables;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PastIpEvent;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class PastIpParticipatedEventsTable extends Component
 {
+    use WithPagination;
+
     public $openAddEvent = false;
     public $eventName;
     public $organizerSponsor;
@@ -16,13 +19,13 @@ class PastIpParticipatedEventsTable extends Component
     public $dateEnd;
     public $editEventId;
     public $deleteEventId;
-    public $confirmingDelete = false; // Add this property to control the delete confirmation modal
+    public $confirmingDelete = false;
 
     protected $listeners = ['deleteEventConfirmed'];
 
     public function render()
     {
-        $pastIpEvents = PastIpEvent::all();
+        $pastIpEvents = PastIpEvent::paginate(5);
 
         return view('livewire.tables.past-ip-participated-events-table', [
             'pastIpEvents' => $pastIpEvents,
@@ -31,7 +34,7 @@ class PastIpParticipatedEventsTable extends Component
 
     public function openAddEventModal()
     {
-        $this->editEventId = null; // Reset editEventId when opening the modal to ensure it's treated as adding a new event
+        $this->editEventId = null;
         $this->openAddEvent = true;
     }
 
@@ -43,11 +46,10 @@ class PastIpParticipatedEventsTable extends Component
 
     public function saveEvent()
     {
-        // Validate the form fields with custom error messages
         $this->validate([
-            'eventName' => 'required|string|max:255', // Added max length validation
-            'organizerSponsor' => 'required|string|max:255', // Added max length validation
-            'sponsorCategory' => 'required|string', // Added string validation
+            'eventName' => 'required|string|max:255',
+            'organizerSponsor' => 'required|string|max:255',
+            'sponsorCategory' => 'required|string',
             'dateStart' => 'required|date',
             'dateEnd' => 'required|date|after_or_equal:dateStart',
         ], [
@@ -57,7 +59,6 @@ class PastIpParticipatedEventsTable extends Component
             'dateEnd.after_or_equal' => 'The end date must be after or equal to the start date.'
         ]);
 
-        // Save or update the event based on whether editEventId is set
         if ($this->editEventId) {
             $this->updateEvent();
         } else {
@@ -68,40 +69,34 @@ class PastIpParticipatedEventsTable extends Component
     public function editEvent($eventId)
     {
         $this->editEventId = $eventId;
-        // Fetch the event data and set it to the form fields for editing
         $event = PastIpEvent::findOrFail($eventId);
         $this->eventName = $event->event_name;
         $this->organizerSponsor = $event->organizer_sponsor;
         $this->sponsorCategory = $event->sponsor_category;
         $this->dateStart = $event->start;
         $this->dateEnd = $event->end;
-        // Open the modal for editing
         $this->openAddEvent = true;
     }
 
     public function deleteEvent($eventId)
     {
         $this->deleteEventId = $eventId;
-        // Set a flag to confirm deletion
         $this->confirmingDelete = true;
     }
 
     public function confirmDelete()
     {
-        // Delete the event
         if ($this->deleteEventId) {
             PastIpEvent::findOrFail($this->deleteEventId)->delete();
             $this->deleteEventId = null;
         }
-        // Reset the flag to hide the confirmation modal
         $this->confirmingDelete = false;
     }
 
     private function createEvent()
     {
-        // Save the event to the database
         PastIpEvent::create([
-            'user_id' => Auth::id(), // Use Auth::id() to get the authenticated user's ID
+            'user_id' => Auth::id(),
             'event_name' => $this->eventName,
             'organizer_sponsor' => $this->organizerSponsor,
             'sponsor_category' => $this->sponsorCategory,
@@ -109,16 +104,12 @@ class PastIpParticipatedEventsTable extends Component
             'end' => $this->dateEnd,
         ]);
 
-        // Close the modal after saving
         $this->openAddEvent = false;
-
-        // Reset form fields
         $this->resetForm();
     }
 
     private function updateEvent()
     {
-        // Update the event in the database
         if ($this->editEventId) {
             $event = PastIpEvent::findOrFail($this->editEventId);
             $event->update([
@@ -128,17 +119,13 @@ class PastIpParticipatedEventsTable extends Component
                 'start' => $this->dateStart,
                 'end' => $this->dateEnd,
             ]);
-            // Close the modal after updating
             $this->openAddEvent = false;
-
-            // Reset form fields
             $this->resetForm();
         }
     }
 
     private function resetForm()
     {
-        // Reset form fields
         $this->reset(['eventName', 'organizerSponsor', 'sponsorCategory', 'dateStart', 'dateEnd']);
     }
 }

@@ -25,8 +25,7 @@ class VolunteerRewards extends Component
     public $popup_message;
     public $disabledButtons = [];
 
-    public function mount()
-    {
+    public function mount(){
         $this->rewards = Rewards::all();
         $this->fetchTotalVolunteerHours();
         $this->fetchUserRewards();
@@ -66,10 +65,16 @@ class VolunteerRewards extends Component
         try {
             $claimRequest = ClaimRequest::findOrFail($claimRequestId);
 
+            $rewards = VolunteerReward::where('user_id', $claimRequest->user_id)->get();
+
+            // Update the claim status of each reward record
+            foreach ($rewards as $reward) {
+                $reward->update(['claim_status' => 1]);
+            }
+                
             $claimRequest->update([
                 'approved' => '1',
                 'pending' => null,
-                'disapproved' => null
             ]);
             
         } catch (Exception $e) {
@@ -89,6 +94,7 @@ class VolunteerRewards extends Component
             
             ClaimRequest::create([
                 'user_id' => $userId,
+                'reward_id' => $rewardId,
                 'pending' => true,
             ]);
 

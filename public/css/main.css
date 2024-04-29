@@ -1,12 +1,3 @@
-@media (max-width:768px) {
-  .action-btn {
-    position: sticky;
-    right: -22px;
-    background: white;
-  }
-}
-
-
 .pop-up-message {
   position: absolute;
   top: -100px;
@@ -38,20 +29,20 @@
   color: #28a745;
 }
 
-td p {
-  font-weight: bold;
+.green {
+  color: #1fbd6e !important;
 }
 
-.green {
-  color: #28a745;
+.red {
+  color: rgb(223, 60, 60) !important;
 }
 
 .blue {
-  color: rgb(0, 0, 255);
+  color: rgb(0, 0, 255) !important;
 }
 
 .light-blue {
-  color: rgb(0, 124, 226);
+  color: rgb(0, 124, 226) !important;
 }
 
 .orange {
@@ -83,10 +74,13 @@ td p {
     margin-left: 0;
     margin-top: 10px;
   }
-}
 
+  .action-btn {
+    position: sticky;
+    right: -22px;
+    background: white;
+  }
 
-@media (max-width: 767px) {
   .card-4 .card-body {
     padding: 50px 40px;
   }
@@ -111,6 +105,7 @@ td p {
 
   .login-form-container {
     width: 100% !important;
+    position: relative !important;
   }
 
   .welcome-header .line-divider {
@@ -166,19 +161,8 @@ td p {
   padding: 10px;
 }
 
-.reg-message .reg-button a {
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 5px;
-  width: 100px;
+.reg-message .login-button {
   margin-top: 20px;
-  text-align: center;
-  padding: 5px 15px;
-  cursor: pointer;
-}
-
-.reg-message .reg-button a:hover {
-  background: #045C9C;
-  color: white;
 }
 
 .welcome-nav .reg-button:hover {
@@ -264,10 +248,12 @@ td p {
 .forget {
   position: absolute;
   right: 0;
+  cursor: pointer;
 }
 
 .login-form-container {
   background: rgba(255, 255, 255, 1);
+  position: relative;
   border-radius: 10px;
   padding: 30px;
   margin-right: 150px;
@@ -278,8 +264,144 @@ td p {
   box-shadow: 0px 0px 10px 1px rgba(113, 106, 202, 0.2);
 }
 
+
 .login-button {
-  background: #00C6ED !important;
+  display: inline-block;
+  transition: all 0.2s ease-in;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  color: white;
+  padding: 3px 15px 5px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 3px;
+  background: #0061C4;
+  border: 1px solid #0061C4;
+}
+
+.login-button:active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+.login-button:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.25);
+  top: 100%;
+  width: 140%;
+  height: 180%;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: block;
+  transition: all 0.3s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.login-button:after {
+  content: "";
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.45);
+  top: 180%;
+  width: 160%;
+  height: 190%;
+  background-color: #F75F01;
+  border-radius: 50%;
+  display: block;
+  transition: all 0.3s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.login-button:hover {
+  color: #ffffff;
+  border: 1px solid #F75F01;
+}
+
+.login-button:hover:before {
+  top: -35%;
+  background-color: #F75F01;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.login-button:hover:after {
+  top: -45%;
+  background-color: #F75F01;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.to-login-button a {
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.register-button {
+  display: inline-block;
+  transition: all 0.2s ease-in;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  color: white;
+  padding: 10px 25px 10px 25px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 3px;
+  background: #0061C4;
+  border: 1px solid #0061C4;
+}
+
+.register-button:active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+.register-button:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.25);
+  top: 100%;
+  width: 140%;
+  height: 180%;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: block;
+  transition: all 0.3s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.register-button:after {
+  content: "";
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.45);
+  top: 180%;
+  width: 160%;
+  height: 190%;
+  background-color: #F75F01;
+  border-radius: 50%;
+  display: block;
+  transition: all 0.3s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.register-button:hover {
+  color: #ffffff;
+  border: 1px solid #F75F01;
+}
+
+.register-button:hover:before {
+  top: -35%;
+  background-color: #F75F01;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.register-button:hover:after {
+  top: -45%;
+  background-color: #F75F01;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
 
 .p {
@@ -299,6 +421,7 @@ td p {
   display: flex;
   align-items: center;
   justify-content: end;
+  overflow: hidden;
 }
 
 .login-container .login-overlay {
@@ -404,6 +527,7 @@ td p {
 @media screen and (max-width: 768px) {
   .landing-page-hero {
     position: relative;
+    display: block;
     background-size: fill;
     background-position: right;
     width: 100%;
@@ -424,6 +548,92 @@ td p {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .login-form-container {
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 20px;
+  }
+
+  .login-container {
+    position: relative;
+    height: 100%;
+    margin-top: -50px;
+  }
+
+  .welcome-header .logo {
+    margin-top: 50px;
+    width: 200px;
+  }
+
+  .login-input-div2 {
+    position: relative;
+  }
+
+  .col-forget {
+    position: absolute;
+  }
+
+  .f-2 {
+    position: absolute;
+    left: 0 !important;
+  }
+
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .landing-page-hero {
+    position: relative;
+    display: block !important;
+    background-size: fill;
+    background-position: right;
+    width: 100%;
+    height: 550px !important;
+  }
+
+  .login-container {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-top: -50px;
+  }
+
+  .reg-message .reg-button {
+    margin-top: 20px;
+  }
+
+  .reg-message .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-form-container {
+    padding: 20px;
+    margin: 0;
+  }
+
+  .login-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: -300px;
+  }
+
+  .welcome-header {
+    padding-left: 100px !important;
+    padding-right: 100px !important;
+    width: 100%;
+    display: block !important;
+  }
+
+  .welcome-header .logo {
+    margin-top: 50px;
+    width: 200px;
   }
 
 }
@@ -451,4 +661,21 @@ td p {
 
 .to-login-button b a {
   text-decoration: none;
+}
+
+.forgot-pass-form {
+  position: absolute;
+  top: 0;
+  left: -500px;
+  padding: 30px;
+  width: 100%;
+  background: white;
+  height: 100%;
+  transition: 0.3s ease-in-out;
+  z-index: 2;
+  border-radius: 10px;
+}
+
+.forgot-links {
+  margin-top: 50px;
 }

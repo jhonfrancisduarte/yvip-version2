@@ -164,11 +164,21 @@
     display: flex;
 }
 
-.right-action-btn {
+.top-buttons{
+    width: auto;
+    position: absolute;
+    right: 0;
+}
+
+.action-btn {
     position: sticky;
-    left: -22px;
+    right: -22px;
     background: white;
-    border: 1px solid #ccc !important;
+}
+
+
+.th-action-btn {
+    background: rgba(238,238,238,1) !important;
 }
 
 .close-form {
@@ -181,15 +191,36 @@
 
 .btn-accounts {
     position: relative;
+    right: 10px;
 }
 
-.btn-accounts span {
+.top-buttons span {
     padding: 0px 5px;
     border-radius: 5px;
     position: absolute;
     top: -10px;
-    left: -10px;
+    left: -20px;
+    z-index: 999;
+    border: 1px solid #ccc;
 }
+
+.m-0 a{
+    margin-top: 10px !important;
+}
+
+.no-padding{
+    padding-top: 0 !important
+}
+
+.anns-full-h .add-announcement-container{
+    margin-top: 0px !important;
+    padding-top: 0 !important;
+}
+
+.modal-footer{
+    border-top: none !important;
+}
+
 
 .label-capitalize span {
     text-transform: capitalize !important;
@@ -290,6 +321,13 @@
 
     canvas {
         max-width: 100%;
+    }
+
+    .action-btn2,
+    .action-btn {
+        position: sticky;
+        right: -22px;
+        background: white;
     }
 
 }

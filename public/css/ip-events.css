@@ -1,176 +1,246 @@
-.btn-add-event {
+.btn-add-event{
     margin-left: 15px;
 }
 
-.anns {
-    position: fixed;
-    top: 0;
+.anns{
+    position: fixed; top: 0;
     height: 100% !important;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.add-announcement-container {
+.add-announcement-container{
     margin-top: 0px;
     height: 100% !important;
     padding-top: 50px;
 }
 
-.add-announcement-container .modal-dialog {
+.add-announcement-container .modal-dialog{
     padding-bottom: 50px !important;
 }
 
-.anns .card-primary {
+.anns .card-primary{
     width: 100%;
 }
 
-.btn-add-skill {
+.btn-add-skill{
     margin-top: 10px;
     margin-left: 0;
 }
 
-.skill-form-control {
+.skill-form-control{
     margin-bottom: 5px;
 }
 
-.add-edit-skill-input {
+.add-edit-skill-input{
     position: relative;
 }
 
-.add-edit-skill-input .close {
+.add-edit-skill-input .close{
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 5px; right: 5px;
 }
 
-.list-td ul li {
+.list-td ul li{
     cursor: pointer;
 }
 
-.list-td-2 ul {
+.list-td-2 ul{
     padding-left: 15px;
 }
 
-.list-td ul li:hover {
+.list-td ul li:hover{
     color: green;
 }
 
-.row-footer .user-data {
+.row-footer .user-data{
     padding-top: 10px;
 }
 
-.green {
-    color: green;
-    font-weight: bold;
-}
-
-.blue {
-    color: #17a2b8;
-    font-weight: bold;
-}
-
-.orange {
-    color: orangered;
-    font-weight: bold;
-}
-
-.btn-accounts {
+.btn-accounts{
     position: relative;
 }
 
-.btn-accounts span {
-    padding: 0px 5px;
-    border-radius: 5px;
-    position: absolute;
-    top: -10px;
-    left: -10px;
+.card-header1{
+    width: 100%;
+    display: flex;
 }
 
-.requester {
+
+.p-centered span{
+    padding: 3px 3px;
+    border-radius: 5px;
+    position: absolute;
+    top: -10px; left: 0px;
+    border: 1px solid #ccc;
+}
+
+.reset-date{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.reset-date i{
+    cursor: pointer;
+}
+
+.requester{
     display: flex !important;
     justify-content: space-between;
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
 }
 
-.requester .label {
+.requester .label{
     cursor: pointer;
 }
 
-.requester .label:hover {
+.requester .label:hover{
     color: green;
 }
 
-.action-btn button {
+.action-btn button{
     width: 100% !important;
 }
 
-.requester .btn-approve {
+.requester .btn-approve{
     float: right;
     width: 80px !important;
 }
 
 
-.action-btn {
+.action-btn{
     position: relative;
 }
 
-.options-container {
-    width: 100px;
+.options-container{
+    width: 130px;
     position: absolute;
-    left: -90px;
-    top: 50px;
-    background-color: #343a40;
+    left: -120px; top: -100px;
+    background: white;
+    box-shadow: 0px 0px 15px 1px rgba(113, 106, 202, 0.1);
+    border: 1px solid #ccc;
     border-radius: 5px;
     padding: 8px;
-    z-index: 999;
+    z-index: 9999 !important;
 }
 
-.ppo-upload-file {
+.options-container button{
+    margin-top: 2px;
+    margin-bottom: 2px;
+    width: 100%;
+}
+
+.ppo-upload-file{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.ppo-upload-file .form-control {
+.ppo-upload-file .form-control{
     margin-right: 5px;
 }
 
-.ppo-upload-file button {
+.ppo-upload-file button{
     height: 100% !important;
 }
 
-.ppo-upload-file-container {
+.ppo-upload-file-container{
     border: 1px solid #ccc;
     background: #ccc;
     border-radius: 3px;
     padding: 5px;
 }
 
-.p-break {
+.p-break{
     word-wrap: break-word;
     width: 250px;
 }
 
-.search-bar {
+.search-bar{
     display: flex;
 }
 
-.search-bar input {
+.search-bar input{
     margin-left: 5px;
     width: 300px;
 }
 
-@media (max-width:768px) {
-    .btn-add-event {
+.input-group-radio{
+    margin-top: 4px;
+}
+
+.divider{
+    width: 1px;
+    background: #ccc;
+    height: 38px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.input-group-radio label{
+    font-weight: 400 !important;
+}
+
+.input-group-radio .radio{
+    display: flex;
+}
+
+.input-group-radio label{
+    line-height: 10px;
+}
+
+.input-group-radio input[type=radio]{
+    width: 13px;
+    margin-right: 5px;
+    margin-top: -7px;
+}
+
+.date-pick{
+    margin-left: -80px;
+}
+
+.light-blue{
+    position: relative;
+}
+
+.options{
+    position: relative;
+}
+
+@media (max-width:768px){
+    .btn-add-event{
         margin-top: 5px;
         margin-left: 0;
     }
 
-    .action-btn {
-        position: sticky;
+    .action-btn2{
+        position: sticky; 
         right: -22px;
         background: white;
     }
+
+    .card-header1 {
+        display: block;
+    }
+
+    .card-header1 .col-md-2{
+        margin-top: 5px;
+    }
+
+    .divider{
+        display: none;
+    }
+
+    .date-pick{
+        margin-left: 0;
+    }
+
+    .input-group-radio{
+        margin-top: 10px;
+    }
+    
 }

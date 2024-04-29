@@ -7,6 +7,8 @@ use Livewire\WithPagination;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\PhilippineProvinces;
 use App\Models\PhilippineCities;
+use Exception;
+
 class IpbsTable extends Component
 {
     use WithPagination;
@@ -28,23 +30,27 @@ class IpbsTable extends Component
     public function showUserData($userId){
         $this->selectedUserDetails = User::where('users.id', $userId)
                                 ->join('user_data', 'users.id', '=', 'user_data.user_id')
-                                ->select('users.email', 'users.active_status', 'user_data.*')
+                                ->select('users.email', 'users.user_role', 'users.active_status', 'user_data.*')
                                 ->first();
         $this->selectedUserDetails = $this->selectedUserDetails->getAttributes();
     }
 
     public function deleteVolunteer($userId){
-        $user = User::find($userId);
-        if ($user){
-            $user->userData()->delete();
-            $user->delete();
-            $this->deleteMessage = 'Volunteer deleted successfully.';
-            $this->disableButton = "Yes";
-        }else{
-            $this->deleteMessage = 'Volunteer deletion unsuccessfully.';
-            $this->disableButton = "Yes";
+        try{
+            $user = User::where('id', $userId)->first();
+            if ($user){
+                $user->userData()->delete();
+                $user->delete();
+                $this->deleteMessage = 'Volunteer deleted successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Volunteer deletion unsuccessfully.';
+                $this->disableButton = "Yes";
+            }
+            $this->deleteVolunteerId = null;
+        }catch(Exception $e){
+            throw $e;
         }
-        $this->deleteVolunteerId = null;
     }
 
     public function hideUserData(){
@@ -113,7 +119,7 @@ class IpbsTable extends Component
                 ->when($this->selectedCity, function ($query) {
                     return $query->where('user_data.permanent_selectedCity', $this->selectedCity);
                 })
-                ->get();
+                ->paginate(10);
 
         $deactivatedIPs = User::where('user_role', 'yip')
             ->where('users.active_status', 2)
@@ -142,18 +148,22 @@ class IpbsTable extends Component
     }
 
     public function reactivateVolunteer($userId){
-        $user = User::find($userId);
-        if ($user){
-            $user->update([
-                'active_status' => 1,
-            ]);
-            $this->deleteMessage = 'Reactivated successfully.';
-            $this->disableButton = "Yes";
-        }else{
-            $this->deleteMessage = 'Reactivated unsuccessfully.';
-            $this->disableButton = "Yes";
+        try{
+            $user = User::where('id', $userId)->first();
+            if ($user){
+                $user->update([
+                    'active_status' => 1,
+                ]);
+                $this->deleteMessage = 'Reactivated successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Reactivated unsuccessfully.';
+                $this->disableButton = "Yes";
+            }
+            $this->reactivateVolunteerId = null;
+        }catch(Exception $e){
+            throw $e;
         }
-        $this->reactivateVolunteerId = null;
     }
 
     public function reactivateDialog($userId){

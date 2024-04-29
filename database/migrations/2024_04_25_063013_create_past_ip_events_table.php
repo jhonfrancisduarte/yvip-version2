@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('past_ip_events', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('event_name', 100);
             $table->string('organizer_sponsor', 1000);

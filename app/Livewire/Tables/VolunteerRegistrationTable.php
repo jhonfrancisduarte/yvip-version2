@@ -4,11 +4,14 @@ namespace App\Livewire\Tables;
 use App\Models\User;
 use Livewire\Component;
 use App\Mail\UserApprovalNotification;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Livewire\WithPagination;
 
 class VolunteerRegistrationTable extends Component
 {
+    use WithPagination;
     public $selectedUserDetails;
     public $search;
     public $age_range;
@@ -25,7 +28,7 @@ class VolunteerRegistrationTable extends Component
         ->select('users.email', 'users.active_status', 'user_data.*')
         ->search(trim($this->search))
         ->where('users.active_status', 0)
-        ->get();
+        ->paginate(5);
 
         return view('livewire.tables.volunteer-registration-table',[
             'volunteers' => $volunteers, 
@@ -42,7 +45,7 @@ class VolunteerRegistrationTable extends Component
 
     public function approveUser($userId){
         $admin = Auth::user()->email;
-        $registrant = User::find($userId);
+        $registrant = User::where('id', $userId)->first();
         if ($registrant){
             $registrant->update([
                 'active_status' => 1,
@@ -84,17 +87,20 @@ class VolunteerRegistrationTable extends Component
     }
 
     public function deleteRegistrant($userId){
-        $user = User::find($userId);
-        if ($user){
-            $user->userData()->delete();
-            $user->delete();
-            $this->deleteMessage = 'Registrant deleted successfully.';
-            $this->disableButton = "Yes";
-        }else{
-            $this->deleteMessage = 'Registrant deletion unsuccessfully.';
-            $this->disableButton = "Yes";
+        try{ 
+            $user = User::where('id', $userId)->first();
+            if ($user){
+                $user->userData()->delete();
+                $user->delete();
+                $this->deleteMessage = 'Registrant disapproved successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Registrant disapproved unsuccessfully.';
+                $this->disableButton = "Yes";
+            }
+        }catch(Exception $e){
+            throw $e;
         }
-        $this->deleteRegistrantId = null;
     }
 
 }

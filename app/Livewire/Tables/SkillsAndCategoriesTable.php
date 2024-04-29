@@ -80,6 +80,7 @@ class SkillsAndCategoriesTable extends Component
             }
             $this->popup_message = null;
             $this->popup_message = "Category and skills added successfully.";
+            $this->closeAddForm();
         }catch(Exception $e){
             throw $e;
         }

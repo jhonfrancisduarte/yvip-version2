@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="card-body scroll-table" id="scroll-table">
-                        <table id="thisUserDetailss-table" class="table table-bordered table-striped">
+                        <table id="thisUserDetailss-table" class="table-main table-full-width">
                             <thead>
                                 <tr>
                                     <th>Name of Exchange Program/Event</th>
@@ -60,16 +60,16 @@
                                                 @if($thisEvent)
                                                     @if($thisEvent->file_paths)
                                                         <p>{{ pathinfo(asset($thisEvent->file_paths), PATHINFO_FILENAME) }}.{{ pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) }}</p>
-                                                        <div>
+                                                        <div class="anns-buttons">
                                                             <a href="{{ asset($thisEvent->file_paths) }}" download>
-                                                                <button class="btn btn-info btn-xs">Download</button>
+                                                                <i class="bi bi-file-earmark-arrow-down"></i> Download
                                                             </a>
                                                             
                                                             @if(pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) === 'pdf' ||
                                                                 pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) === 'docx' ||
                                                                 pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) === 'txt' ||
                                                                 pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) === 'csv')
-                                                                <button class="btn btn-info btn-xs btn-resized" onclick="window.open('{{ asset($thisEvent->file_paths) }}', '_blank')">Preview</button>
+                                                                <a href="#" onclick="window.open('{{ asset($thisEvent->file_paths) }}', '_blank')"><i class="bi bi-eye"></i> Preview</a>
                                                             @endif
                                                         </div>
                                                     @else
@@ -79,14 +79,14 @@
                                                     <div class="ppo-upload-file-container">
                                                         <form class="ppo-upload-file" wire:submit.prevent="uploadPostProgramObligation({{ $event->id }})">
                                                             <input type="file" id="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" required/>
-                                                            <button class="btn btn-success btn-xs" type="submit">Upload</button>
+                                                            <button class="btn-submit" type="submit"><i class="bi bi-upload"></i></button>
                                                         </form>
                                                     </div>
                                                     Or
                                                     <div class="ppo-upload-file-container">
                                                         <form class="ppo-upload-file" wire:submit.prevent="uploadPostProgramObligation({{ $event->id }})">
                                                             <input class="form-control" type="text" id="file" wire:model.live='link' placeholder="Paste file link here" required/>
-                                                            <button class="btn btn-success btn-xs" type="submit">Submit</button>
+                                                            <button class="btn-submit" type="submit"><i class="bi bi-upload"></i></button>
                                                         </form>
                                                     </div>
                                                     @error('chooseOne')
@@ -98,16 +98,6 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-
-                            <tfoot>
-                                <tr>
-                                    <th>Name of Exchange Program/Event</th>
-                                    <th>Organizer / Sponsor</th>
-                                    <th>Date / Period</th>
-                                    <th>Status</th>
-                                    <th width="30%">Post-Program Obligation</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>

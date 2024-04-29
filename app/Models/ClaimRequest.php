@@ -13,9 +13,9 @@ class ClaimRequest extends Model
 
     protected $fillable = [
         'user_id',
+        'reward_id',
         'approved',
         'pending',
-        'disapproved',
         // Add other fillable fields as needed
     ];
 

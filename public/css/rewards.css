@@ -53,8 +53,9 @@
     border-radius: 5px !important;
 }
 
-.rewards ul li button {
-    float: right;
+.rewards ul li {
+    display: flex;
+    justify-content: space-between;
     cursor: default;
     pointer-events: none;
 }
@@ -144,4 +145,9 @@
 
 .request-form .modal-content {
     width: 600px;
+}
+
+#rewards-table .claim-status li {
+    margin-bottom: 15px;
+    list-style-type: none;
 }

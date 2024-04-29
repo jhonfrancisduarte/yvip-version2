@@ -12,9 +12,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->text('reward_id');
             $table->text('approved')->nullable();
             $table->text('pending')->nullable();
-            $table->text('disapproved')->nullable();
             $table->timestamps();
         });
     }
