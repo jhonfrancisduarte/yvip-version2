@@ -3,7 +3,7 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <div class="card">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
                     <div class="card-header">
                         <h3 class="card-title text-center fw-bold fs-4">Past IP Events</h3>
                         <div class="d-flex justify-content-end"> <!-- Align to the right -->
@@ -66,7 +66,10 @@
                     </div>
                     <div class="m-3">
 
-                        {{ $pastIpEvents->links('livewire::bootstrap') }}
+
+                            {{ $pastIpEvents->links('livewire::bootstrap') }}
+
+
                     </div>
                 </div>
 

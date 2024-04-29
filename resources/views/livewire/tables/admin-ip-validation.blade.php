@@ -2,7 +2,7 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-12">
-                <div class="card">
+                <div class="card" style="border-radius: 20px; overflow: hidden; ">
                     <div class="card-header">
                         <div class="d-flex m-2">
                             <!-- Search input -->
@@ -64,6 +64,7 @@
                         {{ $pastIpEvents->links('livewire::bootstrap') }}
                     </div>
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
