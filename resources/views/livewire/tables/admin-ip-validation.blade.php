@@ -4,58 +4,62 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title text-center fw-bold fs-4">Past IP Events</h3>
-                        <div class="d-flex justify-content-end">
-                            <!-- Button to trigger modal -->
-                            <button type="button" class="btn-submit" wire:click="openAddEventModal">Add Event</button>
+                        <div class="d-flex m-2">
+                            <!-- Search input -->
+                            <div class="input-group me-3" style="max-width: 300px;">
+                                <input type="search" class="form-control" wire:model.live="searchQuery" placeholder="Search...">
+                            </div>
+
+                            <div class="ml-auto">
+                                <button type="button" class="btn-submit" wire:click="openAddEventModal">Add Event</button>
+                            </div>
                         </div>
                     </div>
 
-                        <div class="card-body scroll-table" id="scroll-table">
-                            <table id="volunteers-table" class="table-main table-full-width">
-                                <thead>
-                                    <tr>
-                                        <th>User</th>
-                                        <th>Event Name</th>
-                                        <th>Organizer / Sponsor</th>
-                                        <th>Sponsor Category</th>
-                                        <th>Date / Period</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($pastIpEvents as $event)
-                                    <tr>
-                                        <td class="text-nowrap">{{ $event->user->name }}</td>
-                                        <td>{{ $event->event_name }}</td>
-                                        <td>{{ $event->organizer_sponsor }}</td>
-                                        <td>{{ $event->sponsor_category }}</td>
-                                        <td>{{ $event->start }} - {{ $event->end }}</td>
-                                        <td>{{ $event->confirmed ? 'Confirmed' : 'Pending' }}</td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group">
-                                                @if (!$event->confirmed)
-                                                    <button type="button" class="btn-submit" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
-                                                        Approve
-                                                    </button>
-                                                @endif
-                                                <div class="mx-1"></div>
-                                                <button type="button" class="btn-submit" wire:click="editEvent({{ $event->id }})">
-                                                    <i class="bi bi-pencil-fill"></i>
-                                                </button>
-                                                <div class="mx-1"></div>
-                                                <button type="button" class="btn-delete" wire:click="deleteEvent({{ $event->id }})">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="card-body scroll-table" id="scroll-table">
+                        <table class="table-main table-full-width">
+                            <thead>
+                                <tr>
+                                    <th class="bg-primary">User</th>
+                                    <th class="bg-primary">Event Name</th>
+                                    <th class="bg-primary">Organizer / Sponsor</th>
+                                    <th class="bg-primary">Sponsor Category</th>
+                                    <th class="bg-primary">Date / Period</th>
+                                    <th class="bg-primary">Status</th>
+                                    <th class="bg-primary text-center">Actions</th>
+                                </tr>
+                            </thead>
 
+
+                            <tbody>
+                                @foreach($pastIpEvents as $event)
+                                <tr>
+                                    <td class="text-nowrap">{{ $event->user->name }}</td>
+                                    <td>{{ $event->event_name }}</td>
+                                    <td>{{ $event->organizer_sponsor }}</td>
+                                    <td>{{ $event->sponsor_category }}</td>
+                                    <td>{{ $event->start }} - {{ $event->end }}</td>
+                                    <td>{{ $event->confirmed ? 'Confirmed' : 'Pending' }}</td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            @if (!$event->confirmed)
+                                                <button type="button" class="btn-submit" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
+                                                    Approve
+                                                </button>
+                                            @endif
+                                            <button type="button" class="btn-submit" wire:click="editEvent({{ $event->id }})">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </button>
+                                            <button type="button" class="btn-delete" wire:click="deleteEvent({{ $event->id }})">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="m-3">
                         {{ $pastIpEvents->links('livewire::bootstrap') }}
                     </div>
@@ -76,6 +80,7 @@
                 <div class="modal-body">
                     <form wire:submit.prevent="saveEvent">
                         <div class="form-group">
+                            @if(!$editEventId)
                             <label for="userId">User</label>
                             <select class="form-control" id="userId" wire:model.defer="userId">
                                 <option value="">Select User</option>
@@ -83,6 +88,11 @@
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 @endforeach
                             </select>
+                            @else
+                            <label for="userId">User</label>
+                            <input type="text" class="form-control" id="userId" value="{{ $users->firstWhere('id', $userId)->name }}" disabled>
+                            <input type="hidden" wire:model.defer="userId">
+                            @endif
                             @error('userId') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group">
@@ -118,7 +128,6 @@
                         </div>
                         <button type="submit" class="btn-submit">Save</button>
                         <button type="button" class="btn-cancel" wire:click="closeAddEventModal">Cancel</button>
-
                     </form>
                 </div>
             </div>
@@ -128,7 +137,7 @@
 
     <!-- Approval Modals -->
     @foreach($pastIpEvents as $event)
-    <div class="modal" id="approveModal_{{ $event->id }}" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel_{{ $event->id }}" aria-hidden="true">
+    <div class="modal fade" id="approveModal_{{ $event->id }}" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel_{{ $event->id }}" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -156,7 +165,6 @@
     <!-- Confirmation Modal -->
     @if($confirmingDelete)
     <div class="modal" tabindex="-1" role="dialog" style="display: {{ $confirmingDelete ? 'block' : 'none' }};">
-        <div class="close-form" wire:click="$set('confirmingDelete', false)"></div>
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
