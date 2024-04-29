@@ -1,18 +1,18 @@
 <div>
     <div class="container mt-4">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title text-center fw-bold fs-4">Past IP Events</h3>
                         <div class="d-flex justify-content-end">
                             <!-- Button to trigger modal -->
-                            <button type="button" class="btn btn-info" wire:click="openAddEventModal">Add Event</button>
+                            <button type="button" class="btn-submit" wire:click="openAddEventModal">Add Event</button>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
+
+                        <div class="card-body scroll-table" id="scroll-table">
+                            <table id="volunteers-table" class="table-main table-full-width">
                                 <thead>
                                     <tr>
                                         <th>User</th>
@@ -34,18 +34,19 @@
                                         <td>{{ $event->start }} - {{ $event->end }}</td>
                                         <td>{{ $event->confirmed ? 'Confirmed' : 'Pending' }}</td>
                                         <td class="text-center">
-                                            @if (!$event->confirmed)
-                                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
-                                                    Approve
-                                                </button>
-                                            @endif
                                             <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-sm btn-info" wire:click="editEvent({{ $event->id }})">
+                                                @if (!$event->confirmed)
+                                                    <button type="button" class="btn-submit" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
+                                                        Approve
+                                                    </button>
+                                                @endif
+                                                <div class="mx-1"></div>
+                                                <button type="button" class="btn-submit" wire:click="editEvent({{ $event->id }})">
                                                     <i class="bi bi-pencil-fill"></i>
                                                 </button>
                                                 <!-- Add spacing between Edit and Delete buttons -->
                                                 <div class="mx-1"></div>
-                                                <button type="button" class="btn btn-sm btn-danger" wire:click="deleteEvent({{ $event->id }})">
+                                                <button type="button" class="btn-delete" wire:click="deleteEvent({{ $event->id }})">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                             </div>
@@ -56,7 +57,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+
                     <div class="m-3">
                         {{ $pastIpEvents->links('livewire::bootstrap') }}
                     </div>
@@ -118,8 +119,8 @@
                             @error('dateEnd') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-secondary" wire:click="closeAddEventModal">Cancel</button>
+                        <button type="submit" class="btn-submit">Save</button>
+                        <button type="button" class="btn-cancel" wire:click="closeAddEventModal">Cancel</button>
                     </form>
                 </div>
             </div>
@@ -129,7 +130,7 @@
 
    <!-- Approval Modals -->
     @foreach($pastIpEvents as $event)
-    <div class="modal fade" id="approveModal_{{ $event->id }}" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel_{{ $event->id }}" aria-hidden="true">
+    <div class="modal" id="approveModal_{{ $event->id }}" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel_{{ $event->id }}" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -146,8 +147,8 @@
                     <p><strong>Date / Period:</strong> {{ $event->start }} - {{ $event->end }}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-success" wire:click="approveEvent({{ $event->id }})" data-dismiss="modal" wire:loading.attr="disabled" wire:target="approveEvent">Approve</button>
+                    <button type="button" class="btn-cancel" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn-submit" wire:click="approveEvent({{ $event->id }})" data-dismiss="modal" wire:loading.attr="disabled" wire:target="approveEvent">Approve</button>
                 </div>
             </div>
         </div>
@@ -158,6 +159,7 @@
     <!-- Confirmation Modal -->
     @if($confirmingDelete)
     <div class="modal" tabindex="-1" role="dialog" style="display: {{ $confirmingDelete ? 'block' : 'none' }};">
+        <div class="close-form" wire:click="$set('confirmingDelete', false)"></div>
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -170,8 +172,8 @@
                     Are you sure you want to delete this event?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="$set('confirmingDelete', false)">Cancel</button>
-                    <button type="button" class="btn btn-danger" wire:click="confirmDelete">Delete</button>
+                    <button type="button" class="btn-cancel" wire:click="$set('confirmingDelete', false)">Cancel</button>
+                    <button type="button" class="btn-delete" wire:click="confirmDelete">Delete</button>
                 </div>
             </div>
         </div>

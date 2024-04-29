@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\Attributes\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Models\admin;
+use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 class AdminTable extends Component{
@@ -30,7 +31,7 @@ class AdminTable extends Component{
     public $password;
     public $c_password;
     public $profile_picture = 'images/blank_profile_pic.png';
-
+    public $active_status = 1;
     public $admin_position = "";
 
     protected $rules = [
@@ -40,8 +41,6 @@ class AdminTable extends Component{
     ];
 
     public function create(){
-        sleep(2);
-        DB::beginTransaction();
         try {
             $this->validate();
             if (!$this->isPasswordComplex($this->password)) {
@@ -66,7 +65,6 @@ class AdminTable extends Component{
                 'profile_picture' => $this->profile_picture,
             ]);
 
-            DB::commit();
             $this->reset();
             $this->popup_message = null;
             $this->popup_message = 'Admin registered successfully.';
@@ -82,13 +80,21 @@ class AdminTable extends Component{
             ->join('admin', 'users.id', '=', 'admin.user_id')
             ->select('users.email', 'users.active_status', 'users.user_role', 'admin.*')
             ->search2(trim($this->search))
+            ->when($this->active_status, function ($query) {
+                return $query->where('users.active_status', $this->active_status);
+            })
             ->when($this->admin_position, function ($query) {
                 return $query->where('users.user_role', $this->admin_position);
             })
             ->paginate(10);
 
+        $deactivatedAdmins = User::whereIn('user_role', ['sa', 'vs', 'vsa', 'ips'])
+            ->where('users.active_status', 2)
+            ->paginate(10);
+
         return view('livewire.tables.admin-table', [
             'admins' => $admins, 
+            'deactivatedAdmins' => $deactivatedAdmins, 
         ]);
     }
 
@@ -130,16 +136,20 @@ class AdminTable extends Component{
     }
 
     public function deleteAdmin($userId){
-        $user = User::find($userId);
-        if ($user){
-            $user->update([
-                'active_status' => 2,
-            ]);
-            $this->deleteMessage = 'Admin deactivated successfully.';
-            $this->disableButton = "Yes";
-        }else{
-            $this->deleteMessage = 'Admin deactivated unsuccessfully.';
-            $this->disableButton = "Yes";
+        try{
+            $user = User::where('id', $userId)->first();
+            if ($user){
+                $user->update([
+                    'active_status' => 2,
+                ]);
+                $this->deleteMessage = 'Admin deactivated successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Admin deactivated unsuccessfully.';
+                $this->disableButton = "Yes";
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 
@@ -154,6 +164,14 @@ class AdminTable extends Component{
     public function hideUserData(){
         if($this->selectedUserDetails != null){
             $this->selectedUserDetails = null;
+        }
+    }
+
+    public function deactivatedAccounts(){
+        if($this->active_status == 2){
+            $this->active_status = 1;
+        }else{
+            $this->active_status = 2;
         }
     }
 }

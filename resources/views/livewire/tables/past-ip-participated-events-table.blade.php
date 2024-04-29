@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="card-body scroll-table" id="scroll-table">
-                        <table class="table-main table-full-width">
+                        <table id="volunteers-table" class="table-main table-full-width">
                             <thead>
                                 <tr>
                                     <th>Event Name</th>
@@ -97,6 +97,7 @@
 <!-- Modal -->
 @if($openAddEvent)
     <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
+        <div class="close-form" wire:click="closeAddEventModal"></div>
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px;">
             <div class="modal-content">
                 <div class="modal-header">
@@ -145,6 +146,7 @@
 
 @if($openAddEvent)
     <div class="modal" tabindex="-1" role="dialog" style="display: {{ $openAddEvent ? 'block' : 'none' }};" style="width: 500px">
+        <div class="close-form" wire:click="closeAddEventModal"></div>
         <div class="modal-dialog modal-dialog-centered" role="document" >
             <div class="modal-content" >
                 <div class="modal-header">
@@ -200,6 +202,7 @@
 <!-- Confirmation Modal -->
 @if($confirmingDelete)
     <div class="modal" tabindex="-1" role="dialog" style="display: {{ $confirmingDelete ? 'block' : 'none' }};">
+        <div class="close-form" wire:click="$set('confirmingDelete', false)"></div>
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">

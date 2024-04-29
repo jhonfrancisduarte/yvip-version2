@@ -13,7 +13,28 @@
                         <h3 class="card-title">Admin and Secretariat Management</h3> 
                         <button type="button" class="btn-submit btn-float-right" wire:click="openAddForm">Register an Admin</i>
                         </button>
-                        
+                        <div class="top-buttons">
+                            <button type="button" class="btn btn-submit btn-accounts" style="float: right;" wire:click="deactivatedAccounts">
+                                @if($active_status === 1)
+                                    <div class="is-mobile-view">
+                                        <i class="fas fa-user-slash"></i>
+                                    </div>
+                                    <div class="is-desktop-view">
+                                        Deactivated Accounts
+                                    </div>
+                                @else
+                                    <div class="is-mobile-view">
+                                        <i class="fas fa-user-check"></i>                                
+                                    </div>
+                                    <div class="is-desktop-view">
+                                        Active Accounts
+                                    </div>
+                                @endif
+                            </button>
+                            @if($active_status === 1)
+                                <span style="color:white; background-color: {{ count($deactivatedAdmin) > 0 ? 'red' : 'rgb(245, 245, 245)' }}">{{ count($deactivatedAdmin) }}</span>
+                            @endif
+                        </div> 
                     </div>
                     <div class="card-header card-header1">
                         <label for="" class="label" style="margin-top: 5px;">Filter: </label>
@@ -66,8 +87,23 @@
                                             @endif
                                         </td>
                                         <td width="8%" class="action-btn2 width">
-                                            <p class="light-blue" wire:click="showUserData({{ $admin->user_id }})"><i class="bi bi-eye"></i> View</p>
-                                            <p class="red" wire:click="deleteDialog({{ $admin->user_id }})"><i class="bi bi-ban"></i> Deact</p>
+                                            {{-- <p class="light-blue" wire:click="showUserData({{ $admin->user_id }})"><i class="bi bi-eye"></i> View</p>
+                                            <p class="red" wire:click="deleteDialog({{ $admin->user_id }})"><i class="bi bi-ban"></i> Deact</p> --}}
+                                            <div class="btn-group" role="group">
+                                                <div class="btn-g">
+                                                    <button class="btn-submit" wire:click="showUserData('{{ $admin->user_id }}')">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <span class="span span-submit">View</span>
+                                                </div>
+                                                <div class="mx-1"></div>
+                                                <div class="btn-g">
+                                                    <button class="btn-delete" wire:click="deleteDialog('{{ $admin->user_id }}')">
+                                                        <i class="bi bi-ban"></i>
+                                                    </button>
+                                                    <span class="span span-delete">Deactivate</span>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -103,7 +139,7 @@
                 <div class="modal-footer">
                     @if($disableButton == "No")
                         <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
-                        <button class="btn-delete" wire:click="deleteAdmin({{ $deleteAdminId }})">Deactivate</button>
+                        <button class="btn-delete" wire:click="deleteAdmin('{{ $deleteAdminId }}')">Deactivate</button>
                     @else
                         <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
                     @endif
@@ -165,7 +201,7 @@
                     <div class="col">
                         <div class="user-data">
                             <button class="btn-cancel" wire:click="hideUserData">Close</button>
-                            <button class="btn-delete" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Delete Admin</button>
+                            <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete Admin</button>
                         </div>
                     </div>
                 </div>
