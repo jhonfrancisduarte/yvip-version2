@@ -358,7 +358,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label class="label">Select picture</label>
-                                                <input type="file" accept="image/*" id="profile_picture" wire:model.live='profile_picture' required/>
+                                                <input type="file" accept="image/*" id="profile_picture" wire:model.blur='profile_picture' required/>
                                             </div>
                                         </div>
                                     </div>

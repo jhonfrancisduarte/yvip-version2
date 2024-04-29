@@ -74,7 +74,7 @@ class AnnouncementTable extends Component
     }
 
     public function render(){
-        if($this->dashboardType == "yv" || $this->dashboardType == "vs" || $this->dashboardType == "vsa"){
+        if($this->dashboardType == "yv" || $this->dashboardType == "ip"){
             $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
                 ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
                 ->where('announcement.type', $this->dashboardType)
@@ -82,7 +82,7 @@ class AnnouncementTable extends Component
                 ->search(trim($this->search))
                 ->orderBy('announcement.created_at', 'desc')
                 ->get();
-        }else{
+        }elseif($this->dashboardType == "all"){
             $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
                 ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
                 ->select('announcement.*', 'admin.first_name', 'admin.last_name', 'admin.middle_name', 'admin.profile_picture')

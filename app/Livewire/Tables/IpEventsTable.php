@@ -8,12 +8,14 @@ use Livewire\Component;
 use App\Models\User;
 use Livewire\Attributes\Rule;
 use Exception;
+use Livewire\WithPagination;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
 class IpEventsTable extends Component
 {
+    use WithPagination;
     public $deleteSkillsandCategories;
     public $openEditEvent;
     public $openAddEvent;
@@ -47,6 +49,7 @@ class IpEventsTable extends Component
     public $status;
     public $filterBy = 'start';
     public $selectedDate;
+    public $joinNotif = false;
 
     public function addSkill(){
         $this->newSkills[] = '';
@@ -102,6 +105,7 @@ class IpEventsTable extends Component
                 $joinRequest = trim($joinRequest);
 
                 if (!empty($joinRequest)) {
+                    $this->joinNotif = true;
                     $user = User::find($joinRequest);
                     $userData = $user->userData;
 
@@ -123,6 +127,7 @@ class IpEventsTable extends Component
 
             return $event;
         });
+        Session::put('joinNotif', $this->joinNotif);
 
         return view('livewire.tables.ip-events-table', compact('ipEvents', 'joinRequestsData'));
     }

@@ -20,7 +20,6 @@ class AdminTable extends Component{
 
     #[Rule('required|min:2')]
     public $first_name;
-    #[Rule('required|min:2')]
     public $middle_name;
     #[Rule('required|min:2')]
     public $last_name;
@@ -30,7 +29,7 @@ class AdminTable extends Component{
     public $position;
     public $password;
     public $c_password;
-    public $profile_picture = "";
+    public $profile_picture = 'images/blank_profile_pic.png';
 
     public $admin_position = "";
 
@@ -39,10 +38,6 @@ class AdminTable extends Component{
         'c_password' => 'required|same:password',
 
     ];
-
-    public function mount(){
-        $this->profile_picture = 'images/blank_profile_pic.png';
-    }
 
     public function create(){
         sleep(2);
@@ -90,7 +85,7 @@ class AdminTable extends Component{
             ->when($this->admin_position, function ($query) {
                 return $query->where('users.user_role', $this->admin_position);
             })
-            ->get();
+            ->paginate(10);
 
         return view('livewire.tables.admin-table', [
             'admins' => $admins, 

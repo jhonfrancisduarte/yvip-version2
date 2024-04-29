@@ -75,7 +75,7 @@
 }
 
 .scroll-table::-webkit-scrollbar-track {
-    background-color: #eee;
+    background-color: white;
 }
 
 .table-contain .card,
@@ -329,7 +329,7 @@
         right: -22px;
         background: white;
     }
-
+    
 }
 
 @media (min-width:768px) and (max-width:1024px) {

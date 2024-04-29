@@ -159,6 +159,9 @@
                                 <i class="nav-icon bi bi-card-list"></i>
                                 <p>
                                     IP Events
+                                    @if(Session::get('joinNotif'))
+                                        <span class="notif-dot">•</span>
+                                    @endif
                                 </p>
                                 </a>
                             </li>

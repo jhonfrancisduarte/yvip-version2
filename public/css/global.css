@@ -338,6 +338,11 @@ z-index: -1;
     margin-top: 0 !important;
 }
 
+.notif-dot{
+    color: red;
+    font-size: 25px;
+}
+
 @media (max-width: 768px) {
     .btn-float-right{
         float: left !important;
@@ -373,7 +378,7 @@ z-index: -1;
 }
 
 
-@media (min-width: 768px) and (max-width: 2024px){
+@media (min-width: 768px) and (max-width: 1024px){
     .green{
         line-height: 10px;
     }

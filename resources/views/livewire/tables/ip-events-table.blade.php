@@ -129,7 +129,7 @@
                                             <td class="action-btn2">
                                                 @if(session('user_role') == 'sa' || session('user_role') == 'ips')
                                                     <p class="green p-centered" wire:click="openJoinRequests({{ $event->id }})">Join Requests
-                                                        <span style="color: black; background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? '#FFCCBC' : 'rgb(245, 245, 245)' }};">{{ count($joinRequestsData[$event->id] ?? []) }}</span>
+                                                        <span style="color: white; background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : 'rgb(245, 245, 245)' }};">{{ count($joinRequestsData[$event->id] ?? []) }}</span>
                                                     </p>
                                                     <div class="options">
                                                     <p class="light-blue" wire:click="toggleOptions({{ $event->id }})"><i class="bi bi-gear"></i> Options</p>
@@ -155,9 +155,7 @@
                                                 @endif
                                                 @if(session('user_role') == 'yip')
                                                     @if(!$event->hasJoined && !$event->approved && !$event->disapprovedParticipants && !$event->join_status)
-                                                        @if($event->status === "Completed")
-                                                            {{-- No action --}}
-                                                        @else
+                                                        @if($event->status !== "Completed")
                                                             <button class="btn-submit" wire:click="joinEvent({{ $event->id }})">Join</button>
                                                         @endif
                                                     @elseif($event->join_status)

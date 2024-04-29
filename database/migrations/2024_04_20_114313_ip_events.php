@@ -19,10 +19,10 @@ return new class extends Migration
                 $table->date('start')->format('d F Y');
                 $table->date('end')->format('d F Y');
                 $table->string('status')->nullable();
-                $table->string('qualifications', 1000);
-                $table->string('participants', 2000)->nullable();
-                $table->string('join_requests', 2000)->nullable();
-                $table->string('disapproved', 2000)->nullable();
+                $table->text('qualifications');
+                $table->text('participants')->nullable();
+                $table->text('join_requests')->nullable();
+                $table->text('disapproved')->nullable();
                 $table->boolean('join_status')->default(0);
                 $table->timestamps();
             });

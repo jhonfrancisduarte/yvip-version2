@@ -3,17 +3,18 @@
 namespace App\Livewire\Tables;
 use App\Models\IpEvents;
 use Livewire\Component;
-use App\Models\User;
+use Livewire\WithPagination;
 
 class ParticipatedIpEventsTable extends Component
 {
+    use WithPagination;
     public $search;
     public function render(){
         $ipEvents = IpEvents::join('users', 'users.id', '=', 'ip_events.user_id')
             ->select('users.name', 'ip_events.*')
             ->search(trim($this->search))
             ->orderBy('ip_events.created_at', 'desc')
-            ->get();
+            ->paginate(10);
     
         $ipEvents->transform(function ($event) use (&$joinRequestsData) {
             $participantIds = explode(',', $event->participants);

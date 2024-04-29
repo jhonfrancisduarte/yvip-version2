@@ -26,7 +26,7 @@
                                 <option class="label" value="sa">Super Admin</option>
                                 <option class="label" value="vs">Volunteer Secretariat</option>
                                 <option class="label" value="vsa">Volunteer Secretariat Assistant</option>
-                                <option class="label" value="aps">IP Secretariat</option>
+                                <option class="label" value="ips">IP Secretariat</option>
                             </select>
                         </div>
                     </div>
@@ -73,6 +73,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="m-3">
+                        {{ $admins->links('livewire::bootstrap') }}
                     </div>
                 </div>
             </div>
@@ -210,7 +213,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Middlename</label>
-                                            <input type="text" class="form-control" row="5" wire:model.live='middle_name' placeholder="Middlename" required>
+                                            <input type="text" class="form-control" row="5" wire:model.live='middle_name' placeholder="Middlename">
                                             @error('middle_name') 
                                                 <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                             @enderror
