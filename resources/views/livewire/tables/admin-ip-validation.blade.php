@@ -44,14 +44,12 @@
                                                 <button type="button" class="btn-submit" wire:click="editEvent({{ $event->id }})">
                                                     <i class="bi bi-pencil-fill"></i>
                                                 </button>
-                                                <!-- Add spacing between Edit and Delete buttons -->
                                                 <div class="mx-1"></div>
                                                 <button type="button" class="btn-delete" wire:click="deleteEvent({{ $event->id }})">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                             </div>
                                         </td>
-
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -118,9 +116,9 @@
                             <input type="date" class="form-control" id="dateEnd" placeholder="Enter date end" wire:model.defer="dateEnd" :min="$dateStart">
                             @error('dateEnd') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-
                         <button type="submit" class="btn-submit">Save</button>
                         <button type="button" class="btn-cancel" wire:click="closeAddEventModal">Cancel</button>
+
                     </form>
                 </div>
             </div>
@@ -128,7 +126,7 @@
     </div>
     @endif
 
-   <!-- Approval Modals -->
+    <!-- Approval Modals -->
     @foreach($pastIpEvents as $event)
     <div class="modal" id="approveModal_{{ $event->id }}" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel_{{ $event->id }}" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -155,7 +153,6 @@
     </div>
     @endforeach
 
-
     <!-- Confirmation Modal -->
     @if($confirmingDelete)
     <div class="modal" tabindex="-1" role="dialog" style="display: {{ $confirmingDelete ? 'block' : 'none' }};">
@@ -180,7 +177,3 @@
     </div>
     @endif
 </div>
-
-
-
-

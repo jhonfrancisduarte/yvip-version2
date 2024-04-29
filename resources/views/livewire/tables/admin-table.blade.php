@@ -32,7 +32,7 @@
                                 @endif
                             </button>
                             @if($active_status === 1)
-                                <span style="color:white; background-color: {{ count($deactivatedAdmin) > 0 ? 'red' : 'rgb(245, 245, 245)' }}">{{ count($deactivatedAdmin) }}</span>
+                                {{-- <span style="color:white; background-color: {{ count($deactivatedAdmin) > 0 ? 'red' : 'rgb(245, 245, 245)' }}">{{ count($deactivatedAdmin) }}</span> --}}
                             @endif
                         </div> 
                     </div>
