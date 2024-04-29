@@ -93,8 +93,8 @@ class MyProfile extends Component
             $pathToDelete = str_replace('uploads', '', $pathToDelete);
             if (Storage::disk('public_uploads')->exists($pathToDelete)) {
                 Storage::disk('public_uploads')->delete($pathToDelete);
-            }                       
-    
+            }   
+            
             if($this->profile_picture){
                 $imageName = $this->profile_picture->getClientOriginalName();
                 $imagePath = $this->profile_picture->storeAs('profilePics', $imageName, 'public_uploads');

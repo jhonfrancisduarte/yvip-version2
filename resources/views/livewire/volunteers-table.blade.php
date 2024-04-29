@@ -1,12 +1,12 @@
 <section class="content volunteers-table-content">
     <div class="container-fluid">
         <div class="row volunteer-row">
-            <div class="col-12 table-contain">
+            <div class="col-md-12 table-contain">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Youth Volunteers Management</h3> 
                         <div class="top-buttons">
-                            <button type="button" class="btn btn-submit btn-accounts" style="float: right;" wire:click="deactivatedAccounts">
+                            <button type="button" class="btn-submit btn-accounts" style="float: right;" wire:click="deactivatedAccounts">
                                 @if($active_status === 1)
                                     <div class="is-mobile-view">
                                         <i class="fas fa-user-slash"></i>
@@ -16,14 +16,15 @@
                                     </div>
                                 @else
                                     <div class="is-mobile-view">
-                                        <i class="fas fa-user-check"></i>                                </div>
+                                        <i class="fas fa-user-check"></i>                                
+                                    </div>
                                     <div class="is-desktop-view">
                                         Active Accounts
                                     </div>
                                 @endif
                             </button>
                             @if($active_status === 1)
-                                <span style="background-color: {{ count($deactivatedVolunteers) > 0 ? 'red' : 'rgb(245, 245, 245)' }}">{{ count($deactivatedVolunteers) }}</span>
+                                <span style="color:white; background-color: {{ count($deactivatedVolunteers) > 0 ? 'red' : 'rgb(245, 245, 245)' }}">{{ count($deactivatedVolunteers) }}</span>
                             @endif
                         </div> 
                     </div>
@@ -141,13 +142,39 @@
                                             <td style="color: #ccc;">N/A</td>
                                         @endif
                                         <td class="action-btn width">
-                                            <p class="light-blue" wire:click="showUserData('{{ $volunteer->user_id }}')"><i class="bi bi-eye"></i> View</p>
-                                            @if($active_status === 2)
-                                                <p class="green" wire:click="reactivateDialog('{{ $volunteer->user_id }}')"><i class="bi bi-person-check"></i> Reactivate</p>
-                                            @endif
-                                            @if(session('user_role') !== 'vsa')
-                                                <p class="red" wire:click="deleteDialog('{{ $volunteer->user_id }}')"><i class="bi bi-trash3"></i> Delete</p>
-                                            @endif
+                                            <div class="btn-group-2" role="group">
+                                                <div class="btn-g">
+                                                    <button class="btn-submit" wire:click="showUserData('{{ $volunteer->user_id }}')">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <span class="span span-submit">View</span>
+                                                </div>
+                                                <div class="mx-2"></div>
+                                                @if(session('user_role') !== 'vsa')
+                                                    @if($active_status === 2)
+                                                        <div class="btn-g">
+                                                            <button class="btn-success" wire:click="reactivateDialog('{{ $volunteer->user_id }}')">
+                                                                <i class="bi bi-person-check"></i>
+                                                            </button>
+                                                            <span class="span span-delete">Activate</span>
+                                                        </div>
+                                                    @elseif($active_status === 1) 
+                                                        <div class="btn-g">
+                                                            <button class="btn-warning" wire:click="deactDialog('{{ $volunteer->user_id }}')">
+                                                                <i class="bi bi-ban"></i>
+                                                            </button>
+                                                            <span class="span span-delete">Deactivate</span>
+                                                        </div>
+                                                    @endif
+                                                    <div class="mx-2"></div>
+                                                    <div class="btn-g">
+                                                        <button class="btn-delete" wire:click="deleteDialog('{{ $volunteer->user_id }}')">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </button>
+                                                        <span class="span span-delete">Delete</span>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -193,34 +220,65 @@
         </div>    
     @endif
 
-    @if($reactivateVolunteerId)
-        <div class="users-data-all-container">
-            <div class="close-form" wire:click="hideReactivateDialog"></div>
-            <div class="user-info">
+    @if($deactVolunteerId)
+        <div class="users-data-all-container no-padding">
+            <div class="close-form" wire:click="hideDeleteDialog"></div>
+            <div class="user-info user-infos">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Deactivate</h5>
+                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-                <div class="row1 row-header">
-                    <div class="col1">
-                        @if($deleteMessage)
-                            <label class="label" style="color: green;">{{ $deleteMessage }}</label>
-                        @else
-                            <label class="label">Are you sure you want to reactivate this volunteer?</label>
-                        @endif
-                    </div>
+                <div class="modal-body">
+                    @if($deleteMessage)
+                        <p style="color: green;">{{ $deleteMessage }}</p>
+                    @else
+                        <p>Are you sure you want to deactivate this volunteer?</p>
+                    @endif
                 </div>
                 
-                <div class="row1 row-footer">
-                    <div class="col">
-                        <div class="user-data">
-                            @if($disableButton == "No")
-                                <button class="btn-green" wire:click="reactivateVolunteer('{{ $reactivateVolunteerId }}')" wire:loading.attr="disabled">Yes
-                                    {{-- <div class="loader" wire:loading></div> --}}
-                                </button>
-                                <button class="btn-close-user-data btn-50" wire:click="hideReactivateDialog">Cancel</button>
-                            @else
-                                <button class="btn-close-user-data btn-50" wire:click="hideReactivateDialog">Close</button>
-                            @endif
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    @if($disableButton == "No")
+                        <button class="btn-delete" wire:click="deactivateVolunteer('{{ $deactVolunteerId }}')" wire:loading.attr="disabled">Yes</button>
+                        <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                    @else
+                        <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                    @endif
+                </div>
+            </div>
+        </div>    
+    @endif
+
+    @if($reactivateVolunteerId)
+        <div class="users-data-all-container no-padding">
+            <div class="close-form" wire:click="hideReactivateDialog"></div>
+            <div class="user-info user-infos">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Activate</h5>
+                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    @if($deleteMessage)
+                        <p style="color: green;">{{ $deleteMessage }}</p>
+                    @else
+                        <p>Are you sure you want to activate this volunteer?</p>
+                    @endif
+                </div>
+                
+                <div class="modal-footer">
+                    @if($disableButton == "No")
+                        <button class="btn-success" wire:click="reactivateVolunteer('{{ $reactivateVolunteerId }}')" wire:loading.attr="disabled">Yes
+                            {{-- <div class="loader" wire:loading></div> --}}
+                        </button>
+                        <button class="btn-cancel" wire:click="hideReactivateDialog">Cancel</button>
+                    @else
+                        <button class="btn-cancel" wire:click="hideReactivateDialog">Close</button>
+                    @endif
                 </div>
             </div>
         </div>    
@@ -419,7 +477,7 @@
                             @if($active_status === 2)
                                 <button class="btn-submit" wire:click="reactivateDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Reactivate</button>
                             @else
-                                <button class="btn-submit" wire:click="exportToPdf" wire:loading.attr="disabled">Export Data</button>
+                                <button class="btn-success" wire:click="exportToPdf" wire:loading.attr="disabled">Export Data</button>
                             @endif
                             <button class="btn-cancel" wire:click="hideUserData">Close</button>
                             <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete Volunteer</button>

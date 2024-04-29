@@ -11,22 +11,22 @@
                 <div class="card">
                     <div class="card-header">
                         @if(session('user_role') !== "yv" && session('user_role') !== "yip")
-                            <button type="button" class="btn btn-info btn-sm btn-show-reward" wire:click="seeRequests">Claim Requests</button>
-                            <button type="button" class="btn btn-info btn-sm btn-show-reward" wire:click="seeRewards">Rewards Matrix</button>
+                            <button type="button" class="btn btn-submit btn-sm btn-show-reward" wire:click="seeRequests">Claim Requests</button>
+                            <button type="button" class="btn btn-submit btn-sm btn-show-reward" wire:click="seeRewards">Rewards Matrix</button>
                         @else
-                            <button type="button" class="btn btn-info btn-sm btn-show-reward" wire:click="seeRewards">Rewards Matrix</button>
+                            <button type="button" class="btn btn-submit btn-sm btn-show-reward" wire:click="seeRewards">Rewards Matrix</button>
                         @endif
                     </div>
 
                     <div class="card-body">
                     @if(session('user_role') !== "yv" && session('user_role') !== "yip")
-                        <table id="rewards-table" class="table">
+                        <table id="rewards-table" class="table-main">
                             <thead>
                                 <tr>
-                                    <th width="20%">Name</th>
-                                    <th width="20%">Total of hours</th>
+                                    <th width="30%">Name</th>
+                                    <th width="30%">Total of hours</th>
                                     <th width="30%">Reward</th>
-                                    <th width="10%">Actions</th>
+                                    <th width="10%" class="sa-actions">Actions</th>
                                 </tr>
                             </thead>
 
@@ -51,10 +51,7 @@
                                         </td>
                                         
                                         <td class="reward-actions">
-                                            <li>
-                                                <button type="button" class="btn btn-info btn-sm btn-show-reward" wire:click="grantReward({{ $user['user_id'] }})">Grant Reward</button>
-                                            </li>
-                                            
+                                            <button type="button" class="btn btn-submit btn-sm" wire:click="grantReward({{ $user['user_id'] }})"><i class="bi bi-award"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -63,14 +60,14 @@
 
                         </table>
                     @else
-                    <table id="rewards-table" class="table">
+                    <table id="rewards-table" class="table-main">
                         <thead>
                             <tr>
-                                <th width="30%">Name</th>
+                                <th width="20%">Name</th>
                                 <th width="20%">Total of hours</th>
                                 <th width="20%">Reward</th>
                                 <th width="20%">Claim Status</th>
-                                <th width="10%">Actions</th>
+                                <th width="10%" class="actions">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,7 +95,7 @@
                                 <td>
                                 @foreach($userRewards as $reward)
                                     <li class="claim-reward">
-                                        <button type="button" class="btn btn-info btn-sm" wire:click="claimReward({{ $reward->id }})" @if(isset($disabledButtons[$reward->id]) && $disabledButtons[$reward->id]) disabled @endif>Claim</button>
+                                        <button type="button" class="btn btn-success btn-sm claim-button" wire:click="claimReward({{ $reward->id }})" @if(isset($disabledButtons[$reward->id]) && $disabledButtons[$reward->id]) disabled @endif><i class="bi bi-file-arrow-down"></i></button>
                                     </li>
                                 @endforeach
                                 </td>
@@ -249,7 +246,7 @@
                                                 
                                                 <div class="btn-approval">
                                                     @foreach($claimRequests as $claimRequest)
-                                                        <button type="button" wire:click="approveRequest({{ $claimRequest->id }})">Approve</button>
+                                                        <button type="button" class="btn btn-success btn-sm" wire:click="approveRequest({{ $claimRequest->id }})">Approve</button>
                                                     @endforeach
                                                 </div>
                                             </div>

@@ -7,7 +7,7 @@
     </div>
     <div class="container-fluid">
         <div class="row volunteer-row">
-            <div class="col-12 table-contain">
+            <div class="col-md-12 table-contain">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Volunteer Registrations Management</h3> 
@@ -33,7 +33,7 @@
                                     <th>Lastname</th>
                                     <th>Email</th>
                                     <th>Status</th>
-                                    <th width="13%" class="action-btn2 th-action-btn"></th>
+                                    <th class="action-btn2 th-action-btn"></th>
                                 </tr>
                             </thead>
 
@@ -53,9 +53,30 @@
                                             @endif
                                         </td>
                                         <td class="action-btn2">
-                                            <p class="light-blue" wire:click="showUserData('{{ $volunteer->user_id }}')"><i class="bi bi-eye"></i> View</p>
-                                            <p class="green" wire:click="approveUser('{{ $volunteer->user_id }}')"><i class="bi bi-check2-circle"></i> Approve</p>
-                                            <p class="red" wire:click="deleteDialog('{{ $volunteer->user_id }}')"><i class="bi bi-ban"></i> Disapprove</p>
+                                            <div class="btn-group-2" role="group">
+                                                <div class="btn-g">
+                                                    <button class="btn-submit" wire:click="showUserData('{{ $volunteer->user_id }}')">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <span class="span span-submit">View</span>
+                                                </div>
+                                                <div class="mx-2"></div>
+                                                @if(session('user_role') !== 'vsa')
+                                                    <div class="btn-g">
+                                                        <button class="btn-success" wire:click="approveUser('{{ $volunteer->user_id }}')">
+                                                            <i class="bi bi-check2-circle"></i>
+                                                        </button>
+                                                        <span class="span span-delete">Approve</span>
+                                                    </div>
+                                                    <div class="mx-2"></div>
+                                                    <div class="btn-g">
+                                                        <button class="btn-delete" wire:click="deleteDialog('{{ $volunteer->user_id }}')">
+                                                            <i class="bi bi-ban"></i>
+                                                        </button>
+                                                        <span class="span span-delete">Disapprove</span>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

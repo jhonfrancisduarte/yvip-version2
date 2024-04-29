@@ -53,6 +53,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="m-3">
+                        {{ $ipEvents->links('livewire::bootstrap') }}
+                    </div>
                 </div>
             </div>
         </div>

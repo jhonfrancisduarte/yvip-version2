@@ -3,7 +3,7 @@
 namespace App\Livewire\Tables;
 
 use Livewire\Component;
-use App\Models\User;
+use Livewire\WithPagination;
 use App\Models\IpPostProgramObligation;
 use App\Models\IpEvents;
 use Livewire\WithFileUploads;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PostProgramObligationTable extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
     public $search;
     public $popup_message;
     public $file;
@@ -21,21 +21,11 @@ class PostProgramObligationTable extends Component
             ->select('users.name', 'ip_events.*')
             ->search(trim($this->search))
             ->orderBy('ip_events.created_at', 'desc')
-            ->get();
+            ->paginate(10);
     
         $ipEvents->transform(function ($event) use (&$joinRequestsData) {
             $participantIds = explode(',', $event->participants);
             $userId = auth()->user()->id;
-
-    
-            $currentDate = now();
-            if ($currentDate >= $event->start && $currentDate <= $event->end) {
-                $event->status = 'Ongoing';
-            } elseif ($currentDate > $event->end) {
-                $event->status = 'Completed';
-            } else {
-                $event->status = 'Upcoming';
-            }
     
             $event->approved = in_array($userId, $participantIds);
 

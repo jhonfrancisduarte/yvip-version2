@@ -1,7 +1,3 @@
-.btn-show-reward {
-    float: right;
-}
-
 .close-form {
     width: 100%;
     height: 100%;
@@ -55,13 +51,11 @@
 
 .rewards ul li {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
+    align-items: center;
     cursor: default;
     pointer-events: none;
-}
-
-.btn-claim {
-    float: right;
+    margin-bottom: 5px;
 }
 
 .claim-reward {
@@ -72,8 +66,11 @@
     margin-bottom: 15px;
 }
 
-.reward-actions li {
-    list-style-type: none;
+#rewards-table .reward-actions button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 13px;
 }
 
 .pop-up-message {
@@ -138,11 +135,6 @@
     padding-bottom: 10px;
 }
 
-.requester .btn-approve {
-    float: right;
-    width: 80px !important;
-}
-
 .request-form .modal-content {
     width: 600px;
 }
@@ -150,4 +142,20 @@
 #rewards-table .claim-status li {
     margin-bottom: 15px;
     list-style-type: none;
+}
+
+#rewards-table .actions {
+    text-align: center;
+}
+
+#rewards-table .claim-reward {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.card-header button {
+    margin-left: 5px;
+    float: right;
 }

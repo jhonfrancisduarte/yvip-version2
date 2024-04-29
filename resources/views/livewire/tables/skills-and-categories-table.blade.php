@@ -7,7 +7,7 @@
     </div>
     <div class="container-fluid">
         <div class="row volunteer-row">
-            <div class="col-12 table-contain">
+            <div class="col-md-12 table-contain">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Skills and Categories Management</h3> 
@@ -46,8 +46,21 @@
                                             </ul>
                                         </td>
                                         <td class="action-btn width">
-                                            <p class="light-blue" wire:click="openEditForm({{ $category->id }})"><i class="bi bi-pencil-square"></i> Edit</p>
-                                            <p class="red" wire:click="deleteDialog({{ $category->id }})"><i class="bi bi-trash3"></i> Delete</p>
+                                            <div class="btn-group-2" role="group">
+                                                <div class="btn-g">
+                                                    <button class="btn-submit" wire:click="openEditForm({{ $category->id }})">
+                                                        <i class="bi bi-pencil-square"></i>
+                                                    </button>
+                                                    <span class="span span-delete">Edit</span>
+                                                </div>
+                                                <div class="mx-2"></div>
+                                                <div class="btn-g">
+                                                    <button class="btn-delete" wire:click="deleteDialog({{ $category->id }})">
+                                                        <i class="bi bi-trash3"></i>
+                                                    </button>
+                                                    <span class="span span-delete">Delete</span>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -149,7 +162,7 @@
                             </div>
 
                             <div class="modal-footer justify-content-between">
-                                <button class="btn-submit" type="submit">Submit</button>
+                                <button class="btn-success" type="submit">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -216,7 +229,7 @@
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button class="btn-submit" type="submit">Submit</button>
+                                    <button class="btn-success" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>
