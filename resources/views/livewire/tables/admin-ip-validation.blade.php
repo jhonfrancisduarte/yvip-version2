@@ -5,19 +5,15 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3 class="card-title text-center fw-bold fs-4">Past IP Events</h3>
-
                     </div>
-
-
-
                     <div class="card-body">
                         <div class="d-flex m-2">
                             <!-- Search input -->
                             <div class="input-group me-3" style="max-width: 300px;">
-                                <input type="search" class="form-control" wire:model.lazy="searchQuery" placeholder="Search...">
+                                <input type="search" class="form-control" wire:model.live="searchQuery" placeholder="Search...">
                             </div>
-                            <!-- "Add Event" button pushed to the right -->
-                            <div class="ml-auto"> <!-- Use ml-auto to push it to the right -->
+
+                            <div class="ml-auto">
                                 <button type="button" class="btn btn-info" wire:click="openAddEventModal">Add Event</button>
                             </div>
                         </div>
