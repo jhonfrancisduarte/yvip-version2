@@ -10,8 +10,11 @@
 
 @section('content')
 
+@if(session('user_role') !== 'yv' && session('user_role') !== 'yip')
+    @livewire('admin-side-nav')
+@else
     @livewire('side-nav')
-
+@endif
     <div class="content-wrapper content-wrapper2">
         <div class="content-header">
             <div class="container-fluid">
@@ -28,9 +31,14 @@
                 </div>
             </div>
         </div>
-
+        @if(session('user_role') !== 'yv' && session('user_role') !== 'yip')
+        @livewire('tables.admin-ip-validation')
+        @else
         @livewire('tables.past-ip-participated-events-table')
+        @endif
 
     </div>
 
+
 @endsection
+

@@ -146,7 +146,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('ip-validation') }}" class="nav-link {{ request()->routeIs('ip-validation') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('past-ip-participated-events') }}" class="nav-link {{ request()->routeIs('past-ip-participated-events') ? 'active' : '' }}" wire:navigate>
                                 <i class="nav-icon bi bi-clipboard-check"></i>
                                 <p>
                                     IP Validation
@@ -165,6 +165,7 @@
                                 </p>
                                 </a>
                             </li>
+
                         </ul>
                     </li>
                 @endif

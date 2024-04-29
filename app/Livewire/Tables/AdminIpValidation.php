@@ -4,11 +4,11 @@ namespace App\Livewire\Tables;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\PastIpEvent;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-
-class PastIpParticipatedEventsTable extends Component
+class AdminIpValidation extends Component
 {
     use WithPagination;
 
@@ -21,12 +21,20 @@ class PastIpParticipatedEventsTable extends Component
     public $editEventId;
     public $deleteEventId;
     public $confirmingDelete = false;
+    public $userId;
+    public $users;
+    public $approvedEventId;
 
     protected $listeners = ['deleteEventConfirmed'];
 
+    public function mount()
+    {
+        $this->users = User::where('user_role', 'yip')->get();
+    }
+
     public function render()
     {
-        $pastIpEvents = PastIpEvent::where('user_id', Auth::id())
+        $pastIpEvents = PastIpEvent::with('user')
         ->leftJoin('users', 'past_ip_events.user_id', '=', 'users.id') // Join the users table
         ->select('past_ip_events.*', 'users.name as user_name') // Select the name column from users
         ->orderBy('confirmed', 'asc') // Pending status first
@@ -34,7 +42,7 @@ class PastIpParticipatedEventsTable extends Component
         ->orderBy('user_name') // Sort by user's name
         ->paginate(5);
 
-        return view('livewire.tables.past-ip-participated-events-table', [
+        return view('livewire.tables.admin-ip-validation', [
             'pastIpEvents' => $pastIpEvents,
         ]);
     }
@@ -80,6 +88,7 @@ class PastIpParticipatedEventsTable extends Component
     {
         $this->editEventId = $eventId;
         $event = PastIpEvent::findOrFail($eventId);
+        $this->userId = $event->user_id;
         $this->eventName = $event->event_name;
         $this->organizerSponsor = $event->organizer_sponsor;
         $this->sponsorCategory = $event->sponsor_category;
@@ -95,7 +104,6 @@ class PastIpParticipatedEventsTable extends Component
         $this->confirmingDelete = true;
     }
 
-
     public function confirmDelete()
     {
         if ($this->deleteEventId) {
@@ -105,10 +113,21 @@ class PastIpParticipatedEventsTable extends Component
         $this->confirmingDelete = false;
     }
 
+    public function approveEvent($eventId)
+{
+    $event = PastIpEvent::findOrFail($eventId);
+    $event->confirmed = true; // Set the 'confirmed' field to true
+    $event->save(); // Save the changes to the database
+
+    // Flash a success message
+    session()->flash('message', 'Event approved successfully!');
+}
+
+
     private function createEvent()
     {
         PastIpEvent::create([
-            'user_id' => Auth::id(),
+            'user_id' => $this->userId,
             'event_name' => $this->eventName,
             'organizer_sponsor' => $this->organizerSponsor,
             'sponsor_category' => $this->sponsorCategory,
@@ -125,6 +144,7 @@ class PastIpParticipatedEventsTable extends Component
         if ($this->editEventId) {
             $event = PastIpEvent::findOrFail($this->editEventId);
             $event->update([
+                'user_id' => $this->userId,
                 'event_name' => $this->eventName,
                 'organizer_sponsor' => $this->organizerSponsor,
                 'sponsor_category' => $this->sponsorCategory,
@@ -138,6 +158,6 @@ class PastIpParticipatedEventsTable extends Component
 
     private function resetForm()
     {
-        $this->reset(['eventName', 'organizerSponsor', 'sponsorCategory', 'dateStart', 'dateEnd']);
+        $this->reset(['eventName', 'organizerSponsor', 'sponsorCategory', 'dateStart', 'dateEnd', 'userId']);
     }
 }
