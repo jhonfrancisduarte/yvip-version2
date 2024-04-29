@@ -24,6 +24,7 @@ class AdminIpValidation extends Component
     public $userId;
     public $users;
     public $approvedEventId;
+    public $searchQuery; // Added for search functionality
 
     protected $listeners = ['deleteEventConfirmed'];
 
@@ -34,13 +35,24 @@ class AdminIpValidation extends Component
 
     public function render()
     {
-        $pastIpEvents = PastIpEvent::with('user')
-        ->leftJoin('users', 'past_ip_events.user_id', '=', 'users.id') // Join the users table
-        ->select('past_ip_events.*', 'users.name as user_name') // Select the name column from users
-        ->orderBy('confirmed', 'asc') // Pending status first
-        ->orderByDesc('past_ip_events.created_at') // Latest inserted events first
-        ->orderBy('user_name') // Sort by user's name
-        ->paginate(5);
+        $query = PastIpEvent::with('user')
+            ->leftJoin('users', 'past_ip_events.user_id', '=', 'users.id')
+            ->select('past_ip_events.*', 'users.name as user_name')
+            ->orderBy('confirmed', 'asc')
+            ->orderByDesc('past_ip_events.created_at')
+            ->orderBy('user_name');
+
+        if ($this->searchQuery) {
+            $query->where(function ($q) {
+                $q->where('event_name', 'like', '%' . $this->searchQuery . '%')
+                    ->orWhere('organizer_sponsor', 'like', '%' . $this->searchQuery . '%')
+                    ->orWhereHas('user', function ($q) {
+                        $q->where('name', 'like', '%' . $this->searchQuery . '%');
+                    });
+            });
+        }
+
+        $pastIpEvents = $query->paginate(5);
 
         return view('livewire.tables.admin-ip-validation', [
             'pastIpEvents' => $pastIpEvents,
@@ -51,8 +63,6 @@ class AdminIpValidation extends Component
     {
         $this->editEventId = null;
         $this->openAddEvent = true;
-
-        // Reset validation errors
         $this->resetValidation();
     }
 
@@ -114,15 +124,12 @@ class AdminIpValidation extends Component
     }
 
     public function approveEvent($eventId)
-{
-    $event = PastIpEvent::findOrFail($eventId);
-    $event->confirmed = true; // Set the 'confirmed' field to true
-    $event->save(); // Save the changes to the database
-
-    // Flash a success message
-    session()->flash('message', 'Event approved successfully!');
-}
-
+    {
+        $event = PastIpEvent::findOrFail($eventId);
+        $event->confirmed = true;
+        $event->save();
+        session()->flash('message', 'Event approved successfully!');
+    }
 
     private function createEvent()
     {
@@ -160,4 +167,11 @@ class AdminIpValidation extends Component
     {
         $this->reset(['eventName', 'organizerSponsor', 'sponsorCategory', 'dateStart', 'dateEnd', 'userId']);
     }
+
+    public function search()
+    {
+        $this->resetPage(); // Reset pagination when performing a new search
+        $this->render(); // Render the component to reflect the new search results
+    }
+
 }

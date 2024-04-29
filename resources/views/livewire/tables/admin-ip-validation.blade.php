@@ -3,14 +3,24 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h3 class="card-title text-center fw-bold fs-4">Past IP Events</h3>
-                        <div class="d-flex justify-content-end">
-                            <!-- Button to trigger modal -->
-                            <button type="button" class="btn btn-info" wire:click="openAddEventModal">Add Event</button>
-                        </div>
+
                     </div>
+
+
+
                     <div class="card-body">
+                        <div class="d-flex m-2">
+                            <!-- Search input -->
+                            <div class="input-group me-3" style="max-width: 300px;">
+                                <input type="search" class="form-control" wire:model.lazy="searchQuery" placeholder="Search...">
+                            </div>
+                            <!-- "Add Event" button pushed to the right -->
+                            <div class="ml-auto"> <!-- Use ml-auto to push it to the right -->
+                                <button type="button" class="btn btn-info" wire:click="openAddEventModal">Add Event</button>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped">
                                 <thead>
@@ -43,14 +53,12 @@
                                                 <button type="button" class="btn btn-sm btn-info" wire:click="editEvent({{ $event->id }})">
                                                     <i class="bi bi-pencil-fill"></i>
                                                 </button>
-                                                <!-- Add spacing between Edit and Delete buttons -->
                                                 <div class="mx-1"></div>
                                                 <button type="button" class="btn btn-sm btn-danger" wire:click="deleteEvent({{ $event->id }})">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                             </div>
                                         </td>
-
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -117,7 +125,6 @@
                             <input type="date" class="form-control" id="dateEnd" placeholder="Enter date end" wire:model.defer="dateEnd" :min="$dateStart">
                             @error('dateEnd') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-
                         <button type="submit" class="btn btn-primary">Save</button>
                         <button type="button" class="btn btn-secondary" wire:click="closeAddEventModal">Cancel</button>
                     </form>
@@ -127,7 +134,7 @@
     </div>
     @endif
 
-   <!-- Approval Modals -->
+    <!-- Approval Modals -->
     @foreach($pastIpEvents as $event)
     <div class="modal fade" id="approveModal_{{ $event->id }}" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel_{{ $event->id }}" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -154,7 +161,6 @@
     </div>
     @endforeach
 
-
     <!-- Confirmation Modal -->
     @if($confirmingDelete)
     <div class="modal" tabindex="-1" role="dialog" style="display: {{ $confirmingDelete ? 'block' : 'none' }};">
@@ -178,7 +184,3 @@
     </div>
     @endif
 </div>
-
-
-
-
