@@ -175,7 +175,7 @@
                                     </div>
 
                                     <div class="modal-footer justify-content-between">
-                                        <button class="btn-submit" type="submit">Submit</button>
+                                        <button class="btn-success" type="submit">Submit</button>
                                     </div>
                                 </div>
                             </form>
@@ -263,7 +263,7 @@
                                     </div>
 
                                     <div class="modal-footer justify-content-between">
-                                        <button class="btn-submit" type="submit">Submit</button>
+                                        <button class="btn-success" type="submit">Submit</button>
                                     </div>
                                 </div>
                             </form>

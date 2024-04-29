@@ -136,8 +136,11 @@ class PastIpParticipatedEventsTable extends Component
         }
     }
 
+
     private function resetForm()
     {
         $this->reset(['eventName', 'organizerSponsor', 'sponsorCategory', 'dateStart', 'dateEnd']);
     }
+
+
 }

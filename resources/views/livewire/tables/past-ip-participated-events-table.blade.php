@@ -35,23 +35,21 @@
                                         <td class="text-center">
                                             <div class="btn-group" role="group">
                                                 <!-- Edit button -->
-                                                <button type="button"
-                                                        class="btn-submit"
-                                                        wire:click="editEvent({{ $event->id }})"
-                                                        @if($event->confirmed)
-                                                            disabled
-                                                            aria-label="Confirmed Event - Cannot Edit"
-                                                            title="Confirmed Event - Cannot Edit"
-                                                            style="position: relative;"
-                                                        @endif>
-                                                    <!-- Tooltip -->
-                                                    <span class="tooltip">Confirmed Event - Cannot Edit</span>
+                                                <div class="btn-g">
+                                                    @if($event->confirmed)
+                                                    <button type="button" class="btn-submit mx-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Cannot Edit Confirmed Event!">
                                                         <i class="bi bi-pencil-fill"></i>
-                                                </button>
+                                                    </button>
 
 
-
-                                                <!-- Delete button -->
+                                                    @else
+                                                        <button type="button" class="btn-submit mx-1" wire:click="editEvent({{ $event->id }})">
+                                                            <i class="bi bi-pencil-fill"></i>
+                                                        </button>
+                                                        <span class="span span-delete">Edit</span>
+                                                    @endif
+                                                </div>
+                                              <!-- Delete button -->
                                                 <button type="button" class="btn-delete" wire:click="deleteEvent({{ $event->id }})">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
@@ -120,8 +118,60 @@
                             <input type="date" class="form-control" id="dateEnd" placeholder="Enter date end" wire:model.defer="dateEnd" :min="$dateStart">
                             @error('dateEnd') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 
-                        <button type="submit" class="btn-submit">Save</button>
+@if($openAddEvent)
+    <div class="modal" tabindex="-1" role="dialog" style="display: {{ $openAddEvent ? 'block' : 'none' }};" style="width: 500px">
+        <div class="close-form" wire:click="closeAddEventModal"></div>
+        <div class="modal-dialog modal-dialog-centered" role="document" >
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Past Event</h5>
+                    <button type="button" class="close" aria-label="Close" wire:click="closeAddEventModal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form to add a new event -->
+                    <form wire:submit.prevent="saveEvent">
+                        <div class="form-group">
+                            <label for="eventName">Event Name</label>
+                            <input type="text" class="form-control" id="eventName" placeholder="Enter event name" wire:model.defer="eventName">
+                            @error('eventName') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="organizerSponsor">Organizer / Sponsor</label>
+                            <input type="text" class="form-control" id="organizerSponsor" placeholder="Enter organizer / sponsor" wire:model.defer="organizerSponsor">
+                            @error('organizerSponsor') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="sponsorCategory">Sponsor Category</label>
+                            <select class="form-control" id="sponsorCategory" wire:model.defer="sponsorCategory">
+                                <option value="">Select Sponsor Category</option>
+                                <option value="Fully Sponsored">Fully Sponsored</option>
+                                <option value="Accommodation was sponsored">Accommodation was sponsored</option>
+                                <option value="Airfare was sponsored">Airfare was sponsored</option>
+                                <option value="At own expense">At own expense</option>
+                            </select>
+                            @error('sponsorCategory') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="dateStart">Date Start</label>
+                            <input type="date" class="form-control" id="dateStart" placeholder="Enter date start" wire:model.defer="dateStart">
+                            @error('dateStart') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="dateEnd">Date End</label>
+                            <input type="date" class="form-control" id="dateEnd" placeholder="Enter date end" wire:model.defer="dateEnd" :min="$dateStart">
+                            @error('dateEnd') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+
+                        <button type="submit" class="btn-success">Submit</button>
                         <button type="button" class="btn-cancel" wire:click="closeAddEventModal">Cancel</button>
                     </form>
                 </div>

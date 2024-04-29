@@ -12,7 +12,7 @@
                     @if(session('user_role') == 'sa' || session('user_role') == 'ips')
                         <div class="card-header">
                                 <h3 class="card-title">International Program Events Management</h3> 
-                                <button type="button" class="btn btn-submit btn-add-event float-right" wire:click="openAddForm">Add Event</button>
+                                <button type="button" class="btn-submit btn-add-event float-right" wire:click="openAddForm">Add Event</button>
                         </div>
                     @endif
 
@@ -104,7 +104,7 @@
                                                     @if($options2 == $event->id)
                                                         <div class="options-container">
                                                             Change Status
-                                                            <button class="btn-submit" wire:click="changeStatus({{ $event->id }}, 'Ongoing')">Ongoing</button>
+                                                            <button class="btn-success" wire:click="changeStatus({{ $event->id }}, 'Ongoing')">Ongoing</button>
                                                             <button class="btn-submit" wire:click="changeStatus({{ $event->id }}, 'Completed')">Completed</button>
                                                         </div>
                                                     @endif
@@ -128,35 +128,45 @@
                                             @endif
                                             <td class="action-btn2">
                                                 @if(session('user_role') == 'sa' || session('user_role') == 'ips')
-                                                    <p class="green p-centered" wire:click="openJoinRequests({{ $event->id }})">Join Requests
-                                                        <span style="color: white; background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : 'rgb(245, 245, 245)' }};">{{ count($joinRequestsData[$event->id] ?? []) }}</span>
-                                                    </p>
+                                                    <div class="btn-g">
+                                                        <button class="btn-success" wire:click="openJoinRequests({{ $event->id }})">
+                                                            <i class="bi bi-person-plus"></i>
+                                                        </button>
+                                                        <span class="span">Join Requests</span>
+                                                        <span class="notif-count" style="color: white; background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : 'rgb(245, 245, 245)' }};">{{ count($joinRequestsData[$event->id] ?? []) }}</span>
+                                                    </div>
+                                                    <div class="mx-2"></div>
                                                     <div class="options">
-                                                    <p class="light-blue" wire:click="toggleOptions({{ $event->id }})"><i class="bi bi-gear"></i> Options</p>
-                                                    @if($options == $event->id)
-                                                        <div class="options-container">
-                                                            @if($event->status === "Completed")
-                                                                <button class="btn-submit" wire:click="openPpoSubmissions({{ $event->id }})"><i class="bi bi-file-earmark-check"></i> PPO Files</button>
-                                                            @endif
-                                                            <button class="btn-submit" wire:click="openEditForm({{ $event->id }})"> <i class="bi bi-pencil-square"></i> Edit</button>
-                                                            @if($event->status !== "Completed")
-                                                                <button class="btn-submit" wire:click="toggleJoinStatus({{ $event->id }})">
-                                                                    @if(!$event->join_status)
-                                                                        <i class="bi bi-x-circle"></i> Close Event
-                                                                    @else
-                                                                        <i class="bi bi-door-open"></i> Reopen
-                                                                    @endif
-                                                                </button>
-                                                            @endif
-                                                            <button class="btn-delete" wire:click="deleteDialog({{ $event->id }})"><i class="bi bi-trash3"></i> Delete</button>
+                                                        <div class="btn-g">
+                                                            <button class="btn-submit" wire:click="toggleOptions({{ $event->id }})">
+                                                                <i class="bi bi-gear"></i>
+                                                            </button>
+                                                            <span class="span">Options</span>
                                                         </div>
-                                                    @endif
+                                                        @if($options == $event->id)
+                                                            <div class="options-container">
+                                                                @if($event->status === "Completed")
+                                                                    <button class="btn-success" wire:click="openPpoSubmissions({{ $event->id }})"><i class="bi bi-file-earmark-check"></i> PPO Files</button>
+                                                                @endif
+                                                                <button class="btn-submit" wire:click="openEditForm({{ $event->id }})"> <i class="bi bi-pencil-square"></i> Edit</button>
+                                                                @if($event->status !== "Completed")
+                                                                    <button class="btn-submit" wire:click="toggleJoinStatus({{ $event->id }})">
+                                                                        @if(!$event->join_status)
+                                                                            <i class="bi bi-x-circle"></i> Close Event
+                                                                        @else
+                                                                            <i class="bi bi-door-open"></i> Reopen
+                                                                        @endif
+                                                                    </button>
+                                                                @endif
+                                                                <button class="btn-delete" wire:click="deleteDialog({{ $event->id }})"><i class="bi bi-trash3"></i> Delete</button>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 @endif
                                                 @if(session('user_role') == 'yip')
                                                     @if(!$event->hasJoined && !$event->approved && !$event->disapprovedParticipants && !$event->join_status)
                                                         @if($event->status !== "Completed")
-                                                            <button class="btn-submit" wire:click="joinEvent({{ $event->id }})">Join</button>
+                                                            <button class="btn-success" wire:click="joinEvent({{ $event->id }})">Join</button>
                                                         @endif
                                                     @elseif($event->join_status)
                                                         <span class="orange">Closed</span>
@@ -294,7 +304,7 @@
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button class="btn-submit" type="submit">Submit</button>
+                                    <button class="btn-success" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -385,7 +395,7 @@
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button class="btn-submit" type="submit">Submit</button>
+                                    <button class="btn-success" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -420,7 +430,7 @@
                                                     <label class="label" wire:click="showParticipantDetails('{{ $requester['user_id'] }}', '')">{{ $requester['name'] }}</label>
                                                     <div class="btn-approval">
                                                         <button class="btn-delete" wire:click="disapproveParticipant('{{ $requester['user_id'] }}')">Disapprove</button>
-                                                        <button class="btn-submit" wire:click="approveParticipant('{{ $requester['user_id'] }}')" style="margin-right: 5px;">Approve</button>
+                                                        <button class="btn-success" wire:click="approveParticipant('{{ $requester['user_id'] }}')" style="margin-right: 5px;">Approve</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -659,7 +669,7 @@
                         <div class="user-data">
                             @if(!$ppoSubmisions)
                                 @if(!$isParticipant)
-                                    <button class="btn-submit" wire:click="approveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Approve</button>
+                                    <button class="btn-success" wire:click="approveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Approve</button>
                                     <button class="btn-delete" wire:click="disapproveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Disapprove</button>
                                 @else
                                     <button class="btn-delete" wire:click="disapproveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Remove</button>

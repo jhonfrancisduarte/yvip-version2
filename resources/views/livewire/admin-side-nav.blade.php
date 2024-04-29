@@ -150,6 +150,7 @@
                                 <i class="nav-icon bi bi-clipboard-check"></i>
                                 <p>
                                     IP Validation
+                                    <span class="badge bg-primary">{{ $confirmedEventsCount }}</span>
                                 </p>
                                 </a>
                             </li>

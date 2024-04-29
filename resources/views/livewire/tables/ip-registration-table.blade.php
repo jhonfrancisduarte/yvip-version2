@@ -8,9 +8,9 @@
     <div class="container-fluid">
         <div class="row volunteer-row">
             <div class="col-12 table-contain">
-                <div class="card">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
                     <div class="card-header">
-                        <h3 class="card-title">IP Registrations Management</h3> 
+                        <h3 class="card-title">IP Registrations Management</h3>
                     </div>
 
                     <div class="card-header card-header1">
@@ -32,7 +32,7 @@
                                     <th>Lastname</th>
                                     <th>Email</th>
                                     <th>Status</th>
-                                    <th width="13%" class="action-btn2 th-action-btn"></th>
+                                    <th class="action-btn2 th-action-btn"></th>
                                 </tr>
                             </thead>
 
@@ -44,7 +44,7 @@
                                         <td>{{ $volunteer->middle_name }}</td>
                                         <td>{{ $volunteer->last_name }}</td>
                                         <td>{{ $volunteer->email }}</td>
-                                        <td> 
+                                        <td>
                                             @if($volunteer->active_status === 0)
                                                 Pending
                                             @else
@@ -52,9 +52,30 @@
                                             @endif
                                         </td>
                                         <td class="action-btn2">
-                                            <p class="light-blue" wire:click="showUserData('{{ $volunteer->user_id }}')"><i class="bi bi-eye"></i> View</p>
-                                            <p class="green" wire:click="approveUser('{{ $volunteer->user_id }}')"><i class="bi bi-check2-circle"></i> Approve</p>
-                                            <p class="red" wire:click="deleteDialog('{{ $volunteer->user_id }}')"><i class="bi bi-ban"></i> Disapprove</p>
+                                            <div class="btn-group-2" role="group">
+                                                <div class="btn-g">
+                                                    <button class="btn-submit" wire:click="showUserData('{{ $volunteer->user_id }}')">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <span class="span span-submit">View</span>
+                                                </div>
+                                                <div class="mx-2"></div>
+                                                @if(session('user_role') !== 'vsa')
+                                                    <div class="btn-g">
+                                                        <button class="btn-success" wire:click="approveUser('{{ $volunteer->user_id }}')">
+                                                            <i class="bi bi-check2-circle"></i>
+                                                        </button>
+                                                        <span class="span span-delete">Approve</span>
+                                                    </div>
+                                                    <div class="mx-2"></div>
+                                                    <div class="btn-g">
+                                                        <button class="btn-delete" wire:click="deleteDialog('{{ $volunteer->user_id }}')">
+                                                            <i class="bi bi-ban"></i>
+                                                        </button>
+                                                        <span class="span span-delete">Disapprove</span>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -65,6 +86,7 @@
                         {{ $volunteers->links('livewire::bootstrap') }}
                     </div>
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
@@ -87,7 +109,7 @@
                         <p>Are you sure you want to disapprove this registrant?</p>
                     @endif
                 </div>
-                
+
                 <div class="modal-footer">
                     @if($disableButton == "No")
                         <button class="btn-delete" wire:click="deleteRegistrant('{{ $deleteRegistrantId }}')" wire:loading.attr="disabled">Yes
@@ -98,7 +120,7 @@
                     @endif
                 </div>
             </div>
-        </div>    
+        </div>
     @endif
 
     @if($selectedUserDetails)
@@ -137,7 +159,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row1">
                     <div class="col2">
                         <div class="user-data">
@@ -282,7 +304,7 @@
                 <div class="row1">
                     <div class="col2">
                         <div class="user-data">
-                            <label class="label">Youth Volunteer: 
+                            <label class="label">Youth Volunteer:
                                 <span>
                                     <input type="checkbox" class="checkbox" {{ $selectedUserDetails && $selectedUserDetails['is_volunteer'] ? 'checked' : '' }} disabled>
                                 </span>
@@ -291,7 +313,7 @@
                     </div>
                     <div class="col2">
                         <div class="user-data">
-                            <label class="label">IP Parcicipant: 
+                            <label class="label">IP Parcicipant:
                                 <span>
                                     <input type="checkbox" class="checkbox" {{ $selectedUserDetails && $selectedUserDetails['is_ip_participant'] ? 'checked' : '' }} disabled>
                                 </span>
@@ -300,7 +322,7 @@
                     </div>
                 </div>
             </div>
-            
+
                 <div class="row1">
                     <div class="col">
                         <div class="user-data">
@@ -311,7 +333,7 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     @endif
 
 </section>

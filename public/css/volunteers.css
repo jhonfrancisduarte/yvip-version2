@@ -176,11 +176,6 @@
     background: white;
 }
 
-
-.th-action-btn {
-    background: rgba(238,238,238,1) !important;
-}
-
 .btn-accounts {
     position: relative;
     right: 10px;
@@ -192,7 +187,7 @@
     position: absolute;
     top: -10px;
     left: -20px;
-    z-index: 999;
+    z-index: 1;
     border: 1px solid #ccc;
 }
 

@@ -5,10 +5,12 @@ use App\Models\admin;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\PastIpEvent;
 use App\Models\User;
 
 class AdminSideNav extends Component
 {
+    public $confirmedEventsCount;
     // public $first_name = "Francis";
     // public $last_name = "Ausa";
     // public $middle_name = "Duarte";
@@ -26,6 +28,10 @@ class AdminSideNav extends Component
     public function logout(){
         Auth::logout();
         return Redirect::to('/');
+    }
+    public function mount()
+    {
+        $this->confirmedEventsCount = PastIpEvent::where('confirmed', false)->count();
     }
 
     // public function create(){
@@ -45,6 +51,7 @@ class AdminSideNav extends Component
     // }
     public function render()
     {
-        return view('livewire.admin-side-nav');
+        return view('livewire.admin-side-nav', [
+            'confirmedEventsCount' => $this->confirmedEventsCount,]);
     }
 }

@@ -2,7 +2,7 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-12">
-                <div class="card" style="border-radius: 20px; overflow: hidden; ">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
                     <div class="card-header">
                         <div class="d-flex m-2">
                             <!-- Search input -->
@@ -18,17 +18,19 @@
 
                     <div class="card-body scroll-table" id="scroll-table">
                         <table class="table-main table-full-width">
-                            <thead>
-                                <tr>
-                                    <th class="bg-primary">User</th>
-                                    <th class="bg-primary">Event Name</th>
-                                    <th class="bg-primary">Organizer / Sponsor</th>
-                                    <th class="bg-primary">Sponsor Category</th>
-                                    <th class="bg-primary">Date / Period</th>
-                                    <th class="bg-primary">Status</th>
-                                    <th class="bg-primary text-center">Actions</th>
-                                </tr>
-                            </thead>
+                            <div style="border-radius: 10px; overflow: hidden;">
+                                <thead>
+                                    <tr>
+                                        <th class="bg-primary">User</th>
+                                        <th class="bg-primary">Event Name</th>
+                                        <th class="bg-primary">Organizer / Sponsor</th>
+                                        <th class="bg-primary">Sponsor Category</th>
+                                        <th class="bg-primary">Date / Period</th>
+                                        <th class="bg-primary">Status</th>
+                                        <th class="bg-primary text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                            </div>
 
 
                             <tbody>
@@ -43,16 +45,28 @@
                                     <td class="text-center">
                                         <div class="btn-group" role="group">
                                             @if (!$event->confirmed)
-                                                <button type="button" class="btn-submit" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
-                                                    Approve
-                                                </button>
+
+                                                <div class="btn-g">
+                                                    <button type="button" class="btn-success" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
+                                                        <i class="bi bi-check2-circle"></i>
+                                                    </button>
+                                                    <span class="span span-delete">Approve</span>
+                                                </div>
+
                                             @endif
-                                            <button type="button" class="btn-submit" wire:click="editEvent({{ $event->id }})">
+                                            <div class="btn-g">
+                                            <button type="button" class="btn-submit mx-1" wire:click="editEvent({{ $event->id }})">
                                                 <i class="bi bi-pencil-fill"></i>
+
                                             </button>
+                                                <span class="span span-delete">Edit</span>
+                                            </div>
+                                            <div class="btn-g">
                                             <button type="button" class="btn-delete" wire:click="deleteEvent({{ $event->id }})">
                                                 <i class="bi bi-trash-fill"></i>
                                             </button>
+                                                <span class="span span-delete">Delete</span>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

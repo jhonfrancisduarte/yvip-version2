@@ -10,10 +10,10 @@
             <div class="col-12 table-contain">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Skills and Categories Management</h3> 
+                        <h3 class="card-title">Skills and Categories Management</h3>
                         <button type="button" class="btn-submit float-right" wire:click="openAddForm">Add Skills and Category
                         </button>
-                        
+
                     </div>
                     <div class="card-header card-header1">
                         <label for="" class="label" style="margin-top: 5px;">Filter: </label>
@@ -46,8 +46,21 @@
                                             </ul>
                                         </td>
                                         <td class="action-btn width">
-                                            <p class="light-blue" wire:click="openEditForm({{ $category->id }})"><i class="bi bi-pencil-square"></i> Edit</p>
-                                            <p class="red" wire:click="deleteDialog({{ $category->id }})"><i class="bi bi-trash3"></i> Delete</p>
+                                            <div class="btn-group-2" role="group">
+                                                <div class="btn-g">
+                                                    <button class="btn-submit" wire:click="openEditForm({{ $category->id }})">
+                                                        <i class="bi bi-pencil-square"></i>
+                                                    </button>
+                                                    <span class="span span-delete">Edit</span>
+                                                </div>
+                                                <div class="mx-2"></div>
+                                                <div class="btn-g">
+                                                    <button class="btn-delete" wire:click="deleteDialog({{ $category->id }})">
+                                                        <i class="bi bi-trash3"></i>
+                                                    </button>
+                                                    <span class="span span-delete">Delete</span>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -77,7 +90,7 @@
                         <p>Are you sure you want to deactivate this category?</p>
                     @endif
                 </div>
-                
+
                 <div class="modal-footer">
                     @if($disableButton == "No")
                         <button class="btn-delete" wire:click="deleteCategory" wire:loading.attr="disabled">Yes</button>
@@ -87,7 +100,7 @@
                     @endif
                 </div>
             </div>
-        </div>    
+        </div>
     @endif
 
     @if($openAddSkillsAndCategories)
@@ -104,13 +117,13 @@
                     <form wire:submit.prevent='createCategory'>
                         <div class="card card-primary">
                             <div class="card-body">
-                                
+
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Category Name</label>
                                             <input type="text" class="form-control" row="5" wire:model.live='category_name' placeholder="Category name..." required>
-                                            @error('category_name') 
+                                            @error('category_name')
                                                 <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -122,7 +135,7 @@
                                         <div class="form-group">
                                             <label>Description</label>
                                             <textarea class="form-control" row="5" wire:model.live='description' placeholder="Description" required></textarea>
-                                            @error('description') 
+                                            @error('description')
                                                 <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -149,7 +162,7 @@
                             </div>
 
                             <div class="modal-footer justify-content-between">
-                                <button class="btn-submit" type="submit">Submit</button>
+                                <button class="btn-success" type="submit">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -171,13 +184,13 @@
                         <form wire:submit.prevent='editCategory'>
                             <div class="card card-primary">
                                 <div class="card-body">
-                                    
+
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Category Name</label>
                                                 <input type="text" class="form-control" row="5" wire:model.live='category_name' placeholder="Category name..." value="{{ $category_name }}" required>
-                                                @error('category_name') 
+                                                @error('category_name')
                                                     <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -189,7 +202,7 @@
                                             <div class="form-group">
                                                 <label>Description</label>
                                                 <textarea class="form-control" row="10" wire:model.live='description' required>{{ $description }}</textarea>
-                                                @error('description') 
+                                                @error('description')
                                                     <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -211,12 +224,12 @@
                                                 </button>
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>
 
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button class="btn-submit" type="submit">Submit</button>
+                                    <button class="btn-success" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>

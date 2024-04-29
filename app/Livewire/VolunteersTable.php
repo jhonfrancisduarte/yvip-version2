@@ -169,10 +169,10 @@ class VolunteersTable extends Component
                 $user->update([
                     'active_status' => 1,
                 ]);
-                $this->deleteMessage = 'Reactivated successfully.';
+                $this->deleteMessage = 'Activated successfully.';
                 $this->disableButton = "Yes";
             }else{
-                $this->deleteMessage = 'Reactivated unsuccessfully.';
+                $this->deleteMessage = 'Activated unsuccessfully.';
                 $this->disableButton = "Yes";
             }
         }catch(Exception $e){

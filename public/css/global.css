@@ -74,7 +74,16 @@
   
 .table-main td{
     padding: 10px !important;
-    border-bottom: 1px solid #cccccc3f;
+    border-bottom: 1px solid #cccccc3f !important;
+}
+
+.th-action-btn {
+    background: rgba(238,238,238,1) !important;
+}
+
+
+.mx-2{
+    height: 5px;
 }
   
 .table-main .action-btn{
@@ -107,26 +116,14 @@
 .btn:focus,
 .btn-cancel:focus,
 .btn-delete:focus,
+.btn-success:focus,
+.btn-warning:focus,
 .btn-submit:focus{
     outline: none !important;
     box-shadow: none !important;
 }
 
-/* btn submit */
-.btn-submit {
-display: inline-block;
-transition: all 0.2s ease-in;
-position: relative;
-overflow: hidden;
-z-index: 1;
-color: black;
-padding: 1px 10px 2px 10px;
-cursor: pointer;
-font-size: 14px;
-border-radius: 3px;
-background: rgb(245, 245, 245);
-border: 1px solid #ccc;
-}
+
 
 .btn-submit:active {
 color: #666;
@@ -163,9 +160,10 @@ transition: all 0.3s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
 z-index: -1;
 }
 
+/* btn-submit */
 .btn-submit:hover{
-color: #ffffff;
-border: 1px solid #1796aa;
+    color: #ffffff;
+    border: 1px solid #1796aa;
 }
 
 .btn-submit:hover:before {
@@ -180,22 +178,7 @@ background-color: #1796aa;
 transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
 
-/* btn delete */
-.btn-delete {
-display: inline-block;
-transition: all 0.2s ease-in;
-position: relative;
-overflow: hidden;
-z-index: 1;
-color: black;
-padding: 1px 10px 2px 10px;
-cursor: pointer;
-font-size: 14px;
-border-radius: 3px;
-background: rgb(245, 245, 245);
-border: 1px solid #ccc;
-}
-
+/* btn-delete */
 .btn-delete:active {
 color: #666;
 box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
@@ -232,8 +215,8 @@ z-index: -1;
 }
 
 .btn-delete:hover{
-color: #ffffff;
-border: 1px solid #bb2635;
+    color: #ffffff;
+    border: 1px solid #bb2635;
 }
 
 .btn-delete:hover:before {
@@ -248,22 +231,7 @@ background-color: #bb2635;
 transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
 
-/* btn cancel */
-.btn-cancel {
-display: inline-block;
-transition: all 0.2s ease-in;
-position: relative;
-overflow: hidden;
-z-index: 1;
-color: black;
-padding: 1px 10px 2px 10px;
-cursor: pointer;
-font-size: 14px;
-border-radius: 3px;
-background: rgb(245, 245, 245);
-border: 1px solid #ccc;
-}
-
+/* btn-cancel */
 .btn-cancel:active {
 color: #666;
 box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
@@ -314,17 +282,176 @@ z-index: -1;
     top: -45%;
     background-color: #6c757d;
     transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+} 
+
+/* btn-success */
+.btn-success:active {
+color: #666;
+box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
 }
+
+.btn-success:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.25);
+    top: 100%;
+    width: 140%;
+    height: 180%;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: block;
+    transition: all 0.3s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
+}
+  
+.btn-success:after {
+    content: "";
+    position: absolute;
+    left: 55%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.45);
+    top: 180%;
+    width: 160%;
+    height: 190%;
+    background-color: #02C753;
+    border-radius: 50%;
+    display: block;
+    transition: all 0.3s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
+}
+
+.btn-success:hover{
+    color: #ffffff;
+    border: 1px solid #02C753;
+}
+  
+.btn-success:hover:before {
+    top: -35%;
+    background-color: #02C753;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+  
+.btn-success:hover:after {
+    top: -45%;
+    background-color: #02C753;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+} 
+
+/* btn-warning */
+.btn-warning:active {
+color: #666;
+box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+.btn-warning:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.25);
+    top: 100%;
+    width: 140%;
+    height: 180%;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: block;
+    transition: all 0.3s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
+}
+  
+.btn-warning:after {
+    content: "";
+    position: absolute;
+    left: 55%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.45);
+    top: 180%;
+    width: 160%;
+    height: 190%;
+    background-color: #DD5600;
+    border-radius: 50%;
+    display: block;
+    transition: all 0.3s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
+}
+
+.btn-warning:hover{
+    color: #ffffff;
+    border: 1px solid #DD5600;
+}
+  
+.btn-warning:hover:before {
+    top: -35%;
+    background-color: #DD5600;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+  
+.btn-warning:hover:after {
+    top: -45%;
+    background-color: #DD5600;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+} 
 
 
 /* Action button design */
-.btn-submit:hover + .span{
-    display: block;
-    top: -30px;
-    opacity: 1;
+
+.btn-submit,
+.btn-success,
+.btn-cancel,
+.btn-warning,
+.btn-delete {
+    display: inline-block;
+    transition: all 0.2s ease-in;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    padding: 3px 7px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease;
+    border: 1px solid;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.btn-delete:hover + .span{
+.btn-success,
+.btn-cancel,
+.btn-submit,
+.btn-warning,
+.btn-delete {
+    background: white;
+}
+
+.btn-success {
+    border-color: #02C753;
+    color: #02C753;
+}
+
+.btn-cancel {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.btn-submit {
+    border-color: #1796aa;
+    color: #1796aa;
+}
+
+.btn-warning {
+    border-color: #DD5600;
+    color: #DD5600;
+}
+
+.btn-delete {
+    border-color: #C41B2E;
+    color: #C41B2E;
+}
+    
+.btn-submit:hover + .span,
+.btn-success:hover + .span,
+.btn-warning:hover + .span,
+.btn-delete:hover + .span,
+.btn-warning:hover + .span{
     display: block;
     top: -30px;
     opacity: 1;
@@ -334,10 +461,14 @@ z-index: -1;
     position: relative;
 }
 
+.btn-group-2{
+    overflow-x: visible;
+}
+
 .span{
     position: absolute;
     top: 0px;
-    left: -10px;
+    right: 0;
     z-index: 999;
     color: black;
     padding: 1px 5px 3px 5px;
@@ -349,14 +480,6 @@ z-index: -1;
     border: 1px solid #ccc;
     font-size: 13px;
 }
-
-/* .span-submit{
-    background: #1796aa;
-}
-
-.span-delete{
-    background: #bb2635;
-} */
 
 
 .table-full-width{
