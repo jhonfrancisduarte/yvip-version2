@@ -111,6 +111,8 @@
 .btn:focus,
 .btn-cancel:focus,
 .btn-delete:focus,
+.btn-success:focus,
+.btn-warning:focus,
 .btn-submit:focus{
     outline: none !important;
     box-shadow: none !important;
