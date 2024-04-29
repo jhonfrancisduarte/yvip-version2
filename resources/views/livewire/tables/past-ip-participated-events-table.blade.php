@@ -190,7 +190,7 @@
                             @error('dateEnd') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
-                        <button type="submit" class="btn-submit">Submit</button>
+                        <button type="submit" class="btn-success">Submit</button>
                         <button type="button" class="btn-cancel" wire:click="closeAddEventModal">Cancel</button>
                     </form>
                 </div>

@@ -103,14 +103,14 @@
                                                 <div class="mx-1"></div>
                                                 @if($active_status === 2)
                                                     <div class="btn-g">
-                                                        <button class="btn-submit" wire:click="reactivateDialog('{{ $admin->user_id }}')">
+                                                        <button class="btn-success" wire:click="reactivateDialog('{{ $admin->user_id }}')">
                                                             <i class="bi bi-person-check"></i>
                                                         </button>
                                                         <span class="span span-delete">Activate</span>
                                                     </div>
                                                 @elseif($active_status === 1) 
                                                     <div class="btn-g">
-                                                        <button class="btn-delete" wire:click="deleteDialog('{{ $admin->user_id }}')">
+                                                        <button class="btn-warning" wire:click="deleteDialog('{{ $admin->user_id }}')">
                                                             <i class="bi bi-ban"></i>
                                                         </button>
                                                         <span class="span span-delete">Deactivate</span>
@@ -182,8 +182,7 @@
                 
                 <div class="modal-footer">
                     @if($disableButton == "No")
-                        <button class="btn-submit" wire:click="reactivateVolunteer('{{ $reactivateAdminId }}')" wire:loading.attr="disabled">Yes
-                            {{-- <div class="loader" wire:loading></div> --}}
+                        <button class="btn-success" wire:click="reactivateVolunteer('{{ $reactivateAdminId }}')" wire:loading.attr="disabled">Yes
                         </button>
                         <button class="btn-cancel" wire:click="hideReactivateDialog">Cancel</button>
                     @else
@@ -360,7 +359,7 @@
                             </div>
 
                             <div class="modal-footer justify-content-between">
-                                <button class="btn-submit" type="submit">Submit</button>
+                                <button class="btn-success" type="submit">Submit</button>
                             </div>
                         </div>
                     </form>

@@ -77,6 +77,11 @@
     border-bottom: 1px solid #cccccc3f !important;
 }
 
+.th-action-btn {
+    background: rgba(238,238,238,1) !important;
+}
+
+
 .mx-2{
     height: 5px;
 }

@@ -166,7 +166,7 @@
                                                 @if(session('user_role') == 'yip')
                                                     @if(!$event->hasJoined && !$event->approved && !$event->disapprovedParticipants && !$event->join_status)
                                                         @if($event->status !== "Completed")
-                                                            <button class="btn-submit" wire:click="joinEvent({{ $event->id }})">Join</button>
+                                                            <button class="btn-success" wire:click="joinEvent({{ $event->id }})">Join</button>
                                                         @endif
                                                     @elseif($event->join_status)
                                                         <span class="orange">Closed</span>
@@ -304,7 +304,7 @@
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button class="btn-submit" type="submit">Submit</button>
+                                    <button class="btn-success" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -395,7 +395,7 @@
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button class="btn-submit" type="submit">Submit</button>
+                                    <button class="btn-success" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -430,7 +430,7 @@
                                                     <label class="label" wire:click="showParticipantDetails('{{ $requester['user_id'] }}', '')">{{ $requester['name'] }}</label>
                                                     <div class="btn-approval">
                                                         <button class="btn-delete" wire:click="disapproveParticipant('{{ $requester['user_id'] }}')">Disapprove</button>
-                                                        <button class="btn-submit" wire:click="approveParticipant('{{ $requester['user_id'] }}')" style="margin-right: 5px;">Approve</button>
+                                                        <button class="btn-success" wire:click="approveParticipant('{{ $requester['user_id'] }}')" style="margin-right: 5px;">Approve</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -669,7 +669,7 @@
                         <div class="user-data">
                             @if(!$ppoSubmisions)
                                 @if(!$isParticipant)
-                                    <button class="btn-submit" wire:click="approveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Approve</button>
+                                    <button class="btn-success" wire:click="approveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Approve</button>
                                     <button class="btn-delete" wire:click="disapproveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Disapprove</button>
                                 @else
                                     <button class="btn-delete" wire:click="disapproveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Remove</button>
