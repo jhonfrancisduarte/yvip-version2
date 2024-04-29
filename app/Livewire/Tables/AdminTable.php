@@ -18,6 +18,7 @@ class AdminTable extends Component{
     public $userDetails;
     public $popup_message;
     public $openAddAdminForm;
+    public $reactivateAdminId;
 
     #[Rule('required|min:2')]
     public $first_name;
@@ -172,6 +173,40 @@ class AdminTable extends Component{
             $this->active_status = 1;
         }else{
             $this->active_status = 2;
+        }
+    }
+
+    public function reactivateVolunteer($userId){
+        try{
+            $user = User::where('id', $userId)->first();
+            if ($user){
+                $user->update([
+                    'active_status' => 1,
+                ]);
+                $this->deleteMessage = 'Activated successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Activated unsuccessfully.';
+                $this->disableButton = "Yes";
+            }
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    public function reactivateDialog($userId){
+        $this->reactivateAdminId = $userId;
+        if($this->selectedUserDetails != null){
+            $this->selectedUserDetails = null;
+        }
+    }
+
+    public function hideReactivateDialog(){
+        $this->deleteMessage = null;
+        $this->reactivateAdminId = null;
+        $this->disableButton = "No";
+        if($this->selectedUserDetails != null){
+            $this->selectedUserDetails = null;
         }
     }
 }

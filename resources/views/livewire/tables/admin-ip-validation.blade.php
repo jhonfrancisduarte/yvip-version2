@@ -36,17 +36,17 @@
                                         <td class="text-center">
                                             <div class="btn-group" role="group">
                                                 @if (!$event->confirmed)
-                                                    <button type="button" class="btn-submit" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
+                                                    <button type="button" class="btn-success" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
                                                         Approve
                                                     </button>
                                                 @endif
                                                 <div class="mx-1"></div>
                                                 <button type="button" class="btn-submit" wire:click="editEvent({{ $event->id }})">
-                                                    <i class="bi bi-pencil-fill"></i>
+                                                    <i class="bi bi-pencil-square"></i>
                                                 </button>
                                                 <div class="mx-1"></div>
                                                 <button type="button" class="btn-delete" wire:click="deleteEvent({{ $event->id }})">
-                                                    <i class="bi bi-trash-fill"></i>
+                                                    <i class="bi bi-trash3"></i>
                                                 </button>
                                             </div>
                                         </td>

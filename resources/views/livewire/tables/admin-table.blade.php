@@ -10,11 +10,17 @@
             <div class="col-12 table-contain">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Admin and Secretariat Management</h3> 
-                        <button type="button" class="btn-submit btn-float-right" wire:click="openAddForm">Register an Admin</i>
-                        </button>
+                        <h3 class="card-title">Admin Management</h3> 
                         <div class="top-buttons">
-                            <button type="button" class="btn btn-submit btn-accounts" style="float: right;" wire:click="deactivatedAccounts">
+                            <button type="button" class="btn-submit" wire:click="openAddForm" style="margin-right: 15px;">
+                                <div class="is-mobile-view">
+                                    <i class="bi bi-plus-lg"></i>
+                                </div>
+                                <div class="is-desktop-view">
+                                    Register an Admin
+                                </div>
+                            </button>
+                            <button type="button" class="btn-submit btn-accounts" style="float: right;" wire:click="deactivatedAccounts">
                                 @if($active_status === 1)
                                     <div class="is-mobile-view">
                                         <i class="fas fa-user-slash"></i>
@@ -87,8 +93,6 @@
                                             @endif
                                         </td>
                                         <td width="8%" class="action-btn2 width">
-                                            {{-- <p class="light-blue" wire:click="showUserData({{ $admin->user_id }})"><i class="bi bi-eye"></i> View</p>
-                                            <p class="red" wire:click="deleteDialog({{ $admin->user_id }})"><i class="bi bi-ban"></i> Deact</p> --}}
                                             <div class="btn-group" role="group">
                                                 <div class="btn-g">
                                                     <button class="btn-submit" wire:click="showUserData('{{ $admin->user_id }}')">
@@ -97,12 +101,21 @@
                                                     <span class="span span-submit">View</span>
                                                 </div>
                                                 <div class="mx-1"></div>
-                                                <div class="btn-g">
-                                                    <button class="btn-delete" wire:click="deleteDialog('{{ $admin->user_id }}')">
-                                                        <i class="bi bi-ban"></i>
-                                                    </button>
-                                                    <span class="span span-delete">Deactivate</span>
-                                                </div>
+                                                @if($active_status === 2)
+                                                    <div class="btn-g">
+                                                        <button class="btn-submit" wire:click="reactivateDialog('{{ $admin->user_id }}')">
+                                                            <i class="bi bi-person-check"></i>
+                                                        </button>
+                                                        <span class="span span-delete">Activate</span>
+                                                    </div>
+                                                @elseif($active_status === 1) 
+                                                    <div class="btn-g">
+                                                        <button class="btn-delete" wire:click="deleteDialog('{{ $admin->user_id }}')">
+                                                            <i class="bi bi-ban"></i>
+                                                        </button>
+                                                        <span class="span span-delete">Deactivate</span>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
@@ -146,6 +159,39 @@
                 </div>
             </div>
         </div> 
+    @endif
+
+    @if($reactivateAdminId)
+        <div class="users-data-all-container no-padding">
+            <div class="close-form" wire:click="hideReactivateDialog"></div>
+            <div class="user-info user-infos">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Activate</h5>
+                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    @if($deleteMessage)
+                        <p style="color: green;">{{ $deleteMessage }}</p>
+                    @else
+                        <p>Are you sure you want to activate this admin?</p>
+                    @endif
+                </div>
+                
+                <div class="modal-footer">
+                    @if($disableButton == "No")
+                        <button class="btn-submit" wire:click="reactivateVolunteer('{{ $reactivateAdminId }}')" wire:loading.attr="disabled">Yes
+                            {{-- <div class="loader" wire:loading></div> --}}
+                        </button>
+                        <button class="btn-cancel" wire:click="hideReactivateDialog">Cancel</button>
+                    @else
+                        <button class="btn-cancel" wire:click="hideReactivateDialog">Close</button>
+                    @endif
+                </div>
+            </div>
+        </div>    
     @endif
 
     @if($selectedUserDetails)
