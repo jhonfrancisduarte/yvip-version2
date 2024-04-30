@@ -31,3 +31,24 @@
     justify-content: center;
     align-items: center;
 }
+
+.rewards-table-content .card {
+    display: inline-block !important;
+}
+
+.table-contain .card,
+#rewards-table {
+    width: 100%;
+}
+
+.table-contain {
+    width: 95% !important;
+    overflow-x: hidden !important;
+    border-radius: 5px;
+}
+
+.table-contain .card,
+#rewards-table,
+.rewards-row {
+    border-radius: 5px !important;
+}

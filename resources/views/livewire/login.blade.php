@@ -1,6 +1,5 @@
-<div class="login-form-container">
+<div class="login-form">
         <h2 class="title">Sign in to your account</h2>
-
         <form wire:submit.prevent="login">
             <div class="row row-space login-input-div">
                 <div class="col-1">
@@ -14,12 +13,15 @@
             </div>
             <div class="row row-space login-input-div">
                 <div class="col-1">
-                    <div class="input-group">
-                        <input class="input--style-4" type="password" id="password" name="password" required wire:model="password" placeholder="Password">
-                        @error('password')
-                            <span style="color: red;">{{ $message }}</span>
-                        @enderror
+                    <div class="input-group input-group-login">
+                        <input class="input--style-4" type="{{ $showPassword ? 'text' : 'password' }}" id="password" name="password" required wire:model="password" placeholder="Password">
+                        <span class="toggle-password" wire:click="togglePasswordVisibility">
+                            <i class="fa {{ $showPassword ? 'fa-eye-slash' : 'fa-eye' }}"></i>
+                        </span>
                     </div>
+                    @error('password')
+                        <span style="color: red;">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
 
@@ -34,13 +36,14 @@
                 </div>
                 <div class="col-2 col-forget">
                     <div class="input-group">
-                        <p class="forget"><a href="{{ route('password.request')}}">Forgot Password?</a></p>
+                        {{-- <p class="forget" id="forget"><a href="{{ route('password.request')}}">Forgot Password?</a></p> --}}
+                        <p class="forget" id="forget">Forgot Password?</p>
                     </div>
                 </div>
             </div>
 
             <div class="p-t-15">
-                <button class="btn btn--radius-2 btn--blue login-button" type="submit">Sign In</button>
+                <button class="login-button" type="submit">Sign In</button>
             </div>
 
             @if ($errors->has('login'))
@@ -50,5 +53,8 @@
             @endif
  
             <p class="p"><a href="/registration" wire:navigate>I don't have an account yet!</a></p>
+            @if (session('status'))
+                <p class="green">{{ session('status') }}</p>
+            @endif
         </form>
 </div>

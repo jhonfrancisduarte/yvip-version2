@@ -824,7 +824,6 @@ class ComposerStaticInitf9985d2fbac80db1beb2b346fbe4e2ec
         'App\\Livewire\\Tables\\ParticipatedIpEventsTable' => __DIR__ . '/../..' . '/app/Livewire/Tables/ParticipatedIpEventsTable.php',
         'App\\Livewire\\Tables\\PostProgramObligationTable' => __DIR__ . '/../..' . '/app/Livewire/Tables/PostProgramObligationTable.php',
         'App\\Livewire\\Tables\\SkillsAndCategoriesTable' => __DIR__ . '/../..' . '/app/Livewire/Tables/SkillsAndCategoriesTable.php',
-        'App\\Livewire\\Tables\\VirtualPassportTable' => __DIR__ . '/../..' . '/app/Livewire/Tables/VirtualPassportTable.php',
         'App\\Livewire\\Tables\\VolunteerHoursTable' => __DIR__ . '/../..' . '/app/Livewire/Tables/VolunteerHoursTable.php',
         'App\\Livewire\\Tables\\VolunteerRegistrationTable' => __DIR__ . '/../..' . '/app/Livewire/Tables/VolunteerRegistrationTable.php',
         'App\\Livewire\\VolunteerDashboard' => __DIR__ . '/../..' . '/app/Livewire/VolunteerDashboard.php',

@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        @livewire('tables.volunteer-registration-table');
+        @livewire('tables.volunteer-registration-table')
         
     </div>
 

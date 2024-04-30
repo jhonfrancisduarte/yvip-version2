@@ -166,7 +166,7 @@ class Register extends Component
     ];
     public $permanent_cities;
     public $residential_cities;
-
+    
 
 
     public function mount()
@@ -401,11 +401,11 @@ class Register extends Component
         $this->residential_selectedCity = Str::ucfirst(Str::lower($this->residential_selectedCity));
         sleep(1);
         try {
-            $this->validate();
-            if (!$this->isPasswordComplex($this->password)) {
-                $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
-                return;
-            }
+            // $this->validate();
+            // if (!$this->isPasswordComplex($this->password)) {
+            //     $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
+            //     return;
+            // }
 
             if($this->is_ip_participant === true){
                 $this->user_role = "yip";
@@ -413,20 +413,15 @@ class Register extends Component
 
             $passportNumber = 'YVIP' . date('Y') . $this->generateUserId();
             $user = User::create([
+                'id' => Str::uuid(),
                 'email' => $this->email,
                 'password' => $this->password,
                 'user_role' => $this->user_role,
                 'name' => $this->first_name . " " . $this->middle_name . " " . $this->last_name,
             ]);
 
-
-            $user->volunteer()->create([
-                'user_id' => $user->id,
-                'volunteer_experience' => "",
-                'volunteering_hours' => 0,
-            ]);
-
             $user->userData()->create([
+                'id' => Str::uuid(),
                 'user_id' => $user->id,
                 'passport_number' => $passportNumber,
                 'first_name' => $this->first_name,
@@ -475,6 +470,11 @@ class Register extends Component
         $containsSpecialChar = preg_match('/[^A-Za-z0-9]/', $password); // Changed regex to include special characters
         return $containsUppercase && $containsNumber && $containsSpecialChar;
     }
-
-
+    private function generateUserId() {
+        // $latestUserData = UserData::latest()->first();
+        // $nextUserId = $latestUserData ? $latestUserData->user_id + 1 : 1;
+        $nextUserId = mt_rand(10000, 99999);
+        return strval($nextUserId);
+        // return str_pad($nextUserId, 5, '0', STR_PAD_LEFT);
+    }
 }

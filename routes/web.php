@@ -35,7 +35,7 @@ Route::middleware(['auth', 'user_role:yv,yip'])->group(function () {
 Route::middleware(['auth', 'user_role:yip'])->group(function () {
      // Private pages accessible only to users (ip beneficiaries)
      Route::get('/ip-events-list', function () {return view('livewire.ip.ip-events-list');})->name('ip-events-list');
-     Route::get('/past-ip-participated-events', function () {return view('livewire.past-ip-participated-events');})->name('past-ip-participated-events');
+     Route::get('/past-ip-participated-events', function () {return view('livewire.ip.past-ip-participated-events');})->name('past-ip-participated-events');
      Route::get('/ip-participated-events', function () {return view('livewire.ip.ip-participated-events');})->name('ip-participated-events');
      Route::get('/ip-passport', function () {return view('livewire.ip-passport');})->name('ip-passport');
      Route::get('/post-program-obligation', function () {return view('livewire.ip.post-program-obligation');})->name('post-program-obligation');
@@ -45,7 +45,7 @@ Route::middleware(['auth', 'user_role:sa'])->group(function (){
      // Private pages accessible to super admin only
      Route::get('/admin-dashboard', function () {return view('livewire.admin-dashboard');})->name('admin-dashboard');
 });
- 
+
 Route::middleware(['auth', 'user_role:sa,vs,vsa,ips'])->group(function (){
      // Private pages accessible to all admin user
      Route::get('/admin-profile', function () {return view('livewire.admin.admin-profile');})->name('admin-profile');
@@ -57,7 +57,7 @@ Route::middleware(['auth', 'user_role:sa,vs,vsa'])->group(function (){
      Route::get('/volunteer-registration', function () {return view('livewire.yv.volunteer-registration');})->name('volunteer-registration');
      Route::get('/volunteers', function () {return view('livewire.volunteers');})->name('volunteers');
      Route::get('/volunteer-hours', function () {return view('livewire.yv.volunteer-hours');})->name('volunteer-hours');
-     Route::get('/volunteer-rewards', function () {return view('livewire.volunteer-rewards');})->name('volunteer-rewards');
+     Route::get('/volunteer-rewards', function () {return view('livewire.rewards');})->name('volunteer-rewards');
      Route::get('/volunteer-events-and-trainings', function () {return view('livewire.volunteer-events-and-trainings');})->name('volunteer-events-and-trainings');
      Route::get('/skills-and-categories', function () {return view('livewire.yv.skills-and-categories');})->name('skills-and-categories');
      Route::get('/volunteer-messages', function () {return view('livewire.volunteer-messages');})->name('volunteer-messages');

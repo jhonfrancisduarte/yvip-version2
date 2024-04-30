@@ -72,7 +72,6 @@ return array(
     'App\\Livewire\\Tables\\ParticipatedIpEventsTable' => $baseDir . '/app/Livewire/Tables/ParticipatedIpEventsTable.php',
     'App\\Livewire\\Tables\\PostProgramObligationTable' => $baseDir . '/app/Livewire/Tables/PostProgramObligationTable.php',
     'App\\Livewire\\Tables\\SkillsAndCategoriesTable' => $baseDir . '/app/Livewire/Tables/SkillsAndCategoriesTable.php',
-    'App\\Livewire\\Tables\\VirtualPassportTable' => $baseDir . '/app/Livewire/Tables/VirtualPassportTable.php',
     'App\\Livewire\\Tables\\VolunteerHoursTable' => $baseDir . '/app/Livewire/Tables/VolunteerHoursTable.php',
     'App\\Livewire\\Tables\\VolunteerRegistrationTable' => $baseDir . '/app/Livewire/Tables/VolunteerRegistrationTable.php',
     'App\\Livewire\\VolunteerDashboard' => $baseDir . '/app/Livewire/VolunteerDashboard.php',

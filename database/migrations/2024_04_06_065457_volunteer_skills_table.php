@@ -14,7 +14,7 @@ return new class extends Migration
         if (!Schema::hasTable('volunteer_skills')) {
         Schema::create('volunteer_skills', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('skill_name', 1000);
             $table->text('description')->nullable();

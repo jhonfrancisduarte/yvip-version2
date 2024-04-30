@@ -87,7 +87,7 @@ class MyProfile extends Component
 
     public function editProfilePic($id){
         try{
-            $user = User::find($id);
+            $user = User::where('id', $id)->first();
             
             $pathToDelete = $user->userData->profile_picture;
             $pathToDelete = str_replace('uploads', '', $pathToDelete);
@@ -101,6 +101,7 @@ class MyProfile extends Component
                 $imagePath = "uploads/" . $imagePath;
                 $user->userData()->update(['profile_picture' => $imagePath]);
             }
+            
             $this->popup_message = null;
             $this->popup_message = 'Profile picture updated successfully.';
             $this->profile_picture = null;
@@ -139,134 +140,146 @@ class MyProfile extends Component
     }
 
     public function editThis($data){
-        $userId = Auth::user()->id;
-        $user = User::find($userId);
-        if ($user && $user->userData){
-            if($data === "email"){
-                $columnValue = $user->{$data};
-                $this->thisData = $columnValue;
+        try{
+            $userId = Auth::user()->id;
+            $user = User::with('userData')->where('id', $userId)->first();
+            if ($user){
+                if($data === "email"){
+                    $columnValue = $user->{$data};
+                    $this->thisData = $columnValue;
+                }
+                elseif($data === "password"){
+                }
+                else{
+                    $columnValue = $user->userData->{$data};
+                    $this->thisData = $columnValue;
+                }
+                $this->toBeEdited = $data;
+                $this->formattedData = str_replace('_', ' ', $data);
             }
-            elseif($data === "password"){
-            }
-            else{
-                $columnValue = $user->userData->get([$data])->pluck($data)->first();
-                $this->thisData = $columnValue;
-            }
-            $this->toBeEdited = $data;
-            $this->formattedData = str_replace('_', ' ', $data);
+        }catch(Exception $e){
+            throw $e;
         }
     }
 
     public function updateInfo($info){
-        $userId = Auth::user()->id;
-        $user = User::find($userId);
-        if($user){
-            if($info === "status"){
-                $user->userData()->update([
-                    $info => $this->thisData,
-                ]);
-                if($this->thisData === "Professional"){
+        try{      
+            $userId = Auth::user()->id;
+            $user = User::find($userId);
+            if($user){
+                if($info === "status"){
                     $user->userData()->update([
-                        'nature_of_work' => $this->nature_of_work,
-                        'employer' => $this->employer,
-                        'name_of_school' => null,
-                        'course' => null,
+                        $info => $this->thisData,
                     ]);
-                }   
-                elseif($this->thisData === "Student"){
+                    if($this->thisData === "Professional"){
+                        $user->userData()->update([
+                            'nature_of_work' => $this->nature_of_work,
+                            'employer' => $this->employer,
+                            'name_of_school' => null,
+                            'course' => null,
+                        ]);
+                    }   
+                    elseif($this->thisData === "Student"){
+                        $user->userData()->update([
+                            'nature_of_work' => null,
+                            'employer' => null,
+                            'name_of_school' => $this->name_of_school,
+                            'course' => $this->course,
+                        ]);
+                    } 
+                    $this->popup_message = null;
+                    $this->popup_message =  'Status updated successfully.';  
+                }
+                elseif($info === "permanent_selectedProvince"){
+                    $this->selectedProvince = Str::ucfirst(Str::lower($this->selectedProvince));
+                    $this->selectedCity = Str::ucfirst(Str::lower($this->selectedCity));
+                    $this->p_street_barangay = Str::ucfirst(Str::lower($this->p_street_barangay));
                     $user->userData()->update([
-                        'nature_of_work' => null,
-                        'employer' => null,
-                        'name_of_school' => $this->name_of_school,
-                        'course' => $this->course,
+                        'permanent_selectedProvince' => $this->selectedProvince,
+                        'permanent_selectedCity' => $this->selectedCity,
+                        'p_street_barangay' => $this->p_street_barangay,
                     ]);
-                } 
-                $this->popup_message = null;
-                $this->popup_message =  'Status updated successfully.';  
-            }
-            elseif($info === "permanent_selectedProvince"){
-                $this->selectedProvince = Str::ucfirst(Str::lower($this->selectedProvince));
-                $this->selectedCity = Str::ucfirst(Str::lower($this->selectedCity));
-                $this->p_street_barangay = Str::ucfirst(Str::lower($this->p_street_barangay));
-                $user->userData()->update([
-                    'permanent_selectedProvince' => $this->selectedProvince,
-                    'permanent_selectedCity' => $this->selectedCity,
-                    'p_street_barangay' => $this->p_street_barangay,
-                ]);
-                $this->popup_message = null;
-                $this->popup_message =  'Permanent address updated successfully.';
-            }
-            elseif($info === "residential_selectedProvince"){
-                $this->selectedProvince = Str::ucfirst(Str::lower($this->selectedProvince));
-                $this->selectedCity = Str::ucfirst(Str::lower($this->selectedCity));
-                $this->p_street_barangay = Str::ucfirst(Str::lower($this->p_street_barangay));
-                $user->userData()->update([
-                    'residential_selectedProvince' => $this->selectedProvince,
-                    'residential_selectedCity' => $this->selectedCity,
-                    'r_street_barangay' => $this->p_street_barangay,
-                ]);
-                $this->popup_message = null;
-                $this->popup_message =  'Residential address updated successfully.';
-            }
-            elseif($info === "email"){
-                $user->update([
-                    $info => $this->thisData,
-                ]);
-                $this->popup_message = null;
-                $this->popup_message =  'Email updated successfully.';
-            }
-            elseif($info === "password"){       
-                if ($this->isPasswordComplex($this->new_password) === false) {
-                    $this->addError('new_password', 'The password must contain at least one uppercase letter, one number, and one special character.');
-                    return;
+                    $this->popup_message = null;
+                    $this->popup_message =  'Permanent address updated successfully.';
                 }
-
-                if ($this->new_password !== $this->c_new_pass) {
-                    $this->addError('new_password', 'The new password do not match.');
-                    return;
+                elseif($info === "residential_selectedProvince"){
+                    $this->selectedProvince = Str::ucfirst(Str::lower($this->selectedProvince));
+                    $this->selectedCity = Str::ucfirst(Str::lower($this->selectedCity));
+                    $this->p_street_barangay = Str::ucfirst(Str::lower($this->p_street_barangay));
+                    $user->userData()->update([
+                        'residential_selectedProvince' => $this->selectedProvince,
+                        'residential_selectedCity' => $this->selectedCity,
+                        'r_street_barangay' => $this->p_street_barangay,
+                    ]);
+                    $this->popup_message = null;
+                    $this->popup_message =  'Residential address updated successfully.';
                 }
-
-                if (!Hash::check($this->password, Auth::user()->password)) {
-                    $this->addError('new_password', 'The current password is incorrect.');
-                    return;
+                elseif($info === "email"){
+                    $user->update([
+                        $info => $this->thisData,
+                    ]);
+                    $this->popup_message = null;
+                    $this->popup_message =  'Email updated successfully.';
                 }
-
-                $user->update([
-                    'password' => Hash::make($this->new_password),
-                ]);
-                $this->popup_message = null;
-                $this->popup_message =  'Password updated successfully.';
+                elseif($info === "password"){       
+                    if ($this->isPasswordComplex($this->new_password) === false) {
+                        $this->addError('new_password', 'The password must contain at least one uppercase letter, one number, and one special character.');
+                        return;
+                    }
+    
+                    if ($this->new_password !== $this->c_new_pass) {
+                        $this->addError('new_password', 'The new password do not match.');
+                        return;
+                    }
+    
+                    if (!Hash::check($this->password, Auth::user()->password)) {
+                        $this->addError('new_password', 'The current password is incorrect.');
+                        return;
+                    }
+    
+                    $user->update([
+                        'password' => Hash::make($this->new_password),
+                    ]);
+                    $this->popup_message = null;
+                    $this->popup_message =  'Password updated successfully.';
+                }
+                else{
+                    $user->userData()->update([
+                        $info => $this->thisData,
+                    ]);
+                    $this->popup_message = null;
+                    $this->popup_message =  $this->formattedData . ' updated successfully.';
+                }
+                $this->toBeEdited = null;
+                $this->thisData = null;
+                $this->selectedProvince = null;
+                $this->selectedCity =  null;
+                $this->p_street_barangay = null;
+                $this->nature_of_work = null;
+                $this->employer = null;
+                $this->name_of_school = null;
+                $this->course = null;
             }
-            else{
-                $user->userData()->update([
-                    $info => $this->thisData,
-                ]);
-                $this->popup_message = null;
-                $this->popup_message =  $this->formattedData . ' updated successfully.';
-            }
-            $this->toBeEdited = null;
-            $this->thisData = null;
-            $this->selectedProvince = null;
-            $this->selectedCity =  null;
-            $this->p_street_barangay = null;
-            $this->nature_of_work = null;
-            $this->employer = null;
-            $this->name_of_school = null;
-            $this->course = null;
+        }catch(Exception $e){
+            throw $e;
         }
     }
 
     public function deleteAccount(){
-        $userId = Auth::user()->id;
-        $user = User::find($userId);
-        if($user){
-            // soft deletion
-            $user->update([
-                'active_status' => 2,
-            ]);
-            Auth::logout();
-            Session::flush();
-            return redirect('/');
+        try{
+            $userId = Auth::user()->id;
+            $user = User::find($userId);
+            if($user){
+                // soft deletion
+                $user->update([
+                    'active_status' => 2,
+                ]);
+                Auth::logout();
+                Session::flush();
+                return redirect('/');
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 

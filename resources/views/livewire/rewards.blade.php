@@ -8,10 +8,13 @@
     <link rel="stylesheet" href="/css/rewards.css">
 @endsection
 
-
 @section('content')
 
-    @livewire('side-nav')
+    @if(session('user_role') !== 'yv' && session('user_role') !== 'yip')
+        @livewire('admin-side-nav')
+    @else
+        @livewire('side-nav')
+    @endif
 
     <div class="content-wrapper">
         <div class="content-header">

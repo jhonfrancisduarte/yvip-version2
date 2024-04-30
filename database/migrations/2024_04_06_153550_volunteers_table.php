@@ -14,7 +14,7 @@ return new class extends Migration
         if (!Schema::hasTable('volunteers')) {
             Schema::create('volunteers', function (Blueprint $table) {
                 $table->id();
-                $table->unsignedBigInteger('user_id');
+                $table->uuid('user_id');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');  
                 $table->text('volunteer_experience')->nullable();
                 $table->integer('volunteering_hours')->nullable(false)->default(0);

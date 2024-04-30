@@ -326,26 +326,27 @@
                             </div>
                         </div>
 
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">password</label>
-                                    <input class="input--style-4" type="password" wire:model="password" name="password">
-                                    @error('password') <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">password</label>
+                                <input class="input--style-4" type="password" wire:model="password" name="password">
 
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">confirm password</label>
-                                    <input class="input--style-4" type="password" wire:model="c_password" name="c_password">
-                                    @error('c_password') <span class="text-danger small" style="color: red;">{{ $message }}</span>
-
-                                    @enderror
-                                </div>
+                                @error('password')
+                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
+                        <div class="col-2">
+                            <div class="input-group input-group-register">
+                                <label class="label">confirm password</label>
+                                <input class="input--style-4" type="password" wire:model="c_password" name="c_password">
+                                @error('c_password') <span class="text-danger small" style="color: red;">{{ $message }}</span>
+
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row row-space">
                         <div class="col-2">
@@ -353,15 +354,13 @@
                                 <label class="label" style="font-style: italic; color: green;">Submitting ...</label>
                             </div>
                             <div class="p-t-15" wire:loading.attr="disabled">
-
-                                <button  class="btn btn--radius-2 btn--blue" type="submit" >Submit</button>
-
+                                <button  class="register-button" type="submit" >Submit</button>
                             </div>
 
                         </div>
                         <div class="col-2">
                             <div class="to-login-button">
-                                <b><a href="/" style="color:#2c6ed5" wire:navigate>I already have an Account.</a></b>
+                                <b><a href="/" style="color:#0061C4" wire:navigate>I already have an Account.</a></b>
                             </div>
                         </div>
                     </div>

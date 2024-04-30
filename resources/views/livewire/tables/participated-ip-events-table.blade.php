@@ -11,14 +11,13 @@
                     @endif
 
                     <div class="card-header card-header1">
-                        <label for="" class="label" style="margin-top: 5px;">Filter: </label>
                         <div class="col-md-3">
                             <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
                         </div>
                     </div>
 
                     <div class="card-body scroll-table" id="scroll-table">
-                        <table id="thisUserDetailss-table" class="table table-bordered table-striped">
+                        <table id="thisUserDetailss-table" class="table-main table-full-width">
                             <thead>
                                 <tr>
                                     <th>Name of Exchange Program/Event</th>
@@ -40,7 +39,7 @@
                                                     @if($event->status === "Ongoing")
                                                         class="green"
                                                     @elseif($event->status === "Completed")
-                                                        class="blue"
+                                                        class="light-blue"
                                                     @else
                                                         class="orange"
                                                     @endif
@@ -52,15 +51,6 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-
-                            <tfoot>
-                                <tr>
-                                    <th>Name of Exchange Program/Event</th>
-                                    <th>Organizer / Sponsor</th>
-                                    <th>Date / Period</th>
-                                    <th>Status</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>

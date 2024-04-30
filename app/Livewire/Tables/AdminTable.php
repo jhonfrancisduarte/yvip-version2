@@ -7,7 +7,7 @@ use Livewire\Attributes\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Models\admin;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Str;
 class AdminTable extends Component{
     public $selectedUserDetails;
     public $search;
@@ -54,6 +54,7 @@ class AdminTable extends Component{
                 return;
             }
             $user = User::create([
+                'id' => Str::uuid(),
                 'email' => $this->email,
                 'password' => $this->password,
                 'user_role' => $this->position,
@@ -62,6 +63,7 @@ class AdminTable extends Component{
             ]);
 
             admin::create([
+                'id' => Str::uuid(),
                 'user_id' => $user->id,
                 'first_name' => $this->first_name,
                 'middle_name' => $this->middle_name,
@@ -135,12 +137,13 @@ class AdminTable extends Component{
     public function deleteAdmin($userId){
         $user = User::find($userId);
         if ($user){
-            $user->admin()->delete();
-            $user->delete();
-            $this->deleteMessage = 'Volunteer deleted successfully.';
+            $user->update([
+                'active_status' => 2,
+            ]);
+            $this->deleteMessage = 'Admin deactivated successfully.';
             $this->disableButton = "Yes";
         }else{
-            $this->deleteMessage = 'Volunteer deletion unsuccessfully.';
+            $this->deleteMessage = 'Admin deactivated unsuccessfully.';
             $this->disableButton = "Yes";
         }
     }

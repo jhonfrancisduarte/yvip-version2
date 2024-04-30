@@ -7,6 +7,7 @@ use App\Models\Announcement;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 use DateTime;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class AnnouncementTable extends Component
@@ -33,59 +34,47 @@ class AnnouncementTable extends Component
     public $contentIndexes = [];
 
     public function createAnnouncement(){
-        $this->validate();
-        $userId = Auth::user()->id;
-        $announcement = Announcement::create([
-            'user_id' => $userId,
-            'title' => $this->title,
-            'content' => $this->content,
-            'type' => $this->dashboardType,
-            'category' => $this->category,
-        ]);
-
-        if ($this->file) {
-            $filePath = $this->file->storeAs('announcementFiles/files', $this->file->getClientOriginalName(), 'public_uploads');
-            $filePath = "uploads/" . $filePath;
-            $announcement->update(['attached_file' => $filePath]);
-        }
+        try{
+            if(auth()->user()->user_role === "sa"){
+                if(request()->routeIs('volunteer-dashboard')){
+                    $this->dashboardType = 'yv';
+                }elseif(request()->routeIs('ip-dashboard')){
+                    $this->dashboardType = 'ip';
+                }
+            }
+            $this->validate();
+            $userId = Auth::user()->id;
+            $announcement = Announcement::create([
+                'user_id' => $userId,
+                'title' => $this->title,
+                'content' => $this->content,
+                'type' => $this->dashboardType,
+                'category' => $this->category,
+            ]);
     
-        if ($this->featured_image) {
-            $imageName = uniqid() . '.' . $this->featured_image->getClientOriginalExtension();
-            $imagePath = $this->featured_image->storeAs('announcementFiles/images', $imageName, 'public_uploads');
-            $imagePath = "uploads/" . $imagePath;
-            $announcement->update(['featured_image' => $imagePath]);
+            if ($this->file) {
+                $filePath = $this->file->storeAs('announcementFiles/files', $this->file->getClientOriginalName(), 'public_uploads');
+                $filePath = "uploads/" . $filePath;
+                $announcement->update(['attached_file' => $filePath]);
+            }
+        
+            if ($this->featured_image) {
+                $imageName = uniqid() . '.' . $this->featured_image->getClientOriginalExtension();
+                $imagePath = $this->featured_image->storeAs('announcementFiles/images', $imageName, 'public_uploads');
+                $imagePath = "uploads/" . $imagePath;
+                $announcement->update(['featured_image' => $imagePath]);
+            }
+    
+            $this->reset();
+            $this->popup_message = null;
+            $this->popup_message = "Announcement created successfully";    
+        }catch(Exception $e){
+            throw $e;
         }
-
-        $this->reset();
-        $this->popup_message = null;
-        $this->popup_message = "Announcement created successfully";    
     }
 
     public function render(){
-
-    $user = Auth::user();
-    $userType = $user->user_role; // Assuming user_role is a property on your User model
-
-    $announcements = null;
-
-    if ($userType === 'yv') {
-        $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
-            ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
-            ->where('announcement.type', 'yv')
-            ->select('announcement.*', 'admin.*')
-            ->search(trim($this->search))
-            ->orderBy('announcement.created_at', 'asc')
-            ->get();
-    } else if ($userType === 'yip') {
-        $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
-            ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
-            ->where('announcement.type', 'ip')
-            ->select('announcement.*', 'admin.*')
-            ->search(trim($this->search))
-            ->orderBy('announcement.created_at', 'asc')
-            ->get();
-    }
-        if($this->dashboardType == "yv"){
+        if($this->dashboardType == "yv" || $this->dashboardType == "vs" || $this->dashboardType == "vsa"){
             $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
                 ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
                 ->where('announcement.type', $this->dashboardType)

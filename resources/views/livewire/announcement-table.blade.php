@@ -6,9 +6,21 @@
             <p>{{ $popup_message }}</p>
         </div>
         <div class="container-fluid">
-            <div class="announcement-header">
-                <div class="card-header">
-                    <h3 class="card-title">Volunteer Announcements</h3> 
+            @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa' || session('user_role') == 'ips')
+                <div class="announcement-header">
+                    <div class="card-header">
+                        @if($dashboardType === "yv")
+                            <h3 class="card-title">Volunteer Announcements</h3>
+                        @else
+                            <h3 class="card-title">International Program Announcements</h3>
+                        @endif 
+                    </div>
+                    <div class="card-header header-sticky-top">
+                        <button class="btn-submit" wire:click="openAddForm"><i class="fa fa-plus"></i></button>
+                        <div class="col-md-3">
+                            <input type="search" class="form-control" wire:model.live="search" placeholder="Search announcement...">
+                        </div>
+                    </div>
                 </div>
                 <div class="card-header header-sticky-top">
                     <button class="btn btn-success btn-sm" wire:click="openAddForm"><i class="fa fa-plus"></i></button>
@@ -22,9 +34,9 @@
 
                         @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa' || session('user_role') == 'ips')
                             <div class="admin-btn">
-                                <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#update"><i class="fa fa-pencil-alt"></i> 
+                                <button class="button-edit"  wire:click.live="openEditForm({{ $announcement->id }})"><i class="bi bi-pencil-square"></i>
                                 </button>
-                                <button class="btn btn-danger btn-xs" wire:click="deleteDialog({{ $announcement->id }})"><i class="fa fa-trash"></i> 
+                                <button class="button-delete"  wire:click.live="deleteDialog({{ $announcement->id }})"><i class="bi bi-trash3"></i> 
                                 </button>
                             </div>
                         @endif
@@ -60,9 +72,9 @@
                             <div class="attached-file">
                                 <p>Attached File: <span>{{ pathinfo(asset($announcement->attached_file), PATHINFO_FILENAME) }}.{{ pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) }}</span> <i class="nav-icon fas fa-file"></i></p>
                                 
-                                <div>
+                                <div class="anns-buttons">
                                     <a href="{{ asset($announcement->attached_file) }}" download>
-                                        <button class="btn btn-info btn-xs">Download</button>
+                                        <i class="bi bi-file-earmark-arrow-down"></i> Download
                                     </a>
                                     
                                     <!-- Preview button (for image files) -->
@@ -70,10 +82,9 @@
                                         pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) === 'docx' ||
                                         pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) === 'txt' ||
                                         pathinfo(asset($announcement->attached_file), PATHINFO_EXTENSION) === 'csv')
-                                        <button class="btn btn-info btn-xs btn-resized" onclick="window.open('{{ asset($announcement->attached_file) }}', '_blank')">Preview</button>
+                                        <a href="#" onclick="window.open('{{ asset($announcement->attached_file) }}', '_blank')"><i class="bi bi-eye"></i> Preview</a>
                                     @endif
                                 </div>
-
                             </div>
                         @endif
 
@@ -119,7 +130,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Your Announcement</label>
-                                                    <textarea class="form-control" rows="5" wire:model.live="content" placeholder="Enter announcement..." required></textarea>
+                                                    <textarea id="announcement" class="form-control" rows="5" wire:model.live="content" placeholder="Enter announcement..." required></textarea>
                                                     @error('content') 
                                                         <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                                     @enderror
@@ -167,7 +178,7 @@
                                     </div>
 
                                     <div class="modal-footer justify-content-between">
-                                        <button class="btn btn-infos" type="submit">Submit</button>
+                                        <button class="btn-submit" type="submit">Submit</button>
                                     </div>
                                 </div>
                             </form>
@@ -238,7 +249,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="label">Add Featured Image</label>
-                                                    <input type="file" id="featured_image" wire:model.live='featured_image'/>
+                                                    <input type="file" accept="image/*" id="featured_image" wire:model.live='featured_image'/>
                                                 </div>
                                             </div>
                                         </div>
@@ -247,7 +258,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="label">Attach File</label>
-                                                    <input type="file" id="file" wire:model.live='file'/>
+                                                    <input type="file" id="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -255,7 +266,7 @@
                                     </div>
 
                                     <div class="modal-footer justify-content-between">
-                                        <button class="btn btn-infos" type="submit">Submit</button>
+                                        <button class="btn-submit" type="submit">Submit</button>
                                     </div>
                                 </div>
                             </form>
@@ -266,33 +277,32 @@
         @endif
 
         @if($deleteAnnouncementId)
-            <div class="users-data-all-container">
+            <div class="users-data-all-container no-padding">
                 <div class="close-form" wire:click="hideDeleteDialog"></div>
-                <div class="user-info">
+                <div class="user-info user-infos">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Delete</h5>
+                        <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
-                    <div class="row1 row-header">
-                        <div class="col1">
-                            @if($deleteMessage)
-                                <label class="label" style="color: green;">{{ $deleteMessage }}</label>
-                            @else
-                                <label class="label">Are you sure you want to delete this announcement?</label>
-                            @endif
-                        </div>
+                    <div class="modal-body">
+                        @if($deleteMessage)
+                            <p style="color: green;">{{ $deleteMessage }}</p>
+                        @else
+                            <p>Are you sure you want to delete this announcement?</p>
+                        @endif
                     </div>
                     
-                    <div class="row1 row-footer">
-                        <div class="col">
-                            <div class="user-data">
-                                @if($disableButton == "No")
-                                    <button class="btn-danger btn-50" wire:click="deleteAnnouncement({{ $deleteAnnouncementId }})" wire:loading.attr="disabled">Yes
-                                        {{-- <div class="loader" wire:loading></div> --}}
-                                    </button>
-                                    <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Cancel</button>
-                                @else
-                                    <button class="btn-close-user-data btn-50" wire:click="hideDeleteDialog">Close</button>
-                                @endif
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        @if($disableButton == "No")
+                            <button class="btn-delete" wire:click="deleteAnnouncement({{ $deleteAnnouncementId }})" wire:loading.attr="disabled">Yes
+                            </button>
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                        @else
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                        @endif
                     </div>
                 </div>
             </div>    
