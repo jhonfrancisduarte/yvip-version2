@@ -68,12 +68,13 @@
 }
 
 
-.p-centered span{
-    padding: 3px 3px;
+.btn-g .notif-count{
+    padding: 0px 3px;
     border-radius: 5px;
     position: absolute;
-    top: -10px; left: 0px;
+    top: -10px; left: -10px;
     border: 1px solid #ccc;
+    z-index: 9;
 }
 
 .reset-date{

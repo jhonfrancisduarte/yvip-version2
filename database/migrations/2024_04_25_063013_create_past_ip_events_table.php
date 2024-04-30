@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('sponsor_category');
             $table->date('start');
             $table->date('end');
+            $table->boolean('confirmed')->default(false);
             $table->timestamps();
         });
     }

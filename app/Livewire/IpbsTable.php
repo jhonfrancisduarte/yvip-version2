@@ -17,6 +17,7 @@ class IpbsTable extends Component
     public $age_range;
     public $civil_status;
     public $deleteVolunteerId;
+    public $deactVolunteerId;
     public $disableButton = "No";
     public $deleteMessage;
     public $userDetails;
@@ -59,6 +60,13 @@ class IpbsTable extends Component
         }
     }
 
+    public function deactDialog($userId){
+        $this->deactVolunteerId = $userId;
+        if($this->selectedUserDetails != null){
+            $this->selectedUserDetails = null;
+        }
+    }
+
     public function deleteDialog($userId){
         $this->deleteVolunteerId = $userId;
         if($this->selectedUserDetails != null){
@@ -69,6 +77,8 @@ class IpbsTable extends Component
     public function hideDeleteDialog(){
         $this->deleteMessage = null;
         $this->deleteVolunteerId = null;
+        $this->deactVolunteerId = null;
+        $this->reactivateVolunteerId = null;
         $this->disableButton = "No";
         if($this->selectedUserDetails != null){
             $this->selectedUserDetails = null;
@@ -154,13 +164,30 @@ class IpbsTable extends Component
                 $user->update([
                     'active_status' => 1,
                 ]);
-                $this->deleteMessage = 'Reactivated successfully.';
+                $this->deleteMessage = 'Activated successfully.';
                 $this->disableButton = "Yes";
             }else{
-                $this->deleteMessage = 'Reactivated unsuccessfully.';
+                $this->deleteMessage = 'Activated unsuccessfully.';
                 $this->disableButton = "Yes";
             }
-            $this->reactivateVolunteerId = null;
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    public function deactivateVolunteer($userId){
+        try{
+            $user = User::where('id', $userId)->first();
+            if ($user){
+                $user->update([
+                    'active_status' => 2,
+                ]);
+                $this->deleteMessage = 'Deactivated successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Deactivated unsuccessfully.';
+                $this->disableButton = "Yes";
+            }
         }catch(Exception $e){
             throw $e;
         }

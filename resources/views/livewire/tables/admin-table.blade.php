@@ -7,13 +7,40 @@
     </div>
     <div class="container-fluid">
         <div class="row volunteer-row">
-            <div class="col-12 table-contain">
+            <div class="col-md-12 table-contain">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Admin and Secretariat Management</h3> 
-                        <button type="button" class="btn-submit btn-float-right" wire:click="openAddForm">Register an Admin</i>
-                        </button>
-                        
+                        <h3 class="card-title">Admin Management</h3> 
+                        <div class="top-buttons">
+                            <button type="button" class="btn-submit" wire:click="openAddForm" style="margin-right: 15px;">
+                                <div class="is-mobile-view">
+                                    <i class="bi bi-plus-lg"></i>
+                                </div>
+                                <div class="is-desktop-view">
+                                    Register an Admin
+                                </div>
+                            </button>
+                            <button type="button" class="btn-submit btn-accounts" style="float: right;" wire:click="deactivatedAccounts">
+                                @if($active_status === 1)
+                                    <div class="is-mobile-view">
+                                        <i class="fas fa-user-slash"></i>
+                                    </div>
+                                    <div class="is-desktop-view">
+                                        Deactivated Accounts
+                                    </div>
+                                @else
+                                    <div class="is-mobile-view">
+                                        <i class="fas fa-user-check"></i>                                
+                                    </div>
+                                    <div class="is-desktop-view">
+                                        Active Accounts
+                                    </div>
+                                @endif
+                            </button>
+                            @if($active_status === 1)
+                                {{-- <span style="color:white; background-color: {{ count($deactivatedAdmin) > 0 ? 'red' : 'rgb(245, 245, 245)' }}">{{ count($deactivatedAdmin) }}</span> --}}
+                            @endif
+                        </div> 
                     </div>
                     <div class="card-header card-header1">
                         <label for="" class="label" style="margin-top: 5px;">Filter: </label>
@@ -26,7 +53,7 @@
                                 <option class="label" value="sa">Super Admin</option>
                                 <option class="label" value="vs">Volunteer Secretariat</option>
                                 <option class="label" value="vsa">Volunteer Secretariat Assistant</option>
-                                <option class="label" value="aps">IP Secretariat</option>
+                                <option class="label" value="ips">IP Secretariat</option>
                             </select>
                         </div>
                     </div>
@@ -66,13 +93,38 @@
                                             @endif
                                         </td>
                                         <td width="8%" class="action-btn2 width">
-                                            <p class="light-blue" wire:click="showUserData({{ $admin->user_id }})"><i class="bi bi-eye"></i> View</p>
-                                            <p class="red" wire:click="deleteDialog({{ $admin->user_id }})"><i class="bi bi-ban"></i> Deact</p>
+                                            <div class="btn-group" role="group">
+                                                <div class="btn-g">
+                                                    <button class="btn-submit" wire:click="showUserData('{{ $admin->user_id }}')">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <span class="span span-submit">View</span>
+                                                </div>
+                                                <div class="mx-1"></div>
+                                                @if($active_status === 2)
+                                                    <div class="btn-g">
+                                                        <button class="btn-success" wire:click="reactivateDialog('{{ $admin->user_id }}')">
+                                                            <i class="bi bi-person-check"></i>
+                                                        </button>
+                                                        <span class="span span-delete">Activate</span>
+                                                    </div>
+                                                @elseif($active_status === 1) 
+                                                    <div class="btn-g">
+                                                        <button class="btn-warning" wire:click="deleteDialog('{{ $admin->user_id }}')">
+                                                            <i class="bi bi-ban"></i>
+                                                        </button>
+                                                        <span class="span span-delete">Deactivate</span>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="m-3">
+                        {{ $admins->links('livewire::bootstrap') }}
                     </div>
                 </div>
             </div>
@@ -100,13 +152,45 @@
                 <div class="modal-footer">
                     @if($disableButton == "No")
                         <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
-                        <button class="btn-delete" wire:click="deleteAdmin({{ $deleteAdminId }})">Deactivate</button>
+                        <button class="btn-delete" wire:click="deleteAdmin('{{ $deleteAdminId }}')">Deactivate</button>
                     @else
                         <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
                     @endif
                 </div>
             </div>
         </div> 
+    @endif
+
+    @if($reactivateAdminId)
+        <div class="users-data-all-container no-padding">
+            <div class="close-form" wire:click="hideReactivateDialog"></div>
+            <div class="user-info user-infos">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Activate</h5>
+                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    @if($deleteMessage)
+                        <p style="color: green;">{{ $deleteMessage }}</p>
+                    @else
+                        <p>Are you sure you want to activate this admin?</p>
+                    @endif
+                </div>
+                
+                <div class="modal-footer">
+                    @if($disableButton == "No")
+                        <button class="btn-success" wire:click="reactivateVolunteer('{{ $reactivateAdminId }}')" wire:loading.attr="disabled">Yes
+                        </button>
+                        <button class="btn-cancel" wire:click="hideReactivateDialog">Cancel</button>
+                    @else
+                        <button class="btn-cancel" wire:click="hideReactivateDialog">Close</button>
+                    @endif
+                </div>
+            </div>
+        </div>    
     @endif
 
     @if($selectedUserDetails)
@@ -162,7 +246,7 @@
                     <div class="col">
                         <div class="user-data">
                             <button class="btn-cancel" wire:click="hideUserData">Close</button>
-                            <button class="btn-delete" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Delete Admin</button>
+                            <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete Admin</button>
                         </div>
                     </div>
                 </div>
@@ -210,7 +294,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Middlename</label>
-                                            <input type="text" class="form-control" row="5" wire:model.live='middle_name' placeholder="Middlename" required>
+                                            <input type="text" class="form-control" row="5" wire:model.live='middle_name' placeholder="Middlename">
                                             @error('middle_name') 
                                                 <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                             @enderror
@@ -275,7 +359,7 @@
                             </div>
 
                             <div class="modal-footer justify-content-between">
-                                <button class="btn-submit" type="submit">Submit</button>
+                                <button class="btn-success" type="submit">Submit</button>
                             </div>
                         </div>
                     </form>
