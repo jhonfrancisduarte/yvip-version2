@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Livewire;
+use Livewire\Attributes\On;
 use App\Models\admin;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\PastIpEvent;
+
 use App\Models\User;
 
 class AdminSideNav extends Component
@@ -32,6 +34,7 @@ class AdminSideNav extends Component
     public function mount()
     {
         $this->confirmedEventsCount = PastIpEvent::where('confirmed', false)->count();
+
     }
 
     // public function create(){
@@ -49,6 +52,15 @@ class AdminSideNav extends Component
     //         'profile_picture' => $this->profile_picture,
     //     ]);
     // }
+
+
+    #[On('ip-validation-counter')]
+    public function updateConfirmedEventsCount()
+    {
+        $this->confirmedEventsCount = PastIpEvent::where('confirmed', false)->count();
+    }
+
+
     public function render()
     {
         return view('livewire.admin-side-nav', [

@@ -65,14 +65,14 @@
                 <li class="nav-item">
                     <div class="userpanel">
                         <div class="info">
-                            @if(session('user_role') == 'yv' || session('user_role') == 'yip') 
+                            @if(session('user_role') == 'yv' || session('user_role') == 'yip')
                                 <a href="{{ route('profile') }}" class="d-block" wire:navigate>{{ auth()->user()->name }}</a>
                             @else
                                 <a href="{{ route('admin-profile') }}" class="d-block" wire:navigate>{{ auth()->user()->name }}</a>
                             @endif
                         </div>
                         <div class="image">
-                            @if(session('user_role') == 'yv' || session('user_role') == 'yip') 
+                            @if(session('user_role') == 'yv' || session('user_role') == 'yip')
                                 <a href="{{ route('profile') }}"><img src="{{ asset(auth()->user()->userData->profile_picture) }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;"></a>
                             @else
                                 <a href="{{ route('admin-profile') }}"><img src="{{ asset(auth()->user()->admin->profile_picture) }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;"></a>
@@ -118,6 +118,7 @@
     <script src="dist/js/pages/dashboard.js"></script>
     <script src="js/dashboard.js"></script>
     @livewireScripts
+
 
 </body>
 </html>

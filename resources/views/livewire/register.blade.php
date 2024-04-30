@@ -1,6 +1,6 @@
 <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
     <div class="wrapper wrapper--w680">
-        <div class="card card-4">
+        <div class="card card-4" style="border-radius: 20px; overflow: hidden;">
             <div class="reg-logo-container">
                 <img src="images/yvip_logo.png" width="100"/>
             </div>

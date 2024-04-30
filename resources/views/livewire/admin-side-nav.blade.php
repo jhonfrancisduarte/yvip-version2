@@ -183,3 +183,13 @@
             </nav>
         </div>
     </aside>
+
+    @livewireScripts
+
+<script>
+    document.addEventListener('livewire:load', function () {
+        Livewire.on('eventConfirmed', function () {
+            window.livewire.emit('refreshCount');
+        });
+    });
+</script>

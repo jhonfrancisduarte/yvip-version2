@@ -118,6 +118,7 @@ class PastIpParticipatedEventsTable extends Component
 
         $this->openAddEvent = false;
         $this->resetForm();
+        $this->dispatch('ip-validation-counter')->to(AdminIpValidation::class);;
     }
 
     private function updateEvent()
