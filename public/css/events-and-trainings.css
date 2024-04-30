@@ -88,3 +88,21 @@
     color: orangered;
     font-weight: bold;
 }
+
+.card-header1{
+    width: 100%;
+    display: flex;
+}
+
+.btn-accounts{
+    position: relative;
+}
+
+.search-bar{
+    display: flex;
+}
+
+.search-bar input{
+    margin-left: 5px;
+    width: 300px;
+}
