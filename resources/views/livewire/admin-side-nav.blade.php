@@ -47,6 +47,9 @@
                                 <i class="nav-icon bi bi-person-check"></i>
                                 <p>
                                     Volunteer Registration
+                                    @if($volunteerRegs !== 0)
+                                        <span class="badge bg-primary2">{{ $volunteerRegs }}</span>
+                                    @endif
                                 </p>
                                 </a>
                             </li>
@@ -132,6 +135,9 @@
                                 <i class="nav-icon bi bi-person-check"></i>
                                 <p>
                                     IP Registration
+                                    @if($ipRegs !== 0)
+                                        <span class="badge bg-primary2">{{ $ipRegs }}</span>
+                                    @endif
                                 </p>
                                 </a>
                             </li>
@@ -150,6 +156,9 @@
                                 <i class="nav-icon bi bi-clipboard-check"></i>
                                 <p>
                                     IP Validation
+                                    @if($confirmedEventsCount !== 0)
+                                        <span class="badge bg-primary2">{{ $confirmedEventsCount }}</span>
+                                    @endif
                                 </p>
                                 </a>
                             </li>
@@ -159,8 +168,8 @@
                                 <i class="nav-icon bi bi-card-list"></i>
                                 <p>
                                     IP Events
-                                    @if(Session::get('joinNotif'))
-                                        <span class="notif-dot">•</span>
+                                    @if($joinRequests !== 0)
+                                        <span class="badge bg-primary2">{{ $joinRequests }}</span>
                                     @endif
                                 </p>
                                 </a>

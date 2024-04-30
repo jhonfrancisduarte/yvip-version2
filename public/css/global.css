@@ -518,6 +518,11 @@ box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
     overflow-y: visible;
 }
 
+.bg-primary2{
+    background: red;
+    color: white;
+}
+
 .close-form {
     width: 100%;
     height: 100%;

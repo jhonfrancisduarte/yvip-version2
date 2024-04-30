@@ -7,10 +7,10 @@
     </div>
     <div class="container-fluid">
         <div class="row volunteer-row">
-            <div class="col-md-12 table-contain">
-                <div class="card">
+           <div class="col-12 table-contain">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
                     <div class="card-header">
-                        <h3 class="card-title">IP Registrations Management</h3> 
+                        <h3 class="card-title">IP Registrations Management</h3>
                     </div>
 
                     <div class="card-header card-header1">
@@ -44,7 +44,7 @@
                                         <td>{{ $volunteer->middle_name }}</td>
                                         <td>{{ $volunteer->last_name }}</td>
                                         <td>{{ $volunteer->email }}</td>
-                                        <td> 
+                                        <td>
                                             @if($volunteer->active_status === 0)
                                                 Pending
                                             @else
@@ -86,6 +86,7 @@
                         {{ $volunteers->links('livewire::bootstrap') }}
                     </div>
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
@@ -108,7 +109,7 @@
                         <p>Are you sure you want to disapprove this registrant?</p>
                     @endif
                 </div>
-                
+
                 <div class="modal-footer">
                     @if($disableButton == "No")
                         <button class="btn-delete" wire:click="deleteRegistrant('{{ $deleteRegistrantId }}')" wire:loading.attr="disabled">Yes
@@ -119,7 +120,7 @@
                     @endif
                 </div>
             </div>
-        </div>    
+        </div>
     @endif
 
     @if($selectedUserDetails)
@@ -158,7 +159,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row1">
                     <div class="col2">
                         <div class="user-data">
@@ -303,7 +304,7 @@
                 <div class="row1">
                     <div class="col2">
                         <div class="user-data">
-                            <label class="label">Youth Volunteer: 
+                            <label class="label">Youth Volunteer:
                                 <span>
                                     <input type="checkbox" class="checkbox" {{ $selectedUserDetails && $selectedUserDetails['is_volunteer'] ? 'checked' : '' }} disabled>
                                 </span>
@@ -312,7 +313,7 @@
                     </div>
                     <div class="col2">
                         <div class="user-data">
-                            <label class="label">IP Parcicipant: 
+                            <label class="label">IP Parcicipant:
                                 <span>
                                     <input type="checkbox" class="checkbox" {{ $selectedUserDetails && $selectedUserDetails['is_ip_participant'] ? 'checked' : '' }} disabled>
                                 </span>
@@ -321,7 +322,7 @@
                     </div>
                 </div>
             </div>
-            
+
                 <div class="row1">
                     <div class="col">
                         <div class="user-data">
@@ -332,7 +333,7 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     @endif
 
 </section>

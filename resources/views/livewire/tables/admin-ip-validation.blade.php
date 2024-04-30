@@ -1,8 +1,8 @@
 <div>
     <div class="container mt-4">
         <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
+            <div class="col-12">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
                     <div class="card-header">
                         <div class="d-flex m-2">
                             <!-- Search input -->
@@ -17,18 +17,20 @@
                     </div>
 
                     <div class="card-body scroll-table" id="scroll-table">
-                        <table id="volunteers-table" class="table-main table-full-width">
-                            <thead>
-                                <tr>
-                                    <th class="bg-primary">User</th>
-                                    <th class="bg-primary">Event Name</th>
-                                    <th class="bg-primary">Organizer / Sponsor</th>
-                                    <th class="bg-primary">Sponsor Category</th>
-                                    <th class="bg-primary">Date / Period</th>
-                                    <th class="bg-primary">Status</th>
-                                    <th class="bg-primary text-center">Actions</th>
-                                </tr>
-                            </thead>
+                        <table class="table-main table-full-width">
+                            <div style="border-radius: 10px; overflow: hidden;">
+                                <thead>
+                                    <tr>
+                                        <th class="bg-primary">User</th>
+                                        <th class="bg-primary">Event Name</th>
+                                        <th class="bg-primary">Organizer / Sponsor</th>
+                                        <th class="bg-primary">Sponsor Category</th>
+                                        <th class="bg-primary">Date / Period</th>
+                                        <th class="bg-primary">Status</th>
+                                        <th class="bg-primary text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                            </div>
                             <tbody>
                                 @foreach($pastIpEvents as $event)
                                 <tr>
@@ -41,18 +43,27 @@
                                     <td class="text-center">
                                         <div class="btn-group" role="group">
                                             @if (!$event->confirmed)
-                                                <button type="button" class="btn-success" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
-                                                    Approve
-                                                </button>
+                                                <div class="btn-g">
+                                                    <button type="button" class="btn-success" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
+                                                        <i class="bi bi-check2-circle"></i>
+                                                    </button>
+                                                    <span class="span span-delete">Approve</span>
+                                                </div>
+
                                             @endif
-                                            <div class="mx-1"></div>
-                                            <button type="button" class="btn-submit" wire:click="editEvent({{ $event->id }})">
-                                                <i class="bi bi-pencil-square"></i>
+                                            <div class="btn-g">
+                                            <button type="button" class="btn-submit mx-1" wire:click="editEvent({{ $event->id }})">
+                                                <i class="bi bi-pencil-fill"></i>
+
                                             </button>
-                                            <div class="mx-1"></div>
+                                                <span class="span span-delete">Edit</span>
+                                            </div>
+                                            <div class="btn-g">
                                             <button type="button" class="btn-delete" wire:click="deleteEvent({{ $event->id }})">
                                                 <i class="bi bi-trash3"></i>
                                             </button>
+                                                <span class="span span-delete">Delete</span>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -64,6 +75,7 @@
                         {{ $pastIpEvents->links('livewire::bootstrap') }}
                     </div>
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>

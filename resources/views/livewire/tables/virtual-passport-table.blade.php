@@ -20,7 +20,7 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-9">
-                <div class="card">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
                     <div class="reg-logo-container text-center">
                         <img src="images/yvip_logo.png" width="100"/>
                     </div>
@@ -65,7 +65,7 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-9">
-                <div class="card">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
                     <h3 class="card-title text-center fw-bold fs-4 mt-4">My IP Events</h3>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -103,6 +103,7 @@
                         {{ $ipEvents->links('livewire::bootstrap') }}
                     </div>
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>

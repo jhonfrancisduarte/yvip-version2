@@ -39,22 +39,6 @@
                 <li class="nav-item">
                     <a class="nav-link navs" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item">
-                    <span class="nav-link admin-greetings">
-                        @if(session('user_role') == 'sa')
-                            Welcome Super Admin!
-                        @endif
-                        @if(session('user_role') == 'vs')
-                            Welcome Volunteer Secretariat
-                        @endif
-                        @if(session('user_role') == 'vsa')
-                            Welcome Volunteer Secretariat Assistant
-                        @endif
-                        @if(session('user_role') == 'ips')
-                            Welcome IP Secretariat
-                        @endif
-                    </span>
-                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 {{-- <li class="nav-item">
