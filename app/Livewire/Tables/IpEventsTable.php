@@ -127,7 +127,6 @@ class IpEventsTable extends Component
 
             return $event;
         });
-        Session::put('joinNotif', $this->joinNotif);
 
         return view('livewire.tables.ip-events-table', compact('ipEvents', 'joinRequestsData'));
     }

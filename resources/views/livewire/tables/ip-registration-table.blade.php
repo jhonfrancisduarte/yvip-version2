@@ -7,7 +7,7 @@
     </div>
     <div class="container-fluid">
         <div class="row volunteer-row">
-            <div class="col-12 table-contain">
+           <div class="col-12 table-contain">
                 <div class="card" style="border-radius: 20px; overflow: hidden;">
                     <div class="card-header">
                         <h3 class="card-title">IP Registrations Management</h3>

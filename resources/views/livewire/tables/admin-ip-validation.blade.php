@@ -31,8 +31,6 @@
                                     </tr>
                                 </thead>
                             </div>
-
-
                             <tbody>
                                 @foreach($pastIpEvents as $event)
                                 <tr>
@@ -45,7 +43,6 @@
                                     <td class="text-center">
                                         <div class="btn-group" role="group">
                                             @if (!$event->confirmed)
-
                                                 <div class="btn-g">
                                                     <button type="button" class="btn-success" data-toggle="modal" data-target="#approveModal_{{ $event->id }}">
                                                         <i class="bi bi-check2-circle"></i>
@@ -63,7 +60,7 @@
                                             </div>
                                             <div class="btn-g">
                                             <button type="button" class="btn-delete" wire:click="deleteEvent({{ $event->id }})">
-                                                <i class="bi bi-trash-fill"></i>
+                                                <i class="bi bi-trash3"></i>
                                             </button>
                                                 <span class="span span-delete">Delete</span>
                                             </div>

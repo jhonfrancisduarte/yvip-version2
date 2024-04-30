@@ -1,7 +1,7 @@
 <section class="content volunteers-table-content">
     <div class="container-fluid">
         <div class="row volunteer-row">
-            <div class="col-12 table-contain">
+            <div class="col-md-12 table-contain">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Youth Volunteers Management</h3> 

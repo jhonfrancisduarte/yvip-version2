@@ -7,7 +7,7 @@
     </div>
     <div class="container-fluid">
         <div class="row thisUserDetails-row">
-            <div class="col-12 table-contain">
+            <div class="col-md-12 table-contain">
                 <div class="card">
                     @if(session('user_role') == 'sa' || session('user_role') == 'ips')
                         <div class="card-header">
