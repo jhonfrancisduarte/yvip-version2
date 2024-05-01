@@ -24,6 +24,7 @@ class VolunteerRewards extends Component
     public $openRequest;
     public $popup_message;
     public $disabledButtons = [];
+    public $headerActions;
 
     public function mount(){
         $this->rewards = Rewards::all();
@@ -36,6 +37,18 @@ class VolunteerRewards extends Component
         $claimRequests = ClaimRequest::whereNotNull('pending')->get();
         
         return view('livewire.volunteer-rewards', ['claimRequests' => $claimRequests]);
+    }
+
+    public function seeHeaderActions(){
+        if($this->headerActions){
+            $this->headerActions = null;
+        }else{
+            $this->headerActions = true;
+        }
+    }
+
+    public function closeHeaderActions(){
+        $this->headerActions = null;
     }
 
     public function closePopup(){
@@ -69,7 +82,10 @@ class VolunteerRewards extends Component
 
             // Update the claim status of each reward record
             foreach ($rewards as $reward) {
-                $reward->update(['claim_status' => 1]);
+                $reward->update([
+                    'claim_status' => 1,
+                    'claim_date'=>now(),
+                ]);
             }
                 
             $claimRequest->update([
@@ -173,9 +189,9 @@ class VolunteerRewards extends Component
                 'rewards'=>$this->rewardType,
                 'award_date'=>now(),
             ]);
-
+            
             $this->thisUserId = null;
-
+            return redirect()->to(route('volunteer-rewards'));
         }catch(Exception $e){
             throw $e;
         }

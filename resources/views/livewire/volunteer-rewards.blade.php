@@ -11,8 +11,13 @@
                 <div class="card">
                     <div class="card-header">
                         @if(session('user_role') !== "yv" && session('user_role') !== "yip")
-                            <button type="button" class="btn btn-submit btn-sm btn-show-reward" wire:click="seeRequests">Claim Requests</button>
-                            <button type="button" class="btn btn-submit btn-sm btn-show-reward" wire:click="seeRewards">Rewards Matrix</button>
+                            <a href="#" wire:click="seeHeaderActions"><i class="fas fa-ellipsis-h nav-for-action" width="10%"></i></a>
+                            @if($headerActions)
+                                <div class="header-actions">
+                                    <button type="button" class="btn btn-submit btn-sm btn-claim-requests" wire:click="seeRequests">Claim Requests</button>
+                                    <button type="button" class="btn btn-submit btn-sm btn-reward" wire:click="seeRewards">Rewards Matrix</button>
+                                </div>
+                            @endif
                         @else
                             <button type="button" class="btn btn-submit btn-sm btn-show-reward" wire:click="seeRewards">Rewards Matrix</button>
                         @endif
@@ -37,16 +42,14 @@
                                         <td>{{ $user['user_name'] }}</td>
                                         <td>{{ $user['total_hours'] }} hours</td>
                                         <td class="rewards">
-                                            @if($user['rewards'] !== null)
+                                            @if(collect($user['rewards'])->isEmpty())
+                                                <span>N/A</span>
+                                            @else
                                                 <ul>
                                                     @foreach($user['rewards'] as $rwrd)
-                                                        @if($rwrd !== null)
-                                                            <li>{{ $rwrd }}</li>
-                                                        @endif
+                                                        <li>{{ $rwrd }}</li>
                                                     @endforeach
                                                 </ul>
-                                            @else
-                                                N/A
                                             @endif
                                         </td>
                                         
@@ -59,6 +62,7 @@
                             </tbody>
 
                         </table>
+                        
                     @else
                     <table id="rewards-table" class="table-main">
                         <thead>
