@@ -7,10 +7,10 @@
     </div>
     <div class="container-fluid">
         <div class="row volunteer-row">
-            <div class="col-md-12 table-contain">
-                <div class="card">
+            <div class="col-12 table-contain">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
                     <div class="card-header">
-                        <h3 class="card-title">Admin Management</h3> 
+                        <h3 class="card-title">Admin Management</h3>
                         <div class="top-buttons">
                             <button type="button" class="btn-submit" wire:click="openAddForm" style="margin-right: 15px;">
                                 <div class="is-mobile-view">
@@ -30,7 +30,7 @@
                                     </div>
                                 @else
                                     <div class="is-mobile-view">
-                                        <i class="fas fa-user-check"></i>                                
+                                        <i class="fas fa-user-check"></i>
                                     </div>
                                     <div class="is-desktop-view">
                                         Active Accounts
@@ -40,7 +40,7 @@
                             @if($active_status === 1)
                                 {{-- <span style="color:white; background-color: {{ count($deactivatedAdmin) > 0 ? 'red' : 'rgb(245, 245, 245)' }}">{{ count($deactivatedAdmin) }}</span> --}}
                             @endif
-                        </div> 
+                        </div>
                     </div>
                     <div class="card-header card-header1">
                         <label for="" class="label" style="margin-top: 5px;">Filter: </label>
@@ -89,7 +89,7 @@
                                             @elseif($admin->user_role === "vsa")
                                                 Volunteer Secretariat Assistant
                                             @elseif($admin->user_role === "ips")
-                                                IP Secretariat 
+                                                IP Secretariat
                                             @endif
                                         </td>
                                         <td width="8%" class="action-btn2 width">
@@ -108,7 +108,7 @@
                                                         </button>
                                                         <span class="span span-delete">Activate</span>
                                                     </div>
-                                                @elseif($active_status === 1) 
+                                                @elseif($active_status === 1)
                                                     <div class="btn-g">
                                                         <button class="btn-warning" wire:click="deleteDialog('{{ $admin->user_id }}')">
                                                             <i class="bi bi-ban"></i>
@@ -127,6 +127,7 @@
                         {{ $admins->links('livewire::bootstrap') }}
                     </div>
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
@@ -148,7 +149,7 @@
                         <p>Are you sure you want to deactivate this admin?</p>
                     @endif
                 </div>
-                
+
                 <div class="modal-footer">
                     @if($disableButton == "No")
                         <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
@@ -158,7 +159,7 @@
                     @endif
                 </div>
             </div>
-        </div> 
+        </div>
     @endif
 
     @if($reactivateAdminId)
@@ -179,7 +180,7 @@
                         <p>Are you sure you want to activate this admin?</p>
                     @endif
                 </div>
-                
+
                 <div class="modal-footer">
                     @if($disableButton == "No")
                         <button class="btn-success" wire:click="reactivateVolunteer('{{ $reactivateAdminId }}')" wire:loading.attr="disabled">Yes
@@ -190,7 +191,7 @@
                     @endif
                 </div>
             </div>
-        </div>    
+        </div>
     @endif
 
     @if($selectedUserDetails)
@@ -200,7 +201,7 @@
                 <div class="row1 row-header">
                     <div class="col1">
                         <img src="{{ $selectedUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
-                        <label class="label">Position: 
+                        <label class="label">Position:
                             <span>
                                 @if($selectedUserDetails['user_role'] === "sa")
                                     Super Admin
@@ -228,7 +229,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row1">
                     <div class="col2">
                         <div class="user-data">
@@ -251,7 +252,7 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     @endif
 
     @if($openAddAdminForm)
@@ -268,13 +269,13 @@
                     <form enctype="multipart/form-data" wire:submit.prevent='create'>
                         <div class="card card-primary">
                             <div class="card-body">
-                                
+
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Firstname</label>
                                             <input type="text" class="form-control" row="5" wire:model.live='first_name' placeholder="Firstname" required>
-                                            @error('first_name') 
+                                            @error('first_name')
                                                 <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -283,7 +284,7 @@
                                         <div class="form-group">
                                             <label>Lastname</label>
                                             <input type="text" class="form-control" row="5" wire:model.live='last_name' placeholder="Lastname" required>
-                                            @error('last_name') 
+                                            @error('last_name')
                                                 <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -295,7 +296,7 @@
                                         <div class="form-group">
                                             <label>Middlename</label>
                                             <input type="text" class="form-control" row="5" wire:model.live='middle_name' placeholder="Middlename">
-                                            @error('middle_name') 
+                                            @error('middle_name')
                                                 <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -304,7 +305,7 @@
                                         <div class="form-group">
                                             <label>Email</label>
                                             <input type="text" class="form-control" row="5" wire:model.live='email' placeholder="Email" required>
-                                            @error('email') 
+                                            @error('email')
                                                 <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -319,13 +320,13 @@
                                                 <select  class="form-control select-status" id="position" wire:model.blur="position" name="position" required>
                                                     <option selected class="form-control">Choose option</option>
                                                     <option value="sa" class="form-control">Super Admin</option>
-                                                    <option value="vs" class="form-control">Volunteer Secretariat</option>    
-                                                    <option value="vsa" class="form-control">Volunteer Secretariat Assistant</option>    
-                                                    <option value="ips" class="form-control">IP Secretariat</option>    
+                                                    <option value="vs" class="form-control">Volunteer Secretariat</option>
+                                                    <option value="vsa" class="form-control">Volunteer Secretariat Assistant</option>
+                                                    <option value="ips" class="form-control">IP Secretariat</option>
                                                 </select>
                                                 <div class="select-dropdown"></div>
                                             </div>
-                                            @error('position') 
+                                            @error('position')
                                                 <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -337,7 +338,7 @@
                                         <div class="form-group">
                                             <label>Password</label>
                                             <input type="password" class="form-control" row="5" wire:model.live='password' placeholder="Password" required>
-                                            @error('password') 
+                                            @error('password')
                                                 <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -349,7 +350,7 @@
                                         <div class="form-group">
                                             <label>Confirm Password</label>
                                             <input type="password" class="form-control" row="5" wire:model.live='c_password' placeholder="Confirm Password" required>
-                                            @error('c_password') 
+                                            @error('c_password')
                                                 <span class="text-danger small" style="color: red;">Passwords didn't match!</span>
                                             @enderror
                                         </div>

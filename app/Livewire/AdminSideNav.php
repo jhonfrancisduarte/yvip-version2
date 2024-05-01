@@ -1,50 +1,77 @@
 <?php
 
 namespace App\Livewire;
+use App\Models\IpEvents;
 use App\Models\admin;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\PastIpEvent;
+
 use App\Models\User;
 
 class AdminSideNav extends Component
 {
-    // public $first_name = "Francis";
-    // public $last_name = "Ausa";
-    // public $middle_name = "Duarte";
-    // public $email = "ips@gmail.com";
-    // public $password = "123456@";
-    // public $user_role = "sa";
-    // public $profile_picture = "";
-
-    // public function mount()
-    // {
-    //     // Set default profile picture
-    //     $this->profile_picture = 'images/blank_profile_pic.png';
-    // }
+    public $confirmedEventsCount;
+    public $joinRequests = 0;
+    public $volunteerRegs;
+    public $ipRegs;
 
     public function logout(){
         Auth::logout();
         return Redirect::to('/');
     }
+    public function mount()
+    {
+        $this->confirmedEventsCount = PastIpEvent::where('confirmed', false)->count();
+        $volunteers = User::where('user_role', 'yv')
+                                    ->where('active_status', 0)
+                                    ->get();
+        $ips = User::where('user_role', 'yip')
+                                    ->where('active_status', 0)
+                                    ->get();
+        $this->volunteerRegs = count($volunteers);
+        $this->ipRegs = count($ips);
+        $this->getJoinRequests();
+    }
+    public function counter(){
+        $this->confirmedEventsCount = PastIpEvent::where('confirmed', false)->count();
+        $volunteers = User::where('user_role', 'yv')
+                                    ->where('active_status', 0)
+                                    ->get();
+        $ips = User::where('user_role', 'yip')
+                                    ->where('active_status', 0)
+                                    ->get();
+        $this->volunteerRegs = count($volunteers);
+        $this->ipRegs = count($ips);
+        $this->getJoinRequests();
+    }
 
-    // public function create(){
-    //     $user = User::create([
-    //         'email' => $this->email,
-    //         'password' => $this->password,
-    //         'user_role' => $this->user_role,
-    //     ]);
+    public function getJoinRequests(){
+        $totalJoinRequests = 0;
+        $ipEvents = IpEvents::all();
 
-    //     admin::create([
-    //         'user_id' => $user->id,
-    //         'first_name' => $this->first_name,
-    //         'last_name' => $this->last_name,
-    //         'middle_name' => $this->middle_name,
-    //         'profile_picture' => $this->profile_picture,
-    //     ]);
-    // }
+        $ipEvents->transform(function ($event) use (&$totalJoinRequests) {
+            $joinRequests = explode(',', $event->join_requests);
+            foreach ($joinRequests as $joinRequest) {
+                if (!empty($joinRequest)) {
+                    $totalJoinRequests ++;
+                }
+            }
+
+            return $event;
+        });
+
+        $this->joinRequests = $totalJoinRequests;
+    }
+
     public function render()
     {
-        return view('livewire.admin-side-nav');
+        return view('livewire.admin-side-nav', [
+            'confirmedEventsCount' => $this->confirmedEventsCount,
+            'joinRequests' => $this->joinRequests,
+            'volunteerRegs' => $this->volunteerRegs,
+            'ipRegs' => $this->ipRegs,
+        ]);
     }
 }

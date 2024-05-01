@@ -518,6 +518,11 @@
     overflow-y: visible;
 }
 
+.bg-primary2{
+    background: red;
+    color: white;
+}
+
 .close-form {
     width: 100%;
     height: 100%;

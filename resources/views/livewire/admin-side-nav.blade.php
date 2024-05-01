@@ -1,14 +1,14 @@
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4"  wire:poll.30s="counter">
             <a href="#" class="brand-link" wire:navigate>
                 <img src="/images/yvip_logo.png" alt="AdminLTE Logo" class="brand-image brand-image1" style="opacity: .8">
                 <span class="brand-text font-weight-bold">THE NYC - YVIP</span>
             </a>
 
-            <div class="sidebar">
+            <div class="sidebar"  >
 
             <!-- Sidebar Menu -->
-            <nav class="mt-2">
+            <nav class="mt-2" >
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     @if(session('user_role') == 'sa')
                         <li class="nav-item">
@@ -26,11 +26,14 @@
 
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link navs">
-                            <i class="nav-icon bi bi-people"></i>
-                            <p>
-                                Youth Volunteer
-                                <i class="right bi bi-caret-left"></i>
-                            </p>
+                            <div>
+                                <i class="nav-icon bi bi-people"></i>
+                                <p>Youth Volunteer</p>
+                                @if($volunteerRegs !== 0)
+                                    <span class="badge bg-primary2 mr-2">!</span>
+                                @endif
+                            </div>
+                            <i class="right bi bi-caret-left"></i>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
@@ -47,6 +50,9 @@
                                 <i class="nav-icon bi bi-person-check"></i>
                                 <p>
                                     Volunteer Registration
+                                    @if($volunteerRegs !== 0)
+                                        <span class="badge bg-primary2">{{ $volunteerRegs }}</span>
+                                    @endif
                                 </p>
                                 </a>
                             </li>
@@ -111,11 +117,16 @@
                     {{-- IP navlinks --}}
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-globe"></i>
-                            <p>
-                                International Program
-                                <i class="right bi bi-caret-left"></i>
-                            </p>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <i class="nav-icon bi bi-globe"></i>
+                                    <p class="mb-0">International Program</p>
+                                    @if($confirmedEventsCount !== 0 || $ipRegs !== 0 || $joinRequests !== 0)
+                                        <span class="badge bg-primary2 mr-2">!</span>
+                                    @endif
+                                </div>
+                                <i class="bi bi-caret-left"></i>
+                            </div>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
@@ -132,6 +143,9 @@
                                 <i class="nav-icon bi bi-person-check"></i>
                                 <p>
                                     IP Registration
+                                    @if($ipRegs !== 0)
+                                        <span class="badge bg-primary2">{{ $ipRegs }}</span>
+                                    @endif
                                 </p>
                                 </a>
                             </li>
@@ -150,6 +164,9 @@
                                 <i class="nav-icon bi bi-clipboard-check"></i>
                                 <p>
                                     IP Validation
+                                    @if($confirmedEventsCount !== 0)
+                                        <span class="badge bg-primary2">{{ $confirmedEventsCount }}</span>
+                                    @endif
                                 </p>
                                 </a>
                             </li>
@@ -159,8 +176,8 @@
                                 <i class="nav-icon bi bi-card-list"></i>
                                 <p>
                                     IP Events
-                                    @if(Session::get('joinNotif'))
-                                        <span class="notif-dot">•</span>
+                                    @if($joinRequests !== 0)
+                                        <span class="badge bg-primary2">{{ $joinRequests }}</span>
                                     @endif
                                 </p>
                                 </a>
@@ -182,3 +199,13 @@
             </nav>
         </div>
     </aside>
+
+    @livewireScripts
+
+{{-- <script>
+    document.addEventListener('livewire:load', function () {
+        Livewire.on('eventConfirmed', function () {
+            window.livewire.emit('refreshCount');
+        });
+    });
+</script> --}}

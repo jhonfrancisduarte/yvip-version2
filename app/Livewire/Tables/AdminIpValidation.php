@@ -132,6 +132,9 @@ class AdminIpValidation extends Component
         $event->confirmed = true;
         $event->save();
         session()->flash('message', 'Event approved successfully!');
+
+        $this->dispatch('ip-validation-counter');
+
     }
 
     private function createEvent()
@@ -143,6 +146,7 @@ class AdminIpValidation extends Component
             'sponsor_category' => $this->sponsorCategory,
             'start' => $this->dateStart,
             'end' => $this->dateEnd,
+            'confirmed' => true,
         ]);
 
         $this->openAddEvent = false;

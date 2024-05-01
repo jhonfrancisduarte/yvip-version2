@@ -16,6 +16,7 @@ class pastIpEvent extends Model
         'sponsor_category',
         'start',
         'end',
+        'confirmed',
     ];
 
     public function user(){
