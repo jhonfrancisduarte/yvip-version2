@@ -1,5 +1,5 @@
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4"  wire:poll.30s="counter">
             <a href="#" class="brand-link" wire:navigate>
                 <img src="/images/yvip_logo.png" alt="AdminLTE Logo" class="brand-image brand-image1" style="opacity: .8">
                 <span class="brand-text font-weight-bold">THE NYC - YVIP</span>
@@ -30,7 +30,7 @@
                                 <i class="nav-icon bi bi-people"></i>
                                 <p>Youth Volunteer</p>
                                 @if($volunteerRegs !== 0)
-                                    <span class="badge bg-primary2 mr-2" wire:poll.30s="counter">!</span>
+                                    <span class="badge bg-primary2 mr-2">!</span>
                                 @endif
                             </div>
                             <i class="right bi bi-caret-left"></i>
@@ -51,7 +51,7 @@
                                 <p>
                                     Volunteer Registration
                                     @if($volunteerRegs !== 0)
-                                        <span class="badge bg-primary2" wire:poll.30s="counter">{{ $volunteerRegs }}</span>
+                                        <span class="badge bg-primary2">{{ $volunteerRegs }}</span>
                                     @endif
                                 </p>
                                 </a>
@@ -122,7 +122,7 @@
                                     <i class="nav-icon bi bi-globe"></i>
                                     <p class="mb-0">International Program</p>
                                     @if($confirmedEventsCount !== 0 || $ipRegs !== 0 || $joinRequests !== 0)
-                                        <span class="badge bg-primary2 mr-2" wire:poll.30s="counter">!</span>
+                                        <span class="badge bg-primary2 mr-2">!</span>
                                     @endif
                                 </div>
                                 <i class="bi bi-caret-left"></i>
@@ -144,7 +144,7 @@
                                 <p>
                                     IP Registration
                                     @if($ipRegs !== 0)
-                                        <span class="badge bg-primary2" wire:poll.30s="counter">{{ $ipRegs }}</span>
+                                        <span class="badge bg-primary2">{{ $ipRegs }}</span>
                                     @endif
                                 </p>
                                 </a>
@@ -165,7 +165,7 @@
                                 <p>
                                     IP Validation
                                     @if($confirmedEventsCount !== 0)
-                                        <span class="badge bg-primary2" wire:poll.30s="counter">{{ $confirmedEventsCount }}</span>
+                                        <span class="badge bg-primary2">{{ $confirmedEventsCount }}</span>
                                     @endif
                                 </p>
                                 </a>
@@ -177,7 +177,7 @@
                                 <p>
                                     IP Events
                                     @if($joinRequests !== 0)
-                                        <span class="badge bg-primary2" wire:poll.30s="counter">{{ $joinRequests }}</span>
+                                        <span class="badge bg-primary2">{{ $joinRequests }}</span>
                                     @endif
                                 </p>
                                 </a>
