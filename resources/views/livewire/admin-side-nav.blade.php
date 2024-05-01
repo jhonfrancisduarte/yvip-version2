@@ -26,11 +26,14 @@
 
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link navs">
-                            <i class="nav-icon bi bi-people"></i>
-                            <p>
-                                Youth Volunteer
-                                <i class="right bi bi-caret-left"></i>
-                            </p>
+                            <div>
+                                <i class="nav-icon bi bi-people"></i>
+                                <p>Youth Volunteer</p>
+                                @if($volunteerRegs !== 0)
+                                    <span class="badge bg-primary2 mr-2" wire:poll.30s="counter">!</span>
+                                @endif
+                            </div>
+                            <i class="right bi bi-caret-left"></i>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
@@ -48,7 +51,7 @@
                                 <p>
                                     Volunteer Registration
                                     @if($volunteerRegs !== 0)
-                                        <span class="badge bg-primary2">{{ $volunteerRegs }}</span>
+                                        <span class="badge bg-primary2" wire:poll.30s="counter">{{ $volunteerRegs }}</span>
                                     @endif
                                 </p>
                                 </a>
@@ -114,23 +117,16 @@
                     {{-- IP navlinks --}}
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
                                     <i class="nav-icon bi bi-globe"></i>
                                     <p class="mb-0">International Program</p>
-                                    @if($confirmedEventsCount !== 0)
-
-                                        <span class="badge bg-primary2 mr-2">!</span>
-
+                                    @if($confirmedEventsCount !== 0 || $ipRegs !== 0 || $joinRequests !== 0)
+                                        <span class="badge bg-primary2 mr-2" wire:poll.30s="counter">!</span>
                                     @endif
                                 </div>
                                 <i class="bi bi-caret-left"></i>
                             </div>
-
-
-
-
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
@@ -148,7 +144,7 @@
                                 <p>
                                     IP Registration
                                     @if($ipRegs !== 0)
-                                        <span class="badge bg-primary2">{{ $ipRegs }}</span>
+                                        <span class="badge bg-primary2" wire:poll.30s="counter">{{ $ipRegs }}</span>
                                     @endif
                                 </p>
                                 </a>
@@ -181,7 +177,7 @@
                                 <p>
                                     IP Events
                                     @if($joinRequests !== 0)
-                                        <span class="badge bg-primary2">{{ $joinRequests }}</span>
+                                        <span class="badge bg-primary2" wire:poll.30s="counter">{{ $joinRequests }}</span>
                                     @endif
                                 </p>
                                 </a>

@@ -36,6 +36,15 @@ class AdminSideNav extends Component
     }
     public function counter(){
         $this->confirmedEventsCount = PastIpEvent::where('confirmed', false)->count();
+        $volunteers = User::where('user_role', 'yv')
+                                    ->where('active_status', 0)
+                                    ->get();
+        $ips = User::where('user_role', 'yip')
+                                    ->where('active_status', 0)
+                                    ->get();
+        $this->volunteerRegs = count($volunteers);
+        $this->ipRegs = count($ips);
+        $this->getJoinRequests();
     }
 
     public function getJoinRequests(){
