@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Livewire;
-use Livewire\Attributes\On;
 use App\Models\IpEvents;
 use App\Models\admin;
 use Livewire\Component;
@@ -34,6 +33,9 @@ class AdminSideNav extends Component
         $this->volunteerRegs = count($volunteers);
         $this->ipRegs = count($ips);
         $this->getJoinRequests();
+    }
+    public function counter(){
+        $this->confirmedEventsCount = PastIpEvent::where('confirmed', false)->count();
     }
 
     public function getJoinRequests(){

@@ -11,7 +11,6 @@
                             <button type="button" class="btn-submit" wire:click="openAddEventModal">Add Event</button>
                         </div>
                     </div>
-
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table-main table-full-width">
@@ -62,58 +61,13 @@
                             </table>
                         </div>
 
-                    <div class="card-body scroll-table" id="scroll-table">
-                        <table id="volunteers-table" class="table-main table-full-width">
-                            <thead>
-                                <tr>
-                                    <th class="bg-primary">Event Name</th>
-                                    <th class="bg-primary">Organizer / Sponsor</th>
-                                    <th class="bg-primary">Sponsor Category</th>
-                                    <th class="bg-primary">Date / Period</th>
-                                    <th class="bg-primary">Status</th>
-                                    <th class="bg-primary">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($pastIpEvents as $event)
-                                <tr>
-                                    <td>{{ $event->event_name }}</td>
-                                    <td>{{ $event->organizer_sponsor }}</td>
-                                    <td>{{ $event->sponsor_category }}</td>
-                                    <td>{{ $event->start }} - {{ $event->end }}</td>
-                                    <td>{{ $event->confirmed ? 'Confirmed' : 'Pending' }}</td>
-                                    <td class="text-center">
-                                        <div class="btn-group" role="group">
-                                            <!-- Edit button -->
-                                            <button type="button"
-                                                    class="btn-submit"
-                                                    wire:click="editEvent({{ $event->id }})"
-                                                    @if($event->confirmed)
-                                                        disabled
-                                                        aria-label="Confirmed Event - Cannot Edit"
-                                                        title="Confirmed Event - Cannot Edit"
-                                                        style="position: relative;"
-                                                    @endif>
-                                                <!-- Tooltip -->
-                                                <span class="tooltip">Confirmed Event - Cannot Edit</span>
-                                                <i class="bi bi-pencil-square"></i>
-                                            </button>
-                                            <div class="mx-1"></div>
-                                            <!-- Delete button -->
-                                            <button type="button" class="btn-delete" wire:click="deleteEvent({{ $event->id }})">
-                                                <i class="bi bi-trash3"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
                     </div>
-
-
                     <div class="m-3">
-                        {{ $pastIpEvents->links('livewire::bootstrap') }}
+
+
+                            {{ $pastIpEvents->links('livewire::bootstrap') }}
+
+
                     </div>
                 </div>
 
@@ -216,7 +170,6 @@
                             <input type="date" class="form-control" id="dateEnd" placeholder="Enter date end" wire:model.defer="dateEnd" :min="$dateStart">
                             @error('dateEnd') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-
 
                         <button type="submit" class="btn-success">Submit</button>
                         <button type="button" class="btn-cancel" wire:click="closeAddEventModal">Cancel</button>

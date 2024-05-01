@@ -1,4 +1,4 @@
-<div>
+<div >
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-12">
@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                    <div class="card-body scroll-table" id="scroll-table">
+                    <div class="card-body scroll-table" id="scroll-table" >
                         <table class="table-main table-full-width">
                             <div style="border-radius: 10px; overflow: hidden;">
                                 <thead>
