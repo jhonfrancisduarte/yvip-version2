@@ -15,6 +15,7 @@ class VolunteerEventsAndTrainings extends Migration
     {
         Schema::create('volunteer_events_and_trainings', function (Blueprint $table) {
             $table->id();
+            $table->uuid('user_id');
             $table->string('event_type');
             $table->string('event_name');
             $table->string('organizer_facilitator');

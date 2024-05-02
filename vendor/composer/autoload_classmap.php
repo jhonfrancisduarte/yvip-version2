@@ -45,7 +45,6 @@ return array(
     'App\\Livewire\\CategoryForm' => $baseDir . '/app/Livewire/CategoryForm.php',
     'App\\Livewire\\CityProvinceDropdown' => $baseDir . '/app/Livewire/CityProvinceDropdown.php',
     'App\\Livewire\\Dashboard' => $baseDir . '/app/Livewire/Dashboard.php',
-    'App\\Livewire\\EventsAndTrainings' => $baseDir . '/app/Livewire/EventsAndTrainings.php',
     'App\\Livewire\\ForgotPassword' => $baseDir . '/app/Livewire/ForgotPassword.php',
     'App\\Livewire\\Forms\\RegisterForm' => $baseDir . '/app/Livewire/Forms/RegisterForm.php',
     'App\\Livewire\\Index' => $baseDir . '/app/Livewire/Index.php',

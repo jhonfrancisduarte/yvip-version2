@@ -5,22 +5,30 @@
         </button>
         <p>{{ $popup_message }}</p>
         </div>
+        <div class="bg-white p-3">
             <div class="card-header">
                 <h3 class="card-title">Volunteers Events and Trainings Announcement</h3> 
                 @if(session('user_role') == 'sa' || session('user_role') == 'ips')
-                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:20px; font-family:'Arial', sans !important;" wire:click="eventForm({{ auth()->user()->id}})">Add Event or Training</button>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:1413px !important; font-family:'Arial', sans !important;" wire:click="eventForm">Add Event or Training</button>
                 @endif
             </div>
         <div>
-
         <div class="card-header card-header1">
-                <div class="col-md-3">
-                    <input type="search" class="form-control" wire:model.live="search" placeholder="Search event or training...">
+                <div class="col-md-2">
+                    <input type="search" class="form-control" placeholder="Search event or training...">
+                </div>
+                <div class="status-dropdown">
+                    <select class="form-control" wire:model="selectedStatus"> 
+                        <option value="">Status</option> 
+                        <option value="Ongoing">Ongoing</option> 
+                        <option value="Upcoming">Upcoming</option> 
+                        <option value="Completed">Completed</option> 
+                    </select>
                 </div>
         </div>
 
         <div class="card-body scroll-table" id="scroll-table">
-            <table id="thisUserDetailss-table" class="table table-bordered table-striped">
+            <table id="thisUserDetailss-table" class="table table-striped">
                 <thead>
                     <tr>
                         <th>Event Type</th>
@@ -47,14 +55,13 @@
                         <td>
                         <div class="action-buttons">
                             @if(session('user_role') == 'sa' || session('user_role') == 'ips')
-                                <button class="btn btn-success btn-xs btn-accounts" wire:click="openJoinRequests({{ $event->id }})">
-                                    Join Requests <span style="background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : '#343a40' }}">
-                                    {{ count($joinRequestsData[$event->id] ?? []) }}</span>
-                                </button>
-
-                                <button class="btn btn-info btn-xs settings" wire:click="toggleSettings({{ $event->id }})">
-                                    <i class="fas fa-cogs"></i>
-                                </button>
+                                <div class="button-container position-relative">
+                                    <button class="btn btn-success btn-xs btn-accounts join-requests-btn" wire:click="openJoinRequests({{ $event->id }})">
+                                        <i class="fas fa-users"></i>
+                                    </button>
+                                    <span class="badge-circle" style="background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : '#F7F7F7' }}">{{ count($joinRequestsData[$event->id] ?? []) }}</span>
+                                </div>
+                                <button class="btn btn-info btn-xs toggle-btn-large toggle-settings-btn toggleSettings" wire:click="toggleSettings({{ $event->id }})"><i class="fas fa-gear icon"></i></button>
                                 @if($showEditDeleteButtons && $selectedEventId == $event->id)
                                     <div class="inside-settings-buttons">
                                     <button class="btn btn-info btn-xs" wire:click="toggleJoinStatus({{ $event->id }})" wire:loading.attr="disabled">
@@ -103,6 +110,7 @@
                 </tbody>
             </table>
         </div>
+    </div>
 
         @if($deleteEventId)
         <div class="users-data-all-container">

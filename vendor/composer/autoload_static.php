@@ -797,7 +797,6 @@ class ComposerStaticInitf9985d2fbac80db1beb2b346fbe4e2ec
         'App\\Livewire\\CategoryForm' => __DIR__ . '/../..' . '/app/Livewire/CategoryForm.php',
         'App\\Livewire\\CityProvinceDropdown' => __DIR__ . '/../..' . '/app/Livewire/CityProvinceDropdown.php',
         'App\\Livewire\\Dashboard' => __DIR__ . '/../..' . '/app/Livewire/Dashboard.php',
-        'App\\Livewire\\EventsAndTrainings' => __DIR__ . '/../..' . '/app/Livewire/EventsAndTrainings.php',
         'App\\Livewire\\ForgotPassword' => __DIR__ . '/../..' . '/app/Livewire/ForgotPassword.php',
         'App\\Livewire\\Forms\\RegisterForm' => __DIR__ . '/../..' . '/app/Livewire/Forms/RegisterForm.php',
         'App\\Livewire\\Index' => __DIR__ . '/../..' . '/app/Livewire/Index.php',

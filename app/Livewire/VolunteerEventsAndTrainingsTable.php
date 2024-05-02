@@ -7,7 +7,9 @@ use App\Models\VolunteerEventsAndTrainings;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Exception;
-
+use Livewire\WithPagination;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
 class VolunteerEventsAndTrainingsTable extends Component
@@ -65,9 +67,21 @@ class VolunteerEventsAndTrainingsTable extends Component
 
     public $disapproved = false;
 
+    public $eventStatus;
+    public $participant;
+    public $joinRequests;
+
+    public $selectedStatus;
+
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
     public function render(){
+        $query = VolunteerEventsAndTrainings::query();
+
+        if ($this->selectedStatus) {
+            $query->where('status', $this->selectedStatus);
+        }
+
         $events = VolunteerEventsAndTrainings::all();
 
         $tags = ['Support', 'Logistics', 'Management', 'Highly Technical'];
@@ -79,7 +93,9 @@ class VolunteerEventsAndTrainingsTable extends Component
     }
 
     public function create(){ 
+        $userId = Auth::user()->id;
         $event = VolunteerEventsAndTrainings::create([
+            'user_id' => $userId,
             'event_type' => $this->eventType,
             'event_name' => $this->eventName,
             'organizer_facilitator' => $this->organizer,
@@ -107,13 +123,14 @@ class VolunteerEventsAndTrainingsTable extends Component
     }
 
     public function toggleTag($tag){
-        if (in_array($tag, $this->selectedTags)) {
-            $this->selectedTags = array_diff($this->selectedTags, [$tag]);
-        } else {
+        if (!in_array($tag, $this->selectedTags)) {
             $this->selectedTags[] = $tag;
+        } else {
+            $key = array_search($tag, $this->selectedTags);
+            unset($this->selectedTags[$key]);
         }
         $this->volunteerCategory = implode(', ', $this->selectedTags);
-    }   
+    }
     
     public function toggleSettings($eventId){
         if ($this->selectedEventId === $eventId) {
@@ -124,7 +141,7 @@ class VolunteerEventsAndTrainingsTable extends Component
         }
     }
 
-    public function eventForm($userId){
+    public function eventForm(){
         $this->showForm = true;
     }
   
@@ -166,7 +183,6 @@ class VolunteerEventsAndTrainingsTable extends Component
                     'end_date' => $this->endDate,
                     'volunteer_hours' => $this->volunteerHours,
                     'volunteer_category' => implode(', ', $this->selectedTags),
-                    'event_status' => $this->evenStatus,
                     'participant' => $this->participant,
                     'join_requests' => $this->joinRequests,
                     'disapproved' => $this->disapproved
