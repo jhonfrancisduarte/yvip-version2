@@ -117,6 +117,7 @@
 }
 
 .badge-circle {
+    color: white;
     position: absolute;
     top: -10px;
     left: -18px;
