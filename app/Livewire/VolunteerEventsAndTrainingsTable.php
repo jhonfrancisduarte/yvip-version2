@@ -51,7 +51,6 @@ class VolunteerEventsAndTrainingsTable extends Component
     public $selectedEventId;
 
     public $eventId;
-    public $events;
 
     public $openEditEvent = false;
     public $editEventId;
@@ -75,6 +74,7 @@ class VolunteerEventsAndTrainingsTable extends Component
     public $selectedStatus;
 
     public $search = '';
+    public $events;
 
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
@@ -105,14 +105,20 @@ class VolunteerEventsAndTrainingsTable extends Component
             'start_date' => $this->startDate,
             'end_date' => $this->endDate,
             'volunteer_hours' => $this->volunteerHours,
-            'volunteer_category' => implode(', ', $this->selectedTags),
+            $event->volunteer_category = implode(', ', $this->selectedTags),
+            $event->save(),
         ]);
+
+        foreach ($this->selectedTags as $tag) {
+            $event->volunteerCategories()->create([
+                'name' => $tag,
+            ]);
+        }
 
         $this->popup_message = null;
         $this->popup_message = "Event added successfully.";
 
         $this->createdEvent = $event;
-        $this->resetForm();
     }
 
     public function resetForm(){
@@ -125,14 +131,17 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->selectedTags = [];
     }
 
-    public function toggleTag($tag){
-        if (!in_array($tag, $this->selectedTags)) {
-            $this->selectedTags[] = $tag;
-        } else {
-            $key = array_search($tag, $this->selectedTags);
+    public function toggleTag($category, $subcategory = null){
+        if (in_array($category, $this->selectedTags)) {
+            $key = array_search($category, $this->selectedTags);
             unset($this->selectedTags[$key]);
+        } else {
+            $this->selectedTags[] = $category;
         }
-        $this->volunteerCategory = implode(', ', $this->selectedTags);
+    
+        if ($subcategory) {
+            $this->selectedTags[] = $subcategory;
+        }
     }
     
     public function toggleSettings($eventId){
@@ -185,7 +194,8 @@ class VolunteerEventsAndTrainingsTable extends Component
                     'start_date' => $this->startDate,
                     'end_date' => $this->endDate,
                     'volunteer_hours' => $this->volunteerHours,
-                    'volunteer_category' => implode(', ', $this->selectedTags),
+                    $event->volunteer_category = implode(', ', $this->selectedTags),
+                    $event->save(),
                     'participant' => $this->participant,
                     'join_requests' => $this->joinRequests,
                     'disapproved' => $this->disapproved
@@ -292,9 +302,10 @@ class VolunteerEventsAndTrainingsTable extends Component
         }
     } 
 
-    public function mount(){
+    public function mount($events){
+        $this->events = VolunteerEventsAndTrainings::all();
         $this->joinRequestsData = $this->fetchJoinRequestsData();
-        $this->events = VolunteerEventsAndTrainingsTable::all();
+        $this->events = $events;
     }
 
     private function fetchJoinRequestsData(){
@@ -422,6 +433,11 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->popup_message = null;
     }
 
+    public function updatedSearch()
+    {
+        $this->filterEvents();
+    }
+
     public function filterEvents(){
         $search = $this->search;
 
@@ -430,13 +446,5 @@ class VolunteerEventsAndTrainingsTable extends Component
                 Str::contains($event->organizer_facilitator, $search) ||
                 Str::contains($event->event_type, $search);
         });
-
-        foreach ($this->events as $event) {
-            if ($event !== null) {
-                // Access event properties here
-                $event->event_type;
-                // ...
-            }
     }
-}
 }

@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        @livewire('volunteer-events-and-trainings-table')
+        @livewire('volunteer-events-and-trainings-table', ['events' => $events])
         
     </div>
 

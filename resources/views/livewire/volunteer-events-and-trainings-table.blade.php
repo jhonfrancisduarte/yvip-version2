@@ -204,19 +204,52 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <div class="tag-box">
-                                                        <button type="button" class="tag btn btn-light" wire:click="toggleTag('Support')" value="Support">Support</button>
-                                                        <button type="button" class="tag btn btn-light" wire:click="toggleTag('Logistics')" value="Logistics">Logistics</button>
-                                                        <button type="button" class="tag btn btn-light" wire:click="toggleTag('Management')" value="Management">Management</button>
-                                                        <button type="button" class="tag btn btn-light" wire:click="toggleTag('Highly Technical')" value="Highly Technical">Highly Technical</button>
+                                                <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Select Category
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Support')">Support</button>
+                                                <div class="dropdown-divider"></div>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Support', 'Encoding/Typing')">Encoding/Typing</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Support', 'Printing')">Printing</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Support', 'Photocopying of Documents')">Photocopying of Documents</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Support', 'Paper-works')">Paper-works</button>
+                                                <div class="dropdown-divider"></div>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Logistics')">Logistics</button>
+                                                <div class="dropdown-divider"></div>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Logistics', 'Ushers')">Ushers</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Logistics', 'Program Runners')">Program Runners</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Logistics', 'Physical Set-up')">Physical Set-up</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Logistics', 'Cleaning')">Cleaning</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Logistics', 'Maintenance')">Maintenance</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Logistics', 'Marshalls')">Marshalls</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Logistics', 'Photo Documentation')">Photo Documentation</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Logistics', 'Packing of Relief Goods')">Packing of Relief Goods</button>
+                                                <div class="dropdown-divider"></div>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Management')">Management</button>
+                                                <div class="dropdown-divider"></div>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Management', 'Organizer/Partner Organization')">Organizer/Partner Organization</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Management', 'Disaster relief and mobilization')">Disaster relief and mobilization</button>
+                                                <div class="dropdown-divider"></div>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Highly Technical')">Highly Technical</button>
+                                                <div class="dropdown-divider"></div>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Highly Technical', 'Artists')">Artists</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Highly Technical', 'Educators')">Educators</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Highly Technical', 'Performers')">Performers</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Highly Technical', 'Hosting')">Hosting</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Highly Technical', 'Medical Practitioners')">Medical Practitioners</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Highly Technical', 'Expert Resource')">Expert Resource</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Highly Technical', 'Speakers')">Speakers</button>
+                                                    <button class="dropdown-item" type="button" wire:click="toggleTag('Highly Technical', 'Paramedics')">Paramedics</button>
+                                            </div>
+                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12" id="added-tags">
-                                                <label>Added Tags:</label>
-                                                @foreach($selectedTags as $tag)
-                                                    <button type="button" class="added-tag btn btn-primary mr-2">{{ $tag }} <i class="fa fa-times"></i></button>
-                                                @endforeach
+                                            <div id="added-tags">
+                                                <label>Added Categories:</label>
+                                                <span id="selected-tags">{{ implode(', ', $selectedTags) }}</span>
                                             </div>
                                         </div>
                                     </div>

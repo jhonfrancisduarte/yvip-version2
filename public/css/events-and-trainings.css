@@ -217,3 +217,15 @@
     top: -30px;
     left: -105px;
 }
+
+.dropdown-menu {
+    width: 200px;
+}
+
+.dropdown-item {
+    padding: 5px 15px;
+}
+
+.dropdown-divider {
+    margin: 5px 0;
+}
