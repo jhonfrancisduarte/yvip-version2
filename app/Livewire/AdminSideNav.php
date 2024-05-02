@@ -3,6 +3,7 @@
 namespace App\Livewire;
 use App\Models\IpEvents;
 use App\Models\admin;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -34,6 +35,8 @@ class AdminSideNav extends Component
         $this->ipRegs = count($ips);
         $this->getJoinRequests();
     }
+
+    #[On('ip-validation-counter')]
     public function counter(){
         $this->confirmedEventsCount = PastIpEvent::where('confirmed', false)->count();
     }
@@ -55,6 +58,7 @@ class AdminSideNav extends Component
 
         $this->joinRequests = $totalJoinRequests;
     }
+
 
     public function render()
     {
