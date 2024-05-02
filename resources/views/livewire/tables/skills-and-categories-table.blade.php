@@ -29,7 +29,7 @@
                                     <th>Category</th>
                                     <th>Description</th>
                                     <th>Skills / Task</th>
-                                    <th width="7%" class="action-btn th-action-btn"></th>
+                                    <th width="7%" class="action-btn2 th-action-btn"></th>
                                 </tr>
                             </thead>
 
@@ -45,7 +45,7 @@
                                                 @endforeach
                                             </ul>
                                         </td>
-                                        <td class="action-btn width">
+                                        <td class="action-btn2 width">
                                             <div class="btn-group-2" role="group">
                                                 <div class="btn-g">
                                                     <button class="btn-submit" wire:click="openEditForm({{ $category->id }})">

@@ -56,6 +56,11 @@
                             @endif
                         </div>
                         <div class="image">
+                            @if(session('user_role') == 'yv' || session('user_role') == 'yip')
+                                <a href="{{ route('profile') }}"><img src="{{ asset(auth()->user()->userData->profile_picture) }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;"></a>
+                            @else
+                                <a href="{{ route('admin-profile') }}"><img src="{{ asset(auth()->user()->admin->profile_picture) }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;"></a>
+                            @endif
                         </div>
                     </div>
                 </li>

@@ -42,29 +42,31 @@
 
 @section('js')
 <script>
-    const pdfViewer = document.getElementById('pdf-viewer');
-    const pdfUrl = 'uploads/NYVP-Operational-Guidelines.pdf';
+    document.addEventListener('DOMContentLoaded', function() {
+        const pdfViewer = document.getElementById('pdf-viewer');
+        const pdfUrl = 'uploads/NYVP-Operational-Guidelines.pdf';
 
-    pdfjsLib.getDocument(pdfUrl)
-        .promise.then(pdf => {
-            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                pdf.getPage(pageNum).then(page => {
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    const viewport = page.getViewport({ scale: 1.5 });
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-                    pdfViewer.appendChild(canvas);
+        pdfjsLib.getDocument(pdfUrl)
+            .promise.then(pdf => {
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    pdf.getPage(pageNum).then(page => {
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        const viewport = page.getViewport({ scale: 1.5 });
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+                        pdfViewer.appendChild(canvas);
 
-                    page.render({
-                        canvasContext: context,
-                        viewport: viewport
+                        page.render({
+                            canvasContext: context,
+                            viewport: viewport
+                        });
                     });
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error loading PDF:', error);
-        });
+                }
+            })
+            .catch(error => {
+                console.error('Error loading PDF:', error);
+            });
+    });
 </script>
 @endsection

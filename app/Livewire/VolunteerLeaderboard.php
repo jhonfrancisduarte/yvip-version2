@@ -13,7 +13,7 @@ class VolunteerLeaderboard extends Component
 
     public function mount()
     {
-        $this->totalHoursPerUser = Volunteer::select('user_id', \DB::raw('SUM(volunteering_hours) as total_volunteer_hours'))
+        $this->totalHoursPerUser = Volunteer::select('user_id', DB::raw('SUM(volunteering_hours) as total_volunteer_hours'))
         ->groupBy('user_id')
         ->get();
 
