@@ -9,13 +9,13 @@
             <div class="card-header">
                 <h3 class="card-title">Volunteers Events and Trainings Announcement</h3> 
                 @if(session('user_role') == 'sa' || session('user_role') == 'ips')
-                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#add" style="margin-left:1413px !important; font-family:'Arial', sans !important;" wire:click="eventForm">Add Event or Training</button>
+                    <button type="button" class="btn btn-success btn-sm" style="float: right;" wire:click="eventForm">Add Event or Training</button>
                 @endif
             </div>
         <div>
         <div class="card-header card-header1">
-                <div class="col-md-2">
-                    <input type="search" class="form-control" placeholder="Search event or training..." wire:model="search">
+                <div class="col-md-3">
+                    <input type="search" class="form-control" placeholder="Search event or training..." wire:model="search" wire:keydown="filterEvents">
                 </div>
                 <div class="status-dropdown">
                     <select class="form-control" wire:model="selectedStatus"> 

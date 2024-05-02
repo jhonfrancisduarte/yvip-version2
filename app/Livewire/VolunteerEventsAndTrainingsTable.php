@@ -51,6 +51,7 @@ class VolunteerEventsAndTrainingsTable extends Component
     public $selectedEventId;
 
     public $eventId;
+    public $events;
 
     public $openEditEvent = false;
     public $editEventId;
@@ -293,6 +294,7 @@ class VolunteerEventsAndTrainingsTable extends Component
 
     public function mount(){
         $this->joinRequestsData = $this->fetchJoinRequestsData();
+        $this->events = VolunteerEventsAndTrainingsTable::all();
     }
 
     private function fetchJoinRequestsData(){
@@ -428,5 +430,13 @@ class VolunteerEventsAndTrainingsTable extends Component
                 Str::contains($event->organizer_facilitator, $search) ||
                 Str::contains($event->event_type, $search);
         });
+
+        foreach ($this->events as $event) {
+            if ($event !== null) {
+                // Access event properties here
+                $event->event_type;
+                // ...
+            }
     }
+}
 }
