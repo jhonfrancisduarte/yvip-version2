@@ -15,7 +15,7 @@
         <div>
         <div class="card-header card-header1">
                 <div class="col-md-2">
-                    <input type="search" class="form-control" placeholder="Search event or training...">
+                    <input type="search" class="form-control" placeholder="Search event or training..." wire:model="search">
                 </div>
                 <div class="status-dropdown">
                     <select class="form-control" wire:model="selectedStatus"> 

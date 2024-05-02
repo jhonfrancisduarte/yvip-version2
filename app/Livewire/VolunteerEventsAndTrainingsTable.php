@@ -73,6 +73,8 @@ class VolunteerEventsAndTrainingsTable extends Component
 
     public $selectedStatus;
 
+    public $search = '';
+
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
     public function render(){
@@ -416,5 +418,15 @@ class VolunteerEventsAndTrainingsTable extends Component
 
     public function closePopup(){
         $this->popup_message = null;
+    }
+
+    public function filterEvents(){
+        $search = $this->search;
+
+        $this->events = $this->events->filter(function ($event) use ($search) {
+            return Str::contains($event->event_name, $search) ||
+                Str::contains($event->organizer_facilitator, $search) ||
+                Str::contains($event->event_type, $search);
+        });
     }
 }
