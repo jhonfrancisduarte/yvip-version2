@@ -64,7 +64,7 @@
                                 <button class="btn btn-info btn-xs toggle-btn-large toggle-settings-btn toggleSettings" wire:click="toggleSettings({{ $event->id }})"><i class="fas fa-gear icon"></i></button>
                                 @if($showEditDeleteButtons && $selectedEventId == $event->id)
                                     <div class="inside-settings-buttons">
-                                    <button class="btn btn-info btn-xs" wire:click="toggleJoinStatus({{ $event->id }})" wire:loading.attr="disabled">
+                                    <button class="btn btn-info btn-xs join-status-event" wire:click="toggleJoinStatus({{ $event->id }})" wire:loading.attr="disabled">
                                         @if($event->join_status == 0)
                                             Close Event
                                         @else
@@ -72,7 +72,7 @@
                                         @endif
                                     </button>
                                     </button>
-                                        <button class="btn btn-info btn-xs" wire:click="openEditForm({{ $event->id }})">Edit</button>
+                                        <button class="btn btn-info btn-xs edit-btn" wire:click="openEditForm({{ $event->id }})">Edit</button>
                                         <button class="btn btn-danger btn-xs delete-button" wire:click="deleteDialog({{ $event->id }})">Delete</button>
                                     </div>
                                 @endif
