@@ -74,7 +74,6 @@ class VolunteerEventsAndTrainingsTable extends Component
     public $selectedStatus;
 
     public $search = '';
-    public $events;
 
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
@@ -105,8 +104,7 @@ class VolunteerEventsAndTrainingsTable extends Component
             'start_date' => $this->startDate,
             'end_date' => $this->endDate,
             'volunteer_hours' => $this->volunteerHours,
-            $event->volunteer_category = implode(', ', $this->selectedTags),
-            $event->save(),
+            'volunteer_category' => implode(', ', $this->selectedTags),
         ]);
 
         foreach ($this->selectedTags as $tag) {
@@ -131,16 +129,9 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->selectedTags = [];
     }
 
-    public function toggleTag($category, $subcategory = null){
-        if (in_array($category, $this->selectedTags)) {
-            $key = array_search($category, $this->selectedTags);
-            unset($this->selectedTags[$key]);
-        } else {
-            $this->selectedTags[] = $category;
-        }
-    
-        if ($subcategory) {
-            $this->selectedTags[] = $subcategory;
+    public function toggleTag($tag){
+        if (!in_array($tag, $this->selectedTags)) {
+            $this->selectedTags[] = $tag;
         }
     }
     
@@ -194,8 +185,7 @@ class VolunteerEventsAndTrainingsTable extends Component
                     'start_date' => $this->startDate,
                     'end_date' => $this->endDate,
                     'volunteer_hours' => $this->volunteerHours,
-                    $event->volunteer_category = implode(', ', $this->selectedTags),
-                    $event->save(),
+                    'volunteer_category' => implode(', ', $this->selectedTags),
                     'participant' => $this->participant,
                     'join_requests' => $this->joinRequests,
                     'disapproved' => $this->disapproved
@@ -302,10 +292,8 @@ class VolunteerEventsAndTrainingsTable extends Component
         }
     } 
 
-    public function mount($events){
-        $this->events = VolunteerEventsAndTrainings::all();
+    public function mount(){
         $this->joinRequestsData = $this->fetchJoinRequestsData();
-        $this->events = $events;
     }
 
     private function fetchJoinRequestsData(){
@@ -431,11 +419,6 @@ class VolunteerEventsAndTrainingsTable extends Component
 
     public function closePopup(){
         $this->popup_message = null;
-    }
-
-    public function updatedSearch()
-    {
-        $this->filterEvents();
     }
 
     public function filterEvents(){

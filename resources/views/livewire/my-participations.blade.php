@@ -27,5 +27,7 @@
         </div>
     </div>
 
+    @livewire('my-participated-yv-events-table')
+
 @endsection
 
