@@ -344,7 +344,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-12">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label>Password</label>
                                             <input type="password" class="form-control" row="5" wire:model.live='password' placeholder="Password" required>
@@ -353,10 +353,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label>Confirm Password</label>
                                             <input type="password" class="form-control" row="5" wire:model.live='c_password' placeholder="Confirm Password" required>
