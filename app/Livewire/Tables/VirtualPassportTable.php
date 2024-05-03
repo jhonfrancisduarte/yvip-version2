@@ -24,21 +24,6 @@ class VirtualPassportTable extends Component
 
     private function getUserIpEvents()
     {
-        $userData = Auth::user()->userData;
-        $details = [
-            'Passport No.' => $userData->passport_number,
-            'Name' => $userData->first_name . ' ' . $userData->last_name,
-            'Nationality' => $userData->nationality,
-            'Date of Birth' => $userData->date_of_birth,
-        ];
-
-        $text = '';
-        foreach ($details as $key => $value) {
-            $text .= "$key: $value\n";
-        }
-
-        $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($text);
-
         $userId = Auth::id();
         return IpEvents::whereRaw('find_in_set(?, participants)', [$userId])->get();
     }
@@ -46,7 +31,6 @@ class VirtualPassportTable extends Component
     public function generateQrCodeUrl()
     {
         $userData = Auth::user()->userData;
-        $userId = Auth::user()->id;
         $details = [
             'Passport No.: ' . $userData->passport_number,
             'Name: ' . $userData->first_name . ' ' . $userData->last_name,
