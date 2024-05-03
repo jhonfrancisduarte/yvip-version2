@@ -1,0 +1,218 @@
+.show-form{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: 9999;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.event-form-width{
+    max-width: 40% !important;
+}
+
+.close-event-form{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0,0,0, 0.200);
+}
+
+#calendar {
+    background-color: white !important;
+}
+
+.action-buttons {
+    position: relative;
+    width: 100% !important;
+}
+.options{
+    position: relative;
+}
+
+.inside-settings-buttons {
+    width: 130px;
+    position: absolute;
+    left: -120px; top: -100px;
+    background: white;
+    box-shadow: 0px 0px 15px 1px rgba(113, 106, 202, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    z-index: 2 !important;
+}
+
+.form-group-2{
+    display: flex !important;
+}
+
+.requester{
+    display: flex !important;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.requester .label{
+    cursor: pointer;
+}
+
+.requester .label:hover{
+    color: green;
+}
+
+.requester .btn-approve{
+    float: right;
+    width: 80px !important;
+}
+
+.focused:focus{
+    background: #1796aa;
+    color: white;
+}
+
+
+.inside-settings-buttons button {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    width: 100%;
+}
+
+.show-buttons {
+    display: flex !important;
+}
+
+.settings{
+    width: 100%;
+}
+
+.join-requests-table{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.join-btn{
+    width: 100%;
+}
+
+.green{
+    color: green;
+    font-weight: bold;
+}
+
+.blue{
+    color: #17a2b8;
+    font-weight: bold;
+}
+
+.orange{
+    color: orangered;
+    font-weight: bold;
+}
+
+.card-header1{
+    width: 100%;
+    display: flex;
+}
+
+.btn-accounts{
+    position: relative;
+}
+
+.search-bar{
+    display: flex;
+}
+
+.search-bar input{
+    margin-left: 5px;
+    width: 300px;
+}
+
+.button-container {
+    position: relative;
+    margin-left: 38px;
+}
+
+.join-requests-btn{
+    padding: 3.5px 5.5px !important;
+}
+
+.badge-circle {
+    position: absolute;
+    top: -10px;
+    left: -18px;
+    font-size: 12px;
+    padding: 1.5px 4px;
+    border-radius: 35%;
+    background-color: #CCCCCC;
+    border: 1px solid #AAAAAA;
+    z-index: 1;
+}
+
+.action-buttons .btn-info {
+    margin: 0 auto;
+    display: block;
+}
+
+.toggle-btn-large {
+    width: 30px;
+    height: 30px;
+}
+
+.toggleSettings {
+    margin-top: 5px !important;
+    background-color: #ffffff !important;
+    border: 1px solid #1796aa !important;
+    border-radius: 20% !important;
+}
+
+.toggleSettings .icon{
+  color: #1796aa !important;
+}
+
+.bg-white.p-3 {
+  margin: 1rem;
+  border-radius: 0.5rem;
+}
+
+#thisUserDetailss-table th {
+  background-color: #087cfc;
+  color: white;
+}
+
+#thisUserDetailss-table td {
+  background-color: white;
+}
+
+.table{
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+#thisUserDetailss-table td {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.search-container{ 
+  display: flex; 
+  align-items: center; 
+  width: 500px;
+} 
+
+.search-container input, .search-container select{ 
+  margin-right: 10px !important; 
+}

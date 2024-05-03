@@ -69,11 +69,14 @@ class AdminTable extends Component{
             $this->reset();
             $this->popup_message = null;
             $this->popup_message = 'Admin registered successfully.';
-        } catch (\Exception $e){
+            $this->resetForm();
+        } catch (Exception $e){
             throw $e;
-            $this->popup_message = 'Failed to register admin. Please try again.';
-            Log::error('Error occurred while registering admin: ' . $e->getMessage());
         }
+    }
+
+    private function resetForm(){
+        $this->reset(['first_name', 'middle_name', 'last_name', 'profile_picture', 'position', 'email', 'password', 'c_password']);
     }
 
     public function render(){

@@ -40,7 +40,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                <a href="{{ route('events-and-trainings') }}" class="nav-link {{ request()->routeIs('events-and-trainings') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('events-and-trainings-list') }}" class="nav-link {{ request()->routeIs('events-and-trainings-list') ? 'active' : '' }}" wire:navigate>
                                     <i class="nav-icon bi bi-card-list"></i>
                                     <p>
                                         Events and Trainings List
@@ -147,7 +147,7 @@
                             </a>
 
                         <li class="nav-item">
-                            <a href="{{ route('volunteer-manual') }}" class="nav-link {{ request()->routeIs('volunteer-manual') ? 'active' : '' }}" wire:navigate>
+                            <a href="{{ route('volunteer-manual') }}" class="nav-link {{ request()->routeIs('volunteer-manual') ? 'active' : '' }}">
                             <i class="nav-icon bi bi-journal-text"></i>
                             <p>
                                 Volunteer Manual

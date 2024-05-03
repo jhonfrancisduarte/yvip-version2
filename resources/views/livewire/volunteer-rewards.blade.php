@@ -12,7 +12,7 @@
                             <table id="rewards-table" class="table-main">
                                 <thead>
                                     <tr>
-                                        <th width="30%">Name</th>
+                                        {{-- <th width="30%">Name</th> --}}
                                         <th width="30%">Total of hours</th>
                                         <th>Reward</th>
                                     </tr>
@@ -21,7 +21,7 @@
                                 <tbody>
                                     <div>
                                         <tr>
-                                            <td>{{ Auth::user()->name }}</td>
+                                            {{-- <td>{{ Auth::user()->name }}</td> --}}
                                             <td>{{ $totalVolunteerHours }} hours</td>
                                             <td>{{ $reward }}</td>
                                         </tr>

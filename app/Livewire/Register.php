@@ -134,11 +134,11 @@ class Register extends Component
         $this->residential_selectedCity = Str::ucfirst(Str::lower($this->residential_selectedCity));
         sleep(1);
         try {
-            // $this->validate();
-            // if (!$this->isPasswordComplex($this->password)) {
-            //     $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
-            //     return;
-            // }
+            $this->validate();
+            if (!$this->isPasswordComplex($this->password)) {
+                $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
+                return;
+            }
 
             if($this->is_ip_participant === true){
                 $this->user_role = "yip";
@@ -194,8 +194,6 @@ class Register extends Component
             return redirect('/registered');
         } catch (\Exception $e) {
             throw $e;
-            DB::rollBack();
-            Log::error('Error occurred while registering admin: ' . $e->getMessage());
         }
     }
 
