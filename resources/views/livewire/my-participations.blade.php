@@ -26,6 +26,8 @@
             </div>
         </div>
     </div>
+    @livewire('my-participations')
+
 
     @livewire('tables.my-participated-yv-events-table')
 

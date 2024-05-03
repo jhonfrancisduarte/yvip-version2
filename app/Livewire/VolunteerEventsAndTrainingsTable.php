@@ -73,8 +73,6 @@ class VolunteerEventsAndTrainingsTable extends Component
     public $selectedDate;
     public $search;
 
-    public $search = '';
-
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
     protected $rules = [
