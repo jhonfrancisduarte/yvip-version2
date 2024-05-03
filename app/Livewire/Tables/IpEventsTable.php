@@ -282,6 +282,7 @@ class IpEventsTable extends Component
 
     public function hideDeleteDialog(){
         $this->disableButton = "No";
+        $this->deleteEventId = null;
         $this->closeEditForm();
     }
 
@@ -359,13 +360,12 @@ class IpEventsTable extends Component
 
     public function disapproveParticipant($userId){
         try{
-            $user = User::where('id', $userId)->first();
             $event = IpEvents::find($this->joinEventId);
             if($event == null){
                 $event = IpEvents::find($this->eventId);
             }
     
-            if($event && $user){
+            if($event){
                 // Remove user ID from join_requests column
                 $joinRequests = array_filter(explode(',', $event->join_requests), function ($value) use ($userId) {
                     return trim($value) !== (string) $userId;
@@ -392,6 +392,7 @@ class IpEventsTable extends Component
                 $this->popup_message = null;
                 $this->thisUserDetails = null;
                 $this->options = null;
+                $this->ipEvent = null;
                 $this->popup_message = "Participant disapproved successfully.";
                 $this->dispatch('volunteer-request');
             }
@@ -475,6 +476,7 @@ class IpEventsTable extends Component
 
     public function viewParticipants($eventId){
         $ipEvent = IpEvents::find($eventId);
+        $this->joinEventId = $ipEvent->id;
         if($ipEvent){
             $participantIds = explode(',', $ipEvent->participants);
             $participantsData = [];

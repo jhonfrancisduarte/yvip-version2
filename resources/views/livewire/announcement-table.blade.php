@@ -1,5 +1,5 @@
 <section class="content announcement-content">
-        <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
+        <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
             <button type="button" class="close" wire:click="closePopup">
                 <span aria-hidden="true">&times;</span>
             </button>

@@ -1,6 +1,6 @@
 <div>
 
-    <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
+    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -159,7 +159,7 @@
                 <div class="modal-footer">
                     @if($disableButton == "No")
                         <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
-                        <button class="btn-delete" wire:click="deleteAdmin('{{ $deleteAdminId }}')">Deactivate</button>
+                        <button class="btn-warning" wire:click="deleteAdmin('{{ $deleteAdminId }}')">Deactivate</button>
                     @else
                         <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
                     @endif
@@ -253,7 +253,11 @@
                     <div class="col">
                         <div class="user-data">
                             <button class="btn-cancel" wire:click="hideUserData">Close</button>
-                            <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete Admin</button>
+                            @if($active_status === 2)
+                                <button class="btn-success" wire:click="reactivateDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Activate</button>
+                            @else
+                                <button class="btn-warning" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Deactivate</button>
+                            @endif
                         </div>
                     </div>
                 </div>
