@@ -23,16 +23,11 @@ class IpEventsTable extends Component
     public $editEventId;
     public $deleteCategoryId;
     public $search;
-    #[Rule('required|min:2')]
     public $event_name;
-    #[Rule('required|min:2')]
     public $organizer_sponsor;
-    #[Rule('required')]
     public $start;
-    #[Rule('required')]
     public $end;
-    #[Rule('required')]
-    public $newSkills = [''];
+    public $qualifications = [''];
 
     public $deleteMessage;
     public $disableButton = "No";
@@ -50,13 +45,23 @@ class IpEventsTable extends Component
     public $filterBy = 'start';
     public $selectedDate;
     public $joinNotif = false;
+    public $participants = [];
+    public $ipEvent;
 
-    public function addSkill(){
-        $this->newSkills[] = '';
+    protected $rules = [
+        'event_name' => 'required|min:2',
+        'organizer_sponsor' => 'required|min:2',
+        'start' => 'required|date',
+        'end' => 'required|date',
+        'newSkills' => 'required|array',
+    ];
+
+    public function addQualification(){
+        $this->qualifications[] = '';
     }
 
-    public function removeSkill($index){
-        unset($this->newSkills[$index]);
+    public function removeQualification($index){
+        unset($this->qualifications[$index]);
     }
 
     public function render(){
@@ -143,7 +148,7 @@ class IpEventsTable extends Component
             } else {
                 $status = 'Upcoming';
             }
-
+            $this->validate();
             $event = IpEvents::create([
                 'user_id' => $userId,
                 'event_name' => $this->event_name,
@@ -157,40 +162,49 @@ class IpEventsTable extends Component
             $this->popup_message = null;
             $this->popup_message = "IP event added successfully.";
             $this->openAddEvent = null;
+            $this->resetForm();
         }catch(Exception $e){
             throw $e;
         }
     }
 
+    private function resetForm(){
+        $this->reset(['event_name', 'organizer_sponsor', 'start', 'end', 'newSkills']);
+    }
+
     public function editEvent(){
-        $event = IpEvents::find($this->editEventId);
-        $userId = Auth::user()->id;
-        if($event){
-            $currentDate = now();
-            $status = '';
-            if ($currentDate >= $this->start && $currentDate <= $this->end) {
-                $status = 'Ongoing';
-            } elseif ($currentDate > $this->end) {
-                $status = 'Completed';
-            } else {
-                $status = 'Upcoming';
+        try{
+            $event = IpEvents::find($this->editEventId);
+            $userId = Auth::user()->id;
+            if($event){
+                $currentDate = now();
+                $status = '';
+                if ($currentDate >= $this->start && $currentDate <= $this->end) {
+                    $status = 'Ongoing';
+                } elseif ($currentDate > $this->end) {
+                    $status = 'Completed';
+                } else {
+                    $status = 'Upcoming';
+                }
+                $this->validate();
+                $event->update([
+                    'user_id' => $userId,
+                    'event_name' => $this->event_name,
+                    'organizer_sponsor' => $this->organizer_sponsor,
+                    'start' => $this->start,
+                    'end' => $this->end,
+                    'status' => $status,
+                    'qualifications' => implode(', ', $this->newSkills),
+                ]);
+    
+                $this->openEditEvent= null;
+                $this->editEventId = null;
+                $this->popup_message = null;
+                $this->options = null;
+                $this->popup_message = "IP event updated successfully.";
             }
-
-            $event->update([
-                'user_id' => $userId,
-                'event_name' => $this->event_name,
-                'organizer_sponsor' => $this->organizer_sponsor,
-                'start' => $this->start,
-                'end' => $this->end,
-                'status' => $status,
-                'qualifications' => implode(', ', $this->newSkills),
-            ]);
-
-            $this->openEditEvent= null;
-            $this->editEventId = null;
-            $this->popup_message = null;
-            $this->options = null;
-            $this->popup_message = "IP event updated successfully.";
+        }catch(Exception $e){
+            throw $e;
         }
     }
 
@@ -209,6 +223,7 @@ class IpEventsTable extends Component
     public function closeAddForm(){
         $this->openAddEvent = null;
         $this->options = null;
+        $this->resetValidation();
     }
 
     public function changeStatus($eventId, $status){
@@ -233,27 +248,32 @@ class IpEventsTable extends Component
     }
 
     public function openEditForm($eventId){
-        $this->openEditEvent = true;
-        $event = IpEvents::find($eventId);
-        if($event){
-            $this->event_name = $event->event_name;
-            $this->organizer_sponsor = $event->organizer_sponsor;
-            $this->newSkills = is_string($event->qualifications) ? explode(',', $event->qualifications) : [];
-            $this->start = $event->start;
-            $this->end = $event->end;
-            $this->editEventId = $eventId;
+        try{
+            $this->openEditEvent = true;
+            $event = IpEvents::find($eventId);
+            if($event){
+                $this->event_name = $event->event_name;
+                $this->organizer_sponsor = $event->organizer_sponsor;
+                $this->qualifications = is_string($event->qualifications) ? explode(',', $event->qualifications) : [];
+                $this->start = $event->start;
+                $this->end = $event->end;
+                $this->editEventId = $eventId;
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 
     public function closeEditForm(){
         $this->openEditEvent = null;
         $this->editEventId = null;
-        $this->newSkills = [''];
+        $this->qualifications = [''];
         $this->event_name = null;
         $this->organizer_sponsor = null;
         $this->start = null;
         $this->options = null;
         $this->end = null;
+        $this->resetValidation();
     }
 
     public function deleteDialog($eventId){
@@ -261,15 +281,8 @@ class IpEventsTable extends Component
     }
 
     public function hideDeleteDialog(){
-        $this->deleteMessage = null;
-        $this->deleteEventId = null;
-        $this->newSkills = [''];
         $this->disableButton = "No";
-        $this->event_name = null;
-        $this->organizer_sponsor = null;
-        $this->start = null;
-        $this->options = null;
-        $this->end = null;
+        $this->closeEditForm();
     }
 
     public function deleteEvent(){
@@ -337,6 +350,7 @@ class IpEventsTable extends Component
                 $this->thisUserDetails = null;
                 $this->options = null;
                 $this->popup_message = "Participant approved successfully.";
+                $this->dispatch('volunteer-request');
             }
         }catch(Exception $e){
             throw $e;
@@ -379,6 +393,7 @@ class IpEventsTable extends Component
                 $this->thisUserDetails = null;
                 $this->options = null;
                 $this->popup_message = "Participant disapproved successfully.";
+                $this->dispatch('volunteer-request');
             }
         }catch(Exception $e){
             throw $e;
@@ -411,6 +426,7 @@ class IpEventsTable extends Component
         $this->thisUserDetails = null;
         $this->eventId = null;
         $this->options = null;
+        $this->closeParticipantsForm();
     }
 
     public function toggleOptions($eventId){
@@ -453,8 +469,44 @@ class IpEventsTable extends Component
             $this->ppoSubmisions = $events;
         }
     }
-
     public function closeSubmissionsTable(){
         $this->ppoSubmisions = null;
+    }
+
+    public function viewParticipants($eventId){
+        $ipEvent = IpEvents::find($eventId);
+        if($ipEvent){
+            $participantIds = explode(',', $ipEvent->participants);
+            $participantsData = [];
+            foreach ($participantIds as $participantId) {
+                $participantId = trim($participantId);
+    
+                if (!empty($participantId)){
+                    $user = User::find($participantId);
+    
+                    if ($user) {
+                        $userData = $user->userData;
+    
+                        if ($userData) {
+                            $name = trim($userData->first_name . ' ' . $userData->middle_name . ' ' . $userData->last_name);
+                            $participantsData[] = [
+                                'id' => $participantId,
+                                'name' => $name,
+                            ];
+                        }
+                    }
+                }
+            }
+            $this->ipEvent = $ipEvent;
+            $this->isParticipant = true;
+            $this->participants = $participantsData;
+        }
+    }
+    
+    public function closeParticipantsForm(){
+        $this->ipEvent = null;
+        $this->isParticipant = null;
+        $this->participants = null;
+        $this->options = null;
     }
 }

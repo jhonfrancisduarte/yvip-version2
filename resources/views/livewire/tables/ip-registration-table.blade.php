@@ -1,14 +1,17 @@
-<section class="content volunteers-table-content">
+<div>
+
     <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
         <p>{{ $popup_message }}</p>
     </div>
-    <div class="container-fluid">
-        <div class="row volunteer-row">
-           <div class="col-12 table-contain">
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
                 <div class="card" style="border-radius: 20px; overflow: hidden;">
+
                     <div class="card-header">
                         <h3 class="card-title">IP Registrations Management</h3>
                     </div>
@@ -18,6 +21,7 @@
                             <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
                         </div>
                     </div>
+
                     <div class="card-header card-header1">
                         <label class="label">Number of Results: <span>{{ count($volunteers )}}</span></label>
                     </div>
@@ -26,7 +30,7 @@
                         <table id="volunteers-table" class="table-main">
                             <thead>
                                 <tr>
-                                    <th>Passport Number</th>
+                                    <th class="th-border-rad">Passport Number</th>
                                     <th>Firstname</th>
                                     <th>Middlename</th>
                                     <th>Lastname</th>
@@ -82,9 +86,11 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="m-3">
                         {{ $volunteers->links('livewire::bootstrap') }}
                     </div>
+
                 </div>
                 <div class="mt-5"></div>
             </div>
@@ -336,4 +342,4 @@
         </div>
     @endif
 
-</section>
+</div>

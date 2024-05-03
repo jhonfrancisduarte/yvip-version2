@@ -6,7 +6,6 @@ use Livewire\Component;
 use App\Models\Categories;
 use App\Models\Skills;
 use Exception;
-use Livewire\Attributes\Rule;
 
 class SkillsAndCategoriesTable extends Component
 {
@@ -16,16 +15,23 @@ class SkillsAndCategoriesTable extends Component
     public $popup_message;
     public $search;
     public $skills;
-    #[Rule('required|min:2')]
     public $category_name;
-    #[Rule('required|min:2')]
     public $description;
-    #[Rule('required|min:2')]
     public $newSkills = [''];
     public $editCategoryId;
     public $deleteCategoryId;
     public $deleteMessage;
     public $disableButton = "No";
+
+    protected $rules = [
+        'category_name' => 'required|min:2',
+        'description' => 'required|min:2',
+        'newSkills' => 'required|array',
+    ];
+
+    protected $debounce = [
+        'addSkill' => 1000,
+    ];
 
     public function addSkill(){
         $this->newSkills[] = '';
@@ -64,10 +70,12 @@ class SkillsAndCategoriesTable extends Component
         $this->newSkills = [''];
         $this->category_name = null;
         $this->description = null;
+        $this->resetValidation();
     }
 
     public function createCategory(){
         try{
+            $this->validate();
             $category = Categories::create([
                 'all_categories_name' => $this->category_name,
                 'description' => $this->description,
@@ -80,6 +88,7 @@ class SkillsAndCategoriesTable extends Component
             }
             $this->popup_message = null;
             $this->popup_message = "Category and skills added successfully.";
+            $this->resetForm();
             $this->closeAddForm();
         }catch(Exception $e){
             throw $e;
@@ -107,7 +116,10 @@ class SkillsAndCategoriesTable extends Component
             $this->popup_message = "Category and skills updated successfully.";
         }
     }
-    
+
+    private function resetForm(){
+        $this->reset(['category_name', 'description', 'newSkills']);
+    }
 
     public function openEditForm($catId){
         $this->openEditSkillsAndCategories = true;

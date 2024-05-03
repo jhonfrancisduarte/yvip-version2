@@ -46,6 +46,8 @@ class Login extends Component
         }else{
             $this->addError('login', 'Invalid credentials.');
         }
+
+        $this->addError('email', 'Invalid credentials.');  
     }
 
     public function render(){

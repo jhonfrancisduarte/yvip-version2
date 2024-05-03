@@ -8,7 +8,7 @@
 .announcement-content .container-fluid{
     width: 100%;
     overflow-x: hidden;
-    padding-bottom: 100px;
+    padding-bottom: 50px;
 }
 
 .announcement-container{
@@ -126,7 +126,13 @@
 .admin-btn{
     position: absolute;
     top: 5px;
+    display: flex;
     right: 10px;
+}
+
+.admin-btn p{
+    margin-right: 5px;
+    cursor: pointer;
 }
 
 .btn-attach-file{
@@ -156,7 +162,7 @@
 .add-announcement-container{
     width: 500px;
     height: auto;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .tox-tinymce {

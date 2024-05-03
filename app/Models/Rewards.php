@@ -16,5 +16,6 @@ class Rewards extends Model
         'number_of_hours',
         'rewards',
         // Add other fillable fields as needed
+
     ];
 }

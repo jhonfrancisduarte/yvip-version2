@@ -5,20 +5,21 @@
             </button>
             <p>{{ $popup_message }}</p>
         </div>
-        <div class="container-fluid">
             @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa' || session('user_role') == 'ips')
-                <div class="announcement-header">
-                    <div class="card-header">
-                        @if($dashboardType === "yv")
-                            <h3 class="card-title">Volunteer Announcements</h3>
-                        @else
-                            <h3 class="card-title">International Program Announcements</h3>
-                        @endif 
-                    </div>
-                    <div class="card-header header-sticky-top">
-                        <button class="btn-submit" wire:click="openAddForm"><i class="fa fa-plus"></i></button>
-                        <div class="col-md-3">
-                            <input type="search" class="form-control" wire:model.live="search" placeholder="Search announcement...">
+                <div class="container-fluid">
+                    <div class="announcement-header">
+                        <div class="card-header">
+                            @if($dashboardType === "yv")
+                                <h3 class="card-title">Volunteer Announcements</h3>
+                            @else
+                                <h3 class="card-title">International Program Announcements</h3>
+                            @endif 
+                        </div>
+                        <div class="card-header header-sticky-top">
+                            <div class="col-md-3">
+                                <input type="search" class="form-control" wire:model.live="search" placeholder="Search announcement...">
+                            </div>
+                            <button class="btn-submit" wire:click="openAddForm"><i class="fa fa-plus"></i></button>
                         </div>
                     </div>
                 </div>
@@ -31,10 +32,10 @@
 
                         @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa' || session('user_role') == 'ips')
                             <div class="admin-btn">
-                                <button class="button-edit"  wire:click.live="openEditForm({{ $announcement->id }})"><i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button class="button-delete"  wire:click.live="deleteDialog({{ $announcement->id }})"><i class="bi bi-trash3"></i> 
-                                </button>
+                                <p class="light-blue" wire:click.live="openEditForm({{ $announcement->id }})"><i class="bi bi-pencil-square"></i>
+                                </p>
+                                <p class="red" wire:click.live="deleteDialog({{ $announcement->id }})"><i class="bi bi-trash3"></i> 
+                                </p>
                             </div>
                         @endif
 
@@ -92,6 +93,7 @@
                     </div>
                 </div>
             @endforeach
+
         </div>
 
         {{-- Add Announcement Form --}}

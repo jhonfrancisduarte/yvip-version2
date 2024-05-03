@@ -1,16 +1,17 @@
-<section class="content volunteers-table-content">
+<div>
     
-    <div class="container-fluid">
-        <div class="row volunteer-row">
-            <div class="col-12 table-contain">
-                <div class="card">
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
+
                     <div class="card-body scroll-table">
                         @php $myRank = 1; $previousHours = null;@endphp
                         @foreach ($totalHoursPerUser as $record)
-                            @if($previousHours !== $record->total_volunteer_hours && $previousHours !== null)
-                                @php $myRank++; @endphp
-                            @endif
                             @if(auth()->user()->id === $record->user_id)
+                                @if($previousHours !== $record->total_volunteer_hours && $previousHours !== null)
+                                    @php $myRank++; @endphp
+                                @endif
                                 <div class="my-rank">
                                     <div class="r">
                                         <div class="rank">
@@ -35,6 +36,7 @@
                                 </div>
                                 @break
                             @endif
+                            
                             @php
                                 $previousHours = $record->total_volunteer_hours;
                             @endphp
@@ -95,8 +97,9 @@
                     </div>
 
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
-</section>
 
+</div>

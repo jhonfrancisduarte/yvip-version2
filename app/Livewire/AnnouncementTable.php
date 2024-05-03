@@ -14,11 +14,8 @@ class AnnouncementTable extends Component
 {
     use WithFileUploads;
     public $search;
-    #[Rule('required|min:2|max:100')]
     public $title;
-    #[Rule('required|min:2|max:1000')]
     public $content;
-    #[Rule('required')]
     public $category;
     public $file;
     public $featured_image;
@@ -32,6 +29,12 @@ class AnnouncementTable extends Component
     public $popup_message;
     public $dashboardType;
     public $contentIndexes = [];
+
+    protected $rules = [
+        'title' => 'required|min:2',
+        'content' => 'required|min:2',
+        'category' => 'required',
+    ];
 
     public function createAnnouncement(){
         try{
@@ -67,13 +70,20 @@ class AnnouncementTable extends Component
     
             $this->reset();
             $this->popup_message = null;
-            $this->popup_message = "Announcement created successfully";    
+            $this->popup_message = "Announcement created successfully";
+            $this->resetForm(); 
+            $this->resetValidation();   
         }catch(Exception $e){
             throw $e;
         }
     }
 
+    public function resetForm(){
+        $this->reset(['title', 'content', 'category']);
+    }
+
     public function render(){
+        $announcements = null;
         if($this->dashboardType == "yv" || $this->dashboardType == "ip"){
             $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
                 ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
@@ -82,7 +92,7 @@ class AnnouncementTable extends Component
                 ->search(trim($this->search))
                 ->orderBy('announcement.created_at', 'desc')
                 ->get();
-        }elseif($this->dashboardType == "all"){
+        }else{
             $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
                 ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
                 ->select('announcement.*', 'admin.first_name', 'admin.last_name', 'admin.middle_name', 'admin.profile_picture')
@@ -134,6 +144,7 @@ class AnnouncementTable extends Component
     }
 
     public function openEditForm($annsId){
+        $this->resetValidation();
         $this->openEditAnnouncementForm = Announcement::find($annsId);
         $this->openEditAnnouncementForm =  $this->openEditAnnouncementForm->getAttributes();
         $this->title = $this->openEditAnnouncementForm['title'];
@@ -143,44 +154,50 @@ class AnnouncementTable extends Component
     }
 
     public function editAnnouncement(){
-        if($this->editAnnouncementId){
-            $this->validate();
-            $userId = Auth::user()->id;
-            $announcement = Announcement::find($this->editAnnouncementId);
-            if ($announcement){
-                $announcement->update([
-                    'user_id' => $userId,
-                    'title' => $this->title,
-                    'content' => $this->content,
-                    'category' => $this->category,
-                ]);
-
-                if ($this->file){
-                    $filePath = $this->file->storeAs('announcementFiles/files', $this->file->getClientOriginalName(), 'public_uploads');
-                    $filePath = "uploads/" . $filePath;
-                    $announcement->update(['attached_file' => $filePath]);
+        try{
+            if($this->editAnnouncementId){
+                $this->validate();
+                $userId = Auth::user()->id;
+                $announcement = Announcement::find($this->editAnnouncementId);
+                if ($announcement){
+                    $announcement->update([
+                        'user_id' => $userId,
+                        'title' => $this->title,
+                        'content' => $this->content,
+                        'category' => $this->category,
+                    ]);
+    
+                    if ($this->file){
+                        $filePath = $this->file->storeAs('announcementFiles/files', $this->file->getClientOriginalName(), 'public_uploads');
+                        $filePath = "uploads/" . $filePath;
+                        $announcement->update(['attached_file' => $filePath]);
+                    }
+                
+                    if ($this->featured_image){
+                        $imageName = uniqid() . '.' . $this->featured_image->getClientOriginalExtension();
+                        $imagePath = $this->featured_image->storeAs('announcementFiles/images', $imageName, 'public_uploads');
+                        $imagePath = "uploads/" . $imagePath;
+                        $announcement->update(['featured_image' => $imagePath]);
+                    }
+                    $this->popup_message = null;
+                    $this->popup_message = 'Announcement edited successfully.';
+                    $this->openEditAnnouncementForm = null;
+                    $this->editAnnouncementId = null;
+                    $this->file = null;
+                    $this->featured_image = null;
+                }else{
+                    $this->popup_message = null;
+                    $this->popup_message = 'Announcement edit unsuccessfully.';
+                    $this->openEditAnnouncementForm = null;
+                    $this->editAnnouncementId = null;
+                    $this->file = null;
+                    $this->featured_image = null;
                 }
-            
-                if ($this->featured_image){
-                    $imageName = uniqid() . '.' . $this->featured_image->getClientOriginalExtension();
-                    $imagePath = $this->featured_image->storeAs('announcementFiles/images', $imageName, 'public_uploads');
-                    $imagePath = "uploads/" . $imagePath;
-                    $announcement->update(['featured_image' => $imagePath]);
-                }
-                $this->popup_message = null;
-                $this->popup_message = 'Announcement edited successfully.';
-                $this->openEditAnnouncementForm = null;
-                $this->editAnnouncementId = null;
-                $this->file = null;
-                $this->featured_image = null;
-            }else{
-                $this->popup_message = null;
-                $this->popup_message = 'Announcement edit unsuccessfully.';
-                $this->openEditAnnouncementForm = null;
-                $this->editAnnouncementId = null;
-                $this->file = null;
-                $this->featured_image = null;
+                $this->resetForm();
+                $this->resetValidation();
             }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 
@@ -193,12 +210,14 @@ class AnnouncementTable extends Component
         $this->title = null;
         $this->category = null;
         $this->content = null;
+        $this->resetValidation();
     }
     public function closeEditForm(){
         $this->openEditAnnouncementForm = null;
         $this->title = null;
         $this->category = null;
         $this->content = null;
+        $this->resetValidation();
     }
 
     public function deleteDialog($annsId){
