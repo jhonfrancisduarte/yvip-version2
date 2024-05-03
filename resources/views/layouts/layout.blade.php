@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="{{ asset('images/yvip_logo.png') }}">
+        <link rel="icon" href="images/yvip_logo.png">
         
         @yield ('title')
 
