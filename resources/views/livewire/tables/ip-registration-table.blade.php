@@ -30,7 +30,7 @@
                         <table id="volunteers-table" class="table-main">
                             <thead>
                                 <tr>
-                                    <th>Passport Number</th>
+                                    <th class="th-border-rad">Passport Number</th>
                                     <th>Firstname</th>
                                     <th>Middlename</th>
                                     <th>Lastname</th>

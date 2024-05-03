@@ -67,7 +67,7 @@
                                     {{-- @if(session('user_role') == 'sa')
                                         <th width="15%">Posted By</th>
                                     @endif --}}
-                                    <th>Name of Exchange Program/Event</th>
+                                    <th class="th-border-rad">Name of Exchange Program/Event</th>
                                     <th>Organizer / Sponsor</th>
                                     <th>Date / Period</th>
                                     <th>Status</th>

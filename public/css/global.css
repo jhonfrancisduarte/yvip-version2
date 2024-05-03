@@ -69,8 +69,8 @@
 
 .table-main thead{
     /* background: linear-gradient(126deg, rgba(245,245,245,1) 0%, rgba(238,238,238,1) 100%); */
-    background: #007BFF !important;
-    color: white;
+    background: #CFE9FF !important;
+    color: black;
     padding: 20px !important;
 }
   
@@ -83,15 +83,20 @@
     border-bottom: 1px solid #cccccc3f !important;
 }
 
+.th-border-rad{
+    border-radius: 5px 0 0 0;
+}
+
 .th-action-btn {
     /* background: rgba(238,238,238,1) !important; */
-    background: #007BFF !important;
-    color: white;
+    background: #CFE9FF !important;
+    color: black;
+    border-radius: 0 5px 0 0;
 }
 
 
 .mx-2{
-    height: 5px;
+    height: 5px !important;
 }
   
 .table-main .action-btn{

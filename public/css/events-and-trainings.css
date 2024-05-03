@@ -279,7 +279,26 @@
     cursor: pointer;
 }
 
-@media (max-width: 768px){
+@media (max-width:768px){
+    .btn-add-event{
+        margin-top: 5px;
+        margin-left: 0;
+    }
+
+    .action-btn2{
+        position: sticky; 
+        right: -22px;
+        background: white;
+    }
+
+    .card-header1 {
+        display: block;
+    }
+
+    .card-header1 .col-md-2{
+        margin-top: 5px;
+    }
+
     .divider{
         display: none;
     }
@@ -291,4 +310,5 @@
     .input-group-radio{
         margin-top: 10px;
     }
+    
 }
