@@ -1,14 +1,16 @@
-<section class="content thisUserDetailss-table-content">
-    <div class="container-fluid">
-        <div class="row thisUserDetails-row">
-            <div class="col-12 table-contain">
-                <div class="card">
-                    @if(session('user_role') == 'sa' || session('user_role') == 'ips')
-                        <div class="card-header">
-                                <h3 class="card-title">International Program Events Management</h3> 
-                                <button type="button" class="btn btn-success btn-sm btn-add-event" wire:click="openAddForm">Add Event</button>
-                        </div>
-                    @endif
+<div>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
+
+                    <div class="card-header">
+                        <h3 class="card-title">International Program Events List</h3> 
+                        @if(session('user_role') == 'sa' || session('user_role') == 'ips')
+                            <button type="button" class="btn btn-success btn-sm btn-add-event" wire:click="openAddForm">Add Event</button>
+                        @endif
+                    </div>
 
                     <div class="card-header card-header1">
                         <div class="col-md-3">
@@ -20,10 +22,10 @@
                         <table id="thisUserDetailss-table" class="table-main table-full-width">
                             <thead>
                                 <tr>
-                                    <th>Name of Exchange Program/Event</th>
+                                    <th class="th-border-rad">Name of Exchange Program/Event</th>
                                     <th>Organizer / Sponsor</th>
                                     <th>Date / Period</th>
-                                    <th>Status</th>
+                                    <th class="th-action-btn">Status</th>
                                 </tr>
                             </thead>
 
@@ -53,12 +55,15 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="m-3">
                         {{ $ipEvents->links('livewire::bootstrap') }}
                     </div>
+
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
 
-</section>
+</div>

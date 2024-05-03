@@ -152,6 +152,10 @@ class AdminTable extends Component{
                 $this->deleteMessage = 'Admin deactivated unsuccessfully.';
                 $this->disableButton = "Yes";
             }
+
+            if($this->selectedUserDetails != null){
+                $this->selectedUserDetails = null;
+            }
         }catch(Exception $e){
             throw $e;
         }
@@ -192,6 +196,10 @@ class AdminTable extends Component{
                 $this->deleteMessage = 'Activated unsuccessfully.';
                 $this->disableButton = "Yes";
             }
+
+            if($this->selectedUserDetails != null){
+                $this->selectedUserDetails = null;
+            }
         }catch(Exception $e){
             throw $e;
         }
@@ -199,9 +207,6 @@ class AdminTable extends Component{
 
     public function reactivateDialog($userId){
         $this->reactivateAdminId = $userId;
-        if($this->selectedUserDetails != null){
-            $this->selectedUserDetails = null;
-        }
     }
 
     public function hideReactivateDialog(){

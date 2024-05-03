@@ -1,8 +1,10 @@
-<section class="content volunteers-table-content">
-    <div class="container-fluid">
-        <div class="row volunteer-row">
-            <div class="col-md-12 table-contain">
-                <div class="card">
+<div>
+
+    <div class="container mt-4 {{ $selectedUserDetails ? 'hide-table' : '' }}">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
+
                     <div class="card-header">
                         <h3 class="card-title">IP Beneficiaries Management</h3> 
                         <div class="top-buttons">
@@ -70,6 +72,7 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="card-header card-header1">
                         <label class="label" style="color: {{ $active_status === 2 ? 'red' : 'green' }}">
                             @if($active_status === 2)
@@ -87,7 +90,7 @@
                         <table id="volunteers-table" class="table-main">
                             <thead>
                                 <tr>
-                                    <th>Passport Number</th>
+                                    <th class="th-border-rad">Passport Number</th>
                                     <th>Firstname</th>
                                     <th>Middlename</th>
                                     <th>Lastname</th>
@@ -182,10 +185,13 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="m-3">
                         {{ $volunteers->links('livewire::bootstrap') }}
                     </div>
+
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
@@ -286,207 +292,139 @@
     @endif
 
     @if($selectedUserDetails)
-        <div class="users-data-all-container">
-            <div class="close-form" wire:click="hideUserData"></div>
-            <div class="user-info">
-            <div class="info">
-                <div class="row1 row-header">
-                    <div class="col1">
-                        <img src="{{ $selectedUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
-                        <label class="label">Passport Number: <span>{{ $selectedUserDetails ? $selectedUserDetails['passport_number'] : '' }}</span></label>
-                    </div>
-                </div>
+        <div class="user-details">
+            <div class="container mt-4">
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
+                        <div class="card" style="border-radius: 20px; overflow: hidden;">
 
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Firstname: <span>{{ $selectedUserDetails ? $selectedUserDetails['first_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Lastname: <span>{{ $selectedUserDetails ? $selectedUserDetails['last_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Middlename: <span>{{ $selectedUserDetails ? $selectedUserDetails['middle_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Nickname: <span>{{ $selectedUserDetails ? $selectedUserDetails['nickname']: '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Date of Birth: <span>{{ $selectedUserDetails ? $selectedUserDetails['date_of_birth'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Civil Status: <span>{{ $selectedUserDetails ? $selectedUserDetails['civil_status'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Age: <span>{{ $selectedUserDetails ? $selectedUserDetails['age'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Nationality: <span>{{ $selectedUserDetails ? $selectedUserDetails['nationality'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Tel Number: <span>{{ $selectedUserDetails ? $selectedUserDetails['tel_number'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Mobile Number: <span>{{ $selectedUserDetails ? $selectedUserDetails['mobile_number'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Email: <span>{{ $selectedUserDetails ? $selectedUserDetails['email'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Blood Type: <span>{{ $selectedUserDetails ? $selectedUserDetails['blood_type'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Sex at Birth: <span>{{ $selectedUserDetails ? $selectedUserDetails['sex'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Educational Background: <span>{{ $selectedUserDetails ? $selectedUserDetails['educational_background'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col1">
-                        <label class="label label-capitalize">Permanent Adrress: <span>{{ $volunteer->p_street_barangay }}, {{ $volunteer->permanent_selectedCity }}, {{ $volunteer->permanent_selectedProvince }}</span></label>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col1">
-                        <label class="label label-capitalize">Residential Adrress: <span>{{ $volunteer->r_street_barangay }}, {{ $volunteer->residential_selectedCity }}, {{ $volunteer->residential_selectedProvince }}</span></label>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col1">
-                        <label class="label">Status: <span>{{ $selectedUserDetails ? $selectedUserDetails['status'] : '' }}</span></label>
-                    </div>
-                </div>
-
-                @if($selectedUserDetails['name_of_school'])
-                    <div class="row1">
-                        <div class="col2">
-                            <div class="user-data">
-                                <label class="label">School Name: <span>{{ $selectedUserDetails ? $selectedUserDetails['name_of_school'] : '' }}</span></label>
+                            <div class="reg-logo-container text-center">
+                                <img src="images/yvip_logo.png" width="100"/>
                             </div>
-                        </div>
-                        <div class="col2">
-                            <div class="user-data">
-                                <label class="label">Course: <span>{{ $selectedUserDetails ? $selectedUserDetails['course'] : '' }}</span></label>
-                            </div>
-                        </div>
-                    </div>
-                @endif
 
-                @if($selectedUserDetails['nature_of_work'])
-                    <div class="row1">
-                        <div class="col2">
-                            <div class="user-data">
-                                <label class="label">Nature of Work: <span>{{ $selectedUserDetails ? $selectedUserDetails['nature_of_work'] : '' }}</span></label>
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <img src="{{ $selectedUserDetails['profile_picture'] }}" class="card-img-top" alt="Passport Image" style="max-width: 100%; height: auto; display: block; border-radius: 5px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="card-text" style="font-family: Arial, sans-serif;">
+                                            Passport No. : {{ $selectedUserDetails['passport_number'] }}
+                                            <br>
+                                            Full Name : {{ $selectedUserDetails['first_name'] }} {{ $selectedUserDetails ? $selectedUserDetails['middle_name'] : '' }} {{ $selectedUserDetails['last_name'] }}
+                                            <br>
+                                            Nationality : {{ $selectedUserDetails['nationality'] }}
+                                            <br>
+                                            Age : {{ $selectedUserDetails['age'] }}
+                                            <br> 
+                                            Sex : {{ $selectedUserDetails['sex'] }}
+                                            <br>
+                                            Date of Birth: <span>{{ $selectedUserDetails ? $selectedUserDetails['date_of_birth'] : '' }}</span>
+                                        </p>
+                                    </div>
+                                    <!-- QR Code Section -->
+                                    <div class="col-md-3 text-center">
+                                        <img src="{{ $qrCodeUrl }}" alt="QR Code" style="max-width: 100px; height: auto;" class="mx-auto">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col2">
-                            <div class="user-data">
-                                <label class="label">Employer: <span>{{ $selectedUserDetails ? $selectedUserDetails['employer'] : '' }}</span></label>
-                            </div>
-                        </div>
-                    </div>
-                @endif
 
-                @if($selectedUserDetails['organization_name'])
-                    <div class="row1">
-                        <div class="col2">
-                            <div class="user-data">
-                                <label class="label">Organization Name: <span>{{ $selectedUserDetails ? $selectedUserDetails['organization_name'] : '' }}</span></label>
+                            <div class="card-body">
+                                <table id="volunteers-table" class="table-main">
+                                    <thead>
+                                        <tr>
+                                            <th  width="100%" class="th-border-rad-2">Personal Data</th>
+                                        </tr>
+                                    </thead>
+        
+                                    <tbody>
+                                        @if($selectedUserDetails['nickname'])
+                                        <tr>
+                                            <td>Nickname : {{ $selectedUserDetails['nickname'] }}</td>
+                                        </tr>
+                                        @endif
+                                        <tr>
+                                            <td style="display:flex;">
+                                                <span style="width: 50%;">Civil Status : {{ $selectedUserDetails['civil_status'] }}</span>
+                                                <span style="width: 50%;">Blood Type : {{ $selectedUserDetails['blood_type'] }}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="display:flex;">
+                                                <span style="width: 50%;">Tel Number : {{ $selectedUserDetails['tel_number'] }}</span>
+                                                <span style="width: 50%;">Mobile Number : {{ $selectedUserDetails['mobile_number'] }}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="display:flex;">
+                                                <span style="width: 50%;">Email : {{ $selectedUserDetails['email'] }}</span>
+                                                <span style="width: 50%;">Educational Background : {{ $selectedUserDetails['educational_background'] }}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Permanent Address : {{ $selectedUserDetails['p_street_barangay'] }}, {{ $selectedUserDetails['permanent_selectedCity'] }}, {{ $selectedUserDetails['permanent_selectedProvince'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Residential Address : {{ $selectedUserDetails['r_street_barangay'] }}, {{ $selectedUserDetails['residential_selectedCity'] }}, {{ $selectedUserDetails['residential_selectedProvince'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status : {{ $selectedUserDetails['status'] }}</td>
+                                        </tr>
+                                        @if($selectedUserDetails['name_of_school'])
+                                        <tr>
+                                            <td style="display:flex;">
+                                                <span style="width: 50%;">School Name : {{ $selectedUserDetails['name_of_school'] }}</span>
+                                                <span style="width: 50%;">Course : {{ $selectedUserDetails['course'] }}</span>  
+                                            </td>                            
+                                        </tr>
+                                        @endif
+                        
+                                        @if($selectedUserDetails['nature_of_work'])
+                                        <tr>
+                                            <td style="display:flex;">
+                                                <span style="width: 50%;">Nature of Work : {{ $selectedUserDetails['nature_of_work'] }}</span>                                         
+                                                <span style="width: 50%;">Employer : {{ $selectedUserDetails['employer'] }}</span>
+                                            </td>   
+                                        </tr>
+                                        @endif
+                        
+                                        @if($selectedUserDetails['organization_name'])
+                                        <tr>
+                                            <td style="display:flex;">    
+                                                <span style="width: 50%;">Organization Name : {{ $selectedUserDetails['organization_name'] }}</span>    
+                                                <span style="width: 50%;">Position : {{ $selectedUserDetails['org_position'] }}</span>
+                                            </td>   
+                                        </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+                                <div class="mt-3"></div>
+                                <div class="row1">
+                                    <div class="col">
+                                        <div class="user-data">
+                                            @if($active_status === 2)
+                                                <button class="btn-success" wire:click="reactivateDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Activate</button>
+                                            @else
+                                                <button class="btn-success" wire:click="exportToPdf" wire:loading.attr="disabled">Export Data</button>
+                                                <button class="btn-warning" wire:click="deactDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Deactivate</button>
+                                            @endif
+                                            <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete</button>
+                                            <button class="btn-cancel" wire:click="hideUserData">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col2">
-                            <div class="user-data">
-                                <label class="label">Position: <span>{{ $selectedUserDetails ? $selectedUserDetails['org_position'] : '' }}</span></label>
-                            </div>
-                        </div>
-                    </div>
-                @endif
 
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Youth Volunteer: 
-                                <span>
-                                    <input type="checkbox" class="checkbox" {{ $selectedUserDetails && $selectedUserDetails['is_volunteer'] ? 'checked' : '' }} disabled>
-                                </span>
-                            </label>
                         </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">IP Parcicipant: 
-                                <span>
-                                    <input type="checkbox" class="checkbox" {{ $selectedUserDetails && $selectedUserDetails['is_ip_participant'] ? 'checked' : '' }} disabled>
-                                </span>
-                            </label>
-                        </div>
+                        <div class="mt-5"></div>
                     </div>
                 </div>
             </div>
-                <div class="row1">
-                    <div class="col">
-                        <div class="user-data">
-                            @if($active_status === 2)
-                                <button class="btn-submit" wire:click="reactivateDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Reactivate</button>
-                            @else
-                                <button class="btn-submit" wire:click="exportToPdf" wire:loading.attr="disabled">Export Data</button>
-                            @endif
-                            <button class="btn-cancel" wire:click="hideUserData">Close</button>
-                            <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete Volunteer</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>    
+        </div>
     @endif
 
-</section>
+</div>

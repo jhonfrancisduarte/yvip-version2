@@ -1,5 +1,5 @@
 <section class="content announcement-content">
-        <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
+        <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
             <button type="button" class="close" wire:click="closePopup">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -32,10 +32,10 @@
 
                         @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa' || session('user_role') == 'ips')
                             <div class="admin-btn">
-                                <button class="button-edit"  wire:click.live="openEditForm({{ $announcement->id }})"><i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button class="button-delete"  wire:click.live="deleteDialog({{ $announcement->id }})"><i class="bi bi-trash3"></i> 
-                                </button>
+                                <p class="light-blue" wire:click.live="openEditForm({{ $announcement->id }})"><i class="bi bi-pencil-square"></i>
+                                </p>
+                                <p class="red" wire:click.live="deleteDialog({{ $announcement->id }})"><i class="bi bi-trash3"></i> 
+                                </p>
                             </div>
                         @endif
 

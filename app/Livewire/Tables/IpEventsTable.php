@@ -27,7 +27,7 @@ class IpEventsTable extends Component
     public $organizer_sponsor;
     public $start;
     public $end;
-    public $newSkills = [''];
+    public $qualifications = [''];
 
     public $deleteMessage;
     public $disableButton = "No";
@@ -56,12 +56,12 @@ class IpEventsTable extends Component
         'newSkills' => 'required|array',
     ];
 
-    public function addSkill(){
-        $this->newSkills[] = '';
+    public function addQualification(){
+        $this->qualifications[] = '';
     }
 
-    public function removeSkill($index){
-        unset($this->newSkills[$index]);
+    public function removeQualification($index){
+        unset($this->qualifications[$index]);
     }
 
     public function render(){
@@ -248,22 +248,26 @@ class IpEventsTable extends Component
     }
 
     public function openEditForm($eventId){
-        $this->openEditEvent = true;
-        $event = IpEvents::find($eventId);
-        if($event){
-            $this->event_name = $event->event_name;
-            $this->organizer_sponsor = $event->organizer_sponsor;
-            $this->newSkills = is_string($event->qualifications) ? explode(',', $event->qualifications) : [];
-            $this->start = $event->start;
-            $this->end = $event->end;
-            $this->editEventId = $eventId;
+        try{
+            $this->openEditEvent = true;
+            $event = IpEvents::find($eventId);
+            if($event){
+                $this->event_name = $event->event_name;
+                $this->organizer_sponsor = $event->organizer_sponsor;
+                $this->qualifications = is_string($event->qualifications) ? explode(',', $event->qualifications) : [];
+                $this->start = $event->start;
+                $this->end = $event->end;
+                $this->editEventId = $eventId;
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 
     public function closeEditForm(){
         $this->openEditEvent = null;
         $this->editEventId = null;
-        $this->newSkills = [''];
+        $this->qualifications = [''];
         $this->event_name = null;
         $this->organizer_sponsor = null;
         $this->start = null;
@@ -277,15 +281,9 @@ class IpEventsTable extends Component
     }
 
     public function hideDeleteDialog(){
-        $this->deleteMessage = null;
-        $this->deleteEventId = null;
-        $this->newSkills = [''];
         $this->disableButton = "No";
-        $this->event_name = null;
-        $this->organizer_sponsor = null;
-        $this->start = null;
-        $this->options = null;
-        $this->end = null;
+        $this->deleteEventId = null;
+        $this->closeEditForm();
     }
 
     public function deleteEvent(){
@@ -353,6 +351,7 @@ class IpEventsTable extends Component
                 $this->thisUserDetails = null;
                 $this->options = null;
                 $this->popup_message = "Participant approved successfully.";
+                $this->dispatch('volunteer-request');
             }
         }catch(Exception $e){
             throw $e;
@@ -361,13 +360,12 @@ class IpEventsTable extends Component
 
     public function disapproveParticipant($userId){
         try{
-            $user = User::where('id', $userId)->first();
             $event = IpEvents::find($this->joinEventId);
             if($event == null){
                 $event = IpEvents::find($this->eventId);
             }
     
-            if($event && $user){
+            if($event){
                 // Remove user ID from join_requests column
                 $joinRequests = array_filter(explode(',', $event->join_requests), function ($value) use ($userId) {
                     return trim($value) !== (string) $userId;
@@ -394,7 +392,9 @@ class IpEventsTable extends Component
                 $this->popup_message = null;
                 $this->thisUserDetails = null;
                 $this->options = null;
+                $this->ipEvent = null;
                 $this->popup_message = "Participant disapproved successfully.";
+                $this->dispatch('volunteer-request');
             }
         }catch(Exception $e){
             throw $e;
@@ -476,6 +476,7 @@ class IpEventsTable extends Component
 
     public function viewParticipants($eventId){
         $ipEvent = IpEvents::find($eventId);
+        $this->joinEventId = $ipEvent->id;
         if($ipEvent){
             $participantIds = explode(',', $ipEvent->participants);
             $participantsData = [];

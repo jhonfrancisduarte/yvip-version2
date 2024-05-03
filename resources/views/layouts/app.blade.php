@@ -6,27 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{{ asset('images/yvip_logo.png') }}">
+    <link rel="icon" href="images/yvip_logo.png">
 
     @yield('title')
 
     @yield ('css')
     @livewireStyles
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <link href="Login and Register/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="Login and Register/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="Login and Register/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="Login and Register/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
-    <link href="Login and Register/css/main.css" rel="stylesheet" media="all">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" type="text/css" href="css/global.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
@@ -76,20 +66,26 @@
         var table = document.getElementById('volunteers-table');
         var isHovering = false;
 
-        table.addEventListener('mouseenter', function() {
-            isHovering = true;
-        });
+        if (table) {
+            table.addEventListener('mouseenter', function() {
+                isHovering = true;
+            });
 
-        table.addEventListener('mouseleave', function() {
-            isHovering = false;
-        });
+            table.addEventListener('mouseleave', function() {
+                isHovering = false;
+            });
+        }
 
-        document.getElementById('scroll-table').addEventListener('wheel', function(event) {
-            if (isHovering) {
-                event.preventDefault();
-                this.scrollLeft += event.deltaY;
-            }
-        });
+        var scrollTable = document.getElementById('scroll-table');
+
+        if (scrollTable) {
+            scrollTable.addEventListener('wheel', function(event) {
+                if (isHovering) {
+                    event.preventDefault();
+                    this.scrollLeft += event.deltaY;
+                }
+            });
+        }
     </script>
 
     <script src="plugins/jquery/jquery.min.js"></script>
@@ -101,7 +97,6 @@
     <script src="dist/js/demo.js"></script>
     <script src="dist/js/pages/dashboard.js"></script>
     <script src="js/dashboard.js"></script>
-    @livewireScripts
 
 
 </body>

@@ -1,14 +1,17 @@
-<section class="content volunteers-table-content">
-    <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
+<div>
+
+    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
         <p>{{ $popup_message }}</p>
     </div>
-    <div class="container-fluid">
-        <div class="row volunteer-row">
-            <div class="col-md-12 table-contain">
-                <div class="card">
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
+
                     <div class="card-header">
                         <h3 class="card-title">Volunteer Registrations Management</h3> 
                     </div>
@@ -27,7 +30,7 @@
                         <table id="volunteers-table" class="table-main">
                             <thead>
                                 <tr>
-                                    <th>Passport Number</th>
+                                    <th class="th-border-rad">Passport Number</th>
                                     <th>Firstname</th>
                                     <th>Middlename</th>
                                     <th>Lastname</th>
@@ -83,10 +86,13 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="m-3">
                         {{ $volunteers->links('livewire::bootstrap') }}
                     </div>
+
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
@@ -96,7 +102,7 @@
             <div class="close-form" wire:click="hideDeleteDialog"></div>
             <div class="user-info user-infos">
                 <div class="modal-header">
-                    <h5 class="modal-title">Confirm Deactivation</h5>
+                    <h5 class="modal-title">Confirm Disapprove</h5>
                     <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -325,8 +331,8 @@
                     <div class="col">
                         <div class="user-data">
                             <button class="btn-submit" wire:click="approveUser({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Approve</button>
+                            <button class="btn-delete" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Disapprove</button>
                             <button class="btn-cancel" wire:click="hideUserData">Close</button>
-                            <button class="btn-delete" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -334,4 +340,4 @@
         </div>    
     @endif
 
-</section>
+</div>

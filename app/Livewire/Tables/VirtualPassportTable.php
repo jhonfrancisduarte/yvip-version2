@@ -11,7 +11,7 @@ use Livewire\WithPagination;
 
 class VirtualPassportTable extends Component
 {
-    use WithPagination; // Import WithPagination trait
+    use WithPagination;
 
     public $qrCodeUrl;
     public $search;

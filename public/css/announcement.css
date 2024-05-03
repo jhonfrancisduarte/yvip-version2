@@ -126,7 +126,13 @@
 .admin-btn{
     position: absolute;
     top: 5px;
+    display: flex;
     right: 10px;
+}
+
+.admin-btn p{
+    margin-right: 5px;
+    cursor: pointer;
 }
 
 .btn-attach-file{

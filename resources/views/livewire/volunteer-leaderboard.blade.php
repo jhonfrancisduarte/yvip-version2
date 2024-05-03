@@ -1,9 +1,10 @@
-<section class="content volunteers-table-content">
+<div>
     
-    <div class="container-fluid">
-        <div class="row volunteer-row">
-            <div class="col-12 table-contain">
-                <div class="card">
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
+
                     <div class="card-body scroll-table">
                         @php $myRank = 1; $previousHours = null;@endphp
                         @foreach ($totalHoursPerUser as $record)
@@ -96,7 +97,9 @@
                     </div>
 
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
-</section>
+
+</div>

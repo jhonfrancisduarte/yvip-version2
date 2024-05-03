@@ -1,117 +1,183 @@
-<section class="content thisUserDetailss-table-content">
-    <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
+<div>
+    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
             <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
         <p>{{ $popup_message }}</p>
     </div>
-        <div class="bg-white p-3">
-            <div class="card-header">
-                <h3 class="card-title">Volunteers Events and Trainings List</h3> 
-                @if(session('user_role') === 'sa' || session('user_role') === 'vsa' || session('user_role') === 'vs')
-                    <button type="button" class="btn-success" style="float: right;" wire:click="eventForm">Add Event or Training</button>
-                @endif
-            </div>
-        <div>
-        <div class="card-header card-header1">
-                <div class="col-md-2">
-                    <input type="search" class="form-control" placeholder="Search event...">
-                </div>
-                <div class="status-dropdown">
-                    <select class="form-control" wire:model="selectedStatus"> 
-                        <option value="">Status</option> 
-                        <option value="Ongoing">Ongoing</option> 
-                        <option value="Upcoming">Upcoming</option> 
-                        <option value="Completed">Completed</option> 
-                    </select>
-                </div>
-        </div>
 
-        <div class="card-body scroll-table" id="scroll-table">
-            <table id="volunteers-table" class="table-main">
-                <thead>
-                    <tr>
-                        <th>Event Type</th>
-                        <th>Name of Event</th>
-                        <th>Organizer / Facilitator</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Volunteering Hours</th>
-                        <th>Volunteer Category</th>
-                        <th width="7%" class="action-btn2"></th>
-                    </tr>
-                </thead>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
 
-                <tbody>
-                    @foreach($events as $event)
-                    <tr>
-                        <td>{{ $event->event_type }}</td>
-                        <td>{{ $event->event_name }}</td>
-                        <td>{{ $event->organizer_facilitator }}</td>
-                        <td>{{ $event->start_date }}</td>
-                        <td>{{ $event->end_date }}</td>
-                        <td class="centered-content">{{ $event->volunteer_hours }}</td>
-                        <td>{{ $event->volunteer_category }}</td>
-                        <td class="action-btn2">
+                    <div class="card-header">
+                        <h3 class="card-title">Volunteers Events and Trainings List</h3> 
+                        @if(session('user_role') === 'sa' || session('user_role') === 'vsa' || session('user_role') === 'vs')
+                            <button type="button" class="btn-submit btn-add-event" style="float: right;" wire:click="eventForm">Add Event or Training</button>
+                        @endif
+                    </div>
+                
+                    <div class="card-header card-header1">
+                            <div class="col-md-2">
+                                <input type="search" class="form-control" wire:model.live="search" placeholder="Search event...">
+                            </div>
+                            
+                            <div class="col-md-2">
+                                <div class="status-dropdown">
+                                    <select class="form-control" wire:model.live="selectedStatus"> 
+                                        <option value="">Status</option> 
+                                        <option value="Ongoing">Ongoing</option> 
+                                        <option value="Upcoming">Upcoming</option> 
+                                        <option value="Completed">Completed</option> 
+                                    </select>
+                                </div>
+                            </div>
+
                             @if(session('user_role') == 'sa' || session('user_role') == 'ips')
-                                <div class="btn-g">
-                                    <button class="btn-success" wire:click="openJoinRequests({{ $event->id }})"><i class="bi bi-person-plus"></i></button>
-                                    <span class="span" style="margin-top: -20px !important;">Join Requests</span>
-                                    <span class="notif-count" style="color: white; background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : '#F7F7F7' }}">{{ count($joinRequestsData[$event->id] ?? []) }}</span>
-                                </div>
-                                <div class="mx-2"></div>
-                                <div class="options">
-                                    <div class="btn-g">
-                                        <button class="btn-submit focused" wire:click="toggleSettings({{ $event->id }})"><i class="bi bi-gear"></i></button>
-                                        <span class="span">Options</span>
-                                    </div>
-                                    @if($selectedEventId === $event->id)
-                                        <div class="inside-settings-buttons">
-                                            <button class="btn-success" wire:click="viewParticipants({{ $event->id }})"><i class="bi bi-people"></i> Participants</button>
-                                            <button class="btn-submit" wire:click="toggleJoinStatus({{ $event->id }})" wire:loading.attr="disabled">
-                                                @if($event->join_status == 0)
-                                                    <i class="bi bi-x-circle"></i> Close Event
-                                                @else
-                                                    <i class="bi bi-door-open"></i> Reopen
-                                                @endif
-                                            </button>
-                                            <button class="btn-submit" wire:click="openEditForm({{ $event->id }})"><i class="bi bi-pencil-square"></i> Edit</button>
-                                            <button class="btn-delete" wire:click="deleteDialog({{ $event->id }})"><i class="bi bi-trash3"></i> Delete</button>
+                                <div class="divider"></div>
+                                
+                                <div class="col-md-2">
+                                    <div class="input-group-radio">
+                                        <div class="radio">
+                                            <input type="radio" value="start" checked="checked" wire:model.live="filterBy" name="date">
+                                            <label>Start date</label>
                                         </div>
-                                    @endif
+                                        <div class="radio">
+                                            <input type="radio" value="end" wire:model.live="filterBy" name="date">
+                                            <label>End date</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 date-pick">
+                                    <div class="input-group">
+                                        <input class="form-control" type="date" wire:model.live="selectedDate" max="{{ now()->format('Y-m') }}">
+                                        <div class="reset-date">
+                                            <i class="bi bi-arrow-clockwise" wire:click='resetDateFilter'></i>
+                                        </div>
+                                    </div>
                                 </div>
                             @endif
-                            @if(session('user_role') == 'yip' || session('user_role') == 'yv')
-                                @if(!$event->hasJoined && !$event->approved && !$event->disapprovedParticipants && !$event->join_status)
-                                    @if($event->status === "Completed" || $event->status === "Ongoing")
-                                        {{-- No action --}}
-                                    @else
-                                        @php
-                                            $userId = Auth::user()->id;
-                                            $participants = explode(',', $event->participants);
-                                            $disapprovedParticipants = explode(',', $event->disapproved);
-                                            $joinRequests = explode(',', $event->join_requests);
-                                        @endphp
+                    </div>
 
-                                        @if (in_array($userId, $participants))
-                                            <span class="green">Joined</span>
-                                        @elseif (in_array($userId, $disapprovedParticipants))
-                                            <span class="orange">Not Qualified</span>
-                                        @elseif (in_array($userId, $joinRequests))
-                                            <span class="blue">Waiting for approval</span>
-                                        @else
-                                            <button class="btn-success" wire:click="joinEvent({{ $event->id }})">Join</button>
+                    <div class="card-body scroll-table">
+                        <table id="volunteers-table" class="table-main">
+                            <thead>
+                                <tr>
+                                    <th class="th-border-rad">Event Type</th>
+                                    <th>Name of Event</th>
+                                    <th>Organizer / Facilitator</th>
+                                    <th>Date / Period</th>
+                                    <th>Status</th>
+                                    <th>Volunteering Hours</th>
+                                    <th>Volunteer Category</th>
+                                    <th width="7%" class="action-btn2 th-action-btn"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach($events as $event)
+                                <tr>
+                                    <td>{{ $event->event_type }}</td>
+                                    <td>{{ $event->event_name }}</td>
+                                    <td>{{ $event->organizer_facilitator }}</td>
+                                    <td>{{ $event->start_date }} - {{ $event->end_date }}</td>
+                                    <td>
+                                        <div class="options">
+                                            <span  
+                                            @if($event->status === "Ongoing")
+                                                class="green"
+                                                wire:click="toggleOptions2({{ $event->id }})"
+                                            @elseif($event->status === "Completed")
+                                                class="light-blue"
+                                            @else
+                                                class="orange"
+                                                wire:click="toggleOptions2({{ $event->id }})"
+                                            @endif >
+                                            {{ $event->status }}
+                                            </span>
+                                            @if($options2 == $event->id)
+                                                <div class="options-container">
+                                                    Change Status
+                                                    <button class="btn-success" wire:click="changeStatus({{ $event->id }}, 'Ongoing')">Ongoing</button>
+                                                    <button class="btn-submit" wire:click="changeStatus({{ $event->id }}, 'Completed')">Completed</button>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td class="centered-content">{{ $event->volunteer_hours }}</td>
+                                    <td>{{ $event->volunteer_category }}</td>
+                                    <td class="action-btn2">
+                                        @if(session('user_role') == 'sa' || session('user_role') == 'ips')
+                                            <div class="btn-g">
+                                                <button class="btn-success" wire:click="openJoinRequests({{ $event->id }})"><i class="bi bi-person-plus"></i></button>
+                                                <span class="span" style="margin-top: -20px !important;">Join Requests</span>
+                                                <span class="notif-count" style="color: white; background-color: {{ count($joinRequestsData[$event->id] ?? []) > 0 ? 'red' : '#F7F7F7' }}">{{ count($joinRequestsData[$event->id] ?? []) }}</span>
+                                            </div>
+                                            <div class="mx-2"></div>
+                                            <div class="options">
+                                                <div class="btn-g">
+                                                    <button class="btn-submit focused" wire:click="toggleSettings({{ $event->id }})"><i class="bi bi-gear"></i></button>
+                                                    <span class="span">Options</span>
+                                                </div>
+                                                @if($selectedEventId === $event->id)
+                                                    <div class="inside-settings-buttons">
+                                                        <button class="btn-success" wire:click="viewParticipants({{ $event->id }})"><i class="bi bi-people"></i> Participants</button>
+                                                        @if($event->status !== "Completed")
+                                                            <button class="btn-submit" wire:click="toggleJoinStatus({{ $event->id }})" wire:loading.attr="disabled">
+                                                                @if($event->join_status == 0)
+                                                                    <i class="bi bi-x-circle"></i> Close Event
+                                                                @else
+                                                                    <i class="bi bi-door-open"></i> Reopen
+                                                                @endif
+                                                            </button>
+                                                        @endif
+                                                        <button class="btn-submit" wire:click="openEditForm({{ $event->id }})"><i class="bi bi-pencil-square"></i> Edit</button>
+                                                        <button class="btn-delete" wire:click="deleteDialog({{ $event->id }})"><i class="bi bi-trash3"></i> Delete</button>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         @endif
-                                    @endif
-                                @elseif($event->join_status)
-                                    <span class="orange">Closed</span>
-                                @endif
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                        @if(session('user_role') == 'yip' || session('user_role') == 'yv')
+                                            @if(!$event->hasJoined && !$event->approved && !$event->disapprovedParticipants && !$event->join_status)
+                                                @if($event->status === "Completed" || $event->status === "Ongoing")
+                                                    {{-- No action --}}
+                                                @else
+                                                    @php
+                                                        $userId = Auth::user()->id;
+                                                        $participants = explode(',', $event->participants);
+                                                        $disapprovedParticipants = explode(',', $event->disapproved);
+                                                        $joinRequests = explode(',', $event->join_requests);
+                                                    @endphp
+
+                                                    @if (in_array($userId, $participants))
+                                                        <span class="green">Joined</span>
+                                                    @elseif (in_array($userId, $disapprovedParticipants))
+                                                        <span class="orange">Not Qualified</span>
+                                                    @elseif (in_array($userId, $joinRequests))
+                                                        <span class="blue">Waiting for approval</span>
+                                                    @else
+                                                        <button class="btn-success" wire:click="joinEvent({{ $event->id }})">Join</button>
+                                                    @endif
+                                                @endif
+                                            @elseif($event->join_status)
+                                                <span class="orange">Closed</span>
+                                            @endif
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="m-3">
+                        {{ $events->links('livewire::bootstrap') }}
+                    </div>
+                </div>
+                <div class="mt-5"></div>
+            </div>
         </div>
     </div>
 
@@ -167,7 +233,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Event Type</label>
-                                                <select class="form-control" id="event-type" wire:model="eventType">
+                                                <select class="form-control" id="event-type" wire:model="eventType" required>
                                                     <option value="" selected class="label">Choose option</option>
                                                     <option value="Event">Event</option>
                                                     <option value="Training">Training</option>
@@ -178,35 +244,35 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Name of Event</label>
-                                                <input type="text" class="form-control" name="event_name" id="event-name" placeholder="Enter Event Name" wire:model="eventName">
+                                                <input type="text" class="form-control" name="event_name" id="event-name" placeholder="Enter Event Name" wire:model="eventName" required>
                                                 @error('eventName') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Organizer/Facilitator</label>
-                                                <input type="text" class="form-control" name="organizer" placeholder="Enter Organizer/Facilitator" wire:model="organizer">
+                                                <input type="text" class="form-control" name="organizer" placeholder="Enter Organizer/Facilitator" wire:model="organizer" required>
                                                 @error('organizer') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>Start Date</label>
-                                                <input type="date" class="form-control" name="start_date" id="start-date" wire:model="startDate">
+                                                <input type="date" class="form-control" name="start_date" id="start-date" wire:model="startDate" required>
                                                 @error('startDate') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>End Date</label>
-                                                <input type="date" class="form-control" name="end_date" id="end-date" wire:model="endDate" min="{{ $startDate ? $startDate : '' }}">
+                                                <input type="date" class="form-control" name="end_date" id="end-date" wire:model="endDate" min="{{ $startDate ? $startDate : '' }}" required>
                                                 @error('endDate') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Number of applicable volunteering hours</label>
-                                                <input type="number" class="form-control" name="volunteering_hours" placeholder="Enter Number of Hours" wire:model="volunteerHours">
+                                                <input type="number" class="form-control" name="volunteering_hours" placeholder="Enter Number of Hours" wire:model="volunteerHours" required>
                                                 @error('volunteerHours') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
@@ -334,7 +400,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="submit" class="btn-succes">Submit</button>
+                                <button type="submit" class="btn-success">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -410,9 +476,11 @@
                                             <div class="col-12">
                                                 <div class="form-group requester">
                                                     <label class="label" wire:click="showParticipantDetails('{{ $participant['id'] }}', '')">{{ $participant['name'] }}</label>
-                                                    <div class="btn-approval">
-                                                        <button class="btn-delete" wire:click="disapproveParticipant('{{ $participant['id'] }}')">Remove</button>
-                                                    </div>
+                                                    @if($volunteerEvent->status !== "Completed")
+                                                        <div class="btn-approval">
+                                                            <button class="btn-delete" wire:click="disapproveParticipant('{{ $participant['id'] }}')">Remove</button>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -599,7 +667,7 @@
                             @if(!$isParticipant)
                                 <button class="btn-success" wire:click="approveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Approve</button>
                                 <button class="btn-delete" wire:click="disapproveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Disapprove</button>
-                            @else
+                            @elseif($volunteerEvent->status !== "Completed")
                                 <button class="btn-delete" wire:click="disapproveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Remove</button>
                             @endif
                             <button class="btn-cancel" wire:click="hideUserData" wire:loading.attr="disabled">Close</button>
@@ -611,4 +679,4 @@
     @endif
 
 
-</section>
+    </div>

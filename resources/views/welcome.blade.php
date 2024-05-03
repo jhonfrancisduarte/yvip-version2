@@ -5,8 +5,8 @@
 @endsection
 
 @section ('css')
-    <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <link href="css/welcome.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
 @endsection
 
 

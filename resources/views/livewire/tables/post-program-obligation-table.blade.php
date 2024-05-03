@@ -1,20 +1,20 @@
-<section class="content thisUserDetailss-table-content">
-    <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
+<div>
+
+    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
         <p>{{ $popup_message }}</p>
     </div>
-    <div class="container-fluid">
-        <div class="row thisUserDetails-row">
-            <div class="col-12 table-contain">
-                <div class="card">
-                    @if(session('user_role') == 'sa' || session('user_role') == 'ips')
-                        <div class="card-header">
-                                <h3 class="card-title">International Program Events Management</h3> 
-                                <button type="button" class="btn btn-success btn-sm btn-add-event" wire:click="openAddForm">Add Event</button>
-                        </div>
-                    @endif
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
+
+                    <div class="card-header">
+                            <h3 class="card-title">International Program Events List</h3> 
+                    </div>
 
                     <div class="card-header card-header1">
                         <div class="search-bar">
@@ -24,14 +24,14 @@
                     </div>
 
                     <div class="card-body scroll-table" id="scroll-table">
-                        <table id="thisUserDetailss-table" class="table-main table-full-width">
+                        <table id="thisUserDetailss-table" class="table-main">
                             <thead>
                                 <tr>
-                                    <th>Name of Exchange Program/Event</th>
+                                    <th class="th-border-rad">Name of Exchange Program/Event</th>
                                     <th>Organizer / Sponsor</th>
                                     <th>Date / Period</th>
                                     <th>Status</th>
-                                    <th width="30%">Post-Program Obligation</th>
+                                    <th width="30%" class="th-action-btn">Post-Program Obligation</th>
                                 </tr>
                             </thead>
 
@@ -100,12 +100,15 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="m-3">
                         {{ $ipEvents->links('livewire::bootstrap') }}
                     </div>
+
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
 
-</section>
+</div>
