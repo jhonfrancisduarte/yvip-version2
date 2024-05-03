@@ -1,20 +1,24 @@
-<section class="content volunteers-table-content">
+<div>
+
     <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
         <p>{{ $popup_message }}</p>
     </div>
-    <div class="container-fluid">
-        <div class="row volunteer-row">
-            <div class="col-md-12 table-contain">
-                <div class="card">
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
+
                     <div class="card-header">
                         <h3 class="card-title">Skills and Categories Management</h3>
                         <button type="button" class="btn-submit float-right" wire:click="openAddForm">Add Skills and Category
                         </button>
 
                     </div>
+
                     <div class="card-header card-header1">
                         <label for="" class="label" style="margin-top: 5px;">Filter: </label>
                         <div class="col-md-3">
@@ -67,7 +71,9 @@
                             </tbody>
                         </table>
                     </div>
+
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
@@ -152,9 +158,9 @@
                                                     <button type="button" class="close" wire:click="removeSkill({{ $index }})"><span aria-hidden="true">&times;</span></button>
                                                 </div>
                                             @endforeach
-                                            <button type="button" class="btn-submit" wire:click="addSkill">
+                                            <p class="btn-submit" wire:click="addSkill">
                                                 <i class="bi bi-plus-lg"></i>
-                                            </button>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -239,4 +245,4 @@
         </div>
     @endif
 
-</section>
+</div>

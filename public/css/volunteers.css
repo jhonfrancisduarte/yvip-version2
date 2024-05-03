@@ -159,7 +159,7 @@
     width: 100% !important;
 }
 
-.volunteers-table-content .card-header1 {
+.card-header1 {
     width: 100%;
     display: flex;
 }
@@ -258,16 +258,25 @@
     padding-left: 15px;
 }
 
+.mx-2{
+    display: none !important;
+}
+
 @media (max-width:768px) {
     .user-info .row1 {
         display: block;
+    }
+
+    .mx-2{
+        display: block !important;
+        height: 5px !important;
     }
 
     .user-info .col2 {
         width: 100%;
     }
 
-    .volunteers-table-content .card-header1 {
+    .card-header1 {
         display: block;
     }
 
