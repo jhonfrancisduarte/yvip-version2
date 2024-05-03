@@ -101,8 +101,6 @@
     <script src="dist/js/demo.js"></script>
     <script src="dist/js/pages/dashboard.js"></script>
     <script src="js/dashboard.js"></script>
-    @livewireScripts
-
 
 </body>
 </html>

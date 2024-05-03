@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('volunteer_rewards', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('number_of_hours');
-            $table->text('rewards');
-            $table->date('award_date')->format('d F Y');
-            $table->text('claim_status')->default(0);
-            $table->date('claim_date')->format('d F Y')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('volunteer_rewards')) {
+            Schema::create('volunteer_rewards', function (Blueprint $table) {
+                $table->id();
+                $table->uuid('user_id');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+                $table->string('number_of_hours');
+                $table->text('rewards');
+                $table->date('award_date')->format('d F Y');
+                $table->text('claim_status')->default(0);
+                $table->date('claim_date')->format('d F Y')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -29,6 +31,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('volunteer_rewards');
+        if (Schema::hasTable('volunteer_rewards')) {
+            Schema::dropIfExists('volunteer_rewards');
+        }
     }
 };

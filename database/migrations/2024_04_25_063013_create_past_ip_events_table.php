@@ -11,18 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('past_ip_events', function (Blueprint $table) {
-            $table->id();
-            $table->uuid('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('event_name', 100);
-            $table->string('organizer_sponsor', 1000);
-            $table->string('sponsor_category');
-            $table->date('start');
-            $table->date('end');
-            $table->boolean('confirmed')->default(false);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('past_ip_events')) {
+            Schema::create('past_ip_events', function (Blueprint $table) {
+                $table->id();
+                $table->uuid('user_id');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+                $table->string('event_name', 100);
+                $table->string('organizer_sponsor', 1000);
+                $table->string('sponsor_category');
+                $table->date('start');
+                $table->date('end');
+                $table->boolean('confirmed')->default(false);
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -30,6 +32,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('past_ip_events');
+        if (Schema::hasTable('past_ip_events')) {
+            Schema::dropIfExists('past_ip_events');
+        }
     }
 };

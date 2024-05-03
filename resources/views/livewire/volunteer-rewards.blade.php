@@ -10,103 +10,102 @@
             <div class="col-12 table-contain">
                 <div class="card">
                     <div class="card-header">
+                    <h3 class="card-title">Volunteers Rewards</h3>
                         @if(session('user_role') !== "yv" && session('user_role') !== "yip")
-                            <a href="#" wire:click="seeHeaderActions"><i class="fas fa-ellipsis-h nav-for-action" width="10%"></i></a>
-                            @if($headerActions)
-                                <div class="header-actions">
-                                    <button type="button" class="btn btn-submit btn-sm btn-claim-requests" wire:click="seeRequests">Claim Requests</button>
-                                    <button type="button" class="btn btn-submit btn-sm btn-reward" wire:click="seeRewards">Rewards Matrix</button>
-                                </div>
-                            @endif
+                        <div class="btn-g">
+                            <button class="btn btn-submit btn-sm btn-claim-requests" wire:click="seeRequests">Claim Request</button>
+                            <span class="notif-count" style="color: white; background-color: {{ count($claimRequests) > 0 ? 'red' : 'rgb(245, 245, 245)' }};">{{ count($claimRequests) }}</span>
+                        </div>
+                            <button type="button" class="btn btn-submit btn-sm btn-reward" wire:click="seeRewards">Rewards Matrix</button>
                         @else
-                            <button type="button" class="btn btn-submit btn-sm btn-show-reward" wire:click="seeRewards">Rewards Matrix</button>
+                            <button type="button" class="btn btn-submit btn-sm" wire:click="seeRewards">Rewards Matrix</button>
                         @endif
                     </div>
 
                     <div class="card-body">
-                    @if(session('user_role') !== "yv" && session('user_role') !== "yip")
-                        <table id="rewards-table" class="table-main">
-                            <thead>
-                                <tr>
-                                    <th width="30%">Name</th>
-                                    <th width="30%">Total of hours</th>
-                                    <th width="30%">Reward</th>
-                                    <th width="10%" class="sa-actions">Actions</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <div>
-                                @foreach($userHoursArray as $user)
+                        @if(session('user_role') !== "yv" && session('user_role') !== "yip")
+                            <table id="rewards-table" class="table-main">
+                                <thead>
                                     <tr>
-                                        <td>{{ $user['user_name'] }}</td>
-                                        <td>{{ $user['total_hours'] }} hours</td>
-                                        <td class="rewards">
-                                            @if(collect($user['rewards'])->isEmpty())
-                                                <span>N/A</span>
-                                            @else
-                                                <ul>
-                                                    @foreach($user['rewards'] as $rwrd)
-                                                        <li>{{ $rwrd }}</li>
+                                        <th width="30%">Name</th>
+                                        <th width="30%">Total of hours</th>
+                                        <th width="30%">Reward</th>
+                                        <th width="10%" class="sa-actions">Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <div>
+                                    @foreach($userHoursArray as $user)
+                                        <tr>
+                                            <td>{{ $user['user_name'] }}</td>
+                                            <td>{{ $user['total_hours'] }} hours</td>
+                                            <td class="rewards">
+                                                @if(collect($user['rewards'])->isEmpty())
+                                                    <span>N/A</span>
+                                                @else
+                                                    <ul>
+                                                        @foreach($user['rewards'] as $rwrd)
+                                                            <li>{{ $rwrd }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </td>
+                                            
+                                            <td class="reward-actions">
+                                                <button type="button" class="btn btn-submit btn-sm" wire:click="grantReward('{{ $user['user_id'] }}')"><i class="bi bi-award"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </div>
+                                </tbody>
+
+                            </table>
+                            
+                        @else
+                            <table id="rewards-table" class="table-main">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">Name</th>
+                                        <th width="20%">Total of hours</th>
+                                        <th width="20%">Reward</th>
+                                        <th width="20%">Claim Status</th>
+                                        <th width="10%" class="actions">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ Auth::user()->name }}</td>
+                                        <td>{{ $totalVolunteerHours }} hours</td>
+                                        <td>
+                                            @if($userRewards->isNotEmpty())
+                                                <ul class="reward-list">
+                                                    @foreach($userRewards as $reward)
+                                                        <li>{{ $reward->rewards }}</li>
                                                     @endforeach
                                                 </ul>
+                                            @else
+                                                No Rewards
                                             @endif
                                         </td>
-                                        
-                                        <td class="reward-actions">
-                                            <button type="button" class="btn btn-submit btn-sm" wire:click="grantReward({{ $user['user_id'] }})"><i class="bi bi-award"></i></button>
+                                        <td class="claim-status">
+                                            @foreach($userRewards as $reward)
+                                                <li>
+                                                    {{ $reward->claim_status ? 'Claimed' : 'Unclaimed' }}
+                                                </li>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                        @foreach($userRewards as $reward)
+                                            <li class="claim-reward">
+                                                <button type="button" class="btn btn-success btn-sm claim-button" wire:click="claimReward({{ $reward->id }})" @if(isset($disabledButtons[$reward->id]) && $disabledButtons[$reward->id]) disabled @endif><i class="bi bi-file-arrow-down"></i></button>
+                                            </li>
+                                        @endforeach
                                         </td>
                                     </tr>
-                                @endforeach
-                                </div>
-                            </tbody>
-
-                        </table>
-                        
-                    @else
-                    <table id="rewards-table" class="table-main">
-                        <thead>
-                            <tr>
-                                <th width="20%">Name</th>
-                                <th width="20%">Total of hours</th>
-                                <th width="20%">Reward</th>
-                                <th width="20%">Claim Status</th>
-                                <th width="10%" class="actions">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ Auth::user()->name }}</td>
-                                <td>{{ $totalVolunteerHours }} hours</td>
-                                <td>
-                                    @if($userRewards->isNotEmpty())
-                                        <ul class="reward-list">
-                                            @foreach($userRewards as $reward)
-                                                <li>{{ $reward->rewards }}</li>
-                                            @endforeach
-                                        </ul>
-                                    @else
-                                        No Rewards
-                                    @endif
-                                </td>
-                                <td class="claim-status">
-                                    @foreach($userRewards as $reward)
-                                        <li>
-                                            {{ $reward->claim_status ? 'Claimed' : 'Unclaimed' }}
-                                        </li>
-                                    @endforeach
-                                </td>
-                                <td>
-                                @foreach($userRewards as $reward)
-                                    <li class="claim-reward">
-                                        <button type="button" class="btn btn-success btn-sm claim-button" wire:click="claimReward({{ $reward->id }})" @if(isset($disabledButtons[$reward->id]) && $disabledButtons[$reward->id]) disabled @endif><i class="bi bi-file-arrow-down"></i></button>
-                                    </li>
-                                @endforeach
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    @endif
+                                </tbody>
+                            </table>
+                        @endif
                     </div>
 
                 </div>
@@ -149,7 +148,7 @@
                                                         <tr>
                                                             <td>{{ $reward->level }}</td>
                                                             <td>{{ $reward->number_of_hours }}</td>
-                                                            <td>{{ $reward->all_rewards }}</td>
+                                                            <td>{{ $reward->rewards }}</td>
                                                         </tr>
                                                     @endforeach
                                                     </div>
@@ -196,7 +195,7 @@
                                                             <select  class="form-control select-status" wire:model.blur="rewardType" name="rewardType" required>
                                                                 <option selected class="form-control">Choose option</option>
                                                                 @foreach($rewards as $reward)
-                                                                    <option value="{{ $reward->all_rewards }}" class="form-control">{{ $reward->all_rewards }}</option>
+                                                                    <option value="{{ $reward->rewards }}" class="form-control">{{ $reward->rewards }}</option>
                                                                 @endforeach
                                                             </select>
                                                             <div class="select-dropdown"></div>

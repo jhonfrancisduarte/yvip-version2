@@ -24,7 +24,6 @@ class VolunteerRewards extends Component
     public $openRequest;
     public $popup_message;
     public $disabledButtons = [];
-    public $headerActions;
 
     public function mount(){
         $this->rewards = Rewards::all();
@@ -35,20 +34,7 @@ class VolunteerRewards extends Component
     public function render()
     {
         $claimRequests = ClaimRequest::whereNotNull('pending')->get();
-        
         return view('livewire.volunteer-rewards', ['claimRequests' => $claimRequests]);
-    }
-
-    public function seeHeaderActions(){
-        if($this->headerActions){
-            $this->headerActions = null;
-        }else{
-            $this->headerActions = true;
-        }
-    }
-
-    public function closeHeaderActions(){
-        $this->headerActions = null;
     }
 
     public function closePopup(){
@@ -125,7 +111,9 @@ class VolunteerRewards extends Component
     {
         try{
             if(session('user_role') !== "yv" && session('user_role') !== "yip"){
-                $volunteers = Volunteer::all();
+                $volunteers = Volunteer::whereHas('user', function ($query) {
+                    $query->where('user_role', 'yv')->orWhere('user_role', 'yip');
+                })->get();
 
                 $totalHoursPerUser = $volunteers->groupBy('user_id')->map(function ($group) {
                     return $group->sum('volunteering_hours');

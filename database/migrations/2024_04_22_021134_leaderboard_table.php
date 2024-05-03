@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('leaderboard', function (Blueprint $table) {
-            $table->id();
-            $table->uuid('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('fullname', 100);
-            $table->string('total_hours');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('leaderboard')) {
+            Schema::create('leaderboard', function (Blueprint $table) {
+                $table->id();
+                $table->uuid('user_id');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+                $table->string('fullname', 100);
+                $table->string('total_hours');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -26,6 +28,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('leaderboard');
+        if (Schema::hasTable('leaderboard')) {
+            Schema::dropIfExists('leaderboard');
+        }
     }
 };
