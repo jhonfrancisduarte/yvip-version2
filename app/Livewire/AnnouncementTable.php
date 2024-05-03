@@ -14,11 +14,8 @@ class AnnouncementTable extends Component
 {
     use WithFileUploads;
     public $search;
-    #[Rule('required|min:2|max:100')]
     public $title;
-    #[Rule('required|min:2|max:1000')]
     public $content;
-    #[Rule('required')]
     public $category;
     public $file;
     public $featured_image;
@@ -32,6 +29,12 @@ class AnnouncementTable extends Component
     public $popup_message;
     public $dashboardType;
     public $contentIndexes = [];
+
+    protected $rules = [
+        'title' => 'required|min:2',
+        'content' => 'required|min:2',
+        'category' => 'required',
+    ];
 
     public function createAnnouncement(){
         try{
@@ -67,13 +70,19 @@ class AnnouncementTable extends Component
     
             $this->reset();
             $this->popup_message = null;
-            $this->popup_message = "Announcement created successfully";    
+            $this->popup_message = "Announcement created successfully";
+            $this->resetForm();    
         }catch(Exception $e){
             throw $e;
         }
     }
 
+    public function resetForm(){
+        $this->reset(['title', 'content', 'category']);
+    }
+
     public function render(){
+        $announcements = null;
         if($this->dashboardType == "yv" || $this->dashboardType == "ip"){
             $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
                 ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
@@ -82,7 +91,7 @@ class AnnouncementTable extends Component
                 ->search(trim($this->search))
                 ->orderBy('announcement.created_at', 'desc')
                 ->get();
-        }elseif($this->dashboardType == "all"){
+        }else{
             $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
                 ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
                 ->select('announcement.*', 'admin.first_name', 'admin.last_name', 'admin.middle_name', 'admin.profile_picture')
@@ -193,12 +202,14 @@ class AnnouncementTable extends Component
         $this->title = null;
         $this->category = null;
         $this->content = null;
+        $this->resetValidation();
     }
     public function closeEditForm(){
         $this->openEditAnnouncementForm = null;
         $this->title = null;
         $this->category = null;
         $this->content = null;
+        $this->resetValidation();
     }
 
     public function deleteDialog($annsId){

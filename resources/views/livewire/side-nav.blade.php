@@ -147,7 +147,7 @@
                             </a>
 
                         <li class="nav-item">
-                            <a href="{{ route('volunteer-manual') }}" class="nav-link {{ request()->routeIs('volunteer-manual') ? 'active' : '' }}" wire:navigate>
+                            <a href="{{ route('volunteer-manual') }}" class="nav-link {{ request()->routeIs('volunteer-manual') ? 'active' : '' }}">
                             <i class="nav-icon bi bi-journal-text"></i>
                             <p>
                                 Volunteer Manual

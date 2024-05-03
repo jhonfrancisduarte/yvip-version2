@@ -26,14 +26,14 @@
 
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link navs">
-                            <div>
-                                <i class="nav-icon bi bi-people"></i>
-                                <p>Youth Volunteer</p>
-                                @if($volunteerRegs !== 0)
-                                    <span class="badge bg-primary2 mr-2">!</span>
+                            <i class="nav-icon bi bi-people"></i>
+                            <p>
+                                Youth Volunteer
+                                @if($volunteerRegs !== 0 || $volunteerJoinRequests !== 0)
+                                    <span style="color: red; font-size:30px; position: absolute; top: -5px;">•</span>
                                 @endif
-                            </div>
-                            <i class="right bi bi-caret-left"></i>
+                                <i class="right bi bi-caret-left pos-right"></i>
+                            </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
@@ -89,6 +89,9 @@
                                 <i class="nav-icon bi bi-card-list"></i>
                                 <p>
                                     Events and Trainings
+                                    @if($volunteerJoinRequests !== 0)
+                                        <span class="badge bg-primary2">{{ $volunteerJoinRequests }}</span>
+                                    @endif
                                 </p>
                                 </a>
                             </li>
@@ -117,16 +120,14 @@
                     {{-- IP navlinks --}}
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div>
-                                    <i class="nav-icon bi bi-globe"></i>
-                                    <p class="mb-0">International Program</p>
-                                    @if($confirmedEventsCount !== 0 || $ipRegs !== 0 || $joinRequests !== 0)
-                                        <span class="badge bg-primary2 mr-2">!</span>
-                                    @endif
-                                </div>
-                                <i class="bi bi-caret-left"></i>
-                            </div>
+                            <i class="nav-icon bi bi-globe"></i>
+                            <p>
+                                International Program
+                                @if($confirmedEventsCount !== 0 || $ipRegs !== 0 || $joinRequests !== 0)
+                                    <span style="color: red; font-size:30px; position: absolute; top: -5px;">•</span>
+                                @endif
+                                <i class="right bi bi-caret-left pos-right"></i>
+                            </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">

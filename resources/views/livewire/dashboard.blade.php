@@ -30,9 +30,9 @@
             </div>
         </div>
 
-        @if(auth()->user()->user_role === "yip")
-            <livewire:announcement-table :dashboardType="'all'" />
-        @elseif(auth()->user()->user_role === "yv")
+        @if(session('user_role') === "yip")
+            <livewire:announcement-table />
+        @elseif(session('user_role') === "yv")
             <livewire:announcement-table :dashboardType="'yv'" />
         @endif
 

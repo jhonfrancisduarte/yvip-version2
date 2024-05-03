@@ -30,7 +30,9 @@
                 </div>
             </div>
         </div>
+
+        @livewire('tables.admin-table')
+
     </div>
 
 @endsection
-
