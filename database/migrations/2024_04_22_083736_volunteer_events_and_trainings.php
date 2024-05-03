@@ -21,6 +21,7 @@ class VolunteerEventsAndTrainings extends Migration
             $table->string('organizer_facilitator');
             $table->date('start_date')->format('d F Y');
             $table->date('end_date')->format('d F Y');
+            $table->string('status')->nullable();
             $table->integer('volunteer_hours');
             $table->string('volunteer_category')->nullable();
             $table->string('participants', 1000)->nullable();

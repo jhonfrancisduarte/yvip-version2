@@ -18,6 +18,7 @@ class VolunteerEventsAndTrainings extends Model
         'organizer_facilitator',
         'start_date',
         'end_date',
+        'status',
         'volunteer_hours',
         'volunteer_category',
     ];
@@ -30,7 +31,7 @@ class VolunteerEventsAndTrainings extends Model
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
             $query->where('event_name', 'like', $term)
-                ->orWhere('organizer_sponsor', 'like', $term);
+                ->orWhere('organizer_facilitator', 'like', $term);
         });
     }
 

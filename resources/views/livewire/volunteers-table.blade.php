@@ -1,8 +1,9 @@
-<section class="content volunteers-table-content">
-    <div class="container-fluid">
-        <div class="row volunteer-row">
-            <div class="col-md-12 table-contain">
-                <div class="card">
+<div>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
+
                     <div class="card-header">
                         <h3 class="card-title">Youth Volunteers Management</h3> 
                         <div class="top-buttons">
@@ -34,6 +35,7 @@
                         <div class="col-md-3">
                             <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
                         </div>
+                        <div class="mx-2"></div>
                         <div class="col-md-2">
                             <select class="form-control" wire:model.live="civil_status">
                                 <option selected disabled>Civil Status</option>
@@ -43,6 +45,7 @@
                                 <option class="label" value="Legally Separated">Legally Separated</option>
                             </select>
                         </div>
+                        <div class="mx-2"></div>
                         <div class="col-md-2">
                             <select class="form-control" wire:model.live="age_range">
                                 <option disabled selected>Age</option>
@@ -51,6 +54,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="mx-2"></div>
                         <div class="col-md-2">
                             <select wire:model.live="selectedProvince" id="province" class="form-control">
                                 <option value="">Select Province</option>
@@ -59,6 +63,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="mx-2"></div>
                         <div class="col-md-2">
                             <select id="city" class="form-control" wire:model.live="selectedCity">
                                 <option value="">Select City</option>
@@ -184,7 +189,9 @@
                     <div class="m-3">
                         {{ $volunteers->links('livewire::bootstrap') }}
                     </div>
+
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
@@ -488,4 +495,4 @@
         </div>    
     @endif
 
-</section>
+</div>

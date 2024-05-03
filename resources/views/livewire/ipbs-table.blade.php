@@ -1,8 +1,10 @@
-<section class="content volunteers-table-content">
-    <div class="container-fluid">
-        <div class="row volunteer-row">
-            <div class="col-md-12 table-contain">
-                <div class="card">
+<div>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
+
                     <div class="card-header">
                         <h3 class="card-title">IP Beneficiaries Management</h3> 
                         <div class="top-buttons">
@@ -70,6 +72,7 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="card-header card-header1">
                         <label class="label" style="color: {{ $active_status === 2 ? 'red' : 'green' }}">
                             @if($active_status === 2)
@@ -182,10 +185,13 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="m-3">
                         {{ $volunteers->links('livewire::bootstrap') }}
                     </div>
+
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </div>
@@ -489,4 +495,4 @@
         </div>    
     @endif
 
-</section>
+</div>

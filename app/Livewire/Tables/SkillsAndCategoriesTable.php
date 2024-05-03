@@ -6,7 +6,6 @@ use Livewire\Component;
 use App\Models\Categories;
 use App\Models\Skills;
 use Exception;
-use Livewire\Attributes\Rule;
 
 class SkillsAndCategoriesTable extends Component
 {
@@ -28,6 +27,10 @@ class SkillsAndCategoriesTable extends Component
         'category_name' => 'required|min:2',
         'description' => 'required|min:2',
         'newSkills' => 'required|array',
+    ];
+
+    protected $debounce = [
+        'addSkill' => 1000,
     ];
 
     public function addSkill(){
