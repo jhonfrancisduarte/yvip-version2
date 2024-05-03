@@ -8,6 +8,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\PhilippineProvinces;
 use App\Models\PhilippineCities;
 use Exception;
+use App\Models\VolunteerSkills;
+use App\Models\VolunteerCategory;
+use App\Models\Volunteer;
+use App\Models\Skills;
+use App\Models\Categories;
 
 class IpbsTable extends Component
 {
@@ -225,6 +230,20 @@ class IpbsTable extends Component
         $this->disableButton = "No";
         if($this->selectedUserDetails != null){
             $this->selectedUserDetails = null;
+        }
+    }
+
+    public function getCategory($userId){
+        try{
+            $user = User::where('id', $userId)->first();
+            if($user){
+                $selectedSkillNames = VolunteerSkills::where('user_id', $user->id)->pluck('skill_name')->first();
+                $selectedSkillNamesArray = $selectedSkillNames ? explode(',', $selectedSkillNames) : [];
+                $userCategories = VolunteerCategory::where('user_id', $user->id)->pluck('category_name')->first();
+                $volunteerExperiences = Volunteer::where('user_id', $user->id)->get();
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 }

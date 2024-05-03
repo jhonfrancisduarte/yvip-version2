@@ -415,8 +415,8 @@
                                                 <button class="btn-success" wire:click="exportToPdf" wire:loading.attr="disabled">Export Data</button>
                                                 <button class="btn-warning" wire:click="deactDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Deactivate</button>
                                             @endif
-                                            <button class="btn-cancel" wire:click="hideUserData">Close</button>
                                             <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete Volunteer</button>
+                                            <button class="btn-cancel" wire:click="hideUserData">Close</button>
                                         </div>
                                     </div>
                                 </div>
