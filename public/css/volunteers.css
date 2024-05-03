@@ -1,5 +1,5 @@
 .content-wrapper2 {
-    height: 100vh !important;
+    height: 100% !important;
     overflow-x: hidden !important;
 }
 
@@ -71,7 +71,6 @@
 
 .scroll-table::-webkit-scrollbar-thumb {
     background-color: #888;
-    border-radius: 5px;
 }
 
 .scroll-table::-webkit-scrollbar-track {
@@ -258,9 +257,6 @@
     padding-left: 15px;
 }
 
-.mx-2{
-    display: none !important;
-}
 
 @media (max-width:768px) {
     .user-info .row1 {

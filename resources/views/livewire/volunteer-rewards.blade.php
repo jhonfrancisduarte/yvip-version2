@@ -14,9 +14,9 @@
                             <table id="rewards-table" class="table-main">
                                 <thead>
                                     <tr>
-                                        <th width="30%">Name</th>
+                                        <th width="30%" class="th-border-rad">Name</th>
                                         <th width="30%">Total of hours</th>
-                                        <th>Reward</th>
+                                        <th class="th-action-btn">Reward</th>
                                     </tr>
                                 </thead>
 
@@ -35,8 +35,8 @@
                                 <thead>
                                     <tr>
                                         {{-- <th width="30%">Name</th> --}}
-                                        <th width="30%">Total of hours</th>
-                                        <th>Reward</th>
+                                        <th width="30%" class="th-border-rad">Total of hours</th>
+                                        <th class="th-action-btn">Reward</th>
                                     </tr>
                                 </thead>
 

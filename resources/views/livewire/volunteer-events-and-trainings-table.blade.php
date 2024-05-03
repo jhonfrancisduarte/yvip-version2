@@ -14,7 +14,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Volunteers Events and Trainings List</h3> 
                         @if(session('user_role') === 'sa' || session('user_role') === 'vsa' || session('user_role') === 'vs')
-                            <button type="button" class="btn-submit" style="float: right;" wire:click="eventForm">Add Event or Training</button>
+                            <button type="button" class="btn-submit btn-add-event" style="float: right;" wire:click="eventForm">Add Event or Training</button>
                         @endif
                     </div>
                 
@@ -22,13 +22,16 @@
                             <div class="col-md-2">
                                 <input type="search" class="form-control" wire:model.live="search" placeholder="Search event...">
                             </div>
-                            <div class="status-dropdown">
-                                <select class="form-control" wire:model.live="selectedStatus"> 
-                                    <option value="">Status</option> 
-                                    <option value="Ongoing">Ongoing</option> 
-                                    <option value="Upcoming">Upcoming</option> 
-                                    <option value="Completed">Completed</option> 
-                                </select>
+                            
+                            <div class="col-md-2">
+                                <div class="status-dropdown">
+                                    <select class="form-control" wire:model.live="selectedStatus"> 
+                                        <option value="">Status</option> 
+                                        <option value="Ongoing">Ongoing</option> 
+                                        <option value="Upcoming">Upcoming</option> 
+                                        <option value="Completed">Completed</option> 
+                                    </select>
+                                </div>
                             </div>
 
                             @if(session('user_role') == 'sa' || session('user_role') == 'ips')
@@ -62,14 +65,14 @@
                         <table id="volunteers-table" class="table-main">
                             <thead>
                                 <tr>
-                                    <th>Event Type</th>
+                                    <th class="th-border-rad">Event Type</th>
                                     <th>Name of Event</th>
                                     <th>Organizer / Facilitator</th>
                                     <th>Date / Period</th>
                                     <th>Status</th>
                                     <th>Volunteering Hours</th>
                                     <th>Volunteer Category</th>
-                                    <th width="7%" class="action-btn2"></th>
+                                    <th width="7%" class="action-btn2 th-action-btn"></th>
                                 </tr>
                             </thead>
 

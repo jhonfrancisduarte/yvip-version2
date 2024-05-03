@@ -1,6 +1,6 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4"  wire:poll.30s="counter">
-            <a href="#" class="brand-link" wire:navigate>
+            <a href="#" class="brand-link" >
                 <img src="/images/yvip_logo.png" alt="AdminLTE Logo" class="brand-image brand-image1" style="opacity: .8">
                 <span class="brand-text font-weight-bold">THE NYC - YVIP</span>
             </a>
@@ -12,7 +12,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     @if(session('user_role') == 'sa')
                         <li class="nav-item">
-                            <a href="{{ route('admin-dashboard') }}" class="nav-link {{ request()->routeIs('admin-dashboard') ? 'active' : '' }}" wire:navigate>
+                            <a href="{{ route('admin-dashboard') }}" class="nav-link {{ request()->routeIs('admin-dashboard') ? 'active' : '' }}" >
                             <i class="nav-icon bi bi-house"></i>
                             <p>
                                 Home
@@ -37,7 +37,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('volunteer-dashboard') }}" class="nav-link {{ request()->routeIs('volunteer-dashboard') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('volunteer-dashboard') }}" class="nav-link {{ request()->routeIs('volunteer-dashboard') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-speedometer2"></i>
                                 <p>
                                     Volunteer Dashboard
@@ -46,7 +46,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('volunteer-registration') }}" class="nav-link {{ request()->routeIs('volunteer-registration') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('volunteer-registration') }}" class="nav-link {{ request()->routeIs('volunteer-registration') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-person-check"></i>
                                 <p>
                                     Volunteer Registration
@@ -58,7 +58,7 @@
                             </li>
 
                             <li class="nav-item">
-                            <a href="{{ route('volunteers') }}" class="nav-link {{ request()->routeIs('volunteers') ? 'active' : '' }}" wire:navigate>
+                            <a href="{{ route('volunteers') }}" class="nav-link {{ request()->routeIs('volunteers') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-people"></i>
                                 <p>
                                     Volunteers
@@ -67,7 +67,7 @@
                             </li>
 
                             <li class="nav-item">
-                            <a href="{{ route('volunteer-hours') }}" class="nav-link {{ request()->routeIs('volunteer-hours') ? 'active' : '' }}" wire:navigate>
+                            <a href="{{ route('volunteer-hours') }}" class="nav-link {{ request()->routeIs('volunteer-hours') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-clock"></i>
                                 <p>
                                     Volunteer Hours
@@ -76,7 +76,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('volunteer-rewards') }}" class="nav-link {{ request()->routeIs('volunteer-rewards') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('volunteer-rewards') }}" class="nav-link {{ request()->routeIs('volunteer-rewards') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-award"></i>
                                 <p>
                                     Volunteer Rewards
@@ -85,7 +85,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('volunteer-events-and-trainings') }}" class="nav-link {{ request()->routeIs('volunteer-events-and-trainings') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('volunteer-events-and-trainings') }}" class="nav-link {{ request()->routeIs('volunteer-events-and-trainings') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-card-list"></i>
                                 <p>
                                     Events and Trainings
@@ -97,7 +97,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('skills-and-categories') }}" class="nav-link {{ request()->routeIs('skills-and-categories') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('skills-and-categories') }}" class="nav-link {{ request()->routeIs('skills-and-categories') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-tags"></i>
                                 <p>
                                     Skills and Category
@@ -131,7 +131,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('ip-dashboard') }}" class="nav-link {{ request()->routeIs('ip-dashboard') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('ip-dashboard') }}" class="nav-link {{ request()->routeIs('ip-dashboard') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-speedometer2"></i>
                                 <p>
                                     IP Dashboard
@@ -140,7 +140,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('ip-registration') }}" class="nav-link {{ request()->routeIs('ip-registration') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('ip-registration') }}" class="nav-link {{ request()->routeIs('ip-registration') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-person-check"></i>
                                 <p>
                                     IP Registration
@@ -152,7 +152,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('ip-beneficiaries') }}" class="nav-link {{ request()->routeIs('ip-beneficiaries') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('ip-beneficiaries') }}" class="nav-link {{ request()->routeIs('ip-beneficiaries') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-people"></i>
                                 <p>
                                     IP Beneficiaries
@@ -161,7 +161,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('past-ip-participated-events') }}" class="nav-link {{ request()->routeIs('past-ip-participated-events') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('past-ip-participated-events') }}" class="nav-link {{ request()->routeIs('past-ip-participated-events') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-clipboard-check"></i>
                                 <p>
                                     IP Validation
@@ -173,7 +173,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('ip-events') }}" class="nav-link {{ request()->routeIs('ip-events') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('ip-events') }}" class="nav-link {{ request()->routeIs('ip-events') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-card-list"></i>
                                 <p>
                                     IP Events

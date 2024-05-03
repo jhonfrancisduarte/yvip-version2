@@ -30,7 +30,7 @@
                         <table id="volunteers-table" class="table-main">
                             <thead>
                                 <tr>
-                                    <th>Category</th>
+                                    <th class="th-border-rad">Category</th>
                                     <th>Description</th>
                                     <th>Skills / Task</th>
                                     <th width="7%" class="action-btn2 th-action-btn"></th>

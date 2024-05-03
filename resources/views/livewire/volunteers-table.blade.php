@@ -1,4 +1,5 @@
 <div>
+
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-12">
@@ -91,7 +92,7 @@
                         <table id="volunteers-table" class="table-main">
                             <thead>
                                 <tr>
-                                    <th>Passport Number</th>
+                                    <th class="th-border-rad">Passport Number</th>
                                     <th>Firstname</th>
                                     <th>Middlename</th>
                                     <th>Lastname</th>
@@ -186,6 +187,7 @@
                             </tbody>
                         </table>
                     </div>
+                    
                     <div class="m-3">
                         {{ $volunteers->links('livewire::bootstrap') }}
                     </div>
