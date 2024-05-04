@@ -8,6 +8,7 @@ use App\Models\IpEvents;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class VirtualPassportTable extends Component
 {
@@ -108,4 +109,28 @@ class VirtualPassportTable extends Component
             'qrCodeUrl' => $this->qrCodeUrl,
         ]);
     }
+
+    public function generatePdf()
+{
+
+
+    // Fetch all IP events
+    $ipEvents = IpEvents::join('users', 'users.id', '=', 'ip_events.user_id')
+        ->select('users.name', 'ip_events.*')
+        ->orderBy('ip_events.created_at', 'desc')
+        ->get();
+
+    // Create PDF using Laravel DomPDF
+    $pdf = PDF::loadView('pdf.passport-pdf', [
+        'ipEvents' => $ipEvents,
+        'qrCodeUrl' => $this->qrCodeUrl, // Pass the QR code URL to the PDF view
+    ]);
+
+    // Save the PDF file
+    $pdf->save(public_path('passport.pdf'));
+
+    // Download the PDF
+    return response()->download(public_path('passport.pdf'));
+}
+
 }
