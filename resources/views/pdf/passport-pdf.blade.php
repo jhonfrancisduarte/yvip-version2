@@ -102,7 +102,7 @@
                 </tr>
                 <tr>
                     <th>QR Code</th>
-                    <td><img src="{{ $qrCodeUrl }}" alt="QR Code" style="max-width: 80px; height: auto;"></td>
+                    <td><center><img src="{{ $qrCodeUrl }}" alt="QR Code" style="max-width: 80px; height: auto;"></td></center>
                 </tr>
             </table>
         </div>

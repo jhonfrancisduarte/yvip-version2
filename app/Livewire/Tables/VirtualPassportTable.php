@@ -113,20 +113,15 @@ class VirtualPassportTable extends Component
     public function generatePdf()
 {
 
-
-    // Fetch all IP events
     $ipEvents = $this->getUserIpEvents();
 
-    // Create PDF using Laravel DomPDF
     $pdf = PDF::loadView('pdf.passport-pdf', [
         'ipEvents' => $ipEvents,
-        'qrCodeUrl' => $this->qrCodeUrl, // Pass the QR code URL to the PDF view
+        'qrCodeUrl' => $this->qrCodeUrl,
     ]);
 
-    // Save the PDF file
     $pdf->save(public_path('passport.pdf'));
 
-    // Download the PDF
     return response()->download(public_path('passport.pdf'));
 }
 
