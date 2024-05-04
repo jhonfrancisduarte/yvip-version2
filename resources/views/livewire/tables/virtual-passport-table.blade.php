@@ -109,7 +109,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-9 d-flex justify-content-center">
-            <button wire:click="generatePdf" class="btn btn-primary mb-3">Generate PDF</button> <!-- Added mb-3 for margin bottom -->
+            <button type="button" class="btn-submit mb-4" wire:click="generatePdf">Generate PDF</button> <!-- Added mb-3 for margin bottom -->
         </div>
     </div>
 

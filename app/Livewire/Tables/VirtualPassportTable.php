@@ -115,10 +115,7 @@ class VirtualPassportTable extends Component
 
 
     // Fetch all IP events
-    $ipEvents = IpEvents::join('users', 'users.id', '=', 'ip_events.user_id')
-        ->select('users.name', 'ip_events.*')
-        ->orderBy('ip_events.created_at', 'desc')
-        ->get();
+    $ipEvents = $this->getUserIpEvents();
 
     // Create PDF using Laravel DomPDF
     $pdf = PDF::loadView('pdf.passport-pdf', [
