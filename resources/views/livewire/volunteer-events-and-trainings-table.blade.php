@@ -215,7 +215,7 @@
     @endif
 
     @if($showForm)
-        <div class="anns">
+        <div class="anns anns2">
             <div class="close-form" wire:click="closeEventForm"></div>
             <div class="add-announcement-container">
                 <div class="modal-dialog modal-md">
@@ -316,7 +316,7 @@
     @endif
 
     @if($openEditEvent)
-        <div class="anns">
+        <div class="anns anns2">
             <div class="close-form" wire:click="closeEditForm"></div>
             <div class="add-announcement-container">
                 <div class="modal-dialog modal-md">
@@ -498,171 +498,224 @@
         <div class="users-data-all-container">
             <div class="close-form" wire:click="hideUserData"></div>
             <div class="user-info">
-            <div class="info">
-                <div class="row1 row-header">
-                    <div class="col1">
-                        <img src="{{ $thisUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
-                        <label class="label">Passport Number: <span>{{ $thisUserDetails ? $thisUserDetails['passport_number'] : '' }}</span></label>
+                <div class="info">
+                    <div class="row1 row-header">
+                        <div class="col1" style="margin-bottom: 10px;">
+                            <img src="{{ $thisUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
+                            <label class="label">Passport Number: <span>{{ $thisUserDetails ? $thisUserDetails['passport_number'] : '' }}</span></label>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Firstname: <span>{{ $thisUserDetails ? $thisUserDetails['first_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Lastname: <span>{{ $thisUserDetails ? $thisUserDetails['last_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Middlename: <span>{{ $thisUserDetails ? $thisUserDetails['middle_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Nickname: <span>{{ $thisUserDetails ? $thisUserDetails['nickname']: '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Date of Birth: <span>{{ $thisUserDetails ? $thisUserDetails['date_of_birth'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Civil Status: <span>{{ $thisUserDetails ? $thisUserDetails['civil_status'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Age: <span>{{ $thisUserDetails ? $thisUserDetails['age'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Nationality: <span>{{ $thisUserDetails ? $thisUserDetails['nationality'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Tel Number: <span>{{ $thisUserDetails ? $thisUserDetails['tel_number'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Mobile Number: <span>{{ $thisUserDetails ? $thisUserDetails['mobile_number'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Email: <span>{{ $thisUserDetails ? $thisUserDetails['email'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Blood Type: <span>{{ $thisUserDetails ? $thisUserDetails['blood_type'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Sex at Birth: <span>{{ $thisUserDetails ? $thisUserDetails['sex'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Educational Background: <span>{{ $thisUserDetails ? $thisUserDetails['educational_background'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col1">
-                        <label class="label label-capitalize">Permanent Adrress: <span>{{ $thisUserDetails['p_street_barangay'] }}, {{ $thisUserDetails['permanent_selectedCity'] }}, {{ $thisUserDetails['permanent_selectedProvince'] }}</span></label>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col1">
-                        <label class="label label-capitalize">Residential Adrress: <span>{{ $thisUserDetails['r_street_barangay'] }}, {{ $thisUserDetails['residential_selectedCity'] }}, {{ $thisUserDetails['residential_selectedProvince'] }}</span></label>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col1">
-                        <label class="label">Status: <span>{{ $thisUserDetails ? $thisUserDetails['status'] : '' }}</span></label>
-                    </div>
-                </div>
-
-                @if($thisUserDetails['name_of_school'])
                     <div class="row1">
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">School Name: <span>{{ $thisUserDetails ? $thisUserDetails['name_of_school'] : '' }}</span></label>
+                                <label class="label">Firstname: <span>{{ $thisUserDetails ? $thisUserDetails['first_name'] : '' }}</span></label>
                             </div>
                         </div>
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Course: <span>{{ $thisUserDetails ? $thisUserDetails['course'] : '' }}</span></label>
+                                <label class="label">Lastname: <span>{{ $thisUserDetails ? $thisUserDetails['last_name'] : '' }}</span></label>
                             </div>
                         </div>
                     </div>
-                @endif
-
-                @if($thisUserDetails['nature_of_work'])
+                    
                     <div class="row1">
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Nature of Work: <span>{{ $thisUserDetails ? $thisUserDetails['nature_of_work'] : '' }}</span></label>
+                                <label class="label">Middlename: <span>{{ $thisUserDetails ? $thisUserDetails['middle_name'] : '' }}</span></label>
                             </div>
                         </div>
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Employer: <span>{{ $thisUserDetails ? $thisUserDetails['employer'] : '' }}</span></label>
+                                <label class="label">Nickname: <span>{{ $thisUserDetails ? $thisUserDetails['nickname']: '' }}</span></label>
                             </div>
                         </div>
                     </div>
-                @endif
 
-                @if($thisUserDetails['organization_name'])
                     <div class="row1">
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Organization Name: <span>{{ $thisUserDetails ? $thisUserDetails['organization_name'] : '' }}</span></label>
+                                <label class="label">Date of Birth: <span>{{ $thisUserDetails ? $thisUserDetails['date_of_birth'] : '' }}</span></label>
                             </div>
                         </div>
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Position: <span>{{ $thisUserDetails ? $thisUserDetails['org_position'] : '' }}</span></label>
+                                <label class="label">Civil Status: <span>{{ $thisUserDetails ? $thisUserDetails['civil_status'] : '' }}</span></label>
                             </div>
                         </div>
                     </div>
-                @endif
 
-            </div>
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Age: <span>{{ $thisUserDetails ? $thisUserDetails['age'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Nationality: <span>{{ $thisUserDetails ? $thisUserDetails['nationality'] : '' }}</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Tel Number: <span>{{ $thisUserDetails ? $thisUserDetails['tel_number'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Mobile Number: <span>{{ $thisUserDetails ? $thisUserDetails['mobile_number'] : '' }}</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Email: <span>{{ $thisUserDetails ? $thisUserDetails['email'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Blood Type: <span>{{ $thisUserDetails ? $thisUserDetails['blood_type'] : '' }}</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Sex at Birth: <span>{{ $thisUserDetails ? $thisUserDetails['sex'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Educational Background: <span>{{ $thisUserDetails ? $thisUserDetails['educational_background'] : '' }}</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col1">
+                            <label class="label label-capitalize">Permanent Adrress: <span>{{ $thisUserDetails['p_street_barangay'] }}, {{ $thisUserDetails['permanent_selectedCity'] }}, {{ $thisUserDetails['permanent_selectedProvince'] }}</span></label>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col1">
+                            <label class="label label-capitalize">Residential Adrress: <span>{{ $thisUserDetails['r_street_barangay'] }}, {{ $thisUserDetails['residential_selectedCity'] }}, {{ $thisUserDetails['residential_selectedProvince'] }}</span></label>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col1">
+                            <label class="label">Status: <span>{{ $thisUserDetails ? $thisUserDetails['status'] : '' }}</span></label>
+                        </div>
+                    </div>
+
+                    @if($thisUserDetails['name_of_school'])
+                        <div class="row1">
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">School Name: <span>{{ $thisUserDetails ? $thisUserDetails['name_of_school'] : '' }}</span></label>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Course: <span>{{ $thisUserDetails ? $thisUserDetails['course'] : '' }}</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($thisUserDetails['nature_of_work'])
+                        <div class="row1">
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Nature of Work: <span>{{ $thisUserDetails ? $thisUserDetails['nature_of_work'] : '' }}</span></label>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Employer: <span>{{ $thisUserDetails ? $thisUserDetails['employer'] : '' }}</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($thisUserDetails['organization_name'])
+                        <div class="row1">
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Organization Name: <span>{{ $thisUserDetails ? $thisUserDetails['organization_name'] : '' }}</span></label>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Position: <span>{{ $thisUserDetails ? $thisUserDetails['org_position'] : '' }}</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <table id="volunteers-table" class="table-main">
+                        <thead>
+                            <tr>
+                                <th  width="40%">Skills and Category</th>
+                                <th  width="60%">Skills and Category</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach($groupedSkills as $categoryName => $skills)
+                                <tr class="recordRow">
+                                    <td class="categoryColumn">
+                                        <div>
+                                            <p>{{ $categoryName }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="skillsColumn">
+                                        <div>
+                                        @foreach($skills as $skill)
+                                            <li>{{ $skill->all_skills_name }}</li>
+                                        @endforeach
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <table id="volunteers-table" class="table-main">
+                        <thead>
+                            <tr>
+                                <th  width="40%">Experience</th>
+                                <th  width="60%"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr style="background: #CFE9FF; border-top: 1px solid #f5f5f5;">
+                                <td>Nature of Work</td>
+                                <td>Participation</td>
+                            </tr>
+                        </tbody>
+
+                        <tbody>
+                            @foreach($volunteerExperiences as $experience)
+                                <tr class="recordRow">
+                                    <td>{{ $experience->nature_of_event }}</td>
+                                    <td>{{ $experience->participation }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
                 <div class="row1">
-                    <div class="col">
+                    <div class="col" style="margin-top: 10px;">
                         <div class="user-data">
                             @if(!$isParticipant)
                                 <button class="btn-success" wire:click="approveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Approve</button>
@@ -679,4 +732,4 @@
     @endif
 
 
-    </div>
+</div>

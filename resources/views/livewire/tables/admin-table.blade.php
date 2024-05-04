@@ -202,66 +202,77 @@
     @endif
 
     @if($selectedUserDetails)
-        <div class="users-data-all-container no-padding">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="hideUserData"></div>
-            <div class="user-info">
-                <div class="row1 row-header">
-                    <div class="col1">
-                        <img src="{{ $selectedUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
-                        <label class="label">Position:
-                            <span>
-                                @if($selectedUserDetails['user_role'] === "sa")
-                                    Super Admin
-                                @elseif($selectedUserDetails['user_role'] === "vs")
-                                    Volunteer Secretariat
-                                @elseif($selectedUserDetails['user_role'] === "vsa")
-                                    Volunteer Secretariat Assistant
-                                @elseif($selectedUserDetails['user_role'] === "ips")
-                                    IP Secretariat
-                                @endif
-                            </span>
-                        </label>
+            <div class="add-announcement-container">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <div class="col1">
+                            <img src="{{ $selectedUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
+                        </div>
                     </div>
+    
+                    <div class="modal-body">
+                        <div class="row1">
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Position:
+                                        <span>
+                                            @if($selectedUserDetails['user_role'] === "sa")
+                                                Super Admin
+                                            @elseif($selectedUserDetails['user_role'] === "vs")
+                                                Volunteer Secretariat
+                                            @elseif($selectedUserDetails['user_role'] === "vsa")
+                                                Volunteer Secretariat Assistant
+                                            @elseif($selectedUserDetails['user_role'] === "ips")
+                                                IP Secretariat
+                                            @endif
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row1">
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Firstname: <span>{{ $selectedUserDetails ? $selectedUserDetails['first_name'] : '' }}</span></label>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Lastname: <span>{{ $selectedUserDetails ? $selectedUserDetails['last_name'] : '' }}</span></label>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="row1">
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Middlename: <span>{{ $selectedUserDetails ? $selectedUserDetails['middle_name'] : '' }}</span></label>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Email: <span>{{ $selectedUserDetails ? $selectedUserDetails['email'] : '' }}</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer" style="justify-content: left;">
+                        <button class="btn-cancel" wire:click="hideUserData">Close</button>
+                        @if($active_status === 2)
+                            <button class="btn-success" wire:click="reactivateDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Activate</button>
+                        @else
+                            <button class="btn-warning" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Deactivate</button>
+                        @endif
+                    </div>
+
                 </div>
 
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Firstname: <span>{{ $selectedUserDetails ? $selectedUserDetails['first_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Lastname: <span>{{ $selectedUserDetails ? $selectedUserDetails['last_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Middlename: <span>{{ $selectedUserDetails ? $selectedUserDetails['middle_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Email: <span>{{ $selectedUserDetails ? $selectedUserDetails['email'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1 row-footer">
-                    <div class="col">
-                        <div class="user-data">
-                            <button class="btn-cancel" wire:click="hideUserData">Close</button>
-                            @if($active_status === 2)
-                                <button class="btn-success" wire:click="reactivateDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Activate</button>
-                            @else
-                                <button class="btn-warning" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Deactivate</button>
-                            @endif
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     @endif

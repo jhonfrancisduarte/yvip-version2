@@ -543,7 +543,7 @@
             <div class="user-info">
             <div class="info">
                 <div class="row1 row-header">
-                    <div class="col1">
+                    <div class="col1" style="margin-bottom: 10px;">
                         <img src="{{ $thisUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
                         <label class="label">Passport Number: <span>{{ $thisUserDetails ? $thisUserDetails['passport_number'] : '' }}</span></label>
                     </div>

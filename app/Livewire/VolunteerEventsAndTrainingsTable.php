@@ -6,12 +6,13 @@ use App\Models\Categories;
 use Livewire\Component;
 use App\Models\VolunteerEventsAndTrainings;
 use App\Models\User;
-use Illuminate\Validation\Rule;
+use App\Models\VolunteerExperience;
 use Exception;
 use Livewire\WithPagination;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class VolunteerEventsAndTrainingsTable extends Component
 {
@@ -72,6 +73,9 @@ class VolunteerEventsAndTrainingsTable extends Component
     public $filterBy = 'start';
     public $selectedDate;
     public $search;
+    
+    public $volunteerExperiences;
+    public $groupedSkills;
 
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
@@ -475,6 +479,7 @@ class VolunteerEventsAndTrainingsTable extends Component
                     ->select('users.email', 'users.active_status', 'user_data.*')
                     ->first();
                 $this->thisUserDetails = $this->thisUserDetails->getAttributes();
+                $this->getSkillsAndCategory($userId);
             }
         }catch(Exception $e){
             throw $e;
@@ -552,6 +557,25 @@ class VolunteerEventsAndTrainingsTable extends Component
             $this->options2 = null;
         }else{
             $this->options2 = $eventId;
+        }
+    }
+
+    public function getSkillsAndCategory($userId){
+        try{
+            $user = User::where('id', $userId)->first();
+            if($user){
+                $this->volunteerExperiences = VolunteerExperience::where('user_id', $user->id)->get();
+                $selectedSkillIds = Cache::get("user_{$userId}_selected_skill_ids", []);
+                $selectedSkillsWithCategories = DB::table('all_skills')
+                    ->whereIn('all_skills.id', $selectedSkillIds)
+                    ->join('all_categories', 'all_skills.category_id', '=', 'all_categories.id')
+                    ->select('all_skills.*', 'all_categories.all_categories_name')
+                    ->get();
+
+                $this->groupedSkills = $selectedSkillsWithCategories->groupBy('all_categories_name');
+            }
+        }catch(Exception $e){
+            throw $e;        
         }
     }
 }
