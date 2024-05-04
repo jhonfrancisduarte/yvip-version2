@@ -15,9 +15,8 @@ use Exception;
 class VolunteerRewards extends Component
 {
     public $rewards;
-    public $openRewards = true;
+    public $openRewards;
     public $totalVolunteerHours;
-    public $reward;
     public $rewardType;
     public $userHoursArray = [];
     public $thisUserId;
@@ -26,17 +25,29 @@ class VolunteerRewards extends Component
     public $popup_message;
     public $disabledButtons = [];
     public $addRewardMatrix;
+    public $level;
+    public $hours;
+    public $reward;
+    public $thisReward;
+    public $editRewardId;
 
-    public function mount(){
-        $this->rewards = Rewards::all();
+    protected $rules = [
+        'level' => 'required|numeric|min:1',
+        'hours' => 'required|numeric|min:1',
+        'thisReward' => 'required|min:2',
+    ];
+
+    public function render()
+    {
+        $this->rewards = Rewards::orderBy('level', 'asc')->get();
+        $this->userHoursArray = null;
         $this->fetchTotalVolunteerHours();
         $this->fetchUserRewards();
         $this->disabledButtons = Session::get('disabledButtons', []);
-    }
-    public function render()
-    {
         $claimRequests = ClaimRequest::whereNotNull('pending')->get();
-        return view('livewire.volunteer-rewards', ['claimRequests' => $claimRequests]);
+        return view('livewire.volunteer-rewards', [
+            'claimRequests' => $claimRequests,
+        ]);
     }
 
     public function closePopup(){
@@ -193,5 +204,64 @@ class VolunteerRewards extends Component
         }else{
             $this->addRewardMatrix = true;
         }
+    }
+
+    public function createReward(){
+        try{
+            $this->validate();
+            $reward = Rewards::create([
+                'level' => $this->level,
+                'number_of_hours' => $this->hours,
+                'rewards' => $this->thisReward,
+            ]);
+
+            $this->addRewardMatrix = null;
+            $this->editRewardId = null;
+            $this->resetForm();
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    public function updateReward(){
+        try{
+            $this->validate();
+            $reward = Rewards::find($this->editRewardId);
+            if ($reward) {
+                $reward->update([
+                    'level' => $this->level,
+                    'number_of_hours' => $this->hours,
+                    'rewards' => $this->thisReward,
+                ]);
+            }
+
+            $this->addRewardMatrix = null;
+            $this->editRewardId = null;
+            $this->resetForm();
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    public function editReward($rewardId){
+        try{
+            $reward = Rewards::find($rewardId);
+            if($reward){
+                $this->editRewardId = $rewardId;
+                $this->level = $reward->level;
+                $this->hours = $reward->number_of_hours;
+                $this->thisReward = $reward->rewards;
+            }
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    public function closeEditReward(){
+        $this->editRewardId = null;
+    }
+
+    public function resetForm(){
+        $this->reset(['level', 'hours', 'thisReward']);
     }
 }

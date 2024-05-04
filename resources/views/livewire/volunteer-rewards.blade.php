@@ -1,6 +1,6 @@
 <div>
 
-    <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
+    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -13,15 +13,15 @@
                 <div class="card" style="border-radius: 20px; overflow: hidden;">
 
                     <div class="card-header">
-                        <h3 class="card-title">Volunteers Rewards</h3>
                         @if(session('user_role') !== "yv" && session('user_role') !== "yip")
+                            <h3 class="card-title">Volunteers Rewards</h3>
                             <div class="btn-claim-requests">
-                                <button type="button" class="btn-submit btn-reward" wire:click="seeRewards">Add/Edit Rewards Matrix</button>
+                                <button type="button" class="btn-submit btn-reward" wire:click="seeRewards">Add/Edit Reward Matrix</button>
                                 <button class="btn-submit" wire:click="seeRequests">Claim Request</button>
                                 <span class="notif-count" style="color: white; background-color: {{ count($claimRequests) > 0 ? 'red' : 'rgb(245, 245, 245)' }};">{{ count($claimRequests) }}</span>
                             </div>
                         @else
-                            <button type="button" class="btn-submit" wire:click="seeRewards">Rewards Matrix</button>
+                            <button type="button" class="btn-submit" wire:click="seeRewards">Reward Matrix</button>
                         @endif
                     </div>
 
@@ -39,52 +39,83 @@
 
                                 <tbody>
                                     <div>
-                                    @foreach($userHoursArray as $user)
-                                        <tr>
-                                            <td>{{ $user['user_name'] }}</td>
-                                            <td>{{ $user['total_hours'] }} hours</td>
-                                            <td class="rewards ">
-                                                @if(collect($user['rewards'])->isEmpty())
-                                                    <span>N/A</span>
-                                                @else
-                                                    <ul>
-                                                        @foreach($user['rewards'] as $rwrd)
-                                                            <li>{{ $rwrd }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
-                                            </td>
-                                            
-                                            <td class="reward-actions">
-                                                <button type="button" class="btn-submit float-right" wire:click="grantReward('{{ $user['user_id'] }}')"><i class="bi bi-award"></i></button>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                        @foreach($userHoursArray as $user)
+                                            <tr>
+                                                <td>{{ $user['user_name'] }}</td>
+                                                <td>{{ $user['total_hours'] }} hours</td>
+                                                <td class="rewards ">
+                                                    @if(collect($user['rewards'])->isEmpty())
+                                                        <span style="color: #ccc;">N/A</span>
+                                                    @else
+                                                        <ul>
+                                                            @foreach($user['rewards'] as $rwrd)
+                                                                <li>{{ $rwrd }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @endif
+                                                </td>
+                                                
+                                                <td class="btn-action2">
+                                                    <div class="btn-g">
+                                                        <button type="button" class="btn-submit float-right" wire:click="grantReward('{{ $user['user_id'] }}')"><i class="bi bi-award"></i></button>
+                                                        <span class="span span-submit">Grant Reward</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </div>
                                 </tbody>
-
-                            </table>
-                            
+                            </table>      
                         @else
                             <table id="rewards-table" class="table-main">
                                 <thead>
                                     <tr>
-                                        <th width="30%" class="th-border-rad">Total of hours</th>
-                                        <th class="th-action-btn">Reward</th>
+                                        <th width="20%" class="th-border-rad">Total of hours</th>
+                                        <th width="20%">Reward</th>
+                                        <th width="20%">Claim Status</th>
+                                        <th width="10%" class="th-action-btn"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <div>
-                                        <tr>
-                                            <td>{{ $totalVolunteerHours }} hours</td>
-                                            <td>{{ $reward }}</td>
-                                        </tr>
-                                    </div>
+                                    <tr>
+                                        <td>{{ $totalVolunteerHours }} hours</td>
+                                        <td>
+                                            @if($userRewards->isNotEmpty())
+                                                <ul class="reward-list">
+                                                    @foreach($userRewards as $reward)
+                                                        <li>{{ $reward->rewards }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @else
+                                                No Rewards
+                                            @endif
+                                        </td>
+                                        <td class="claim-status">
+                                            @foreach($userRewards as $reward)
+                                                <li>
+                                                    {{ $reward->claim_status ? 'Claimed' : 'Unclaimed' }}
+                                                </li>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                        @foreach($userRewards as $reward)
+                                            <li class="claim-reward">
+                                                <button type="button" class="btn-success" wire:click="claimReward({{ $reward->id }})" @if(isset($disabledButtons[$reward->id]) && $disabledButtons[$reward->id]) disabled @endif>
+                                                    @if(isset($disabledButtons[$reward->id]) && $disabledButtons[$reward->id])
+                                                        Request Sent
+                                                    @else 
+                                                        Request Claim
+                                                    @endif
+                                                </button>
+                                            </li>
+                                        @endforeach
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         @endif
-                    </div>
 
+                    </div>
                 </div>
                 <div class="mt-5"></div>
             </div>
@@ -94,11 +125,11 @@
     @if($openRewards)
         <div class="see-rewards">
             <div class="close-form" wire:click="closeRewards"></div>
-            <div class="modal-dialog modal-sm">
-                <form wire:submit.prevent="updateExp" class="rewards-form">
+            <div class="modal-dialog">
+                <div class="rewards-form">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Rewards</h4>
+                            <h4 class="modal-title">Reward Matrix</h4>
                             @if(session('user_role') === 'sa' || session('user_role') === 'vs' || session('user_role') === 'vsa')
                                 <p class="btn-submit add-reward" wire:click="toggleAddRewardMatrix">
                                     <i class="bi bi-plus-lg"></i>
@@ -112,17 +143,9 @@
 
                         @if($addRewardMatrix)
                             <div class="modal-header">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <p>Add New Reward Matrix</p>
-                                            <button class="btn-cancel float-right" wire:click="toggleAddRewardMatrix">Cancel</button> 
-                                        </div>
-                                    </div>
-                                </div>
                                 <form wire:submit.prevent="createReward">
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-2">
                                             <div class="form-group">
                                                 <input type="number" class="form-control" row="5" wire:model.live='level' placeholder="Level" required>
                                                 @error('level')
@@ -140,10 +163,16 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" row="5" wire:model.live='reward' placeholder="Reward" required>
-                                                @error('reward')
+                                                <input type="text" class="form-control" row="5" wire:model.live='thisReward' placeholder="Reward" required>
+                                                @error('thisReward')
                                                     <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                                 @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="btn-group-2" role="group">
+                                                <button class="btn-success float-right" type="submit">Submit</button> 
+                                                <button class="btn-cancel float-right" wire:click="toggleAddRewardMatrix" style="margin-top: 5px;">Cancel</button> 
                                             </div>
                                         </div>
                                     </div>
@@ -151,21 +180,20 @@
                             </div>
                         @endif
 
-
                         <div class="container-fluid">
                             <div class="row rewards-row">
                                 <div class="col-12 table-contain">
                                     <div class="card1">
 
                                         <div class="card-body">
-                                            <table id="rewards-table" class="table">
+                                            <table id="rewards-table" class="table-main">
                                                 <thead>
                                                     <tr>
-                                                        <th width="30%">Level</th>
+                                                        <th width="30%" class="th-border-rad">Level</th>
                                                         <th width="30%">Number of Hours</th>
-                                                        <th>Reward</th>
+                                                        <th class="{{ (session('user_role') === 'yv' || session('user_role') === 'yip') ? 'th-action-btn' : '' }}">Reward</th>
                                                         @if(session('user_role') === 'sa' || session('user_role') === 'vs' || session('user_role') === 'vsa')
-                                                        <th></th>
+                                                            <th class="th-action-btn"></th>
                                                         @endif
                                                     </tr>
                                                 </thead>
@@ -174,20 +202,53 @@
                                                     <div>
                                                     @foreach ($rewards as $reward)
                                                         <tr>
-                                                            <td>{{ $reward->level }}</td>
-                                                            <td>{{ $reward->number_of_hours }}</td>
-                                                            <td>{{ $reward->rewards }}</td>
-                                                            @if(session('user_role') === 'sa' || session('user_role') === 'vs' || session('user_role') === 'vsa')
-                                                                <td>
-                                                                    <div class="btn-group-2" role="group">
-                                                                        <div class="btn-g">
-                                                                            <button class="btn-submit" wire:click="openEditForm({{ $category->id }})">
-                                                                                <i class="bi bi-pencil-square"></i>
-                                                                            </button>
-                                                                            <span class="span span-delete">Edit</span>
+                                                            @if($editRewardId === $reward->id)
+                                                                <form wire:submit.prevent="updateReward">
+                                                                    <td>
+                                                                        <input type="number" class="form-control" row="5" wire:model.live='level' placeholder="Level" value="{{ $level }}" required>
+                                                                        @error('level')
+                                                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                                        @enderror
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number" class="form-control" row="5" wire:model.live='hours' placeholder="Number of hours" value="{{ $hours }}" required>
+                                                                        @error('hours')
+                                                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                                        @enderror
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" class="form-control" row="5" wire:model.live='thisReward' placeholder="Reward" value="{{ $thisReward }}" required>
+                                                                        @error('thisReward')
+                                                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                                        @enderror
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="btn-group-2" role="group">
+                                                                            <div class="btn-g">
+                                                                                <i class="bi bi-check2-circle green" wire:click="updateReward"></i>
+                                                                            </div>
+                                                                            <div class="btn-g">
+                                                                                <i class="bi bi-x-circle light-blue" wire:click="closeEditReward"></i>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </td>
+                                                                    </td>
+                                                                </form>
+                                                            @else
+                                                                <td>{{ $reward->level }}</td>
+                                                                <td>{{ $reward->number_of_hours }}</td>
+                                                                <td>{{ $reward->rewards }}</td>
+                                                                @if(session('user_role') === 'sa' || session('user_role') === 'vs' || session('user_role') === 'vsa')
+                                                                    <td>
+                                                                        <div class="btn-group-2" role="group">
+                                                                            <div class="btn-g">
+                                                                                <button class="btn-submit float-right" wire:click="editReward({{ $reward->id }})">
+                                                                                    <i class="bi bi-pencil-square"></i>
+                                                                                </button>
+                                                                                <span class="span span-delete">Edit</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                @endif
                                                             @endif
                                                         </tr>
                                                     @endforeach
@@ -200,9 +261,8 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     @endif
@@ -214,7 +274,7 @@
                 <form wire:submit.prevent="submitReward" class="rewards-form">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Rewards</h4>
+                            <h4 class="modal-title">Grant Reward</h4>
                             <button type="button" class="close" wire:click="closeRewards"
                                     aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -248,7 +308,7 @@
                                             </div>
 
                                             <div class="modal-footer justify-content-between">
-                                                <button class="btn btn-info" type="submit">Submit</button>
+                                                <button class="btn-success" type="submit">Grant</button>
                                             </div>
 
                                         </div>
