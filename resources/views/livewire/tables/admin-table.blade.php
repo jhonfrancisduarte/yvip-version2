@@ -51,6 +51,7 @@
                         <div class="col-md-3">
                             <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
                         </div>
+                        <div class="mx-2"></div>
                         <div class="col-md-2">
                             <select class="form-control" wire:model.live="admin_position">
                                 <option selected value="">Position</option>

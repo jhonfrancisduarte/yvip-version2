@@ -100,7 +100,8 @@
 
 
 .mx-2{
-    height: 5px !important;
+    height: 5px;
+    width: 0;
 }
   
 .table-main .action-btn{
