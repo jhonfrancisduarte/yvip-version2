@@ -8,4 +8,6 @@ use Livewire\Features\SupportPageComponents\BaseLayout;
 class Layout extends BaseLayout
 {
     //
+
 }
+

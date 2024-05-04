@@ -8,37 +8,42 @@ use App\Models\IpEvents;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Volunteer;
+use Illuminate\Support\Facades\DB;
 
 class VirtualPassportTable extends Component
 {
     use WithPagination;
 
+
     public $qrCodeUrl;
     public $search;
     public $myEvents = [];
+    public $totalHoursPerUser;
+
 
     public function mount()
     {
-        $this->generateQrCodeUrl();
+        $loggedInUserId = Auth::id();
+
+
+        $query = Volunteer::select(DB::raw('SUM(volunteering_hours) as total_volunteer_hours'))
+            ->where('user_id', $loggedInUserId)
+            ->groupBy('user_id');
+
+        // Fetch the total volunteer hours for the authenticated user
+        $this->totalHoursPerUser = $query->get();
+
     }
+
+
+
+
+
 
     private function getUserIpEvents()
     {
-        $userData = Auth::user()->userData;
-        $details = [
-            'Passport No.' => $userData->passport_number,
-            'Name' => $userData->first_name . ' ' . $userData->last_name,
-            'Nationality' => $userData->nationality,
-            'Date of Birth' => $userData->date_of_birth,
-        ];
-
-        $text = '';
-        foreach ($details as $key => $value) {
-            $text .= "$key: $value\n";
-        }
-
-        $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($text);
-
         $userId = Auth::id();
         return IpEvents::whereRaw('find_in_set(?, participants)', [$userId])->get();
     }
@@ -46,7 +51,6 @@ class VirtualPassportTable extends Component
     public function generateQrCodeUrl()
     {
         $userData = Auth::user()->userData;
-        $userId = Auth::user()->id;
         $details = [
             'Passport No.: ' . $userData->passport_number,
             'Name: ' . $userData->first_name . ' ' . $userData->last_name,
@@ -124,4 +128,20 @@ class VirtualPassportTable extends Component
             'qrCodeUrl' => $this->qrCodeUrl,
         ]);
     }
+
+    public function generatePdf()
+{
+
+    $ipEvents = $this->getUserIpEvents();
+
+    $pdf = PDF::loadView('pdf.passport-pdf', [
+        'ipEvents' => $ipEvents,
+        'qrCodeUrl' => $this->qrCodeUrl,
+    ]);
+
+    $pdf->save(public_path('passport.pdf'));
+
+    return response()->download(public_path('passport.pdf'));
+}
+
 }

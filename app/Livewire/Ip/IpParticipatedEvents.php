@@ -10,4 +10,6 @@ class IpParticipatedEvents extends Component
     {
         return view('livewire.ip.ip-participated-events');
     }
+
+
 }

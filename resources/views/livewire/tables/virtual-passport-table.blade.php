@@ -16,6 +16,7 @@
         </div>
     </div>
 
+
     <!-- Your content goes here -->
     <div class="container mt-4">
         <div class="row justify-content-center">
@@ -61,6 +62,22 @@
         </div>
     </div>
 
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
+                    <h3 class="card-title text-center fw-bold fs-4 my-4">Total Number of Hours</h3>
+                    @foreach($totalHoursPerUser as $volunteer)
+                        @if($volunteer->user_id === auth()->id())
+                            <p class="card-text">{{ $volunteer->total_volunteer_hours }} hours</p>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- My IP Events -->
     <div class="container mt-4">
         <div class="row justify-content-center">
@@ -103,8 +120,15 @@
                         {{ $ipEvents->links('livewire::bootstrap') }}
                     </div>
                 </div>
-                <div class="mt-5"></div>
+                <div class="m-2"></div>
             </div>
         </div>
     </div>
+    <div class="row justify-content-center">
+        <div class="col-md-9 d-flex justify-content-center">
+            <button type="button" class="btn-submit mb-4" wire:click="generatePdf">Generate PDF</button> <!-- Added mb-3 for margin bottom -->
+        </div>
+    </div>
+
+
 </div>
