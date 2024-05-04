@@ -707,11 +707,8 @@ class ComposerStaticInitf9985d2fbac80db1beb2b346fbe4e2ec
         'App\\Models\\UserData' => __DIR__ . '/../..' . '/app/Models/UserData.php',
         'App\\Models\\Volunteer' => __DIR__ . '/../..' . '/app/Models/Volunteer.php',
         'App\\Models\\VolunteerCategory' => __DIR__ . '/../..' . '/app/Models/VolunteerCategory.php',
-<<<<<<< HEAD
         'App\\Models\\VolunteerRewards' => __DIR__ . '/../..' . '/app/Models/VolunteerRewards.php',
-=======
         'App\\Models\\VolunteerEventsAndTrainings' => __DIR__ . '/../..' . '/app/Models/VolunteerEventsAndTrainings.php',
->>>>>>> origin/master
         'App\\Models\\VolunteerSkills' => __DIR__ . '/../..' . '/app/Models/VolunteerSkills.php',
         'App\\Models\\admin' => __DIR__ . '/../..' . '/app/Models/admin.php',
         'App\\Models\\pastIpEvent' => __DIR__ . '/../..' . '/app/Models/pastIpEvent.php',

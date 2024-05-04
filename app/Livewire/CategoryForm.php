@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class CategoryForm extends Component
 {
@@ -44,6 +45,7 @@ class CategoryForm extends Component
     public function openAddSkillForm($userId)
     {
         $this->addSkillForm = true;
+        //$this->selectedSkillIds = [];
     }
 
     public function closeAddSkillForm()
@@ -116,11 +118,22 @@ class CategoryForm extends Component
         $selectedSkillNamesArray = $selectedSkillNames ? explode(',', $selectedSkillNames) : [];
         $userCategories = VolunteerCategory::where('user_id', $user->id)->pluck('category_name')->first();
         $volunteerExperiences = Volunteer::where('user_id', Auth::id())->get();
+        $allSkills = Skills::all();
+
+        $selectedSkillsWithCategories = DB::table('all_skills')
+            ->whereIn('all_skills.id', $this->selectedSkillIds)
+            ->join('all_categories', 'all_skills.category_id', '=', 'all_categories.id')
+            ->select('all_skills.*', 'all_categories.all_categories_name')
+            ->get();
+
+        $groupedSkills = $selectedSkillsWithCategories->groupBy('all_categories_name');
 
         return view('livewire.forms.category-form', [
             'selectedSkillNames' => $selectedSkillNamesArray,
+            'groupedSkills' => $groupedSkills,
             'userCategories' => $userCategories,
             'volunteerExperiences' => $volunteerExperiences,
+            'allSkills' => $allSkills,
         ]);
     }
 

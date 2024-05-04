@@ -22,44 +22,48 @@
                 
                         <div class="card-body">
 
-                            <table class="table-main table-full-width">
-                                <thead>
-                                    <tr class="table-header">
-                                        <th width="30%">My Category</th>
-                                        <th width="30%">My Skills</th>
-                                        <th width="30%">Experience</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <tr class="recordRow">
-                                        <td class="categoryColumn">
-                                            <div>
-                                                <p>{{ $userCategories }}</p>
-                                            </div>
-                                        </td>
-
-                                        <td class="skillsColumn">
-                                            <div>
-                                            @foreach($selectedSkillNames as $skillName)
-                                                <li>{{ $skillName }}</li>
-                                            @endforeach
-                                            </div>
-                                        </td>
-
-                                        <td class="expColumn">
-                                            <ul>
+                        <table class="table-main table-full-width">
+                            <thead>
+                                <tr class="table-header">
+                                    <th width="30%">Category</th>
+                                    <th width="30%">Skills</th>
+                                    <th width="25%">Experience</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($groupedSkills as $categoryName => $skills)
+                                <tr class="recordRow">
+                                    <td class="categoryColumn">
+                                        <div>
+                                            <p>{{ $categoryName }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="skillsColumn">
+                                        <div>
+                                        @foreach($skills as $skill)
+                                            <li>{{ $skill->all_skills_name }}</li>
+                                        @endforeach
+                                        </div>
+                                    </td>
+                                    <td class="expColumn">
+                                        <ul class="exp-list">
+                                            @if($loop->first)
                                                 @foreach($volunteerExperiences as $experience)
                                                     <li>{{ $experience->volunteer_experience }}
-                                                        <button class="btn btn-xs edit-exp-btn" wire:click="editExpForm({{ $experience->id }})"> <i class="nav-icon bi bi-pencil-square"></i> </i></button>
+                                                        <button class="btn btn-xs edit-exp-btn" wire:click="editExpForm({{ $experience->id }})">
+                                                            <i class="nav-icon bi bi-pencil-square"></i>
+                                                        </button>
                                                     </li>
                                                 @endforeach
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                            @endif
+                                        </ul>
+                                    </td>
+                                </tr>
 
-                            </table>
+                                @endforeach
+                            </tbody>
+                        </table>
+
                         </div>
 
                     </div>
@@ -68,38 +72,38 @@
         </div>
 
         @if($addSkillForm)
-            <div class="add-skill-form">
-                <div class="close-form" wire:click="closeAddSkillForm"></div>
-                    <div class="modal-dialog modal-sm form-width">
-                    <form wire:submit.prevent="submit">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add Skillset</h4>
-                                <button type="button" class="close" wire:click="closeAddSkillForm"
-                                    aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+    <div class="add-skill-form">
+        <div class="close-form" wire:click="closeAddSkillForm"></div>
+        <div class="modal-dialog modal-sm form-width">
+            <form wire:submit.prevent="submit">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Skillset</h4>
+                        <button type="button" class="close" wire:click="closeAddSkillForm" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
-                            <div class="modal-body">
-                                <div class="column-skill-form">
-                                @foreach($skills as $skill)
-                                    <div class="skill-checkbox">
-                                        <input type="checkbox" id="{{ $skill->id }}" wire:model="selectedSkillIds" value="{{ $skill->id }}" class="every-checkbox" @if(in_array($skill->id, $selectedSkillIds)) checked @endif>
-                                        <label for="{{ $skill->id }}" class="every-label">{{ $skill->all_skills_name }}</label>
-                                    </div>
-                                @endforeach
+                    <div class="modal-body">
+                        <div class="column-skill-form">
+                            @foreach($allSkills as $skill)
+                                <div class="skill-checkbox">
+                                    <input type="checkbox" id="{{ $skill->id }}" wire:model="selectedSkillIds" value="{{ $skill->id }}" class="every-checkbox" @if(in_array($skill->id, $selectedSkillIds)) checked @endif>
+                                    <label for="{{ $skill->id }}" class="every-label">{{ $skill->all_skills_name }}</label>
                                 </div>
-                            </div>
-
-                            <div class="modal-footer justify-content-between">
-                                <button type="submit" class="btn-submit">Submit</button>
-                            </div>
+                            @endforeach
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="modal-footer justify-content-between">
+                        <button type="submit" class="btn-submit">Submit</button>
+                    </div>
                 </div>
-            </div>
-        @endif
+            </form>
+        </div>
+    </div>
+@endif
+
 
         @if($addExperience)
             <div class="add-experience">

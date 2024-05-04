@@ -151,6 +151,25 @@
 
 .edit-exp-btn {
     float: right;
+    margin-left: 5px;
+}
+
+.expColumn {
+    position: relative;
+}
+
+.exp-list {
+    padding: 0;
+    margin: 0;
+}
+
+.exp-list li {
+    margin-bottom: 10px;
+}
+
+.exp-list li button {
+    position: absolute;
+    right: 0;
 }
 
 .expColumn ul li {
