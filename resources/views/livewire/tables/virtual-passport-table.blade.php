@@ -103,13 +103,15 @@
                         {{ $ipEvents->links('livewire::bootstrap') }}
                     </div>
                 </div>
-                <div class="mt-5"></div>
+                <div class="m-2"></div>
             </div>
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-9">
-            <button wire:click="generatePdf" class="btn btn-primary">Generate PDF</button>
+        <div class="col-md-9 d-flex justify-content-center">
+            <button wire:click="generatePdf" class="btn btn-primary mb-3">Generate PDF</button> <!-- Added mb-3 for margin bottom -->
         </div>
     </div>
+
+
 </div>
