@@ -14,6 +14,7 @@
                     <div class="card" style="border-radius: 20px; overflow: hidden;">
     
                         <div class="card-header">
+                            <h5 class="card-title">My Categories and Skills</h5> 
                             <button type="button" class="btn-submit float-right" wire:click="openAddSkillForm('{{ auth()->user()->id }}')">Add Skill</button>
                         </div>
                 
@@ -55,6 +56,7 @@
                     <div class="card" style="border-radius: 20px; overflow: hidden;">
     
                         <div class="card-header">
+                            <h5 class="card-title">My Experience</h5> 
                             <button type="button" class="btn-submit float-right" required wire:click="openExperienceForm('{{ auth()->user()->id }}')">Add Experience</button>
                         </div>
                 
@@ -62,23 +64,23 @@
                             <table id="volunteers-table" class="table-main">
                                 <thead>
                                     <tr>
-                                        <th class="th-border-rad-2">My Experience</th>
+                                        <th class="th-border-rad">Nature of Event</th>
+                                        <th>My Participation</th>
+                                        <th class="th-action-btn"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="recordRow">
-                                        <td class="expColumn">
-                                            <ul class="exp-list">
-                                                @foreach($volunteerExperiences as $experience)
-                                                    <li>{{ $experience->volunteer_experience }}
-                                                        <button class="btn btn-xs edit-exp-btn" wire:click="editExpForm({{ $experience->id }})">
-                                                            <i class="nav-icon bi bi-pencil-square"></i>
-                                                        </button>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </td>
-                                    </tr>
+                                    @foreach($volunteerExperiences as $experience)
+                                        <tr class="recordRow">
+                                            <td>{{ $experience->nature_of_event }}</td>
+                                            <td>{{ $experience->participation }}</td>
+                                            <td>
+                                                <button class="btn btn-xs edit-exp-btn" wire:click="editExpForm({{ $experience->id }})">
+                                                    <i class="nav-icon bi bi-pencil-square"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -107,10 +109,12 @@
                         <div class="modal-body">
                             <div class="column-skill-form">
                                 @foreach($allSkills as $skill)
-                                    <div class="skill-checkbox">
-                                        <input type="checkbox" id="{{ $skill->id }}" wire:model="selectedSkillIds" value="{{ $skill->id }}" class="every-checkbox" @if(in_array($skill->id, $selectedSkillIds)) checked @endif>
-                                        <label for="{{ $skill->id }}" class="every-label">{{ $skill->all_skills_name }}</label>
-                                    </div>
+                                    @if($skill->all_skills_name !== '')
+                                        <div class="skill-checkbox">
+                                            <input type="checkbox" id="{{ $skill->id }}" wire:model="selectedSkillIds" value="{{ $skill->id }}" class="every-checkbox" @if(in_array($skill->id, $selectedSkillIds)) checked @endif>
+                                            <label for="{{ $skill->id }}" class="every-label">{{ $skill->all_skills_name }}</label>
+                                        </div>
+                                    @endif
                                 @endforeach
                             </div>
                         </div>
@@ -140,9 +144,14 @@
 
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="experience">Your experience</label>
-                            <textarea class="form-control" id="experience" name="experience" wire:model.defer="experience"></textarea>
-                            @error('experience') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
+                            <label for="experience">Nature of Event</label>
+                            <input class="form-control" wire:model.live="nature_of_event" required>
+                            @error('nature_of_event') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">My Participation</label>
+                            <textarea class="form-control" wire:model.live="participation" required></textarea>
+                            @error('participation') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
                         </div>
                     </div>
 
@@ -162,21 +171,26 @@
                 <form wire:submit.prevent="updateExp" class="experience-form">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Edit Experience</h4>
-                            <button type="button" class="close" wire:click="closeEditExpForm"
-                                    aria-label="Close">
+                            <h4 class="modal-title">Add Experience</h4>
+                            <button type="button" class="close" wire:click="closeExperienceForm"
+                                aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-
+    
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="editContent">Experience</label>
-                                <textarea class="form-control" id="editContent" name="editContent" wire:model.defer="editContent"></textarea>
-                                @error('editContent') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
+                                <label for="experience">Nature of Event</label>
+                                <input class="form-control" wire:model.live="nature_of_event" value="{{ $nature_of_event }}" required>
+                                @error('nature_of_event') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="experience">My Participation</label>
+                                <textarea class="form-control" wire:model.live="participation" required>{{ $participation }}</textarea>
+                                @error('participation') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
                             </div>
                         </div>
-
+    
                         <div class="modal-footer justify-content-between">
                             <button type="submit" class="btn-submit">Submit</button>
                         </div>

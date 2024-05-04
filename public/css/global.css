@@ -616,7 +616,7 @@
     }
 
     .block-on-mobile{
-        display: block;
+        display: block !important;
     }
 
     .block-on-mobile .col-6{

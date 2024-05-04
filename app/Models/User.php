@@ -74,6 +74,10 @@ class User extends Authenticatable
         return $this->hasMany(VolunteerRewards::class);
     }
 
+    public function volunteerExperience(){
+        return $this->hasMany(VolunteerExperience::class);
+    }
+
     public function claimRequest(){
         return $this->hasMany(ClaimRequest::class);
     }

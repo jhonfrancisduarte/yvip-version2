@@ -434,6 +434,31 @@
                                     </tbody>
                                 </table>
 
+                                <table id="volunteers-table" class="table-main">
+                                    <thead>
+                                        <tr>
+                                            <th  width="40%">Experience</th>
+                                            <th  width="60%"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr style="background: #CFE9FF; border-top: 1px solid #f5f5f5;">
+                                            <td>Nature of Work</td>
+                                            <td>Participation</td>
+                                        </tr>
+                                    </tbody>
+        
+                                    <tbody>
+                                        @foreach($volunteerExperiences as $experience)
+                                            <tr class="recordRow">
+                                                <td>{{ $experience->nature_of_event }}</td>
+                                                <td>{{ $experience->participation }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
                                 <div class="mt-3"></div>
                                 <div class="row1">
                                     <div class="col">

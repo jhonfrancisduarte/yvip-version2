@@ -30,6 +30,7 @@ class VolunteerRewards extends Component
     public $reward;
     public $thisReward;
     public $editRewardId;
+    public $deleteRewardId;
 
     protected $rules = [
         'level' => 'required|numeric|min:1',
@@ -202,8 +203,10 @@ class VolunteerRewards extends Component
     public function toggleAddRewardMatrix(){
         if($this->addRewardMatrix){
             $this->addRewardMatrix = null;
+            $this->resetForm();
         }else{
             $this->addRewardMatrix = true;
+            $this->resetForm();
         }
     }
 
@@ -244,6 +247,19 @@ class VolunteerRewards extends Component
         }
     }
 
+    public function deleteReward(){
+        try{
+            $reward = Rewards::find($this->deleteRewardId);
+            if ($reward) {
+                $reward->delete();
+            }
+            $this->addRewardMatrix = null;
+            $this->deleteRewardId = null;
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
     public function editReward($rewardId){
         try{
             $reward = Rewards::find($rewardId);
@@ -258,8 +274,14 @@ class VolunteerRewards extends Component
         }
     }
 
+    public function deleteThisReward($rewardId){
+       $this->deleteRewardId = $rewardId;
+    }
+
     public function closeEditReward(){
         $this->editRewardId = null;
+        $this->deleteRewardId = null;
+        $this->resetForm();
     }
 
     public function resetForm(){

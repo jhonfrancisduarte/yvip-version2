@@ -11,6 +11,7 @@ use Exception;
 use App\Models\VolunteerSkills;
 use App\Models\VolunteerCategory;
 use App\Models\Volunteer;
+use App\Models\VolunteerExperience;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -246,7 +247,7 @@ class VolunteersTable extends Component
             if($user){
                 $this->volunteerSkills = VolunteerSkills::where('user_id', $user->id)->pluck('skill_name')->first();
                 $this->volunteerCategories = VolunteerCategory::where('user_id', $user->id)->pluck('category_name')->first();
-                $this->volunteerExperiences = Volunteer::where('user_id', $user->id)->get();
+                $this->volunteerExperiences = VolunteerExperience::where('user_id', $user->id)->get();
                 $selectedSkillIds = Cache::get("user_{$userId}_selected_skill_ids", []);
                 $selectedSkillsWithCategories = DB::table('all_skills')
                     ->whereIn('all_skills.id', $selectedSkillIds)
