@@ -8,6 +8,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\PhilippineProvinces;
 use App\Models\PhilippineCities;
 use Exception;
+use App\Models\VolunteerSkills;
+use App\Models\VolunteerCategory;
+use App\Models\Volunteer;
+use App\Models\Skills;
+use App\Models\Categories;
 
 class IpbsTable extends Component
 {
@@ -27,13 +32,27 @@ class IpbsTable extends Component
     public $selectedProvince;
     public $selectedCity;
     public $active_status = 1;
+    public $qrCodeUrl;
 
     public function showUserData($userId){
-        $this->selectedUserDetails = User::where('users.id', $userId)
+        $selectedUserDetails = User::where('users.id', $userId)
                                 ->join('user_data', 'users.id', '=', 'user_data.user_id')
                                 ->select('users.email', 'users.user_role', 'users.active_status', 'user_data.*')
                                 ->first();
-        $this->selectedUserDetails = $this->selectedUserDetails->getAttributes();
+        $this->selectedUserDetails = $selectedUserDetails->getAttributes();
+        $details = [
+            'Passport No.' => $selectedUserDetails->passport_number,
+            'Name' => $selectedUserDetails->first_name . ' ' . $selectedUserDetails->last_name,
+            'Nationality' => $selectedUserDetails->nationality,
+            'Date of Birth' => $selectedUserDetails->date_of_birth,
+        ];
+
+        $text = '';
+        foreach ($details as $key => $value) {
+            $text .= "$key: $value\n";
+        }
+
+        $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($text);
     }
 
     public function deleteVolunteer($userId){
@@ -49,6 +68,9 @@ class IpbsTable extends Component
                 $this->disableButton = "Yes";
             }
             $this->deleteVolunteerId = null;
+            if($this->selectedUserDetails != null){
+                $this->selectedUserDetails = null;
+            }
         }catch(Exception $e){
             throw $e;
         }
@@ -62,9 +84,6 @@ class IpbsTable extends Component
 
     public function deactDialog($userId){
         $this->deactVolunteerId = $userId;
-        if($this->selectedUserDetails != null){
-            $this->selectedUserDetails = null;
-        }
     }
 
     public function deleteDialog($userId){
@@ -170,6 +189,10 @@ class IpbsTable extends Component
                 $this->deleteMessage = 'Activated unsuccessfully.';
                 $this->disableButton = "Yes";
             }
+
+            if($this->selectedUserDetails != null){
+                $this->selectedUserDetails = null;
+            }
         }catch(Exception $e){
             throw $e;
         }
@@ -188,6 +211,10 @@ class IpbsTable extends Component
                 $this->deleteMessage = 'Deactivated unsuccessfully.';
                 $this->disableButton = "Yes";
             }
+
+            if($this->selectedUserDetails != null){
+                $this->selectedUserDetails = null;
+            }
         }catch(Exception $e){
             throw $e;
         }
@@ -195,9 +222,6 @@ class IpbsTable extends Component
 
     public function reactivateDialog($userId){
         $this->reactivateVolunteerId = $userId;
-        if($this->selectedUserDetails != null){
-            $this->selectedUserDetails = null;
-        }
     }
 
     public function hideReactivateDialog(){
@@ -206,6 +230,20 @@ class IpbsTable extends Component
         $this->disableButton = "No";
         if($this->selectedUserDetails != null){
             $this->selectedUserDetails = null;
+        }
+    }
+
+    public function getCategory($userId){
+        try{
+            $user = User::where('id', $userId)->first();
+            if($user){
+                $selectedSkillNames = VolunteerSkills::where('user_id', $user->id)->pluck('skill_name')->first();
+                $selectedSkillNamesArray = $selectedSkillNames ? explode(',', $selectedSkillNames) : [];
+                $userCategories = VolunteerCategory::where('user_id', $user->id)->pluck('category_name')->first();
+                $volunteerExperiences = Volunteer::where('user_id', $user->id)->get();
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 }

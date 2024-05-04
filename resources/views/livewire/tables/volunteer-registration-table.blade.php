@@ -1,6 +1,6 @@
 <div>
 
-    <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
+    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -102,7 +102,7 @@
             <div class="close-form" wire:click="hideDeleteDialog"></div>
             <div class="user-info user-infos">
                 <div class="modal-header">
-                    <h5 class="modal-title">Confirm Deactivation</h5>
+                    <h5 class="modal-title">Confirm Disapprove</h5>
                     <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -331,8 +331,8 @@
                     <div class="col">
                         <div class="user-data">
                             <button class="btn-submit" wire:click="approveUser({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Approve</button>
+                            <button class="btn-delete" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Disapprove</button>
                             <button class="btn-cancel" wire:click="hideUserData">Close</button>
-                            <button class="btn-delete" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Delete</button>
                         </div>
                     </div>
                 </div>

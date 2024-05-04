@@ -257,10 +257,30 @@
     padding-left: 15px;
 }
 
+.container{
+    transition: 1s ease-in-out;
+}
+
+.container.hide-table{
+    overflow: hidden;
+    height: 0;
+}
+
+.user-details{
+    transition: 0.5s ease-in-out;
+}
 
 @media (max-width:768px) {
     .user-info .row1 {
         display: block;
+    }
+
+    .user-details .col-md-6{
+        margin-bottom: 10px;
+    }
+
+    .user-details .mx-auto{
+        max-width: 85% !important;
     }
 
     .mx-2{

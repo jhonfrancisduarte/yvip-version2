@@ -1,6 +1,6 @@
 <div>
     
-    <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
+    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -467,9 +467,11 @@
                                             <div class="col-12">
                                                 <div class="form-group requester">
                                                     <label class="label" wire:click="showParticipantDetails('{{ $participant['id'] }}', '')">{{ $participant['name'] }}</label>
-                                                    <div class="btn-approval">
-                                                        <button class="btn-delete" wire:click="disapproveParticipant('{{ $participant['id'] }}')">Remove</button>
-                                                    </div>
+                                                    @if($ipEvent->status !== "Completed")
+                                                        <div class="btn-approval">
+                                                            <button class="btn-delete" wire:click="disapproveParticipant('{{ $participant['id'] }}')">Remove</button>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -709,7 +711,7 @@
                                 @if(!$isParticipant)
                                     <button class="btn-success" wire:click="approveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Approve</button>
                                     <button class="btn-delete" wire:click="disapproveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Disapprove</button>
-                                @else
+                                @elseif($ipEvent->status !== "Completed")
                                     <button class="btn-delete" wire:click="disapproveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled">Remove</button>
                                 @endif
                             @endif

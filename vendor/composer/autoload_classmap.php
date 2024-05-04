@@ -101,11 +101,8 @@ return array(
     'App\\Models\\UserData' => $baseDir . '/app/Models/UserData.php',
     'App\\Models\\Volunteer' => $baseDir . '/app/Models/Volunteer.php',
     'App\\Models\\VolunteerCategory' => $baseDir . '/app/Models/VolunteerCategory.php',
-<<<<<<< HEAD
     'App\\Models\\VolunteerRewards' => $baseDir . '/app/Models/VolunteerRewards.php',
-=======
     'App\\Models\\VolunteerEventsAndTrainings' => $baseDir . '/app/Models/VolunteerEventsAndTrainings.php',
->>>>>>> origin/master
     'App\\Models\\VolunteerSkills' => $baseDir . '/app/Models/VolunteerSkills.php',
     'App\\Models\\admin' => $baseDir . '/app/Models/admin.php',
     'App\\Models\\pastIpEvent' => $baseDir . '/app/Models/pastIpEvent.php',

@@ -87,6 +87,10 @@
     border-radius: 5px 0 0 0;
 }
 
+.th-border-rad-2 {
+    border-radius: 5px 5px 0 0;
+}
+
 .th-action-btn {
     /* background: rgba(238,238,238,1) !important; */
     background: #CFE9FF !important;
@@ -94,9 +98,9 @@
     border-radius: 0 5px 0 0;
 }
 
-
 .mx-2 {
-    height: 5px !important;
+    height: 5px;
+    width: 0;
 }
 
 .table-main .action-btn {

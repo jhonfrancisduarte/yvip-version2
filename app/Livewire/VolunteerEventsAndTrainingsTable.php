@@ -398,6 +398,7 @@ class VolunteerEventsAndTrainingsTable extends Component
                 $this->popup_message = null;
                 $this->thisUserDetails = null;
                 $this->options = null;
+                $this->selectedEventId = null;
                 $this->popup_message = "Participant approved successfully.";
                 $this->dispatch('volunteer-request');
             }
@@ -438,6 +439,8 @@ class VolunteerEventsAndTrainingsTable extends Component
                 $this->popup_message = null;
                 $this->thisUserDetails = null;
                 $this->options = null;
+                $this->volunteerEvent = null;
+                $this->selectedEventId = null;
                 $this->popup_message = "Participant disapproved successfully.";
                 $this->dispatch('volunteer-request');
             }
@@ -484,6 +487,7 @@ class VolunteerEventsAndTrainingsTable extends Component
 
     public function viewParticipants($eventId){
         $event = VolunteerEventsAndTrainings::find($eventId);
+        $this->joinEventId = $event->id;
         if($event){
             $participantIds = explode(',', $event->participants);
             $participantsData = [];

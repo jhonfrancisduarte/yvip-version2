@@ -1,6 +1,6 @@
 <div>
 
-    <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
+    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -51,6 +51,7 @@
                         <div class="col-md-3">
                             <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
                         </div>
+                        <div class="mx-2"></div>
                         <div class="col-md-2">
                             <select class="form-control" wire:model.live="admin_position">
                                 <option selected value="">Position</option>
@@ -159,7 +160,7 @@
                 <div class="modal-footer">
                     @if($disableButton == "No")
                         <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
-                        <button class="btn-delete" wire:click="deleteAdmin('{{ $deleteAdminId }}')">Deactivate</button>
+                        <button class="btn-warning" wire:click="deleteAdmin('{{ $deleteAdminId }}')">Deactivate</button>
                     @else
                         <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
                     @endif
@@ -253,7 +254,11 @@
                     <div class="col">
                         <div class="user-data">
                             <button class="btn-cancel" wire:click="hideUserData">Close</button>
-                            <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete Admin</button>
+                            @if($active_status === 2)
+                                <button class="btn-success" wire:click="reactivateDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Activate</button>
+                            @else
+                                <button class="btn-warning" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Deactivate</button>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -340,7 +345,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-12">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label>Password</label>
                                             <input type="password" class="form-control" row="5" wire:model.live='password' placeholder="Password" required>
@@ -349,10 +354,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label>Confirm Password</label>
                                             <input type="password" class="form-control" row="5" wire:model.live='c_password' placeholder="Confirm Password" required>
