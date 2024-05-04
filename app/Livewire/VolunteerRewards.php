@@ -91,7 +91,8 @@ class VolunteerRewards extends Component
                 'approved' => '1',
                 'pending' => null,
             ]);
-            
+
+            $this->dispatch('claim-request');
         } catch (Exception $e) {
             throw $e;
         }

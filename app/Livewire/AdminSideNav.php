@@ -9,6 +9,7 @@ use App\Models\PastIpEvent;
 use App\Models\VolunteerEventsAndTrainings;
 use Livewire\Attributes\On;
 use App\Models\User;
+use App\Models\ClaimRequest;
 
 class AdminSideNav extends Component
 {
@@ -17,6 +18,7 @@ class AdminSideNav extends Component
     public $volunteerRegs;
     public $volunteerJoinRequests;
     public $ipRegs;
+    public $claimRequests;
 
     public function logout(){
         Auth::logout();
@@ -35,10 +37,13 @@ class AdminSideNav extends Component
         $this->ipRegs = count($ips);
         $this->getJoinRequests();
         $this->getJoinRequestsVolunteer();
+        $this->claimRequests = ClaimRequest::whereNotNull('pending')->get();
+        $this->claimRequests = count($this->claimRequests);
     }
 
     #[On('ip-validation-counter')]
     #[On('volunteer-request')]
+    #[On('claim-request')]
     public function counter(){
         $this->confirmedEventsCount = PastIpEvent::where('confirmed', false)->count();
         $volunteers = User::where('user_role', 'yv')
@@ -51,6 +56,8 @@ class AdminSideNav extends Component
         $this->ipRegs = count($ips);
         $this->getJoinRequests();
         $this->getJoinRequestsVolunteer();
+        $this->claimRequests = ClaimRequest::whereNotNull('pending')->get();
+        $this->claimRequests = count($this->claimRequests);
     }
 
     public function getJoinRequests(){
