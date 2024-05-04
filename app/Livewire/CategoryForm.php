@@ -7,11 +7,8 @@ use App\Models\VolunteerCategory;
 use App\Models\Volunteer;
 use App\Models\Skills;
 use App\Models\Categories;
-use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 

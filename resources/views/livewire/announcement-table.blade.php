@@ -25,7 +25,6 @@
                 </div>
             @endif
 
-            {{-- Announcements are displayed here --}}
             @foreach($announcements as $announcement)
                 <div class="announcement-container">
                     <div class="announcement-box">
@@ -96,7 +95,6 @@
 
         </div>
 
-        {{-- Add Announcement Form --}}
         @if($openAddAnnouncementForm)
             <div class="anns">
                 <div class="close-form" wire:click="closeAddForm"></div>
@@ -159,8 +157,11 @@
                                         <div class="row">     
                                             <div class="col-12">
                                                 <div class="form-group">
+                                                    <div wire:loading wire:target="featured_image" class="loading-container">
+                                                        <div class="loading-spinner"></div>
+                                                    </div>
                                                     <label class="label">Add Featured Image</label>
-                                                    <input type="file" accept="image/*" id="featured_image" wire:model.live='featured_image'/>
+                                                    <input type="file" accept="image/*" wire:model.live='featured_image'/>
                                                 </div>
                                             </div>
                                         </div>
@@ -168,8 +169,11 @@
                                         <div class="row">     
                                             <div class="col-12">
                                                 <div class="form-group">
+                                                    <div wire:loading wire:target="file" class="loading-container">
+                                                        <div class="loading-spinner"></div>
+                                                    </div>
                                                     <label class="label">Attach File</label>
-                                                    <input type="file" id="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                                                    <input type="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -177,7 +181,7 @@
                                     </div>
 
                                     <div class="modal-footer justify-content-between">
-                                        <button class="btn-success" type="submit">Submit</button>
+                                        <button class="btn-success" type="submit" wire:loading.attr="disabled">Submit</button>
                                     </div>
                                 </div>
                             </form>
@@ -187,7 +191,6 @@
             </div>
         @endif
 
-        {{-- Edit Announcement Form --}}
         @if($openEditAnnouncementForm)
             <div class="anns">
                 <div class="close-form" wire:click="closeEditForm"></div>
@@ -247,6 +250,9 @@
                                         <div class="row">     
                                             <div class="col-12">
                                                 <div class="form-group">
+                                                    <div wire:loading wire:target="featured_image" class="loading-container">
+                                                        <div class="loading-spinner"></div>
+                                                    </div>
                                                     <label class="label">Add Featured Image</label>
                                                     <input type="file" accept="image/*" id="featured_image" wire:model.live='featured_image'/>
                                                 </div>
@@ -256,6 +262,9 @@
                                         <div class="row">     
                                             <div class="col-12">
                                                 <div class="form-group">
+                                                    <div wire:loading wire:target="file" class="loading-container">
+                                                        <div class="loading-spinner"></div>
+                                                    </div>
                                                     <label class="label">Attach File</label>
                                                     <input type="file" id="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
                                                 </div>
@@ -265,7 +274,7 @@
                                     </div>
 
                                     <div class="modal-footer justify-content-between">
-                                        <button class="btn-success" type="submit">Submit</button>
+                                        <button class="btn-success" type="submit" wire:loading.attr="disabled">Submit</button>
                                     </div>
                                 </div>
                             </form>

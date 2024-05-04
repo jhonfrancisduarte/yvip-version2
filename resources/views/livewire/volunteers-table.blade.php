@@ -405,6 +405,35 @@
                                         @endif
                                     </tbody>
                                 </table>
+
+                                <table id="volunteers-table" class="table-main">
+                                    <thead>
+                                        <tr>
+                                            <th  width="40%">Skills and Category</th>
+                                            <th  width="60%">Skills and Category</th>
+                                        </tr>
+                                    </thead>
+        
+                                    <tbody>
+                                        @foreach($groupedSkills as $categoryName => $skills)
+                                            <tr class="recordRow">
+                                                <td class="categoryColumn">
+                                                    <div>
+                                                        <p>{{ $categoryName }}</p>
+                                                    </div>
+                                                </td>
+                                                <td class="skillsColumn">
+                                                    <div>
+                                                    @foreach($skills as $skill)
+                                                        <li>{{ $skill->all_skills_name }}</li>
+                                                    @endforeach
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
                                 <div class="mt-3"></div>
                                 <div class="row1">
                                     <div class="col">
