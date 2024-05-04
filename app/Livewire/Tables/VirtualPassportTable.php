@@ -9,19 +9,38 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Volunteer;
+use Illuminate\Support\Facades\DB;
 
 class VirtualPassportTable extends Component
 {
     use WithPagination;
 
+
     public $qrCodeUrl;
     public $search;
     public $myEvents = [];
+    public $totalHoursPerUser;
+
 
     public function mount()
     {
-        $this->generateQrCodeUrl();
+        $loggedInUserId = Auth::id();
+
+
+        $query = Volunteer::select(DB::raw('SUM(volunteering_hours) as total_volunteer_hours'))
+            ->where('user_id', $loggedInUserId)
+            ->groupBy('user_id');
+
+        // Fetch the total volunteer hours for the authenticated user
+        $this->totalHoursPerUser = $query->get();
+
     }
+
+
+
+
+
 
     private function getUserIpEvents()
     {
