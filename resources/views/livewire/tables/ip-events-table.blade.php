@@ -165,7 +165,7 @@
                                                 @elseif($event->approved)
                                                     <span class="green">Joined</span>
                                                 @elseif($event->disapprovedParticipants)
-                                                    <span class="orange">Sorry! You are not qualified for this event.</span>
+                                                    <span class="orange">Not Qualified</span>
                                                 @else
                                                     <span class="light-blue">Waiting for approval</span>
                                                 @endif

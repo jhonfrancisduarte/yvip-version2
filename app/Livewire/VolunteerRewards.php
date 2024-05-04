@@ -10,11 +10,12 @@ use App\Models\ClaimRequest;
 use App\Models\VolunteerRewards as VolunteerReward; 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Exception;
 
 class VolunteerRewards extends Component
 {
     public $rewards;
-    public $openRewards;
+    public $openRewards = true;
     public $totalVolunteerHours;
     public $reward;
     public $rewardType;
@@ -24,6 +25,7 @@ class VolunteerRewards extends Component
     public $openRequest;
     public $popup_message;
     public $disabledButtons = [];
+    public $addRewardMatrix;
 
     public function mount(){
         $this->rewards = Rewards::all();
@@ -185,4 +187,11 @@ class VolunteerRewards extends Component
         }
     }
 
+    public function toggleAddRewardMatrix(){
+        if($this->addRewardMatrix){
+            $this->addRewardMatrix = null;
+        }else{
+            $this->addRewardMatrix = true;
+        }
+    }
 }

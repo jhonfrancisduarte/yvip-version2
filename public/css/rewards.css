@@ -170,20 +170,27 @@
     color: black;
 }
 
-.btn-g {
-    position: relative;
-}
-
-.notif-count {
-    position: absolute;
-    top: -10px;
-    left: calc(89% + 5px);
-    padding: 0px 3px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    z-index: 9;
-}
-
 .btn-reward {
     margin-right: 7px;
+}
+
+.btn-claim-requests{
+    width: fit-content;
+    position: absolute;
+    right: 25px;
+}
+
+.btn-claim-requests .notif-count {
+    padding: 0px 3px;
+    border-radius: 5px;
+    position: absolute;
+    top: -10px;
+    left: -5px;
+    border: 1px solid #ccc;
+    z-index: 1;
+}
+
+.add-reward{
+    margin-left: 15px;
+    margin-bottom: -10px;
 }

@@ -1,36 +1,39 @@
-<section class="content rewards-table-content">
+<div>
+
     <div class="pop-up-message" @if($popup_message)style="position: absolute; top: 100px !important;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
         <p>{{ $popup_message }}</p>
     </div>
+
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card" style="border-radius: 20px; overflow: hidden;">
 
                     <div class="card-header">
-                    <h3 class="card-title">Volunteers Rewards</h3>
+                        <h3 class="card-title">Volunteers Rewards</h3>
                         @if(session('user_role') !== "yv" && session('user_role') !== "yip")
-                        <div class="btn-g">
-                            <button class="btn btn-submit btn-sm btn-claim-requests" wire:click="seeRequests">Claim Request</button>
-                            <span class="notif-count" style="color: white; background-color: {{ count($claimRequests) > 0 ? 'red' : 'rgb(245, 245, 245)' }};">{{ count($claimRequests) }}</span>
-                        </div>
-                            <button type="button" class="btn btn-submit btn-sm btn-reward" wire:click="seeRewards">Rewards Matrix</button>
+                            <div class="btn-claim-requests">
+                                <button type="button" class="btn-submit btn-reward" wire:click="seeRewards">Add/Edit Rewards Matrix</button>
+                                <button class="btn-submit" wire:click="seeRequests">Claim Request</button>
+                                <span class="notif-count" style="color: white; background-color: {{ count($claimRequests) > 0 ? 'red' : 'rgb(245, 245, 245)' }};">{{ count($claimRequests) }}</span>
+                            </div>
                         @else
-                            <button type="button" class="btn btn-submit btn-sm" wire:click="seeRewards">Rewards Matrix</button>
+                            <button type="button" class="btn-submit" wire:click="seeRewards">Rewards Matrix</button>
                         @endif
                     </div>
 
                     <div class="card-body">
-                        @if(session('user_role') !== 'yv' || session('user_role') !== 'yip')
+                        @if(session('user_role') === 'sa' || session('user_role') === 'vs' || session('user_role') === 'vsa')
                             <table id="rewards-table" class="table-main">
                                 <thead>
                                     <tr>
                                         <th width="30%" class="th-border-rad">Name</th>
                                         <th width="30%">Total of hours</th>
-                                        <th class="th-action-btn">Reward</th>
+                                        <th>Reward</th>
+                                        <th class="th-action-btn"></th>
                                     </tr>
                                 </thead>
 
@@ -40,7 +43,7 @@
                                         <tr>
                                             <td>{{ $user['user_name'] }}</td>
                                             <td>{{ $user['total_hours'] }} hours</td>
-                                            <td class="rewards">
+                                            <td class="rewards ">
                                                 @if(collect($user['rewards'])->isEmpty())
                                                     <span>N/A</span>
                                                 @else
@@ -53,7 +56,7 @@
                                             </td>
                                             
                                             <td class="reward-actions">
-                                                <button type="button" class="btn btn-submit btn-sm" wire:click="grantReward('{{ $user['user_id'] }}')"><i class="bi bi-award"></i></button>
+                                                <button type="button" class="btn-submit float-right" wire:click="grantReward('{{ $user['user_id'] }}')"><i class="bi bi-award"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -66,7 +69,6 @@
                             <table id="rewards-table" class="table-main">
                                 <thead>
                                     <tr>
-                                        {{-- <th width="30%">Name</th> --}}
                                         <th width="30%" class="th-border-rad">Total of hours</th>
                                         <th class="th-action-btn">Reward</th>
                                     </tr>
@@ -74,7 +76,6 @@
                                 <tbody>
                                     <div>
                                         <tr>
-                                            {{-- <td>{{ Auth::user()->name }}</td> --}}
                                             <td>{{ $totalVolunteerHours }} hours</td>
                                             <td>{{ $reward }}</td>
                                         </tr>
@@ -92,9 +93,125 @@
 
     @if($openRewards)
         <div class="see-rewards">
-        <div class="close-form" wire:click="closeRewards"></div>
+            <div class="close-form" wire:click="closeRewards"></div>
             <div class="modal-dialog modal-sm">
                 <form wire:submit.prevent="updateExp" class="rewards-form">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Rewards</h4>
+                            @if(session('user_role') === 'sa' || session('user_role') === 'vs' || session('user_role') === 'vsa')
+                                <p class="btn-submit add-reward" wire:click="toggleAddRewardMatrix">
+                                    <i class="bi bi-plus-lg"></i>
+                                </p>
+                            @endif
+                            <button type="button" class="close" wire:click="closeRewards"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        @if($addRewardMatrix)
+                            <div class="modal-header">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <p>Add New Reward Matrix</p>
+                                            <button class="btn-cancel float-right" wire:click="toggleAddRewardMatrix">Cancel</button> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <form wire:submit.prevent="createReward">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" row="5" wire:model.live='level' placeholder="Level" required>
+                                                @error('level')
+                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" row="5" wire:model.live='hours' placeholder="Number of hours" required>
+                                                @error('hours')
+                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" row="5" wire:model.live='reward' placeholder="Reward" required>
+                                                @error('reward')
+                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        @endif
+
+
+                        <div class="container-fluid">
+                            <div class="row rewards-row">
+                                <div class="col-12 table-contain">
+                                    <div class="card1">
+
+                                        <div class="card-body">
+                                            <table id="rewards-table" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="30%">Level</th>
+                                                        <th width="30%">Number of Hours</th>
+                                                        <th>Reward</th>
+                                                        @if(session('user_role') === 'sa' || session('user_role') === 'vs' || session('user_role') === 'vsa')
+                                                        <th></th>
+                                                        @endif
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <div>
+                                                    @foreach ($rewards as $reward)
+                                                        <tr>
+                                                            <td>{{ $reward->level }}</td>
+                                                            <td>{{ $reward->number_of_hours }}</td>
+                                                            <td>{{ $reward->rewards }}</td>
+                                                            @if(session('user_role') === 'sa' || session('user_role') === 'vs' || session('user_role') === 'vsa')
+                                                                <td>
+                                                                    <div class="btn-group-2" role="group">
+                                                                        <div class="btn-g">
+                                                                            <button class="btn-submit" wire:click="openEditForm({{ $category->id }})">
+                                                                                <i class="bi bi-pencil-square"></i>
+                                                                            </button>
+                                                                            <span class="span span-delete">Edit</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            @endif
+                                                        </tr>
+                                                    @endforeach
+                                                    </div>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
+
+    @if($thisUserId)
+        <div class="see-rewards">
+            <div class="close-form" wire:click="closeRewards"></div>
+            <div class="modal-dialog modal-sm">
+                <form wire:submit.prevent="submitReward" class="rewards-form">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Rewards</h4>
@@ -110,27 +227,30 @@
                                     <div class="card1">
 
                                         <div class="card-body">
-                                            <table id="rewards-table" class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th width="30%">Level</th>
-                                                        <th width="30%">Number of Hours</th>
-                                                        <th>Reward</th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    <div>
-                                                    @foreach ($rewards as $reward)
-                                                        <tr>
-                                                            <td>{{ $reward->level }}</td>
-                                                            <td>{{ $reward->number_of_hours }}</td>
-                                                            <td>{{ $reward->rewards }}</td>
-                                                        </tr>
-                                                    @endforeach
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label>Choose Reward</label>
+                                                        <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
+                                                            <select  class="form-control select-status" wire:model.blur="rewardType" name="rewardType" required>
+                                                                <option selected class="form-control">Choose option</option>
+                                                                @foreach($rewards as $reward)
+                                                                    <option value="{{ $reward->rewards }}" class="form-control">{{ $reward->rewards }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <div class="select-dropdown"></div>
+                                                        </div>
+                                                        @error('rewardType') 
+                                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
-                                                </tbody>
-                                            </table>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer justify-content-between">
+                                                <button class="btn btn-info" type="submit">Submit</button>
+                                            </div>
+
                                         </div>
 
                                     </div>
@@ -138,9 +258,52 @@
                             </div>
                         </div>
 
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
+
+    @if($openRequest)
+        <div class="main-div-request">
+            <div class="close-form" wire:click="closeRewards"></div>
+            <div class="add-announcement-container request-form-container">
+                <div class="modal-dialog modal-md request-form">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Claim Requests</h4>
+                            <button type="button" class="close" wire:click="closeRewards">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                    </form>
+                        <label style="margin-left: 20px; font-weight: 400;">Request List</label>
+        
+                        <div class="card card-primary">
+                            <div class="card-body">
+
+                            @foreach($claimRequests as $request)
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group requester">
+                                                <label class="label">{{ $request->user->name }}</label>
+                                                
+                                                <div class="btn-approval">
+                                                    @foreach($claimRequests as $claimRequest)
+                                                        <button type="button" class="btn btn-success btn-sm" wire:click="approveRequest({{ $claimRequest->id }})">Approve</button>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        @endif
-</section>
+        </div>
+    @endif
+
+</div>
