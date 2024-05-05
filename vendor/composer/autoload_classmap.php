@@ -8,10 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
-    'App\\Filament\\Resources\\EventsAndTrainingsResource' => $baseDir . '/app/Filament/Resources/EventsAndTrainingsResource.php',
-    'App\\Filament\\Resources\\EventsAndTrainingsResource\\Pages\\CreateEventsAndTrainings' => $baseDir . '/app/Filament/Resources/EventsAndTrainingsResource/Pages/CreateEventsAndTrainings.php',
-    'App\\Filament\\Resources\\EventsAndTrainingsResource\\Pages\\EditEventsAndTrainings' => $baseDir . '/app/Filament/Resources/EventsAndTrainingsResource/Pages/EditEventsAndTrainings.php',
-    'App\\Filament\\Resources\\EventsAndTrainingsResource\\Pages\\ListEventsAndTrainings' => $baseDir . '/app/Filament/Resources/EventsAndTrainingsResource/Pages/ListEventsAndTrainings.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
