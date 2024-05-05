@@ -132,10 +132,11 @@ class VirtualPassportTable extends Component
         $this->generatingPdf = true;
 
         $ipEvents = $this->getUserIpEvents();
-
+        $profilePictureUrl = Auth::user()->userData->profile_picture;
         $pdf = PDF::loadView('pdf.passport-pdf', [
             'ipEvents' => $ipEvents,
             'qrCodeUrl' => $this->qrCodeUrl,
+            'profilePictureUrl' => $profilePictureUrl,
         ]);
 
         $pdf->save(public_path('passport.pdf'));
