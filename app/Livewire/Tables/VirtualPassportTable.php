@@ -9,38 +9,32 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Models\Volunteer;
-use Illuminate\Support\Facades\DB;
+
 
 class VirtualPassportTable extends Component
 {
     use WithPagination;
 
-
     public $qrCodeUrl;
     public $search;
+    public $totalVolunteeringHours;
     public $myEvents = [];
-    public $totalHoursPerUser;
-
 
     public function mount()
     {
-        $loggedInUserId = Auth::id();
-
-
-        $query = Volunteer::select(DB::raw('SUM(volunteering_hours) as total_volunteer_hours'))
-            ->where('user_id', $loggedInUserId)
-            ->groupBy('user_id');
-
-        // Fetch the total volunteer hours for the authenticated user
-        $this->totalHoursPerUser = $query->get();
-
+        $this->generateQrCodeUrl();
+        // Compute the total volunteering hours for the current authenticated user
+        $this->totalVolunteeringHours = $this->getTotalVolunteeringHours();
     }
 
+    private function getTotalVolunteeringHours()
+    {
+        // Get the current authenticated user
+        $user = Auth::user();
 
-
-
-
+        // Retrieve the total volunteering hours for the user
+        return $user->volunteers()->sum('volunteering_hours');
+    }
 
     private function getUserIpEvents()
     {
@@ -63,20 +57,23 @@ class VirtualPassportTable extends Component
         ];
 
         $userIpEvents = $this->getUserIpEvents();
+        $eventNumber = 1; // Initialize event number
 
         foreach ($userIpEvents as $event) {
-            $details[] = implode(' | ', [
+            $details[] = $eventNumber . '. ' . implode(' | ', [
                 $event->event_name,
                 $event->organizer_sponsor,
                 Carbon::parse($event->start)->format('Y-m-d'),
                 Carbon::parse($event->end)->format('Y-m-d'),
             ]);
+            $eventNumber++; // Increment event number
         }
 
         $qrData = implode("\n", $details);
 
         $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($qrData);
     }
+
 
     public function render()
     {
@@ -126,6 +123,7 @@ class VirtualPassportTable extends Component
 
         return view('livewire.tables.virtual-passport-table', compact('ipEvents'), [
             'qrCodeUrl' => $this->qrCodeUrl,
+            'totalVolunteeringHours' => $this->totalVolunteeringHours,
         ]);
     }
 

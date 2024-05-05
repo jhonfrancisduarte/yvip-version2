@@ -26,7 +26,4 @@ class Volunteer extends Model
         return $this->belongsTo(VolunteerCategory::class);
     }
 
-    public function leaderboard(){
-        return $this->hasOne(VolunteersLeaderboard::class);
-    }
 }
