@@ -19,6 +19,7 @@ class VirtualPassportTable extends Component
     public $search;
     public $totalVolunteeringHours;
     public $myEvents = [];
+    public $generatingPdf = false;
 
     public function mount()
     {
@@ -74,7 +75,6 @@ class VirtualPassportTable extends Component
         $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($qrData);
     }
 
-
     public function render()
     {
         $userIpEvents = $this->getUserIpEvents();
@@ -128,18 +128,21 @@ class VirtualPassportTable extends Component
     }
 
     public function generatePdf()
-{
+    {
+        $this->generatingPdf = true;
 
-    $ipEvents = $this->getUserIpEvents();
+        $ipEvents = $this->getUserIpEvents();
 
-    $pdf = PDF::loadView('pdf.passport-pdf', [
-        'ipEvents' => $ipEvents,
-        'qrCodeUrl' => $this->qrCodeUrl,
-    ]);
+        $pdf = PDF::loadView('pdf.passport-pdf', [
+            'ipEvents' => $ipEvents,
+            'qrCodeUrl' => $this->qrCodeUrl,
+        ]);
 
-    $pdf->save(public_path('passport.pdf'));
+        $pdf->save(public_path('passport.pdf'));
 
-    return response()->download(public_path('passport.pdf'));
-}
+        $this->generatingPdf = false;
+
+        return response()->download(public_path('passport.pdf'));
+    }
 
 }
