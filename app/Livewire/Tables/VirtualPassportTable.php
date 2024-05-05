@@ -105,14 +105,6 @@ class VirtualPassportTable extends Component
                     }
                 }
             }
-            $currentDate = now();
-            if ($currentDate >= $event->start && $currentDate <= $event->end) {
-                $event->status = 'Ongoing';
-            } elseif ($currentDate > $event->end) {
-                $event->status = 'Completed';
-            } else {
-                $event->status = 'Upcoming';
-            }
 
             $event->participantData = $participantData;
             $event->qualifications = explode(',', $event->qualifications);

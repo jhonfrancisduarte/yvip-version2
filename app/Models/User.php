@@ -48,11 +48,7 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
-    // public function volunteer(){
-    //     return $this->hasOne(Volunteer::class);
-    // }
-    public function volunteers()
-    {
+    public function volunteers(){
         return $this->hasMany(Volunteer::class);
     }
 
@@ -87,8 +83,7 @@ class User extends Authenticatable
         return $this->hasMany(ClaimRequest::class);
     }
 
-    public function scopeSearch($query, $term)
-    {
+    public function scopeSearch($query, $term){
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
             $query->where('user_data.first_name', 'like', $term)
@@ -115,7 +110,6 @@ class User extends Authenticatable
 
     protected static function boot(){
         parent::boot();
-
 
         static::saved(function ($user) {
 
