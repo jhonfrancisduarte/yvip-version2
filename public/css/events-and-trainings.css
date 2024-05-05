@@ -174,12 +174,14 @@
 
 .join-requests-btn{
     padding: 3.5px 5.5px !important;
+    left: -19px;
 }
 
 .badge-circle {
+    color: white;
     position: absolute;
     top: -10px;
-    left: -18px;
+    left: -26px;
     font-size: 12px;
     padding: 1.5px 4px;
     border-radius: 35%;
@@ -207,6 +209,33 @@
 
 .toggleSettings .icon{
   color: #1796aa !important;
+}
+
+.join-status-event{
+    margin-top: 5px !important;
+    background-color: #ffffff !important;
+    border: 1px solid #1796aa !important;
+    border-radius: 6% !important;
+    color: #1796aa !important;
+    width: 100%;
+}
+
+.edit-btn{
+    margin-top: 5px !important;
+    background-color: #ffffff !important;
+    border: 1px solid #1796aa !important;
+    border-radius: 6% !important;
+    color: #1796aa  !important;
+    width: 100%;
+}
+
+.delete-button{
+    margin-top: 5px !important;
+    background-color: #ffffff !important;
+    border: 1px solid red !important;
+    border-radius: 6% !important;
+    color: red  !important;
+    width: 100%;
 }
 
 .bg-white.p-3 {
@@ -240,6 +269,25 @@
 
 .search-container input, .search-container select{ 
   margin-right: 10px !important; 
+}
+
+.inside-settings-buttons {
+    background-color: white;
+    border: 1px solid #d4d4d4;
+    top: -30px;
+    left: -105px;
+}
+
+.dropdown-menu {
+    width: 200px;
+}
+
+.dropdown-item {
+    padding: 5px 15px;
+}
+
+.dropdown-divider {
+    margin: 5px 0;
 }
 
 .input-group-radio{
@@ -314,5 +362,4 @@
     .input-group-radio{
         margin-top: 10px;
     }
-    
 }
