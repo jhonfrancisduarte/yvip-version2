@@ -34,7 +34,7 @@ class VirtualPassportTable extends Component
         $user = Auth::user();
 
         // Retrieve the total volunteering hours for the user
-        return $user->volunteerHours()->sum('volunteering_hours');
+        return $user->rewardClaim->total_hours;
     }
 
     private function getUserIpEvents()
@@ -124,10 +124,11 @@ class VirtualPassportTable extends Component
         $this->generatingPdf = true;
 
         $ipEvents = $this->getUserIpEvents();
-
+        $profilePictureUrl = Auth::user()->userData->profile_picture;
         $pdf = PDF::loadView('pdf.passport-pdf', [
             'ipEvents' => $ipEvents,
             'qrCodeUrl' => $this->qrCodeUrl,
+            'profilePictureUrl' => $profilePictureUrl,
         ]);
 
         $pdf->save(public_path('passport.pdf'));

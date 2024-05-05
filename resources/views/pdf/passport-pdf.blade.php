@@ -8,7 +8,7 @@
             font-family: Arial, sans-serif;
         }
         .passport {
-            max-width: 600px;
+            max-width: 800px; /* Adjust the max-width as needed */
             margin: 0 auto;
             border: 2px solid #000;
             padding: 20px;
@@ -39,7 +39,7 @@
             margin-bottom: 10px;
         }
         .passport-table {
-            width: 100%;
+            width: 100%; /* Make the table width 100% */
             border-collapse: collapse;
             margin-bottom: 20px;
         }
@@ -77,6 +77,7 @@
             </div>
             <table class="passport-table">
                 <tr>
+                    <td rowspan="7"><img src="{{ $profilePictureUrl }}" alt="Profile Picture" style="width: 150px; height: auto"></td>
                     <th>Passport No.</th>
                     <td>{{ $passportNumber }}</td>
                 </tr>
