@@ -52,6 +52,14 @@ class User extends Authenticatable
         return $this->hasMany(Volunteer::class);
     }
 
+    public function volunteerHours(){
+        return $this->hasMany(VolunteerHours::class);
+    }
+
+    public function rewardClaim(){
+        return $this->hasOne(RewardClaim::class);
+    }
+
     public function volunteer_skills(){
         return $this->hasMany(VolunteerSkills::class, 'all_skills_id', 'id');
     }

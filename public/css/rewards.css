@@ -262,5 +262,14 @@
         margin-right: 0 !important;
         margin-top: 5px;
     }
+
+    .rewards-form .modal-content {
+        width: 100%;
+    }
+    
+    .request-form .modal-content {
+        width: 100%;
+        max-width: 100%;
+    }
     
 }

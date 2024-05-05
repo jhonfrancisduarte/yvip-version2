@@ -2,15 +2,15 @@
 
 namespace App\Livewire\Tables;
 
+use App\Models\Rewards;
 use Livewire\Component;
 use App\Models\VolunteerEventsAndTrainings;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
-class MyParticipatedYvEventsTable extends Component
+class VolunteeringHoursTable extends Component
 {
     use WithPagination;
-    
     public $search;
 
     public function render(){
@@ -29,13 +29,18 @@ class MyParticipatedYvEventsTable extends Component
             return $event;
         });
 
-        return view('livewire.tables.my-participated-yv-events-table', [
+        $totalHours = $this->getTotalVolunteeringHours();
+        $rewardMatrix = Rewards::orderBy('number_of_hours', 'desc')->pluck('number_of_hours')->toArray();
+
+        return view('livewire.tables.volunteering-hours-table', [
             'volunteerEventsAndTrainings' => $volunteerEventsAndTrainings,
+            'totalHours' => $totalHours,
+            'rewardMatrix' => $rewardMatrix,
         ]);
     }
 
     private function getTotalVolunteeringHours(){
         $user = Auth::user();
-        return $user->volunteerHours()->sum('volunteering_hours');
+        return $user->rewardClaim->total_hours;
     }
 }

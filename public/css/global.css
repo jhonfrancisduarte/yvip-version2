@@ -580,6 +580,12 @@
     align-items: center;
 }
 
+.m-0{
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    margin-left: 20px !important;
+}
+
 .loading-spinner {
     border: 2px solid #f3f3f3;
     border-top: 2px solid #3498db;
@@ -613,6 +619,10 @@
     .btn-float-right {
         float: left !important;
         margin-top: 5px !important;
+    }
+
+    .m-0{
+        margin-left: 0 !important;
     }
 
     .block-on-mobile{

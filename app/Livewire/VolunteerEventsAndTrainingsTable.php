@@ -3,10 +3,12 @@
 namespace App\Livewire;
 
 use App\Models\Categories;
+use App\Models\RewardClaim;
 use Livewire\Component;
 use App\Models\VolunteerEventsAndTrainings;
 use App\Models\User;
 use App\Models\VolunteerExperience;
+use App\Models\VolunteerHours;
 use Exception;
 use Livewire\WithPagination;
 use Carbon\Carbon;
@@ -536,18 +538,65 @@ class VolunteerEventsAndTrainingsTable extends Component
     }
 
     public function changeStatus($eventId, $status){
-        try{
+        try {
             $event = VolunteerEventsAndTrainings::find($eventId);
-            if($event){
+            if ($event) {
                 $event->update([
                     'status' => $status,
                 ]);
     
-                $this->popup_message = null;
-                $this->popup_message = "Status updated successfully.";
-                $this->options2 = null;
+                // Grant to the participants the volunteering hours
+                if ($status === 'Completed') {
+                    $participantIds = explode(',', $event->participants);
+                    $participantsData = [];
+    
+                    foreach ($participantIds as $participantId) {
+                        $participantId = trim($participantId);
+                        if (!empty($participantId)) {
+                            $user = User::find($participantId);
+                            if ($user) {
+                                $userData = $user->userData;
+                                if ($userData) {
+                                    $participantsData[] = [
+                                        'user_id' => $participantId,
+                                        'event_id' => $eventId,
+                                        'volunteering_hours' => $event->volunteer_hours,
+                                    ];
+                                }
+
+                                $rewardClaim = $user->rewardClaim;
+
+                                if ($rewardClaim) {
+                                    $totalHours = $rewardClaim->total_hours + $event->volunteer_hours;
+                                    $claimableHours = $totalHours - $rewardClaim->total_claimed_hours;
+                                    $rewardClaim->update([
+                                        'total_hours' => $totalHours,
+                                        'claimable_hours' => $claimableHours,
+                                    ]);
+                                } else {
+                                    RewardClaim::create([
+                                        'user_id' => $participantId,
+                                        'total_hours' => $event->volunteer_hours,
+                                        'claimable_hours' => $event->volunteer_hours,
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+    
+                    if (!empty($participantsData)) {
+                        VolunteerHours::insert($participantsData);
+                    }
+                    $this->popup_message = null;
+                    $this->popup_message = "Status updated successfully.";
+                    $this->options2 = null;
+                }else{
+                    $this->popup_message = null;
+                    $this->popup_message = "Status update unsuccessfully.";
+                    $this->options2 = null;
+                }
             }
-        }catch(Exception $e){
+        } catch (Exception $e) {
             throw $e;
         }
     }

@@ -6,6 +6,7 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/rewards.css">
+    <link rel="stylesheet" href="/css/announcement.css">
 @endsection
 
 @section('content')
@@ -21,7 +22,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Rewards</h1>
+                        @if(session('user_role') !== 'yv' && session('user_role') !== 'yip')
+                            <h1 class="m-0">Volunteer Rewards</h1>
+                        @else
+                            <h1 class="m-0">My Rewards</h1>
+                        @endif
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">

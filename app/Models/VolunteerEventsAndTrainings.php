@@ -40,4 +40,8 @@ class VolunteerEventsAndTrainings extends Model
         return $this->belongsToMany(User::class, 'volunteer_events_and_trainings', 'event_id', 'user_id');
     }
 
+    public function volunteerHours(){
+        return $this->hasMany(VolunteerHours::class);
+    }
+
 }

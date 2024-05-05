@@ -138,6 +138,7 @@ class VolunteersTable extends Component
         }
 
         $volunteers = User::where('user_role', 'yv')
+                ->orWhere('user_role', 'yip')
                 ->join('user_data', 'users.id', '=', 'user_data.user_id')
                 ->select('users.email', 'users.active_status', 'user_data.*')
                 ->search(trim($this->search))

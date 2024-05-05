@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 use App\Models\IpEvents;
+use App\Models\VolunteerRewards;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -37,7 +38,9 @@ class AdminSideNav extends Component
         $this->ipRegs = count($ips);
         $this->getJoinRequests();
         $this->getJoinRequestsVolunteer();
-        $this->claimRequests = ClaimRequest::whereNotNull('pending')->get();
+        $this->claimRequests = VolunteerRewards::where('request_status', 1)
+                                ->where('claim_status', 0)
+                                ->get();
         $this->claimRequests = count($this->claimRequests);
     }
 
@@ -56,7 +59,9 @@ class AdminSideNav extends Component
         $this->ipRegs = count($ips);
         $this->getJoinRequests();
         $this->getJoinRequestsVolunteer();
-        $this->claimRequests = ClaimRequest::whereNotNull('pending')->get();
+        $this->claimRequests = VolunteerRewards::where('request_status', 1)
+                                ->where('claim_status', 0)
+                                ->get();
         $this->claimRequests = count($this->claimRequests);
     }
 

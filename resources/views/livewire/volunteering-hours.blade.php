@@ -1,12 +1,17 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Volunteering Hours</title>
+    <title>My Volunteering Hours</title>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="css/announcement.css">
+    <link rel="stylesheet" type="text/css" href="css/volunteers.css">
+    <link rel="stylesheet" type="text/css" href="css/volunteerregistration.css">
+    <link rel="stylesheet" type="text/css" href="css/ip-events.css">
+@endsection
 
 @section('content')
-
     @livewire('side-nav')
 
     <div class="content-wrapper">
@@ -25,7 +30,9 @@
                 </div>
             </div>
         </div>
+        @livewire('tables.volunteering-hours-table')
     </div>
+
 
 @endsection
 

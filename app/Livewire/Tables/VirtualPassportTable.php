@@ -34,7 +34,7 @@ class VirtualPassportTable extends Component
         $user = Auth::user();
 
         // Retrieve the total volunteering hours for the user
-        return $user->volunteers()->sum('volunteering_hours');
+        return $user->volunteerHours()->sum('volunteering_hours');
     }
 
     private function getUserIpEvents()

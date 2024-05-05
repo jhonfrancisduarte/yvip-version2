@@ -1,12 +1,17 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>My Participations</title>
+    <title>My Participated YV Events</title>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="css/announcement.css">
+    <link rel="stylesheet" type="text/css" href="css/volunteers.css">
+    <link rel="stylesheet" type="text/css" href="css/volunteerregistration.css">
+    <link rel="stylesheet" type="text/css" href="css/ip-events.css">
+@endsection
 
 @section('content')
-
     @livewire('side-nav')
 
     <div class="content-wrapper">
@@ -19,15 +24,15 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/dashboard" wire:navigate>Home</a></li>
-                            <li class="breadcrumb-item active">My Participations</li>
+                            <li class="breadcrumb-item active">Participated YV Eventss</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
+        @livewire('tables.my-participated-yv-events-table')
     </div>
 
-    @livewire('tables.my-participated-yv-events-table')
 
 @endsection
 

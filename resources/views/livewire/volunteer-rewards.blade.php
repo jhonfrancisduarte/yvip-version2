@@ -22,8 +22,25 @@
                             </div>
                         @else
                             <button type="button" class="btn-submit" wire:click="seeRewards">Reward Matrix</button>
+                            <button type="button" class="btn-submit" wire:click="seeClaimables">Claimable Reward</button>
                         @endif
                     </div>
+
+                    @if(session('user_role') !== "yv" && session('user_role') !== "yip")
+                        <div class="card-header card-header1">
+                            <div class="col-md-3">
+                                <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
+                            </div>
+                        </div>
+                    @endif
+
+                    @if(session('user_role') === "yv" || session('user_role') === "yip")
+                        <div class="card-header card-header1">
+                            <p>Total Volunteering Hours: <b>{{ $totalVolunteerHours->total_hours ?? 'None' }}</b></p>
+                            <p>Total Claimed Hours: <b>{{ $totalVolunteerHours->total_claimed_hours ?? 'None' }}</b></p>
+                            <p>Claimable Hours: <b>{{ $totalVolunteerHours->claimable_hours ?? 'None' }}</b></p>                            
+                        </div>
+                    @endif
 
                     <div class="card-body">
                         @if(session('user_role') === 'sa' || session('user_role') === 'vs' || session('user_role') === 'vsa')
@@ -32,88 +49,75 @@
                                     <tr>
                                         <th width="30%" class="th-border-rad">Name</th>
                                         <th width="30%">Total of hours</th>
-                                        <th>Reward</th>
-                                        <th class="th-action-btn"></th>
+                                        <th class="th-action-btn">Reward</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    <div>
-                                        @foreach($userHoursArray as $user)
-                                            <tr>
-                                                <td>{{ $user['user_name'] }}</td>
-                                                <td>{{ $user['total_hours'] }} hours</td>
-                                                <td class="rewards ">
-                                                    @if(collect($user['rewards'])->isEmpty())
-                                                        <span style="color: #ccc;">None</span>
-                                                    @else
-                                                        @foreach($user['rewards'] as $rwrd)
-                                                            <span>• {{ $rwrd }}</span>
-                                                        @endforeach
-                                                    @endif
-                                                </td>
-                                                
-                                                <td class="btn-action2">
-                                                    <div class="btn-g">
-                                                        <button type="button" class="btn-submit float-right" wire:click="grantReward('{{ $user['user_id'] }}')"><i class="bi bi-award"></i></button>
-                                                        <span class="span span-submit">Grant Reward</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </div>
+                                    @foreach($userHoursArray as $user)
+                                        <tr>
+                                            <td>{{ $user['user_name'] }}</td>
+                                            <td>{{ $user['total_hours'] }} hours</td>
+                                            <td class="rewards">
+                                                @if(collect($user['rewards'])->isEmpty())
+                                                    <span style="color: #ccc;">None</span>
+                                                @else
+                                                    @foreach($user['rewards'] as $reward)
+                                                        <span>• {{ $reward['reward'] }} 
+                                                            @if($reward['claim_status'])
+                                                                | <span class="green">Claimed</span>
+                                                            @else 
+                                                                | <span class="red">Unclaimed</span>
+                                                            @endif
+                                                            @if($reward['claim_date'])
+                                                                | {{ $reward['claim_date'] }}
+                                                            @endif
+                                                        </span><br>
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
-                            </table>      
+                            </table>   
                         @else
                             <table id="rewards-table" class="table-main">
                                 <thead>
                                     <tr>
-                                        <th width="20%" class="th-border-rad">Total of hours</th>
-                                        <th width="20%">Reward</th>
-                                        <th width="20%">Claim Status</th>
-                                        <th width="10%" class="th-action-btn"></th>
+                                        <th class="th-border-rad">Reward</th>
+                                        <th>Claim Status</th>
+                                        <th class="th-action-btn"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>{{ $totalVolunteerHours }} hours</td>
-                                        <td>
-                                            @if($userRewards->isNotEmpty())
-                                                <ul class="reward-list">
-                                                    @foreach($userRewards as $reward)
-                                                        <li>{{ $reward->rewards }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            @else
-                                                No Rewards
-                                            @endif
-                                        </td>
-                                        <td class="claim-status">
-                                            @foreach($userRewards as $reward)
-                                                <li>
-                                                    {{ $reward->claim_status ? 'Claimed' : 'Unclaimed' }}
-                                                </li>
-                                            @endforeach
-                                        </td>
-                                        <td>
+                                    @if($userRewards->isNotEmpty())
                                         @foreach($userRewards as $reward)
-                                            <li class="claim-reward">
-                                                <button type="button" class="btn-success" wire:click="claimReward({{ $reward->id }})" @if(isset($disabledButtons[$reward->id]) && $disabledButtons[$reward->id]) disabled @endif>
-                                                    @if(isset($disabledButtons[$reward->id]) && $disabledButtons[$reward->id])
-                                                        Request Sent
-                                                    @else 
-                                                        Request Claim
+                                            <tr>
+                                                <td>{{ $reward->reward->rewards }}</td>
+                                                <td>
+                                                    {{ $reward->claim_status ? 'Claimed' : 'Unclaimed' }} | 
+                                                    @if($reward->claim_status)
+                                                        <span>{{ $reward->claim_date }}</span>
                                                     @endif
-                                                </button>
-                                            </li>
+                                                </td>
+                                                <td>
+                                                    @if($reward->request_status && !$reward->claim_status)
+                                                        Go to the nearest NYC office to get your reward
+                                                    @endif
+                                                </td>
+                                            </tr>
                                         @endforeach
-                                        </td>
-                                    </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         @endif
 
                     </div>
+
+                    <div class="m-3">
+                        {{ $userHoursArray->links('livewire::bootstrap') }}
+                    </div>
+                    
                 </div>
                 <div class="mt-5"></div>
             </div>
@@ -339,42 +343,87 @@
     @endif
 
     @if($openRequest)
-        <div class="main-div-request">
+        <div class="anns">
             <div class="close-form" wire:click="closeRewards"></div>
-            <div class="add-announcement-container request-form-container">
-                <div class="modal-dialog modal-md request-form">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Claim Requests</h4>
-                            <button type="button" class="close" wire:click="closeRewards">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <label style="margin-left: 20px; font-weight: 400;">Request List</label>
-        
-                        <div class="card card-primary">
-                            <div class="card-body">
+            <div class="add-announcement-container">
+                <div class="modal-content">
 
-                            @foreach($claimRequests as $request)
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group requester">
-                                                <label class="label">{{ $request->user->name }}</label>
-                                                
-                                                <div class="btn-approval">
-                                                    @foreach($claimRequests as $claimRequest)
-                                                        <button type="button" class="btn btn-success btn-sm" wire:click="approveRequest({{ $claimRequest->id }})">Approve</button>
-                                                    @endforeach
-                                                </div>
-                                            </div>
+                    <div class="modal-header">
+                        <h4 class="modal-title">Claim Requests</h4>
+                        <button type="button" class="close" wire:click="closeRewards">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-header">
+                        <div class="col-12">
+                            <input type="search" class="form-control" wire:model.live="search2" placeholder="Search volunteer...">
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+                        <label style="font-weight: 400;">Request List</label>
+                        @foreach($claimRequests as $request)
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group requester">
+                                        <label class="label">{{ $request->user->name }}</label>
+                                        
+                                        <div class="btn-approval">
+                                            <button type="button" class="btn btn-success btn-sm" wire:click="approveRequest({{ $request->id }})">Approve</button>
                                         </div>
                                     </div>
-                                @endforeach
-
+                                </div>
                             </div>
-                        </div>
-
+                        @endforeach
                     </div>
+
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if($claimables)
+        <div class="anns anns-full-h">
+            <div class="close-form" wire:click="closeClaimables"></div>
+            <div class="add-announcement-container">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h4 class="modal-title">Claimable Rewards</h4>
+                        <button type="button" class="close" wire:click="closeClaimables">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        @if (!empty($claimableRewards))
+                            <table class="table-main">
+                                <thead>
+                                    <th class="th-border-rad">Reward</th>
+                                    <th class="th-action-btn"></th>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($claimableRewards as $claimableReward)
+                                        @if(!$claimableReward['requestStatus'])
+                                            <tr>
+                                                <td>{{ $claimableReward['reward'] }}</td>
+                                                <td>
+                                                    <button type="button" class="btn-success float-right" wire:click="claimReward({{ $claimableReward['id'] }})">
+                                                            Claim Reward
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p>No claimable rewards available.</p>
+                        @endif
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -271,13 +271,6 @@
   margin-right: 10px !important; 
 }
 
-.inside-settings-buttons {
-    background-color: white;
-    border: 1px solid #d4d4d4;
-    top: -30px;
-    left: -105px;
-}
-
 .dropdown-menu {
     width: 200px;
 }
