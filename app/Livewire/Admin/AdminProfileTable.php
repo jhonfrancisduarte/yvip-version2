@@ -73,7 +73,7 @@ class AdminProfileTable extends Component
             elseif($data === "password"){
             }
             else{
-                $columnValue = $user->admin->get([$data])->pluck($data)->first();
+                $columnValue = $user->admin->{$data};
                 $this->thisData = $columnValue;
             }
             $this->toBeEdited = $data;

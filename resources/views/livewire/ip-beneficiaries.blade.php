@@ -6,14 +6,9 @@
 
 @section('css')
     <link rel="stylesheet" href="css/profile.css">
-    <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <link rel="stylesheet" type="text/css" href="Client/file.css">
     <link rel="stylesheet" type="text/css" href="css/volunteers.css">
     <link rel="stylesheet" type="text/css" href="css/ipbs.css">
+    <link rel="stylesheet" type="text/css" href="css/announcement.css">
 @endsection
 
 @section('content')

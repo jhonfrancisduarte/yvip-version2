@@ -98,30 +98,36 @@
     </div>
 
     @if($deleteRegistrantId)
-        <div class="users-data-all-container no-padding">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="hideDeleteDialog"></div>
-            <div class="user-info user-infos">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirm Disapprove</h5>
-                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @if($deleteMessage)
-                        <p style="color: green;">{{ $deleteMessage }}</p>
-                    @else
-                        <p>Are you sure you want to disapprove this registrant?</p>
-                    @endif
-                </div>
-                <div class="modal-footer">
-                    @if($disableButton == "No")
-                        <button class="btn-delete" wire:click="deleteRegistrant({{ $deleteRegistrantId }})" wire:loading.attr="disabled">Yes
+            <div class="add-announcement-container">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Disapprove</h5>
+                        <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                            <span aria-hidden="true">&times;</span>
                         </button>
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
-                    @else
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
-                    @endif
+                    </div>
+                    
+                    <div class="modal-body">
+                        @if($deleteMessage)
+                            <p style="color: green;">{{ $deleteMessage }}</p>
+                        @else
+                            <p>Are you sure you want to disapprove this registrant?</p>
+                        @endif
+                    </div>
+
+                    <div class="modal-footer">
+                        @if($disableButton == "No")
+                            <button class="btn-delete" wire:click="deleteRegistrant({{ $deleteRegistrantId }})" wire:loading.attr="disabled">Yes
+                            </button>
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                        @else
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                        @endif
+                    </div>
+
                 </div>
             </div>
         </div>    

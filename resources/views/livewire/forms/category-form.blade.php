@@ -94,108 +94,120 @@
     </div>
 
     @if($addSkillForm)
-        <div class="add-skill-form">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="closeAddSkillForm"></div>
-            <div class="modal-dialog modal-sm form-width">
-                <form wire:submit.prevent="submit">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add Skillset</h4>
-                            <button type="button" class="close" wire:click="closeAddSkillForm" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+            <div class="add-announcement-container">
+                <div class="modal-content">
 
-                        <div class="modal-body">
-                            <div class="column-skill-form">
-                                @foreach($allSkills as $skill)
-                                    @if($skill->all_skills_name !== '')
-                                        <div class="skill-checkbox">
-                                            <input type="checkbox" id="{{ $skill->id }}" wire:model="selectedSkillIds" value="{{ $skill->id }}" class="every-checkbox" @if(in_array($skill->id, $selectedSkillIds)) checked @endif>
-                                            <label for="{{ $skill->id }}" class="every-label">{{ $skill->all_skills_name }}</label>
-                                        </div>
-                                    @endif
-                                @endforeach
+                    <form wire:submit.prevent="submit">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Skillset</h4>
+                                <button type="button" class="close" wire:click="closeAddSkillForm" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                        </div>
 
-                        <div class="modal-footer justify-content-between">
-                            <button type="submit" class="btn-submit">Submit</button>
+                            <div class="modal-body">
+                                <div class="column-skill-form">
+                                    @foreach($allSkills as $skill)
+                                        @if($skill->all_skills_name !== '')
+                                            <div class="skill-checkbox">
+                                                <input type="checkbox" id="{{ $skill->id }}" wire:model="selectedSkillIds" value="{{ $skill->id }}" class="every-checkbox" @if(in_array($skill->id, $selectedSkillIds)) checked @endif>
+                                                <label for="{{ $skill->id }}" class="every-label">{{ $skill->all_skills_name }}</label>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <div class="modal-footer justify-content-between">
+                                <button type="submit" class="btn-submit">Submit</button>
+                            </div>
+
                         </div>
-                    </div>
-                </form>
+                    </form>
+
+                </div>
             </div>
         </div>
     @endif
 
     @if($addExperience)
-        <div class="add-experience">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="closeExperienceForm"></div>
-            <div class="modal-dialog modal-sm">
-            <form wire:submit.prevent="addExp" class="experience-form">
+            <div class="add-announcement-container">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Experience</h4>
-                        <button type="button" class="close" wire:click="closeExperienceForm"
-                            aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
 
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="experience">Nature of Event</label>
-                            <input class="form-control" wire:model.live="nature_of_event" required>
-                            @error('nature_of_event') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="experience">My Participation</label>
-                            <textarea class="form-control" wire:model.live="participation" required></textarea>
-                            @error('participation') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
-                        </div>
-                    </div>
+                    <form wire:submit.prevent="addExp" class="experience-form">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Experience</h4>
+                                <button type="button" class="close" wire:click="closeExperienceForm"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
 
-                    <div class="modal-footer justify-content-between">
-                        <button type="submit" class="btn-submit">Submit</button>
-                    </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="experience">Nature of Event</label>
+                                    <input class="form-control" wire:model.live="nature_of_event" required>
+                                    @error('nature_of_event') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="experience">My Participation</label>
+                                    <textarea class="form-control" wire:model.live="participation" required></textarea>
+                                    @error('participation') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
+                                </div>
+                            </div>
+
+                            <div class="modal-footer justify-content-between">
+                                <button type="submit" class="btn-submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
-            </form>
-        </div>
+            </div>
         </div>
     @endif
 
     @if($editId)
-        <div class="edit-experience">
-        <div class="close-form" wire:click="closeEditExpForm"></div>
-            <div class="modal-dialog modal-sm">
-                <form wire:submit.prevent="updateExp" class="experience-form">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add Experience</h4>
-                            <button type="button" class="close" wire:click="closeExperienceForm"
-                                aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-    
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="experience">Nature of Event</label>
-                                <input class="form-control" wire:model.live="nature_of_event" value="{{ $nature_of_event }}" required>
-                                @error('nature_of_event') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
+        <div class="anns anns-full-h">
+            <div class="close-form" wire:click="closeEditExpForm"></div>
+            <div class="add-announcement-container">
+                <div class="modal-content">
+
+                    <form wire:submit.prevent="updateExp" class="experience-form">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Experience</h4>
+                                <button type="button" class="close" wire:click="closeEditExpForm"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label for="experience">My Participation</label>
-                                <textarea class="form-control" wire:model.live="participation" required>{{ $participation }}</textarea>
-                                @error('participation') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
+        
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="experience">Nature of Event</label>
+                                    <input class="form-control" wire:model.live="nature_of_event" value="{{ $nature_of_event }}" required>
+                                    @error('nature_of_event') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="experience">My Participation</label>
+                                    <textarea class="form-control" wire:model.live="participation" required>{{ $participation }}</textarea>
+                                    @error('participation') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
+                                </div>
                             </div>
-                        </div>
-    
-                        <div class="modal-footer justify-content-between">
-                            <button type="submit" class="btn-submit">Submit</button>
-                        </div>
-                    </div>
-                </form>
+        
+                            <div class="modal-footer justify-content-between">
+                                <button type="submit" class="btn-submit">Submit</button>
+                            </div>
+                    </form>
+
+                </div>
             </div>
         </div>
     @endif

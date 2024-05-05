@@ -217,3 +217,9 @@
     float: right;
     color: black;
 }
+
+@media (max-width: 768px){
+    .experience-form .modal-content {
+        width: 100%;
+    }
+}

@@ -1,4 +1,5 @@
 <div>
+
     <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
             <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
@@ -182,229 +183,230 @@
     </div>
 
     @if($deleteEventId)
-        <div class="users-data-all-container no-padding">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="hideDeleteDialog"></div>
-            <div class="user-info user-infos">
-                <div class="row1 row-header">
+            <div class="add-announcement-container">
+                <div class="modal-content">
+
                     <div class="modal-header">
                         <h5 class="modal-title">Confirm Delete</h5>
                         <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog" style="float: right;">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                </div>
 
-                <div class="modal-body">
-                    @if($deleteMessage)
-                        <p style="color: green;">{{ $deleteMessage }}</p>
-                    @else
-                        <p>Are you sure you want to delete this Event?</p>
-                    @endif
-                </div>
-                
-                <div class="modal-footer">
-                    @if($disableButton == "No")
-                        <button class="btn-delete" wire:click="deleteEvent" wire:loading.attr="disabled">Yes</button>
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
-                    @else
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
-                    @endif
+                    <div class="modal-body">
+                        @if($deleteMessage)
+                            <p style="color: green;">{{ $deleteMessage }}</p>
+                        @else
+                            <p>Are you sure you want to delete this Event?</p>
+                        @endif
+                    </div>
+                    
+                    <div class="modal-footer">
+                        @if($disableButton == "No")
+                            <button class="btn-delete" wire:click="deleteEvent" wire:loading.attr="disabled">Yes</button>
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                        @else
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                        @endif
+                    </div>
+
                 </div>
             </div>
         </div>    
     @endif
 
     @if($showForm)
-        <div class="anns anns2">
+        <div class="anns">
             <div class="close-form" wire:click="closeEventForm"></div>
             <div class="add-announcement-container">
-                <div class="modal-dialog modal-md">
-                    <div class="modal-content">
-                        <form wire:submit.prevent="create" id="edit-volunteer-form">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Events and Trainings</h4>
-                                <button type="button" class="close" wire:click="closeEventForm" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="card card-primary">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Event Type</label>
-                                                <select class="form-control" id="event-type" wire:model="eventType" required>
-                                                    <option value="" selected class="label">Choose option</option>
-                                                    <option value="Event">Event</option>
-                                                    <option value="Training">Training</option>
-                                                </select>
-                                                @error('eventType') <span class="text-danger">{{ $message }}</span> @enderror
-                                            </div>
+                <div class="modal-content">
+                    <form wire:submit.prevent="create" id="edit-volunteer-form">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title">Events and Trainings</h4>
+                            <button type="button" class="close" wire:click="closeEventForm" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="card card-primary">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Event Type</label>
+                                            <select class="form-control" id="event-type" wire:model="eventType" required>
+                                                <option value="" selected class="label">Choose option</option>
+                                                <option value="Event">Event</option>
+                                                <option value="Training">Training</option>
+                                            </select>
+                                            @error('eventType') <span class="text-danger">{{ $message }}</span> @enderror
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Name of Event</label>
-                                                <input type="text" class="form-control" name="event_name" id="event-name" placeholder="Enter Event Name" wire:model="eventName" required>
-                                                @error('eventName') <span class="text-danger">{{ $message }}</span> @enderror
-                                            </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Name of Event</label>
+                                            <input type="text" class="form-control" name="event_name" id="event-name" placeholder="Enter Event Name" wire:model="eventName" required>
+                                            @error('eventName') <span class="text-danger">{{ $message }}</span> @enderror
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Organizer/Facilitator</label>
-                                                <input type="text" class="form-control" name="organizer" placeholder="Enter Organizer/Facilitator" wire:model="organizer" required>
-                                                @error('organizer') <span class="text-danger">{{ $message }}</span> @enderror
-                                            </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Organizer/Facilitator</label>
+                                            <input type="text" class="form-control" name="organizer" placeholder="Enter Organizer/Facilitator" wire:model="organizer" required>
+                                            @error('organizer') <span class="text-danger">{{ $message }}</span> @enderror
                                         </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label>Start Date</label>
-                                                <input type="date" class="form-control" name="start_date" id="start-date" wire:model="startDate" required>
-                                                @error('startDate') <span class="text-danger">{{ $message }}</span> @enderror
-                                            </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Start Date</label>
+                                            <input type="date" class="form-control" name="start_date" id="start-date" wire:model="startDate" required>
+                                            @error('startDate') <span class="text-danger">{{ $message }}</span> @enderror
                                         </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label>End Date</label>
-                                                <input type="date" class="form-control" name="end_date" id="end-date" wire:model="endDate" min="{{ $startDate ? $startDate : '' }}" required>
-                                                @error('endDate') <span class="text-danger">{{ $message }}</span> @enderror
-                                            </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>End Date</label>
+                                            <input type="date" class="form-control" name="end_date" id="end-date" wire:model="endDate" min="{{ $startDate ? $startDate : '' }}" required>
+                                            @error('endDate') <span class="text-danger">{{ $message }}</span> @enderror
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Number of applicable volunteering hours</label>
-                                                <input type="number" class="form-control" name="volunteering_hours" placeholder="Enter Number of Hours" wire:model="volunteerHours" required>
-                                                @error('volunteerHours') <span class="text-danger">{{ $message }}</span> @enderror
-                                            </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Number of applicable volunteering hours</label>
+                                            <input type="number" class="form-control" name="volunteering_hours" placeholder="Enter Number of Hours" wire:model="volunteerHours" required>
+                                            @error('volunteerHours') <span class="text-danger">{{ $message }}</span> @enderror
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Volunteer category who can join</label>
-                                            </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Volunteer category who can join</label>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group form-group-2">
-                                                <select class="form-control" wire:model="category"> 
-                                                    <option value="">Categories</option> 
-                                                    @foreach ($categories as $item)
-                                                        @if($item->id !== 1)
-                                                            <option value="{{ $item->all_categories_name }}">{{ $item->all_categories_name }}</option> 
-                                                        @endif
-                                                    @endforeach 
-                                                </select>
-                                                <button type="button" class="btn-submit" wire:click='addTag'><i class="bi bi-plus-lg"></i></button>
-                                            </div>
-                                            @error('category') <span class="text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group form-group-2">
+                                            <select class="form-control" wire:model="category"> 
+                                                <option value="">Categories</option> 
+                                                @foreach ($categories as $item)
+                                                    @if($item->id !== 1)
+                                                        <option value="{{ $item->all_categories_name }}">{{ $item->all_categories_name }}</option> 
+                                                    @endif
+                                                @endforeach 
+                                            </select>
+                                            <button type="button" class="btn-submit" wire:click='addTag' style="margin-left: 10px;"><i class="bi bi-plus-lg"></i></button>
                                         </div>
-                                        <div class="col-12" id="added-tags">
-                                            <label>Added Categories:</label>
-                                            @foreach($selectedTags as $tag)
-                                                <button type="button" class="btn-submit">{{ $tag }} <i class="fa fa-times" wire:click="removeTag('{{ $tag }}')"></i></button>
-                                            @endforeach
-                                        </div>
+                                        @error('category') <span class="text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="col-12" id="added-tags">
+                                        <label>Added Categories:</label>
+                                        @foreach($selectedTags as $tag)
+                                            <button type="button" class="btn-submit">{{ $tag }} <i class="fa fa-times" wire:click="removeTag('{{ $tag }}')"></i></button>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="modal-footer justify-content-between">
-                                <button type="submit" class="btn-submit">Submit</button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        
+                        <div class="modal-footer justify-content-between">
+                            <button type="submit" class="btn-submit">Submit</button>
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </div>
     @endif
 
     @if($openEditEvent)
-        <div class="anns anns2">
+        <div class="anns">
             <div class="close-form" wire:click="closeEditForm"></div>
             <div class="add-announcement-container">
-                <div class="modal-dialog modal-md">
-                    <form wire:submit.prevent="editEvent" id="edit-volunteer-form">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Edit Events and Trainings</h4>
-                                <button type="button" class="close" wire:click="closeEditForm" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="card card-primary">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Event Type</label>
-                                                <select class="form-control" id="event-type" value="{{$eventType}}" wire:model.live="eventType">
-                                                    <option value="" selected class="label">Choose option</option>
-                                                    <option value="Event">Event</option>
-                                                    <option value="Training">Training</option>
-                                                </select>
-                                            </div>
+                <form wire:submit.prevent="editEvent" id="edit-volunteer-form">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edit Events and Trainings</h4>
+                            <button type="button" class="close" wire:click="closeEditForm" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="card card-primary">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Event Type</label>
+                                            <select class="form-control" id="event-type" value="{{$eventType}}" wire:model.live="eventType">
+                                                <option value="" selected class="label">Choose option</option>
+                                                <option value="Event">Event</option>
+                                                <option value="Training">Training</option>
+                                            </select>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Name of Event</label>
-                                                <input type="text" class="form-control" name="event_name" id="event-name" placeholder="Enter Event Name" value="{{$eventName}}" wire:model.live="eventName">
-                                            </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Name of Event</label>
+                                            <input type="text" class="form-control" name="event_name" id="event-name" placeholder="Enter Event Name" value="{{$eventName}}" wire:model.live="eventName">
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Organizer/Facilitator</label>
-                                                <input type="text" class="form-control" name="organizer" value="{{$organizer}}" wire:model.live="organizer">
-                                            </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Organizer/Facilitator</label>
+                                            <input type="text" class="form-control" name="organizer" value="{{$organizer}}" wire:model.live="organizer">
                                         </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label>Start Date</label>
-                                                <input type="date" class="form-control" name="start_date" id="start-date" value="{{$startDate}}" wire:model.live="startDate">
-                                            </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Start Date</label>
+                                            <input type="date" class="form-control" name="start_date" id="start-date" value="{{$startDate}}" wire:model.live="startDate">
                                         </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label>End Date</label>
-                                                <input type="date" class="form-control" name="end_date" id="end-date" value="{{$endDate}}" wire:model.live="endDate" min="{{ $startDate ? $startDate : '' }}">
-                                            </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>End Date</label>
+                                            <input type="date" class="form-control" name="end_date" id="end-date" value="{{$endDate}}" wire:model.live="endDate" min="{{ $startDate ? $startDate : '' }}">
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Number of applicable volunteering hours</label>
-                                                <input type="number" class="form-control" name="volunteering_hours" placeholder="Enter Number of Hours" value="{{$volunteerHours}}" wire:model.live="volunteerHours">
-                                            </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Number of applicable volunteering hours</label>
+                                            <input type="number" class="form-control" name="volunteering_hours" placeholder="Enter Number of Hours" value="{{$volunteerHours}}" wire:model.live="volunteerHours">
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Volunteer category who can join</label>
-                                            </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Volunteer category who can join</label>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group form-group-2">
-                                                <select class="form-control" wire:model="category"> 
-                                                    <option value="">Categories</option> 
-                                                    @foreach ($categories as $item)
-                                                        @if($item->id !== 1)
-                                                            <option value="{{ $item->all_categories_name }}">{{ $item->all_categories_name }}</option> 
-                                                        @endif
-                                                    @endforeach 
-                                                </select>
-                                                <button type="button" class="btn-submit" wire:click='addTag'><i class="bi bi-plus-lg"></i></button>
-                                            </div>
-                                            @error('category') <span class="text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group form-group-2">
+                                            <select class="form-control" wire:model="category"> 
+                                                <option value="">Categories</option> 
+                                                @foreach ($categories as $item)
+                                                    @if($item->id !== 1)
+                                                        <option value="{{ $item->all_categories_name }}">{{ $item->all_categories_name }}</option> 
+                                                    @endif
+                                                @endforeach 
+                                            </select>
+                                            <button type="button" class="btn-submit" wire:click='addTag' style="margin-left: 10px;"><i class="bi bi-plus-lg"></i></button>
                                         </div>
-                                        <div class="col-12" id="added-tags">
-                                            <label>Added Categories:</label>
-                                            @foreach($selectedTags as $tag)
-                                                <button type="button" class="btn-submit">{{ $tag }} <i class="fa fa-times" wire:click="removeTag('{{ $tag }}')"></i></button>
-                                            @endforeach
-                                        </div>
+                                        @error('category') <span class="text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="col-12" id="added-tags">
+                                        <label>Added Categories:</label>
+                                        @foreach($selectedTags as $tag)
+                                            <button type="button" class="btn-submit">{{ $tag }} <i class="fa fa-times" wire:click="removeTag('{{ $tag }}')"></i></button>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="submit" class="btn-success">Submit</button>
-                            </div>
                         </div>
-                    </form>
-                </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="submit" class="btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     @endif
@@ -413,38 +415,37 @@
         <div class="anns">
             <div class="close-form" wire:click="closeJoinRequests"></div>
             <div class="add-announcement-container">
-                <div class="modal-dialog modal-md">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Event and Training Join Requests</h4>
-                            <button type="button" class="close" wire:click="closeJoinRequests">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <label style="margin-left: 20px; font-weight: 400;">Requests List</label>
-                        <div class="card card-primary">
-                            <div class="card-body">
-                                @if(empty($joinRequestsData[$joinEventId]))
-                                    <p>No Join Requests Yet...</p>
-                                @else
-                                    {{-- Display actual data --}}
-                                    @foreach($joinRequestsData[$joinEventId] as $requester)
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group requester">
-                                                    <label class="label" wire:click="showParticipantDetails('{{ $requester['user_id'] }}', '')">{{ $requester['name'] }}</label>
-                                                    <div class="btn-approval">
-                                                        <button class="btn-delete" wire:click="disapproveParticipant('{{ $requester['user_id'] }}')">Disapprove</button>
-                                                        <button class="btn-success" wire:click="approveParticipant('{{ $requester['user_id'] }}')" style="margin-right: 5px;">Approve</button>
-                                                    </div>
-                                                </div>
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h4 class="modal-title">Event and Training Join Requests</h4>
+                        <button type="button" class="close" wire:click="closeJoinRequests">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <label style="font-weight: 500;">Requests List</label>
+                        @if(empty($joinRequestsData[$joinEventId]))
+                            <p>No Join Requests Yet...</p>
+                        @else
+                            {{-- Display actual data --}}
+                            @foreach($joinRequestsData[$joinEventId] as $requester)
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group requester">
+                                            <label class="label" wire:click="showParticipantDetails('{{ $requester['user_id'] }}', '')">{{ $requester['name'] }}</label>
+                                            <div class="btn-approval">
+                                                <button class="btn-delete" wire:click="disapproveParticipant('{{ $requester['user_id'] }}')">Disapprove</button>
+                                                <button class="btn-success" wire:click="approveParticipant('{{ $requester['user_id'] }}')" style="margin-right: 5px;">Approve</button>
                                             </div>
                                         </div>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
+
                 </div>
             </div>
         </div>
@@ -454,41 +455,40 @@
         <div class="anns">
             <div class="close-form" wire:click="closeParticipantsForm"></div>
             <div class="add-announcement-container">
-                <div class="modal-dialog modal-md">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Event: {{ $volunteerEvent->event_name }}</h4>
-                            <button type="button" class="close" wire:click="closeParticipantsForm">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        @if(!empty($participants))
-                            <label style="margin-left: 20px; font-weight: 400;"><b>{{ count($participants) }}</b> Participant/s</label>
-                        @endif
-                        <div class="card card-primary">
-                            <div class="card-body">
-                                @if(empty($participants))
-                                    <p>No participants yet!</p>
-                                @else
-                                    
-                                    @foreach($participants as $participant)
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group requester">
-                                                    <label class="label" wire:click="showParticipantDetails('{{ $participant['id'] }}', '')">{{ $participant['name'] }}</label>
-                                                    @if($volunteerEvent->status !== "Completed")
-                                                        <div class="btn-approval">
-                                                            <button class="btn-delete" wire:click="disapproveParticipant('{{ $participant['id'] }}')">Remove</button>
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h4 class="modal-title">Event: {{ $volunteerEvent->event_name }}</h4>
+                        <button type="button" class="close" wire:click="closeParticipantsForm">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+
+                    <div class="modal-body">
+                        @if(!empty($participants))
+                            <label style="font-weight: 500;"><b>{{ count($participants) }}</b> Participant/s</label>
+                        @endif
+                        @if(empty($participants))
+                            <p>No participants yet!</p>
+                        @else
+                            
+                            @foreach($participants as $participant)
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group requester">
+                                            <label class="label" wire:click="showParticipantDetails('{{ $participant['id'] }}', '')">{{ $participant['name'] }}</label>
+                                            @if($volunteerEvent->status !== "Completed")
+                                                <div class="btn-approval">
+                                                    <button class="btn-delete" wire:click="disapproveParticipant('{{ $participant['id'] }}')">Remove</button>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -7,93 +7,92 @@
             <div class="card-body">
                 <center><h2 class="title reg-title">Registration Form</h2></center>
 
+                <form wire:submit.prevent="create" >
 
-                <form wire:submit="create" >
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">first name</label>
+                                <input class="input--style-4" type="text" wire:model.blur="first_name" name="first_name">
+                                @error('first_name') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">first name</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="first_name" name="first_name">
-                                    @error('first_name') <span class="text-danger small" style="color: red;">{{ $message }}</span>
-
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">last name</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="last_name" name="last_name">
-                                    @error('last_name') <span class="text-danger small" style="color: red;">{{ $message }}</span>
-
-                                    @enderror
-                                </div>
+                                @enderror
                             </div>
                         </div>
 
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">middle name</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="middle_name" name="middle_name">
-                                </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">last name</label>
+                                <input class="input--style-4" type="text" wire:model.blur="last_name" name="last_name">
+                                @error('last_name') <span class="text-danger small" style="color: red;">{{ $message }}</span>
+
+                                @enderror
                             </div>
-                            <div class="col-2">
+                        </div>
+                    </div>
+
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">middle name</label>
+                                <input class="input--style-4" type="text" wire:model.blur="middle_name" name="middle_name">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">nickname</label>
+                                <input class="input--style-4" type="text" wire:model.blur="nickname" name="nickname">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">date of birth</label>
                                 <div class="input-group">
-                                    <label class="label">nickname</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="nickname" name="nickname">
+                                    <input class="input--style-4" type="date" wire:model.blur="date_of_birth" name="date_of_birth" style="height: 50px;">
+                                    @error('date_of_birth') <span class="text-danger small" style="color: red;">The date of birth field is required</span>@enderror
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">date of birth</label>
-                                    <div class="input-group">
-                                        <input class="input--style-4" type="date" wire:model="date_of_birth" name="date_of_birth" style="height: 50px;">
-                                        @error('date_of_birth') <span class="text-danger small" style="color: red;">The date of birth field is required</span>@enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">civil status</label>
-                                        <select id="civil_status" class="label select-status" wire:model="civil_status">
-                                            <option class="label" value="">Select Civil Status</option>
-                                            <option class="label" value="Single">Single</option>
-                                            <option class="label" value="Married">Married</option>
-                                            <option class="label" value="Widowed">Widowed</option>
-                                            <option class="label" value="Legally Separated">Legally Separated</option>
-                                        </select>
-                                    @error('civil_status')
-                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">civil status</label>
+                                    <select id="civil_status" class="label select-status" wire:model.blur="civil_status">
+                                        <option class="label" value="">Select Civil Status</option>
+                                        <option class="label" value="Single">Single</option>
+                                        <option class="label" value="Married">Married</option>
+                                        <option class="label" value="Widowed">Widowed</option>
+                                        <option class="label" value="Legally Separated">Legally Separated</option>
+                                    </select>
+                                @error('civil_status')
+                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
+                    </div>
 
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">age</label>
-                                    <input class="input--style-4" type="number" wire:model.blur="age" name="age">
-                                    @error('age') <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">age</label>
+                                <input class="input--style-4" type="number" wire:model.blur="age" name="age">
+                                @error('age') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">nationality</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="nationality" name="nationality">
-                                    @error('nationality') <span class="text-danger small" style="color: red;">{{ $message }}</span>
-
-                                    @enderror
-                                </div>
+                                @enderror
                             </div>
                         </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">nationality</label>
+                                <input class="input--style-4" type="text" wire:model.blur="nationality" name="nationality">
+                                @error('nationality') <span class="text-danger small" style="color: red;">{{ $message }}</span>
+
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row row-space">
                         <div class="col-2">
@@ -149,8 +148,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
+                    </div>
+                    
                     <fieldset class="fieldset">
                             <legend class="label">Permanent Address</legend>
                             <div class="row row-space">
@@ -229,83 +228,94 @@
                             </div>
                     </fieldset>
 
-                        <div class="input-group">
-                            <label class="label">Status</label>
-                            <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                <select class="label select-status" id="status" wire:model="status" name="status">
-                                    <option selected value="" class="label">Choose option</option>
-                                    <option value="Student" class="label">Student</option>
-                                    <option value="Professional" class="label">Professional</option>
-                                </select>
-                                <div class="select-dropdown"></div>
-                                @error('status') <span class="text-danger small" style="color: red;">The status field is required</span> @enderror
+                    <div class="row row-space">
+                        <div class="col-4" style="width: 100%">
+                            <div class="input-group">
+                                <label class="label">Educational Background</label>
+                                <input class="input--style-4" type="text" wire:model.blur="educational_background" name="educational_background">
+                                @error('educational_background') <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
+                    </div>
 
-                        <div class="row row-space student-details" @if($status != 'Student') style="display: none;" @endif>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">School name</label>
-                                    <input class="input--style-4" type="text" wire:model="name_of_school" name="name_of_school">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Course</label>
-                                    <input class="input--style-4" type="text" wire:model="course" name="course">
-                                </div>
-                            </div>
+                    <div class="input-group">
+                        <label class="label">Status</label>
+                        <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
+                            <select class="label select-status" id="status" wire:model.blur="status" name="status">
+                                <option selected value="" class="label">Choose option</option>
+                                <option value="Student" class="label">Student</option>
+                                <option value="Professional" class="label">Professional</option>
+                            </select>
+                            <div class="select-dropdown"></div>
+                            @error('status') <span class="text-danger small" style="color: red;">The status field is required</span> @enderror
                         </div>
+                    </div>
 
-                        <div class="row row-space professional-details" @if($status != 'Professional') style="display: none;" @endif>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Nature of work</label>
-                                    <input class="input--style-4" type="text" wire:model="nature_of_work" name="nature_of_work">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Employer</label>
-                                    <input class="input--style-4" type="text" wire:model="employer" name="employer">
-                                </div>
+                    <div class="row row-space student-details" @if($status != 'Student') style="display: none;" @endif>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">School name</label>
+                                <input class="input--style-4" type="text" wire:model="name_of_school" name="name_of_school">
                             </div>
                         </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Course</label>
+                                <input class="input--style-4" type="text" wire:model="course" name="course">
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">An organization member</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">
-                                            Yes
-                                            <input class="org-r1" type="radio" wire:model="is_org_member" value="yes">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">
-                                            No
-                                            <input class="org-r2" type="radio" wire:model="is_org_member" value="no">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
+                    <div class="row row-space professional-details" @if($status != 'Professional') style="display: none;" @endif>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Nature of work</label>
+                                <input class="input--style-4" type="text" wire:model="nature_of_work" name="nature_of_work">
                             </div>
                         </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Employer</label>
+                                <input class="input--style-4" type="text" wire:model="employer" name="employer">
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="row row-space org-detail" @if($is_org_member == 'no') style="display: none;" @endif>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Organization name</label>
-                                    <input class="input--style-4" type="text" wire:model="organization_name" name="organization_name">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Position</label>
-                                    <input class="input--style-4" type="text" wire:model="org_position" name="org_position">
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">An organization member</label>
+                                <div class="p-t-10">
+                                    <label class="radio-container m-r-45">
+                                        Yes
+                                        <input class="org-r1" type="radio" wire:model="is_org_member" value="yes">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="radio-container">
+                                        No
+                                        <input class="org-r2" type="radio" wire:model="is_org_member" value="no">
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row row-space org-detail" @if($is_org_member == 'no') style="display: none;" @endif>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Organization name</label>
+                                <input class="input--style-4" type="text" wire:model="organization_name" name="organization_name">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Position</label>
+                                <input class="input--style-4" type="text" wire:model="org_position" name="org_position">
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row row-space">
                         <div class="input-group">
@@ -319,13 +329,13 @@
 
                                 @enderror
 
-                                    <label class="checkbox-container">International Program Participant?
-                                        <input type="checkbox" wire:model="is_ip_participant" name="is_ip_participant">
-                                    </label>
-                                </div>
+                                <label class="checkbox-container">International Program Participant?
+                                    <input type="checkbox" wire:model="is_ip_participant" name="is_ip_participant">
+                                </label>
                             </div>
                         </div>
-
+                    </div>
+                    
                     <div class="row row-space">
                         <div class="col-2">
                             <div class="input-group">
@@ -349,13 +359,12 @@
 
                     <div class="row row-space">
                         <div class="col-2">
-                            <div wire:loading.delay.longest>
-                                <label class="label" style="font-style: italic; color: green;">Submitting ...</label>
+                            <div class="p-t-15 reg-btn-holder">
+                                <button  class="register-button" type="submit" wire:loading.attr="disabled">Submit</button>
+                                {{-- <div wire:loading wire:target="create" class="loading-container">
+                                    <div class="loading-spinner"></div>
+                                </div> --}}
                             </div>
-                            <div class="p-t-15" wire:loading.attr="disabled">
-                                <button  class="register-button" type="submit" >Submit</button>
-                            </div>
-
                         </div>
                         <div class="col-2">
                             <div class="to-login-button">
@@ -363,6 +372,7 @@
                             </div>
                         </div>
                     </div>
+
                     @if(session()->has('successMessage'))
                         <br>
                         <div class="alert alert-success" role="alert" style="background-color: #dff0d8; border-color: #d6e9c6; color: #3c763d; padding: 15px; display: flex; justify-content: center; align-items: center;">

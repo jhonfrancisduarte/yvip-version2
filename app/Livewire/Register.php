@@ -4,63 +4,41 @@ namespace App\Livewire;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use App\Models\User;
-use App\Models\UserData;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use App\Models\PhilippineProvinces;
 use App\Models\PhilippineCities;
 use Illuminate\Support\Str;
 
 class Register extends Component
 {
-    #[Rule('required|min:2')]
     public $first_name;
-    #[Rule('required|min:2')]
     public $last_name;
-    #[Rule('required|min:2')]
     public $middle_name;
     public $nickname;
-    #[Rule('required')]
     public $date_of_birth;
-    #[Rule('required')]
     public $civil_status;
-    #[Rule('required')]
     public $age;
-    #[Rule('required')]
     public $nationality;
     public $tel_number;
-    #[Rule(['required', 'regex:/^\+639\d{9}$|^\d{11}$/'])]
     public $mobile_number;
     public $email;
-    #[Rule('required|max:4|min:1')]
     public $blood_type;
-    #[Rule('required')]
     public $sex;
-    #[Rule('required')]
     public $permanent_selectedProvince;
-    #[Rule('required')]
     public $permanent_selectedCity;
-    #[Rule('required')]
     public $p_street_barangay;
-    #[Rule('required')]
     public $residential_selectedProvince;
-    #[Rule('required')]
     public $residential_selectedCity;
-    #[Rule('required')]
     public $r_street_barangay;
-    #[Rule('required')]
     public $educational_background;
-    #[Rule('required|min:2')]
     public $status;
     public $nature_of_work;
     public $employer;
     public $profile_picture = "";
     public $name_of_school;
     public $course;
-    public $is_org_member = 'yes';
+    public $is_org_member = 'no';
     public $organization_name;
     public $org_position;
-    #[Rule('required')]
     public $is_volunteer = true;
     public $is_ip_participant;
     public $user_role = "yv";
@@ -71,6 +49,30 @@ class Register extends Component
     public $rcities;
     public $permanent_cities;
     public $residential_cities;
+
+    protected $rules = [
+        'first_name' => 'required|min:2',
+        'last_name' => 'required|min:2',
+        'middle_name' => 'required|min:2',
+        'date_of_birth' => 'required|date',
+        'civil_status' => 'required',
+        'age' => 'required|numeric',
+        'nationality' => 'required',
+        'mobile_number' => ['required', 'regex:/^\+639\d{9}$|^\d{11}$/'],
+        'blood_type' => 'required|max:4|min:1',
+        'sex' => 'required',
+        'permanent_selectedProvince' => 'required',
+        'permanent_selectedCity' => 'required',
+        'p_street_barangay' => 'required',
+        'residential_selectedProvince' => 'required',
+        'residential_selectedCity' => 'required',
+        'r_street_barangay' => 'required',
+        'educational_background' => 'required',
+        'status' => 'required|min:2',
+        'is_volunteer' => 'required',
+        'password' => 'required|min:8',
+        'c_password' => 'required|same:password',
+    ];
 
     public function mount(){
         $this->permanent_selectedProvince = null;
@@ -86,11 +88,6 @@ class Register extends Component
         $this->pcities = collect();
         $this->rcities = collect();
     }
-
-    protected $rules = [
-        'password' => 'required|min:8',
-        'c_password' => 'required|same:password',
-    ];
 
     protected $messages = [
         'password.required' => 'The password field is required.',
@@ -131,7 +128,6 @@ class Register extends Component
         $this->permanent_selectedCity = Str::ucfirst(Str::lower($this->permanent_selectedCity));
         $this->residential_selectedProvince = Str::ucfirst(Str::lower($this->residential_selectedProvince));
         $this->residential_selectedCity = Str::ucfirst(Str::lower($this->residential_selectedCity));
-        sleep(1);
         try {
             $this->validate();
             if (!$this->isPasswordComplex($this->password)) {
@@ -144,6 +140,7 @@ class Register extends Component
             }
 
             $passportNumber = 'YVIP' . date('Y') . $this->generateUserId();
+
             $user = User::create([
                 'id' => Str::uuid(),
                 'email' => $this->email,
@@ -189,7 +186,6 @@ class Register extends Component
 
             $this->reset();
             session()->flash('successMessage', 'Successfully Registered! Please Wait for admin activation!');
-            sleep(1);
             return redirect('/registered');
         } catch (\Exception $e) {
             throw $e;
@@ -202,6 +198,7 @@ class Register extends Component
         $containsSpecialChar = preg_match('/[^A-Za-z0-9]/', $password); // Changed regex to include special characters
         return $containsUppercase && $containsNumber && $containsSpecialChar;
     }
+
     private function generateUserId() {
         // $latestUserData = UserData::latest()->first();
         // $nextUserId = $latestUserData ? $latestUserData->user_id + 1 : 1;

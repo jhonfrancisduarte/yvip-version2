@@ -140,62 +140,71 @@
     </div>
 
     @if($deleteAdminId)
-        <div class="users-data-all-container no-padding">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="hideDeleteDialog"></div>
-            <div class="user-info user-infos">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirm Deactivation</h5>
-                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @if($deleteMessage)
-                        <p style="color: green;">{{ $deleteMessage }}</p>
-                    @else
-                        <p>Are you sure you want to deactivate this admin?</p>
-                    @endif
-                </div>
+            <div class="add-announcement-container">
+                <div class="modal-content">
 
-                <div class="modal-footer">
-                    @if($disableButton == "No")
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
-                        <button class="btn-warning" wire:click="deleteAdmin('{{ $deleteAdminId }}')">Deactivate</button>
-                    @else
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
-                    @endif
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Deactivation</h5>
+                        <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        @if($deleteMessage)
+                            <p style="color: green;">{{ $deleteMessage }}</p>
+                        @else
+                            <p>Are you sure you want to deactivate this admin?</p>
+                        @endif
+                    </div>
+
+                    <div class="modal-footer">
+                        @if($disableButton == "No")
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                            <button class="btn-warning" wire:click="deleteAdmin('{{ $deleteAdminId }}')">Deactivate</button>
+                        @else
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                        @endif
+                    </div>
+
                 </div>
             </div>
         </div>
     @endif
 
     @if($reactivateAdminId)
-        <div class="users-data-all-container no-padding">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="hideReactivateDialog"></div>
-            <div class="user-info user-infos">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirm Activate</h5>
-                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="add-announcement-container">
+                <div class="modal-content">
 
-                <div class="modal-body">
-                    @if($deleteMessage)
-                        <p style="color: green;">{{ $deleteMessage }}</p>
-                    @else
-                        <p>Are you sure you want to activate this admin?</p>
-                    @endif
-                </div>
-
-                <div class="modal-footer">
-                    @if($disableButton == "No")
-                        <button class="btn-success" wire:click="reactivateVolunteer('{{ $reactivateAdminId }}')" wire:loading.attr="disabled">Yes
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Activate</h5>
+                        <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                            <span aria-hidden="true">&times;</span>
                         </button>
-                        <button class="btn-cancel" wire:click="hideReactivateDialog">Cancel</button>
-                    @else
-                        <button class="btn-cancel" wire:click="hideReactivateDialog">Close</button>
-                    @endif
+                    </div>
+
+                    <div class="modal-body">
+                        @if($deleteMessage)
+                            <p style="color: green;">{{ $deleteMessage }}</p>
+                        @else
+                            <p>Are you sure you want to activate this admin?</p>
+                        @endif
+                    </div>
+
+                    <div class="modal-footer">
+                        @if($disableButton == "No")
+                            <button class="btn-success" wire:click="reactivateVolunteer('{{ $reactivateAdminId }}')" wire:loading.attr="disabled">Yes
+                            </button>
+                            <button class="btn-cancel" wire:click="hideReactivateDialog">Cancel</button>
+                        @else
+                            <button class="btn-cancel" wire:click="hideReactivateDialog">Close</button>
+                        @endif
+                    </div>
+                    
                 </div>
             </div>
         </div>

@@ -200,95 +200,105 @@
     </div>
 
     @if($deleteVolunteerId)
-        <div class="users-data-all-container no-padding">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="hideDeleteDialog"></div>
-            <div class="user-info user-infos">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirm Delete</h5>
-                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="add-announcement-container">
+                <div class="modal-content">
 
-                <div class="modal-body">
-                    @if($deleteMessage)
-                        <p style="color: green;">{{ $deleteMessage }}</p>
-                    @else
-                        <p>Are you sure you want to delete this volunteer?</p>
-                    @endif
-                </div>
-                
-                <div class="modal-footer">
-                    @if($disableButton == "No")
-                        <button class="btn-delete" wire:click="deleteVolunteer('{{ $deleteVolunteerId }}')" wire:loading.attr="disabled">Yes</button>
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
-                    @else
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
-                    @endif
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Delete</h5>
+                        <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        @if($deleteMessage)
+                            <p style="color: green;">{{ $deleteMessage }}</p>
+                        @else
+                            <p>Are you sure you want to delete this volunteer?</p>
+                        @endif
+                    </div>
+                    
+                    <div class="modal-footer">
+                        @if($disableButton == "No")
+                            <button class="btn-delete" wire:click="deleteVolunteer('{{ $deleteVolunteerId }}')" wire:loading.attr="disabled">Yes</button>
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                        @else
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                        @endif
+                    </div>
+
                 </div>
             </div>
         </div>    
     @endif
 
     @if($deactVolunteerId)
-        <div class="users-data-all-container no-padding">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="hideDeleteDialog"></div>
-            <div class="user-info user-infos">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirm Deactivate</h5>
-                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="add-announcement-container">
+                <div class="modal-content">
 
-                <div class="modal-body">
-                    @if($deleteMessage)
-                        <p style="color: green;">{{ $deleteMessage }}</p>
-                    @else
-                        <p>Are you sure you want to deactivate this volunteer?</p>
-                    @endif
-                </div>
-                
-                <div class="modal-footer">
-                    @if($disableButton == "No")
-                        <button class="btn-delete" wire:click="deactivateVolunteer('{{ $deactVolunteerId }}')" wire:loading.attr="disabled">Yes</button>
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
-                    @else
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
-                    @endif
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Deactivate</h5>
+                        <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        @if($deleteMessage)
+                            <p style="color: green;">{{ $deleteMessage }}</p>
+                        @else
+                            <p>Are you sure you want to deactivate this volunteer?</p>
+                        @endif
+                    </div>
+                    
+                    <div class="modal-footer">
+                        @if($disableButton == "No")
+                            <button class="btn-delete" wire:click="deactivateVolunteer('{{ $deactVolunteerId }}')" wire:loading.attr="disabled">Yes</button>
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                        @else
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                        @endif
+                    </div>
+
                 </div>
             </div>
         </div>    
     @endif
 
     @if($reactivateVolunteerId)
-        <div class="users-data-all-container no-padding">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="hideReactivateDialog"></div>
-            <div class="user-info user-infos">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirm Activate</h5>
-                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="add-announcement-container">
+                <div class="modal-content">
 
-                <div class="modal-body">
-                    @if($deleteMessage)
-                        <p style="color: green;">{{ $deleteMessage }}</p>
-                    @else
-                        <p>Are you sure you want to activate this volunteer?</p>
-                    @endif
-                </div>
-                
-                <div class="modal-footer">
-                    @if($disableButton == "No")
-                        <button class="btn-success" wire:click="reactivateVolunteer('{{ $reactivateVolunteerId }}')" wire:loading.attr="disabled">Yes
-                            {{-- <div class="loader" wire:loading></div> --}}
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Activate</h5>
+                        <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                            <span aria-hidden="true">&times;</span>
                         </button>
-                        <button class="btn-cancel" wire:click="hideReactivateDialog">Cancel</button>
-                    @else
-                        <button class="btn-cancel" wire:click="hideReactivateDialog">Close</button>
-                    @endif
+                    </div>
+
+                    <div class="modal-body">
+                        @if($deleteMessage)
+                            <p style="color: green;">{{ $deleteMessage }}</p>
+                        @else
+                            <p>Are you sure you want to activate this volunteer?</p>
+                        @endif
+                    </div>
+                    
+                    <div class="modal-footer">
+                        @if($disableButton == "No")
+                            <button class="btn-success" wire:click="reactivateVolunteer('{{ $reactivateVolunteerId }}')" wire:loading.attr="disabled">Yes</button>
+                            <button class="btn-cancel" wire:click="hideReactivateDialog">Cancel</button>
+                        @else
+                            <button class="btn-cancel" wire:click="hideReactivateDialog">Close</button>
+                        @endif
+                    </div>
+
                 </div>
             </div>
         </div>    
@@ -415,22 +425,31 @@
                                     </thead>
         
                                     <tbody>
-                                        @foreach($groupedSkills as $categoryName => $skills)
-                                            <tr class="recordRow">
-                                                <td class="categoryColumn">
-                                                    <div>
-                                                        <p>{{ $categoryName }}</p>
-                                                    </div>
+                                        @if(!$groupedSkills->isEmpty())
+                                            @foreach($groupedSkills as $categoryName => $skills)
+                                                <tr class="recordRow">
+                                                    <td class="categoryColumn">
+                                                        <div>
+                                                            <p>{{ $categoryName }}</p>
+                                                        </div>
+                                                    </td>
+                                                    <td class="skillsColumn">
+                                                        <div>
+                                                        @foreach($skills as $skill)
+                                                            <li>{{ $skill->all_skills_name }}</li>
+                                                        @endforeach
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td style="color: #ccc;">
+                                                   No Categories Yet
                                                 </td>
-                                                <td class="skillsColumn">
-                                                    <div>
-                                                    @foreach($skills as $skill)
-                                                        <li>{{ $skill->all_skills_name }}</li>
-                                                    @endforeach
-                                                    </div>
-                                                </td>
+                                                <td></td>
                                             </tr>
-                                        @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
 
@@ -448,14 +467,22 @@
                                             <td>Participation</td>
                                         </tr>
                                     </tbody>
-        
                                     <tbody>
-                                        @foreach($volunteerExperiences as $experience)
-                                            <tr class="recordRow">
-                                                <td>{{ $experience->nature_of_event }}</td>
-                                                <td>{{ $experience->participation }}</td>
+                                        @if(!$volunteerExperiences->isEmpty())
+                                            @foreach($volunteerExperiences as $experience)
+                                                <tr class="recordRow">
+                                                    <td>{{ $experience->nature_of_event }}</td>
+                                                    <td>{{ $experience->participation }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td style="color: #ccc;">
+                                                    No Experience Yet
+                                                </td>
+                                                <td></td>
                                             </tr>
-                                        @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
 

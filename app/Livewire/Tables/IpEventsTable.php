@@ -472,6 +472,7 @@ class IpEventsTable extends Component
     }
     public function closeSubmissionsTable(){
         $this->ppoSubmisions = null;
+        $this->options = null;
     }
 
     public function viewParticipants($eventId){

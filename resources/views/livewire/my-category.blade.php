@@ -6,6 +6,7 @@
 
 @section('css')
     <link rel="stylesheet" href="css/category.css">
+    <link rel="stylesheet" href="css/announcement.css">
 @endsection
 
 @section('content')

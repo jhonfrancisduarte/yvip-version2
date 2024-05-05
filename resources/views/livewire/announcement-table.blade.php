@@ -99,93 +99,94 @@
             <div class="anns">
                 <div class="close-form" wire:click="closeAddForm"></div>
                 <div class="add-announcement-container">
-                    <div class="modal-dialog modal-md">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add Announcement</h4>
-                                <button type="button" class="close" wire:click="closeAddForm">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form enctype="multipart/form-data" wire:submit='createAnnouncement'>
-                                <div class="card card-primary">
-                                    <div class="card-body">
-                                        
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label>Title</label>
-                                                    <input type="text" class="form-control" row="5" wire:model.live='title' placeholder="Title..." required>
-                                                    @error('title') 
-                                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="modal-content">
 
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label>Your Announcement</label>
-                                                    <textarea id="announcement" class="form-control" rows="5" wire:model.live="content" placeholder="Enter announcement..." required></textarea>
-                                                    @error('content') 
-                                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Category</label>
-                                                    <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                                        <select  class="form-control select-status" id="category" wire:model.blur="category" name="category" required>
-                                                            <option selected class="form-control">Choose option</option>
-                                                            <option value="Training" class="form-control">Training</option>
-                                                            <option value="Event" class="form-control">Event</option>    
-                                                        </select>
-                                                        <div class="select-dropdown"></div>
-                                                    </div>
-                                                    @error('category') 
-                                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">     
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <div wire:loading wire:target="featured_image" class="loading-container">
-                                                        <div class="loading-spinner"></div>
-                                                    </div>
-                                                    <label class="label">Add Featured Image</label>
-                                                    <input type="file" accept="image/*" wire:model.live='featured_image'/>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">     
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <div wire:loading wire:target="file" class="loading-container">
-                                                        <div class="loading-spinner"></div>
-                                                    </div>
-                                                    <label class="label">Attach File</label>
-                                                    <input type="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="modal-footer justify-content-between">
-                                        <button class="btn-success" type="submit" wire:loading.attr="disabled">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Announcement</h4>
+                            <button type="button" class="close" wire:click="closeAddForm">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+
+                        <form enctype="multipart/form-data" wire:submit='createAnnouncement'>
+                            <div class="card card-primary">
+                                <div class="card-body">
+                                    
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Title</label>
+                                                <input type="text" class="form-control" row="5" wire:model.live='title' placeholder="Title..." required>
+                                                @error('title') 
+                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Your Announcement</label>
+                                                <textarea id="announcement" class="form-control" rows="5" wire:model.live="content" placeholder="Enter announcement..." required></textarea>
+                                                @error('content') 
+                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Category</label>
+                                                <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
+                                                    <select  class="form-control select-status" id="category" wire:model.blur="category" name="category" required>
+                                                        <option selected class="form-control">Choose option</option>
+                                                        <option value="Training" class="form-control">Training</option>
+                                                        <option value="Event" class="form-control">Event</option>    
+                                                    </select>
+                                                    <div class="select-dropdown"></div>
+                                                </div>
+                                                @error('category') 
+                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">     
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div wire:loading wire:target="featured_image" class="loading-container">
+                                                    <div class="loading-spinner"></div>
+                                                </div>
+                                                <label class="label">Add Featured Image</label>
+                                                <input type="file" accept="image/*" wire:model.live='featured_image'/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">     
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div wire:loading wire:target="file" class="loading-container">
+                                                    <div class="loading-spinner"></div>
+                                                </div>
+                                                <label class="label">Attach File</label>
+                                                <input type="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer justify-content-between">
+                                    <button class="btn-success" type="submit" wire:loading.attr="disabled">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -195,122 +196,127 @@
             <div class="anns">
                 <div class="close-form" wire:click="closeEditForm"></div>
                 <div class="add-announcement-container">
-                    <div class="modal-dialog modal-md">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Edit Announcement</h4>
-                                <button type="button" class="close" wire:click="closeEditForm">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form enctype="multipart/form-data" wire:submit.prevent='editAnnouncement'>
-                                <div class="card card-primary">
-                                    <div class="card-body">
-                                        
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label>Title</label>
-                                                    <input type="text" class="form-control" row="5" wire:model.live='title' placeholder="Title..." value="{{ $title }}" required>
-                                                    @error('title') 
-                                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="modal-content">
 
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label>Your Announcement</label>
-                                                    <textarea class="form-control" rows="5" wire:model.live="content" required>{{ $content }}</textarea>
-                                                    @error('content') 
-                                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Category</label>
-                                                    <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                                        <select  class="form-control select-status" id="category" wire:model.blur="category" name="category" required>
-                                                            <option selected class="form-control">Choose option</option>
-                                                            <option value="Training" class="form-control">Training</option>
-                                                            <option value="Event" class="form-control">Event</option>    
-                                                        </select>
-                                                        <div class="select-dropdown"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">     
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <div wire:loading wire:target="featured_image" class="loading-container">
-                                                        <div class="loading-spinner"></div>
-                                                    </div>
-                                                    <label class="label">Add Featured Image</label>
-                                                    <input type="file" accept="image/*" id="featured_image" wire:model.live='featured_image'/>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">     
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <div wire:loading wire:target="file" class="loading-container">
-                                                        <div class="loading-spinner"></div>
-                                                    </div>
-                                                    <label class="label">Attach File</label>
-                                                    <input type="file" id="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="modal-footer justify-content-between">
-                                        <button class="btn-success" type="submit" wire:loading.attr="disabled">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edit Announcement</h4>
+                            <button type="button" class="close" wire:click="closeEditForm">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+
+                        <form enctype="multipart/form-data" wire:submit.prevent='editAnnouncement'>
+                            <div class="card card-primary">
+                                <div class="card-body">
+                                    
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Title</label>
+                                                <input type="text" class="form-control" row="5" wire:model.live='title' placeholder="Title..." value="{{ $title }}" required>
+                                                @error('title') 
+                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Your Announcement</label>
+                                                <textarea class="form-control" rows="5" wire:model.live="content" required>{{ $content }}</textarea>
+                                                @error('content') 
+                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Category</label>
+                                                <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
+                                                    <select  class="form-control select-status" id="category" wire:model.blur="category" name="category" required>
+                                                        <option selected class="form-control">Choose option</option>
+                                                        <option value="Training" class="form-control">Training</option>
+                                                        <option value="Event" class="form-control">Event</option>    
+                                                    </select>
+                                                    <div class="select-dropdown"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">     
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div wire:loading wire:target="featured_image" class="loading-container">
+                                                    <div class="loading-spinner"></div>
+                                                </div>
+                                                <label class="label">Add Featured Image</label>
+                                                <input type="file" accept="image/*" id="featured_image" wire:model.live='featured_image'/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">     
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div wire:loading wire:target="file" class="loading-container">
+                                                    <div class="loading-spinner"></div>
+                                                </div>
+                                                <label class="label">Attach File</label>
+                                                <input type="file" id="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer justify-content-between">
+                                    <button class="btn-success" type="submit" wire:loading.attr="disabled">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
         @endif
 
         @if($deleteAnnouncementId)
-            <div class="users-data-all-container no-padding">
+            <div class="anns anns-full-h">
                 <div class="close-form" wire:click="hideDeleteDialog"></div>
-                <div class="user-info user-infos">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Confirm Delete</h5>
-                        <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                <div class="add-announcement-container">
+                    <div class="modal-content">
 
-                    <div class="modal-body">
-                        @if($deleteMessage)
-                            <p style="color: green;">{{ $deleteMessage }}</p>
-                        @else
-                            <p>Are you sure you want to delete this announcement?</p>
-                        @endif
-                    </div>
-                    
-                    <div class="modal-footer">
-                        @if($disableButton == "No")
-                            <button class="btn-delete" wire:click="deleteAnnouncement({{ $deleteAnnouncementId }})" wire:loading.attr="disabled">Yes
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirm Delete</h5>
+                            <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                                <span aria-hidden="true">&times;</span>
                             </button>
-                            <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
-                        @else
-                            <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
-                        @endif
+                        </div>
+
+                        <div class="modal-body">
+                            @if($deleteMessage)
+                                <p style="color: green;">{{ $deleteMessage }}</p>
+                            @else
+                                <p>Are you sure you want to delete this announcement?</p>
+                            @endif
+                        </div>
+                        
+                        <div class="modal-footer">
+                            @if($disableButton == "No")
+                                <button class="btn-delete" wire:click="deleteAnnouncement({{ $deleteAnnouncementId }})" wire:loading.attr="disabled">Yes
+                                </button>
+                                <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                            @else
+                                <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                            @endif
+                        </div>
+
                     </div>
                 </div>
             </div>    

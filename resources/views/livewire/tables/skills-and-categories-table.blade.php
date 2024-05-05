@@ -79,31 +79,35 @@
     </div>
 
     @if($deleteCategoryId)
-        <div class="users-data-all-container no-padding">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="hideDeleteDialog"></div>
-            <div class="user-info user-infos">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirm Delete</h5>
-                    <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="add-announcement-container">
+                <div class="modal-content">
 
-                <div class="modal-body">
-                    @if($deleteMessage)
-                        <p style="color: green;">{{ $deleteMessage }}</p>
-                    @else
-                        <p>Are you sure you want to deactivate this category?</p>
-                    @endif
-                </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Delete</h5>
+                        <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
-                <div class="modal-footer">
-                    @if($disableButton == "No")
-                        <button class="btn-delete" wire:click="deleteCategory" wire:loading.attr="disabled">Yes</button>
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
-                    @else
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
-                    @endif
+                    <div class="modal-body">
+                        @if($deleteMessage)
+                            <p style="color: green;">{{ $deleteMessage }}</p>
+                        @else
+                            <p>Are you sure you want to deactivate this category?</p>
+                        @endif
+                    </div>
+
+                    <div class="modal-footer">
+                        @if($disableButton == "No")
+                            <button class="btn-delete" wire:click="deleteCategory" wire:loading.attr="disabled">Yes</button>
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                        @else
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                        @endif
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -114,63 +118,62 @@
             <div class="close-form" wire:click="closeAddForm"></div>
             <div class="add-announcement-container">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add skills and category</h4>
-                        <button type="button" class="close" wire:click="closeAddForm">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
                     <form wire:submit.prevent='createCategory'>
-                        <div class="card card-primary">
-                            <div class="card-body">
 
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Category Name</label>
-                                            <input type="text" class="form-control" row="5" wire:model.live='category_name' placeholder="Category name..." required>
-                                            @error('category_name')
-                                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                            @enderror
-                                        </div>
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add skills and category</h4>
+                            <button type="button" class="close" wire:click="closeAddForm">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Category Name</label>
+                                        <input type="text" class="form-control" row="5" wire:model.live='category_name' placeholder="Category name..." required>
+                                        @error('category_name')
+                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Description</label>
-                                            <textarea class="form-control" row="5" wire:model.live='description' placeholder="Description" required></textarea>
-                                            @error('description')
-                                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Add Skills / Task</label>
-                                            @foreach($newSkills as $index => $skill)
-                                                <div class="add-edit-skill-input">
-                                                    <input type="text" class="form-control skill-form-control" wire:model="newSkills.{{ $index }}" placeholder="Add skill/task" required>
-                                                    <button type="button" class="close" wire:click="removeSkill({{ $index }})"><span aria-hidden="true">&times;</span></button>
-                                                </div>
-                                            @endforeach
-                                            <p class="btn-submit" wire:click="addSkill">
-                                                <i class="bi bi-plus-lg"></i>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
-
-                            <div class="modal-footer justify-content-between">
-                                <button class="btn-success" type="submit">Submit</button>
+        
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea class="form-control" row="5" wire:model.live='description' placeholder="Description" required></textarea>
+                                        @error('description')
+                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Add Skills / Task</label>
+                                        @foreach($newSkills as $index => $skill)
+                                            <div class="add-edit-skill-input">
+                                                <input type="text" class="form-control skill-form-control" wire:model="newSkills.{{ $index }}" placeholder="Add skill/task" required>
+                                                <button type="button" class="close" wire:click="removeSkill({{ $index }})"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                        @endforeach
+                                        <p class="btn-submit" wire:click="addSkill">
+                                            <i class="bi bi-plus-lg"></i>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="modal-footer justify-content-between">
+                            <button class="btn-success" type="submit">Submit</button>
+                        </div>
+
                     </form>
                 </div>
             </div>
