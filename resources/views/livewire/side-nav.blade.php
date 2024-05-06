@@ -49,7 +49,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                <a href="{{ route('participated-yv-events') }}" class="nav-link {{ request()->routeIs('participated-yv-events') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('participated-yv-events') }}" class="nav-link {{ request()->routeIs('participated-yv-events') ? 'active' : '' }}">
                                     <i class="nav-icon bi bi-card-checklist"></i>
                                     <p>
                                         Participated YV Events

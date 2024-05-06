@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Tables;
 
+use App\Models\RewardClaim;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\IpEvents;
@@ -28,13 +29,19 @@ class VirtualPassportTable extends Component
         $this->totalVolunteeringHours = $this->getTotalVolunteeringHours();
     }
 
-    private function getTotalVolunteeringHours()
-    {
-        // Get the current authenticated user
+    private function getTotalVolunteeringHours(){
         $user = Auth::user();
-
-        // Retrieve the total volunteering hours for the user
-        return $user->rewardClaim->total_hours;
+        $rewardClaim = RewardClaim::where('user_id', $user->id)->first();
+        if($user && $rewardClaim){
+            $totalHours = $user->rewardClaim->total_hours;
+            if($totalHours){
+                return $totalHours;
+            }else{
+                return 'None';
+            }
+        }else{
+            return 'None';
+        }
     }
 
     private function getUserIpEvents()

@@ -290,9 +290,7 @@
                                             <select class="form-control" wire:model="category"> 
                                                 <option value="">Categories</option> 
                                                 @foreach ($categories as $item)
-                                                    @if($item->id !== 1)
-                                                        <option value="{{ $item->all_categories_name }}">{{ $item->all_categories_name }}</option> 
-                                                    @endif
+                                                    <option value="{{ $item->all_categories_name }}">{{ $item->all_categories_name }}</option> 
                                                 @endforeach 
                                             </select>
                                             <button type="button" class="btn-submit" wire:click='addTag' style="margin-left: 10px;"><i class="bi bi-plus-lg"></i></button>
@@ -663,8 +661,8 @@
                     <table id="volunteers-table" class="table-main">
                         <thead>
                             <tr>
-                                <th  width="40%">Skills and Category</th>
-                                <th  width="60%">Skills and Category</th>
+                                <th  width="40%">Category</th>
+                                <th  width="60%">Skills</th>
                             </tr>
                         </thead>
 

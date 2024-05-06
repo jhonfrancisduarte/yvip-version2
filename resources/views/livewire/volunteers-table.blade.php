@@ -419,8 +419,8 @@
                                 <table id="volunteers-table" class="table-main">
                                     <thead>
                                         <tr>
-                                            <th  width="40%">Skills and Category</th>
-                                            <th  width="60%">Skills and Category</th>
+                                            <th  width="40%">Category</th>
+                                            <th  width="60%">Skills</th>
                                         </tr>
                                     </thead>
         

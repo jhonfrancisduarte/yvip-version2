@@ -1,6 +1,6 @@
 <section class="content profile-content">
 
-    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
+    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important; opacity: 1;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -170,26 +170,17 @@
                     <div class="user-info">
                         <div class="edit-title">
                             <h5>Edit profile</h5>
-                            <button class="btn-cancel" wire:click.live="closeEditMyInfo">Cancel</button>  
+                            <button class="btn-cancel" wire:click.live="closeEditMyInfo">Close</button>  
                         </div>
                         
                         <div class="row1">
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Firstname: <span>{{ $user ? $user['first_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('first_name')"></i></label>
-                                </div>
-                            </div>
-                            <div class="col2">
-                                <div class="user-data">
-                                    <label class="label">Lastname: <span>{{ $user ? $user['last_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('last_name')"></i></label>
-                                </div>
-                            </div>
-                        </div>
-        
-                        <div class="row1">
-                            <div class="col2">
-                                <div class="user-data">
-                                    <label class="label">Middlename: <span>{{ $user ? $user['middle_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('middle_name')"></i></label>
+                                    <label class="label">Fullname: 
+                                        <span>{{ $user ? $user['first_name'] : '' }} {{ $user ? $user['middle_name'] : '' }} {{ $user ? $user['last_name'] : '' }}
+                                            <i class="nav-icon bi bi-pencil-square" wire:click="editThis('full_name')"></i>
+                                        </span> 
+                                    </label>
                                 </div>
                             </div>
                             <div class="col2">
@@ -379,7 +370,7 @@
     @endif
 
     @if($toBeEdited)
-        <div class="anns anns-fixed">
+        <div class="anns anns-full-h">
             <div class="close-form" wire:click="closeEditProfileForm"></div>
             <div class="add-announcement-container">
                 <div class="modal-content">
@@ -404,7 +395,7 @@
                                         <div class="col2">
                                             <label class="label">date of birth</label>
                                             <div class="input-group-icon">
-                                                <input class="input--style-4" type="date" wire:model="thisData" name="date_of_birth">
+                                                <input class="form-control" type="date" wire:model="thisData" name="date_of_birth">
                                             </div>
                                             @error('thisData') <span class="text-danger small" style="color: red;">The date of birth field is required</span>@enderror
                                         </div>
@@ -413,7 +404,7 @@
                                     <div class="row1">
                                         <div class="col2">
                                             <label class="label">civil status</label>
-                                                <select id="civil_status" class="label select-status" wire:model="thisData" required>
+                                                <select id="civil_status" class="form-control" wire:model="thisData" required>
                                                     <option class="label" value="">Select Civil Status</option>
                                                     <option class="label" value="Single">Single</option>
                                                     <option class="label" value="Married">Married</option>
@@ -444,7 +435,7 @@
                                         <div class="col2">
                                             <label class="label">Status</label>
                                             <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                                <select class="label select-status" id="status" wire:model.live="thisData" name="status">
+                                                <select class="form-control" id="status" wire:model.live="thisData" name="status">
                                                     <option selected value="" class="label">Choose option</option>
                                                     <option value="Student" class="label">Student</option>
                                                     <option value="Professional" class="label">Professional</option>
@@ -459,22 +450,22 @@
                                         <div class="row1">
                                             <div class="col2">
                                                 <label class="label">School name</label>
-                                                <input class="input--style-4" type="text" wire:model.live="name_of_school" name="name_of_school">
+                                                <input class="form-control" type="text" wire:model.live="name_of_school" name="name_of_school">
                                             </div>
                                             <div class="col2">
                                                 <label class="label">Course</label>
-                                                <input class="input--style-4" type="text" wire:model.live="course" name="course">
+                                                <input class="form-control" type="text" wire:model.live="course" name="course">
                                             </div>
                                         </div>
                                     @elseif($thisData === "Professional")
                                         <div class="row1">
                                             <div class="col2">
                                                 <label class="label">Nature of work</label>
-                                                <input class="input--style-4" type="text" wire:model.live="nature_of_work" name="nature_of_work">        
+                                                <input class="form-control" type="text" wire:model.live="nature_of_work" name="nature_of_work">        
                                             </div>
                                             <div class="col2">
                                                 <label class="label">Employer</label>
-                                                <input class="input--style-4" type="text" wire:model.live="employer" name="employer">                          
+                                                <input class="form-control" type="text" wire:model.live="employer" name="employer">                          
                                             </div>
                                         </div>
                                     @endif
@@ -500,7 +491,7 @@
                                             </select>
                                             @error('permanent_selectedCity') <span class="text-danger small" style="color: red;">The Province Field is required</span>@enderror
                                             <label class="label">House number | Street | Subdivision | Barangay</label>
-                                            <input class="input--style-4" type="text" wire:model="p_street_barangay" name="p_street_barangay" >
+                                            <input class="form-control" type="text" wire:model="p_street_barangay" name="p_street_barangay" >
                                             @error('p_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>@enderror
                                         </div>
                                     </div>
@@ -526,7 +517,7 @@
                                             </select>
                                             @error('residential_selectedCity') <span class="text-danger small" style="color: red;">The Province Field is required</span>@enderror
                                             <label class="label">House number | Street | Subdivision | Barangay</label>
-                                            <input class="input--style-4" type="text" wire:model="p_street_barangay" name="p_street_barangay" >
+                                            <input class="form-control" type="text" wire:model="p_street_barangay" name="p_street_barangay" >
                                             @error('r_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>@enderror
                                         </div>
                                     </div>
@@ -534,25 +525,49 @@
                                     <div class="row1">
                                         <div class="col2">
                                             <label class="label label-formatted">Current Password</label>
-                                            <input class="input--style-4" type="password" wire:model.live="password" required>
+                                            <input class="form-control" type="password" wire:model.live="password" required>
                                         </div>
                                         <div class="col2">
                                             <label class="label label-formatted">New Password</label>
-                                            <input class="input--style-4" type="password" wire:model.live="new_password" required>
+                                            <input class="form-control" type="password" wire:model.live="new_password" required>
                                         </div>
                                         <div class="col2">
                                             <label class="label label-formatted">Confirm New Password</label>
-                                            <input class="input--style-4" type="password" wire:model.live="c_new_pass" required>
+                                            <input class="form-control" type="password" wire:model.live="c_new_pass" required>
                                         </div>
                                     </div>
                                     @error('new_password') 
                                         <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                     @enderror
+                                @elseif($toBeEdited === "full_name")
+                                    <div class="row1">
+                                        <div class="col2">
+                                            <label class="label label-formatted">Firstname</label>
+                                            <input class="form-control" type="text" wire:model.live="first_name" required value="{{ $first_name }}">
+                                        </div>
+                                        @error('first_name') 
+                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                        <div class="col2">
+                                            <label class="label label-formatted">Middlename</label>
+                                            <input class="form-control" type="text" wire:model.live="middle_name" required value="{{ $middle_name }}">
+                                        </div>
+                                        @error('middle_name') 
+                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                        <div class="col2">
+                                            <label class="label label-formatted">Lastname</label>
+                                            <input class="form-control" type="text" wire:model.live="last_name" required value="{{ $last_name }}">
+                                        </div>
+                                        @error('last_name') 
+                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 @else
                                     <div class="row1">
                                         <div class="col2">
                                                 <label class="label label-formatted">{{ $formattedData }}</label>
-                                                <input class="input--style-4" type="text" wire:model.live="thisData" value="{{ $thisData }}" required>
+                                                <input class="form-control" type="text" wire:model.live="thisData" value="{{ $thisData }}" required>
                                         </div>
                                         @error('thisData') 
                                             <span class="text-danger small" style="color: red;">{{ $message }}</span>
@@ -563,7 +578,7 @@
                             </div>
 
                             <div class="modal-footer justify-content-between">
-                                <button class="btn btn-infos" type="submit">Submit</button>
+                                <button class="btn-success" type="submit">Submit</button>
                             </div>
                         </div>
                     </form>

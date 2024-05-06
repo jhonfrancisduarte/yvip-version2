@@ -94,7 +94,7 @@
     </div>
 
     @if($addSkillForm)
-        <div class="anns anns-full-h">
+        <div class="anns">
             <div class="close-form" wire:click="closeAddSkillForm"></div>
             <div class="add-announcement-container">
                 <div class="modal-content">

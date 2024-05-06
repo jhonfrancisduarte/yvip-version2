@@ -40,16 +40,16 @@
                     <div class="userpanel">
                         <div class="info">
                             @if(session('user_role') == 'yv' || session('user_role') == 'yip')
-                                <a href="{{ route('profile') }}" class="d-block" wire:navigate>{{ auth()->user()->name }}</a>
+                                <a href="{{ route('profile') }}" class="d-block">{{ Auth::user()->userData->first_name }} {{ Auth::user()->userData->middle_name }} {{ Auth::user()->userData->last_name }}</a>
                             @else
-                                <a href="{{ route('admin-profile') }}" class="d-block" wire:navigate>{{ auth()->user()->name }}</a>
+                                <a href="{{ route('admin-profile') }}" class="d-block">{{ Auth::user()->admin->first_name }} {{ Auth::user()->admin->middle_name }} {{ Auth::user()->admin->last_name }}</a>
                             @endif
                         </div>
                         <div class="image">
                             @if(session('user_role') == 'yv' || session('user_role') == 'yip')
-                                <a href="{{ route('profile') }}"><img src="{{ asset(auth()->user()->userData->profile_picture) }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;"></a>
+                                <a href="{{ route('profile') }}"><img src="{{ Auth::user()->userData->profile_picture }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;"></a>
                             @else
-                                <a href="{{ route('admin-profile') }}"><img src="{{ asset(auth()->user()->admin->profile_picture) }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;"></a>
+                                <a href="{{ route('admin-profile') }}"><img src="{{ Auth::user()->admin->profile_picture }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;"></a>
                             @endif
                         </div>
                     </div>

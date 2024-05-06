@@ -61,7 +61,7 @@
                             <a href="{{ route('volunteers') }}" class="nav-link {{ request()->routeIs('volunteers') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-people"></i>
                                 <p>
-                                    Volunteers
+                                    Youth Volunteers
                                 </p>
                                 </a>
                             </li>

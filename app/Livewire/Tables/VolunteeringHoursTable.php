@@ -42,16 +42,6 @@ class VolunteeringHoursTable extends Component
 
     private function getTotalVolunteeringHours(){
         $user = Auth::user();
-        $rewardClaim = RewardClaim::where('user_id', $user->id)->first();
-        if($user && $rewardClaim){
-            $totalHours = $user->rewardClaim->total_hours;
-            if($totalHours){
-                return $totalHours;
-            }else{
-                return 'None';
-            }
-        }else{
-            return 'None';
-        }
+        return $user->rewardClaim->total_hours;
     }
 }

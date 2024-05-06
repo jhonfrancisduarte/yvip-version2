@@ -11,20 +11,22 @@
                         </div>
                     </div> --}}
 
-                    <div class="card-header card-header1">
+                    <div class="card-header card-header1 display-flex">
                         <div class="total-hours">
                             <div class="badge-header">
                                 <span class="t-1">Level</span>
                             </div>
                             <div class="badge-body">
                                 <span class="t-2">
+                                    @php 
+                                        $myLevel = 1; 
+                                    @endphp
                                     @if($rewardMatrix)
                                         @foreach($rewardMatrix as $hours)
-                                            @if($totalHours === 'None')
-                                                None
-                                                @break
-                                            @elseif($totalHours >= $hours)
-                                                {{ $loop->index + 1 }}
+                                            @if($totalHours >= $hours)
+                                                @php $myLevel++; @endphp
+                                            @else
+                                                {{ $myLevel }}
                                                 @break
                                             @endif
                                         @endforeach

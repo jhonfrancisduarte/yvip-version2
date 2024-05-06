@@ -17,6 +17,8 @@ use Illuminate\Pagination\Paginator;
 
 use Exception;
 
+use function Laravel\Prompts\select;
+
 class VolunteerRewards extends Component
 {
     use WithPagination;
@@ -58,6 +60,7 @@ class VolunteerRewards extends Component
         $user = Auth::user();
         $perRewards = VolunteerReward::where('user_id', $user->id)->get();
     
+        $userRewards = null;
         $userHours = VolunteerHours::join('users', 'volunteer_hours.user_id', '=', 'users.id')
             ->whereIn('users.user_role', ['yv', 'yip'])
             ->selectRaw('users.id as user_id, users.name as user_name, SUM(volunteer_hours.volunteering_hours) as total_hours')
@@ -284,22 +287,16 @@ class VolunteerRewards extends Component
             $user = Auth::user();
             
             if ($user) {
-                $rewardMatrix = Rewards::orderBy('number_of_hours', 'desc')->get();
-                $totalVolunteerHours = VolunteerHours::where('user_id', $user->id)->sum('volunteering_hours');
+                $rewardMatrix = Rewards::orderBy('number_of_hours', 'asc')->get();
+                $totalClaimableHours = RewardClaim::where('user_id', $user->id)->first();
 
                 $claimableRewards = [];
     
                 foreach ($rewardMatrix as $reward) {
-                    if ($totalVolunteerHours >= $reward->number_of_hours) {
-                        $requestStatus = VolunteerReward::where('user_id', $user->id)
-                            ->where('reward_id', $reward->id)
-                            ->select('request_status')
-                            ->exists();
-
+                    if ($totalClaimableHours->claimable_hours >= $reward->number_of_hours) {
                         $claimableRewards[] = [
                             'id' => $reward->id,
                             'reward' => $reward->rewards,
-                            'requestStatus' => $requestStatus,
                         ];
                     }
                 }

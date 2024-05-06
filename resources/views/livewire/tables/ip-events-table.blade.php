@@ -697,10 +697,63 @@
                         </div>
                     @endif
 
+                    <table id="volunteers-table" class="table-main">
+                        <thead>
+                            <tr>
+                                <th  width="40%">Category</th>
+                                <th  width="60%">Skills</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach($groupedSkills as $categoryName => $skills)
+                                <tr class="recordRow">
+                                    <td class="categoryColumn">
+                                        <div>
+                                            <p>{{ $categoryName }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="skillsColumn">
+                                        <div>
+                                        @foreach($skills as $skill)
+                                            <li>{{ $skill->all_skills_name }}</li>
+                                        @endforeach
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <table id="volunteers-table" class="table-main">
+                        <thead>
+                            <tr>
+                                <th  width="40%">Experience</th>
+                                <th  width="60%"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr style="background: #CFE9FF; border-top: 1px solid #f5f5f5;">
+                                <td>Nature of Work</td>
+                                <td>Participation</td>
+                            </tr>
+                        </tbody>
+
+                        <tbody>
+                            @foreach($volunteerExperiences as $experience)
+                                <tr class="recordRow">
+                                    <td>{{ $experience->nature_of_event }}</td>
+                                    <td>{{ $experience->participation }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
                 </div>
 
                 <div class="row1">
-                    <div class="col">
+                    <div class="col" style="margin-top: 10px;">
                         <div class="user-data">
                             @if(!$ppoSubmisions)
                                 @if(!$isParticipant)
