@@ -26,10 +26,15 @@
                                             @if($totalHours >= $hours)
                                                 @php $myLevel++; @endphp
                                             @else
-                                                {{ $myLevel }}
                                                 @break
                                             @endif
                                         @endforeach
+                                        
+                                        @if ($myLevel > count($rewardMatrix))
+                                            {{ count($rewardMatrix) }}
+                                        @else
+                                            {{ $myLevel }}
+                                        @endif
                                     @else
                                         None
                                     @endif
