@@ -36,6 +36,6 @@ class MyParticipatedYvEventsTable extends Component
 
     private function getTotalVolunteeringHours(){
         $user = Auth::user();
-        return $user->volunteerHours()->sum('volunteering_hours');
+        return $user->rewardClaim->total_hours;
     }
 }

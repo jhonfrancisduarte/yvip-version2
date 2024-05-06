@@ -176,6 +176,7 @@
                     <div class="m-3">
                         {{ $events->links('livewire::bootstrap') }}
                     </div>
+
                 </div>
                 <div class="mt-5"></div>
             </div>
@@ -427,7 +428,6 @@
                         @if(empty($joinRequestsData[$joinEventId]))
                             <p>No Join Requests Yet...</p>
                         @else
-                            {{-- Display actual data --}}
                             @foreach($joinRequestsData[$joinEventId] as $requester)
                                 <div class="row">
                                     <div class="col-12">
@@ -479,6 +479,18 @@
                                                 <div class="btn-approval">
                                                     <button class="btn-delete" wire:click="disapproveParticipant('{{ $participant['id'] }}')">Remove</button>
                                                 </div>
+                                            @else
+                                                @if(!$participant['hoursGranted'])
+                                                    <form wire:submit.prevent="grantHours('{{ $participant['id'] }}', {{ $volunteerEvent->id }})">
+                                                        <div class="btn-approval">
+                                                            <input class="form-control" type="number" wire:model.live="hours" required>
+                                                            <button class="btn-success" type="submit">Grant Hours</button>
+                                                        </div>
+                                                        @error('hours') <span class="text-danger">{{ $message }}</span> @enderror
+                                                    </form>
+                                                @else
+                                                    {{ $participant['hoursGranted'] }} Volunteer Hours Granted
+                                                @endif
                                             @endif
                                         </div>
                                     </div>
@@ -728,6 +740,5 @@
             </div>
         </div>    
     @endif
-
 
 </div>
