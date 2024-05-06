@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Tables;
 
+use App\Models\RewardClaim;
 use App\Models\Rewards;
 use Livewire\Component;
 use App\Models\VolunteerEventsAndTrainings;
@@ -41,6 +42,16 @@ class VolunteeringHoursTable extends Component
 
     private function getTotalVolunteeringHours(){
         $user = Auth::user();
-        return $user->rewardClaim->total_hours;
+        $rewardClaim = RewardClaim::where('user_id', $user->id)->first();
+        if($user && $rewardClaim){
+            $totalHours = $user->rewardClaim->total_hours;
+            if($totalHours){
+                return $totalHours;
+            }else{
+                return 'None';
+            }
+        }else{
+            return 'None';
+        }
     }
 }

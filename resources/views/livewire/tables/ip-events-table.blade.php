@@ -227,86 +227,84 @@
             <div class="close-form" wire:click="closeAddForm"></div>
             <div class="add-announcement-container">
                 <div class="modal-content">
+                    <form wire:submit.prevent='createEvent'>
 
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add IP Event</h4>
-                        <button type="button" class="close" wire:click="closeAddForm">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add IP Event</h4>
+                            <button type="button" class="close" wire:click="closeAddForm">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
 
-                    <div class="modal-body">
-                        <form wire:submit.prevent='createEvent'>
+                        <div class="modal-body">      
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Name of Exchange Program/Event</label>
+                                        <input type="text" class="form-control" row="5" wire:model.live='event_name' placeholder="Add the name of exchange program or event" required>
+                                        @error('event_name') 
+                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Organizer / Sponsor</label>
+                                        <input type="text" class="form-control" row="5" wire:model.live='organizer_sponsor' placeholder="Add organizer or sponsor" required>
+                                        @error('organizer_sponsor') 
+                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Start Date</label>
+                                        <input type="date" class="form-control" row="5" wire:model.live='start' required>
+                                        @error('start') 
+                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>End Date</label>
+                                        <input type="date" class="form-control" row="5" wire:model.live='end' required>
+                                        @error('end') 
+                                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Participant Qualifications</label>
+                                        @foreach($qualifications as $index => $qualification)
+                                            <div class="add-edit-skill-input">
+                                                <input type="text" class="form-control skill-form-control" wire:model="qualifications.{{ $index }}" placeholder="Add participant qualifications" required>
+                                                <button type="button" class="close" wire:click="removeQualification({{ $index }})"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                        @endforeach
+                                        <p class="btn-submit" wire:click="addQualification">
+                                            <i class="bi bi-plus-lg"></i>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                                 
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Name of Exchange Program/Event</label>
-                                            <input type="text" class="form-control" row="5" wire:model.live='event_name' placeholder="Add the name of exchange program or event" required>
-                                            @error('event_name') 
-                                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Organizer / Sponsor</label>
-                                            <input type="text" class="form-control" row="5" wire:model.live='organizer_sponsor' placeholder="Add organizer or sponsor" required>
-                                            @error('organizer_sponsor') 
-                                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>Start Date</label>
-                                            <input type="date" class="form-control" row="5" wire:model.live='start' required>
-                                            @error('start') 
-                                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>End Date</label>
-                                            <input type="date" class="form-control" row="5" wire:model.live='end' required>
-                                            @error('end') 
-                                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Participant Qualifications</label>
-                                            @foreach($qualifications as $index => $qualification)
-                                                <div class="add-edit-skill-input">
-                                                    <input type="text" class="form-control skill-form-control" wire:model="qualifications.{{ $index }}" placeholder="Add participant qualifications" required>
-                                                    <button type="button" class="close" wire:click="removeQualification({{ $index }})"><span aria-hidden="true">&times;</span></button>
-                                                </div>
-                                            @endforeach
-                                            <p class="btn-submit" wire:click="addQualification">
-                                                <i class="bi bi-plus-lg"></i>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                        </form>
-                    </div>
-
-                    <div class="modal-footer justify-content-between">
-                        <button class="btn-success" type="submit">Submit</button>
-                    </div>
-
+                        <div class="modal-footer justify-content-between">
+                            <button class="btn-success" type="submit">Submit</button>
+                        </div>
+                            
+                    </form>
                 </div>
             </div>
         </div>
@@ -536,169 +534,171 @@
         <div class="users-data-all-container">
             <div class="close-form" wire:click="hideUserData"></div>
             <div class="user-info">
-            <div class="info">
-                <div class="row1 row-header">
-                    <div class="col1" style="margin-bottom: 10px;">
-                        <img src="{{ $thisUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
-                        <label class="label">Passport Number: <span>{{ $thisUserDetails ? $thisUserDetails['passport_number'] : '' }}</span></label>
-                    </div>
-                </div>
 
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Firstname: <span>{{ $thisUserDetails ? $thisUserDetails['first_name'] : '' }}</span></label>
+                <div class="info">
+                    <div class="row1 row-header">
+                        <div class="col1" style="margin-bottom: 10px;">
+                            <img src="{{ $thisUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
+                            <label class="label">Passport Number: <span>{{ $thisUserDetails ? $thisUserDetails['passport_number'] : '' }}</span></label>
                         </div>
                     </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Lastname: <span>{{ $thisUserDetails ? $thisUserDetails['last_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Middlename: <span>{{ $thisUserDetails ? $thisUserDetails['middle_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Nickname: <span>{{ $thisUserDetails ? $thisUserDetails['nickname']: '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Date of Birth: <span>{{ $thisUserDetails ? $thisUserDetails['date_of_birth'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Civil Status: <span>{{ $thisUserDetails ? $thisUserDetails['civil_status'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Age: <span>{{ $thisUserDetails ? $thisUserDetails['age'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Nationality: <span>{{ $thisUserDetails ? $thisUserDetails['nationality'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Tel Number: <span>{{ $thisUserDetails ? $thisUserDetails['tel_number'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Mobile Number: <span>{{ $thisUserDetails ? $thisUserDetails['mobile_number'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Email: <span>{{ $thisUserDetails ? $thisUserDetails['email'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Blood Type: <span>{{ $thisUserDetails ? $thisUserDetails['blood_type'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Sex at Birth: <span>{{ $thisUserDetails ? $thisUserDetails['sex'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Educational Background: <span>{{ $thisUserDetails ? $thisUserDetails['educational_background'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col1">
-                        <label class="label label-capitalize">Permanent Adrress: <span>{{ $thisUserDetails['p_street_barangay'] }}, {{ $thisUserDetails['permanent_selectedCity'] }}, {{ $thisUserDetails['permanent_selectedProvince'] }}</span></label>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col1">
-                        <label class="label label-capitalize">Residential Adrress: <span>{{ $thisUserDetails['r_street_barangay'] }}, {{ $thisUserDetails['residential_selectedCity'] }}, {{ $thisUserDetails['residential_selectedProvince'] }}</span></label>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col1">
-                        <label class="label">Status: <span>{{ $thisUserDetails ? $thisUserDetails['status'] : '' }}</span></label>
-                    </div>
-                </div>
-
-                @if($thisUserDetails['name_of_school'])
                     <div class="row1">
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">School Name: <span>{{ $thisUserDetails ? $thisUserDetails['name_of_school'] : '' }}</span></label>
+                                <label class="label">Firstname: <span>{{ $thisUserDetails ? $thisUserDetails['first_name'] : '' }}</span></label>
                             </div>
                         </div>
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Course: <span>{{ $thisUserDetails ? $thisUserDetails['course'] : '' }}</span></label>
+                                <label class="label">Lastname: <span>{{ $thisUserDetails ? $thisUserDetails['last_name'] : '' }}</span></label>
                             </div>
                         </div>
                     </div>
-                @endif
-
-                @if($thisUserDetails['nature_of_work'])
+                    
                     <div class="row1">
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Nature of Work: <span>{{ $thisUserDetails ? $thisUserDetails['nature_of_work'] : '' }}</span></label>
+                                <label class="label">Middlename: <span>{{ $thisUserDetails ? $thisUserDetails['middle_name'] : '' }}</span></label>
                             </div>
                         </div>
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Employer: <span>{{ $thisUserDetails ? $thisUserDetails['employer'] : '' }}</span></label>
+                                <label class="label">Nickname: <span>{{ $thisUserDetails ? $thisUserDetails['nickname']: '' }}</span></label>
                             </div>
                         </div>
                     </div>
-                @endif
 
-                @if($thisUserDetails['organization_name'])
                     <div class="row1">
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Organization Name: <span>{{ $thisUserDetails ? $thisUserDetails['organization_name'] : '' }}</span></label>
+                                <label class="label">Date of Birth: <span>{{ $thisUserDetails ? $thisUserDetails['date_of_birth'] : '' }}</span></label>
                             </div>
                         </div>
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Position: <span>{{ $thisUserDetails ? $thisUserDetails['org_position'] : '' }}</span></label>
+                                <label class="label">Civil Status: <span>{{ $thisUserDetails ? $thisUserDetails['civil_status'] : '' }}</span></label>
                             </div>
                         </div>
                     </div>
-                @endif
 
-            </div>
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Age: <span>{{ $thisUserDetails ? $thisUserDetails['age'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Nationality: <span>{{ $thisUserDetails ? $thisUserDetails['nationality'] : '' }}</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Tel Number: <span>{{ $thisUserDetails ? $thisUserDetails['tel_number'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Mobile Number: <span>{{ $thisUserDetails ? $thisUserDetails['mobile_number'] : '' }}</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Email: <span>{{ $thisUserDetails ? $thisUserDetails['email'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Blood Type: <span>{{ $thisUserDetails ? $thisUserDetails['blood_type'] : '' }}</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Sex at Birth: <span>{{ $thisUserDetails ? $thisUserDetails['sex'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Educational Background: <span>{{ $thisUserDetails ? $thisUserDetails['educational_background'] : '' }}</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col1">
+                            <label class="label label-capitalize">Permanent Adrress: <span>{{ $thisUserDetails['p_street_barangay'] }}, {{ $thisUserDetails['permanent_selectedCity'] }}, {{ $thisUserDetails['permanent_selectedProvince'] }}</span></label>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col1">
+                            <label class="label label-capitalize">Residential Adrress: <span>{{ $thisUserDetails['r_street_barangay'] }}, {{ $thisUserDetails['residential_selectedCity'] }}, {{ $thisUserDetails['residential_selectedProvince'] }}</span></label>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col1">
+                            <label class="label">Status: <span>{{ $thisUserDetails ? $thisUserDetails['status'] : '' }}</span></label>
+                        </div>
+                    </div>
+
+                    @if($thisUserDetails['name_of_school'])
+                        <div class="row1">
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">School Name: <span>{{ $thisUserDetails ? $thisUserDetails['name_of_school'] : '' }}</span></label>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Course: <span>{{ $thisUserDetails ? $thisUserDetails['course'] : '' }}</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($thisUserDetails['nature_of_work'])
+                        <div class="row1">
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Nature of Work: <span>{{ $thisUserDetails ? $thisUserDetails['nature_of_work'] : '' }}</span></label>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Employer: <span>{{ $thisUserDetails ? $thisUserDetails['employer'] : '' }}</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($thisUserDetails['organization_name'])
+                        <div class="row1">
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Organization Name: <span>{{ $thisUserDetails ? $thisUserDetails['organization_name'] : '' }}</span></label>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Position: <span>{{ $thisUserDetails ? $thisUserDetails['org_position'] : '' }}</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                </div>
+
                 <div class="row1">
                     <div class="col">
                         <div class="user-data">
@@ -714,6 +714,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>    
     @endif

@@ -20,12 +20,16 @@
                                 <span class="t-2">
                                     @if($rewardMatrix)
                                         @foreach($rewardMatrix as $hours)
-                                            @if($totalHours >= $hours)
+                                            @if($totalHours === 'None')
+                                                None
+                                                @break
+                                            @elseif($totalHours >= $hours)
                                                 {{ $loop->index + 1 }}
+                                                @break
                                             @endif
                                         @endforeach
                                     @else
-                                        N/A
+                                        None
                                     @endif
                                 </span>
                             </div>                            

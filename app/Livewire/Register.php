@@ -33,7 +33,7 @@ class Register extends Component
     public $status;
     public $nature_of_work;
     public $employer;
-    public $profile_picture = "";
+    public $profile_picture = 'images/blank_profile_pic.png';
     public $name_of_school;
     public $course;
     public $is_org_member = 'no';
@@ -75,11 +75,6 @@ class Register extends Component
     ];
 
     public function mount(){
-        $this->permanent_selectedProvince = null;
-        $this->permanent_selectedCity = null;
-        $this->residential_selectedProvince = null;
-        $this->residential_selectedCity = null;
-        $this->profile_picture = 'images/blank_profile_pic.png';
         $this->getProvicesAndCities();
     }
 
@@ -124,10 +119,6 @@ class Register extends Component
     }
 
     public function create(){
-        $this->permanent_selectedProvince = Str::ucfirst(Str::lower($this->permanent_selectedProvince));
-        $this->permanent_selectedCity = Str::ucfirst(Str::lower($this->permanent_selectedCity));
-        $this->residential_selectedProvince = Str::ucfirst(Str::lower($this->residential_selectedProvince));
-        $this->residential_selectedCity = Str::ucfirst(Str::lower($this->residential_selectedCity));
         try {
             $this->validate();
             if (!$this->isPasswordComplex($this->password)) {

@@ -90,8 +90,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if($userRewards->isNotEmpty())
-                                        @foreach($userRewards as $reward)
+                                    @if($perRewards->isNotEmpty())
+                                        @foreach($perRewards as $reward)
                                             <tr>
                                                 <td>{{ $reward->reward->rewards }}</td>
                                                 <td>

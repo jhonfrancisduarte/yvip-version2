@@ -231,7 +231,6 @@
 
 .label-capitalize span {
     text-transform: capitalize !important;
-    font-weight: bold;
 }
 
 .viewer {

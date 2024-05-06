@@ -55,8 +55,8 @@ class VolunteerRewards extends Component
                             ->search(trim($this->search2))
                             ->get();
     
-        $userId = Auth::id();
-        $userRewards = VolunteerReward::where('user_id', $userId)->get();
+        $user = Auth::user();
+        $perRewards = VolunteerReward::where('user_id', $user->id)->get();
     
         $userHours = VolunteerHours::join('users', 'volunteer_hours.user_id', '=', 'users.id')
             ->whereIn('users.user_role', ['yv', 'yip'])
@@ -87,6 +87,7 @@ class VolunteerRewards extends Component
         return view('livewire.volunteer-rewards', [
             'claimRequests' => $claimRequests,
             'userRewards' => $userRewards,
+            'perRewards' => $perRewards,
             'userHoursArray' => $userHours,
         ]);
     }

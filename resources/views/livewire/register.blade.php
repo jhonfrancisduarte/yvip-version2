@@ -13,7 +13,7 @@
                         <div class="col-2">
                             <div class="input-group">
                                 <label class="label">first name</label>
-                                <input class="input--style-4" type="text" wire:model.blur="first_name" name="first_name">
+                                <input class="input--style-4" type="text" wire:model.blur="first_name" name="first_name" required>
                                 @error('first_name') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                 @enderror
@@ -23,7 +23,7 @@
                         <div class="col-2">
                             <div class="input-group">
                                 <label class="label">last name</label>
-                                <input class="input--style-4" type="text" wire:model.blur="last_name" name="last_name">
+                                <input class="input--style-4" type="text" wire:model.blur="last_name" name="last_name"  required>
                                 @error('last_name') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                 @enderror
@@ -51,7 +51,7 @@
                             <div class="input-group">
                                 <label class="label">date of birth</label>
                                 <div class="input-group">
-                                    <input class="input--style-4" type="date" wire:model.blur="date_of_birth" name="date_of_birth" style="height: 50px;">
+                                    <input class="input--style-4" type="date" wire:model.blur="date_of_birth" name="date_of_birth" style="height: 50px;"  required>
                                     @error('date_of_birth') <span class="text-danger small" style="color: red;">The date of birth field is required</span>@enderror
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                         <div class="col-2">
                             <div class="input-group">
                                 <label class="label">civil status</label>
-                                    <select id="civil_status" class="label select-status" wire:model.blur="civil_status">
+                                    <select id="civil_status" class="label select-status" wire:model.blur="civil_status"  required>
                                         <option class="label" value="">Select Civil Status</option>
                                         <option class="label" value="Single">Single</option>
                                         <option class="label" value="Married">Married</option>
@@ -77,7 +77,7 @@
                         <div class="col-2">
                             <div class="input-group">
                                 <label class="label">age</label>
-                                <input class="input--style-4" type="number" wire:model.blur="age" name="age">
+                                <input class="input--style-4" type="number" wire:model.blur="age" name="age"  required>
                                 @error('age') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                 @enderror
@@ -86,7 +86,7 @@
                         <div class="col-2">
                             <div class="input-group">
                                 <label class="label">nationality</label>
-                                <input class="input--style-4" type="text" wire:model.blur="nationality" name="nationality">
+                                <input class="input--style-4" type="text" wire:model.blur="nationality" name="nationality" required>
                                 @error('nationality') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                 @enderror
@@ -105,7 +105,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Mobile Number</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="mobile_number" name="mobile_number">
+                                    <input class="input--style-4" type="text" wire:model.blur="mobile_number" name="mobile_number" required>
                                     @error('mobile_number') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror
@@ -115,7 +115,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Email</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="email" wire:change="onBlurEmail" name="email" >
+                                    <input class="input--style-4" type="text" wire:model.blur="email" wire:change="onBlurEmail" name="email" required >
                                     @error('email') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
                              <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Blood type</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="blood_type" name="blood_type">
+                                    <input class="input--style-4" type="text" wire:model.blur="blood_type" name="blood_type"  required>
                                     @error('blood_type') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror
@@ -156,7 +156,7 @@
                                 <div class="col-4" style="width: 100%">
                                     <div class="input-group">
                                         <label class="label" for="permanent_province">Select Province:</label>
-                                        <select class="label select select-status" wire:model.live="permanent_selectedProvince" id="permanent_province" name="permanent_selectedProvince">
+                                        <select class="label select select-status" wire:model.live="permanent_selectedProvince" id="permanent_province" name="permanent_selectedProvince" required>
                                             @if ($provinces)
                                                 <option class="label" value="" style="opacity: .6;">Select Province</option>
                                                 @foreach ($provinces->sortBy('province_description') as $province)
@@ -169,7 +169,7 @@
                                         @error('permanent_selectedProvince') <span class="text-danger small" style="color: red;">The Province Field is required</span>@enderror
 
                                         <label class="label" for="permanent_city">Select City:</label>
-                                        <select class="label select-status" wire:model.live="permanent_selectedCity" id="permanent_city" name="permanent_selectedCity">
+                                        <select class="label select-status" wire:model.live="permanent_selectedCity" id="permanent_city" name="permanent_selectedCity"  required>
                                             @if($pcities)
                                                 <option class="label" value="">Select City</option>
                                                 @foreach ($pcities as $city)
@@ -182,7 +182,7 @@
                                         @error('permanent_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>@enderror
 
                                         <label class="label">Street, Barangay</label>
-                                        <input class="input--style-4" type="text" wire:model="p_street_barangay" name="p_street_barangay" >
+                                        <input class="input--style-4" type="text" wire:model="p_street_barangay" name="p_street_barangay" required >
                                         @error('p_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>@enderror
                                     </div>
                                 </div>
@@ -195,7 +195,7 @@
                                 <div class="col-4" style="width: 100%">
                                     <div class="input-group">
                                         <label class="label" for="residential_province">Select Province:</label>
-                                        <select class="label select-status" wire:model.live="residential_selectedProvince" id="residential_province" name="residential_selectedProvince">
+                                        <select class="label select-status" wire:model.live="residential_selectedProvince" id="residential_province" name="residential_selectedProvince"  required>
                                             @if ($provinces)
                                                 <option class="label" value="">Select Province</option>
                                                 @foreach ($provinces->sortBy('province_description') as $province)
@@ -208,7 +208,7 @@
                                         @error('residential_selectedProvince') <span class="text-danger small" style="color: red;">The Province field is required</span>@enderror
 
                                         <label class="label" for="residential_city">Select City:</label>
-                                        <select class="label select-status" wire:model.live="residential_selectedCity" id="residential_city" name="residential_selectedCity">
+                                        <select class="label select-status" wire:model.live="residential_selectedCity" id="residential_city" name="residential_selectedCity" required>
                                             @if($rcities)
                                                 <option class="label" value="">Select City</option>
                                                 @foreach ($rcities ->sortBy('city_municipality_descriptions') as $city)
@@ -221,7 +221,7 @@
                                         @error('residential_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>@enderror
 
                                         <label class="label">Street, Barangay</label>
-                                        <input class="input--style-4" type="text" wire:model="r_street_barangay" name="r_street_barangay" >
+                                        <input class="input--style-4" type="text" wire:model="r_street_barangay" name="r_street_barangay"  required>
                                         @error('r_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>@enderror
                                     </div>
                                 </div>
@@ -232,7 +232,7 @@
                         <div class="col-4" style="width: 100%">
                             <div class="input-group">
                                 <label class="label">Educational Background</label>
-                                <input class="input--style-4" type="text" wire:model.blur="educational_background" name="educational_background">
+                                <input class="input--style-4" type="text" wire:model.blur="educational_background" name="educational_background" required>
                                 @error('educational_background') <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -242,7 +242,7 @@
                     <div class="input-group">
                         <label class="label">Status</label>
                         <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                            <select class="label select-status" id="status" wire:model.blur="status" name="status">
+                            <select class="label select-status" id="status" wire:model.blur="status" name="status" required>
                                 <option selected value="" class="label">Choose option</option>
                                 <option value="Student" class="label">Student</option>
                                 <option value="Professional" class="label">Professional</option>
@@ -340,7 +340,7 @@
                         <div class="col-2">
                             <div class="input-group">
                                 <label class="label">password</label>
-                                <input class="input--style-4" type="password" wire:model="password" name="password">
+                                <input class="input--style-4" type="password" wire:model="password" name="password" required>
                                 @error('password') 
                                     <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                 @enderror
@@ -349,7 +349,7 @@
                         <div class="col-2">
                             <div class="input-group">
                                 <label class="label">confirm password</label>
-                                <input class="input--style-4" type="password" wire:model="c_password" name="c_password">
+                                <input class="input--style-4" type="password" wire:model="c_password" name="c_password" required>
                                 @error('c_password') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                 @enderror

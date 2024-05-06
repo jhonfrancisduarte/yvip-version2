@@ -1,6 +1,6 @@
 <div>
 
-    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
+    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important; opacity: 1;"@endif>
             <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>

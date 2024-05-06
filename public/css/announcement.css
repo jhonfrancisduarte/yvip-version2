@@ -227,6 +227,7 @@
     transition: .3s ease-in-out;
     padding-left: 30px;
     padding-right: 20px;
+    opacity: 0;
     z-index: 9999;
 }
 

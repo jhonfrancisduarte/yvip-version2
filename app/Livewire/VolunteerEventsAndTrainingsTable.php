@@ -312,7 +312,7 @@ class VolunteerEventsAndTrainingsTable extends Component
                 if ($user) {
                     $joinRequestsData[] = [
                         'user_id' => $user->id,
-                        'name' => $user->name,
+                        'name' => $user->userData->first_name . ' ' . $user->userData->middle_name . ' ' . $user->userData->last_name,
                     ];
                 }
             }
@@ -482,6 +482,8 @@ class VolunteerEventsAndTrainingsTable extends Component
                     ->first();
                 $this->thisUserDetails = $this->thisUserDetails->getAttributes();
                 $this->getSkillsAndCategory($userId);
+                $this->openJoinRequestsTable = null;
+                $this->options = null;
             }
         }catch(Exception $e){
             throw $e;
@@ -535,6 +537,7 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->eventId = null;
         $this->options = null;
         $this->closeParticipantsForm();
+        $this->openJoinRequests($this->joinEventId);
     }
 
     public function changeStatus($eventId, $status){
