@@ -78,6 +78,7 @@ class VolunteerEventsAndTrainingsTable extends Component
     
     public $volunteerExperiences;
     public $groupedSkills;
+    public $hours;
 
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
@@ -511,14 +512,24 @@ class VolunteerEventsAndTrainingsTable extends Component
     
                         if ($userData) {
                             $name = trim($userData->first_name . ' ' . $userData->middle_name . ' ' . $userData->last_name);
+                            $isGranted = null;
+                            $hoursGranted = VolunteerHours::where('user_id', $participantId)
+                                                      ->where('event_id', $eventId)
+                                                      ->first();
+                            if($hoursGranted){
+                                $isGranted = $hoursGranted->volunteering_hours;
+                            }
+                            
                             $participantsData[] = [
                                 'id' => $participantId,
                                 'name' => $name,
+                                'hoursGranted' => $isGranted,
                             ];
                         }
                     }
                 }
             }
+
             $this->volunteerEvent = $event;
             $this->isParticipant = true;
             $this->participants = $participantsData;
@@ -548,56 +559,13 @@ class VolunteerEventsAndTrainingsTable extends Component
                     'status' => $status,
                 ]);
     
-                // Grant to the participants the volunteering hours
-                if ($status === 'Completed') {
-                    $participantIds = explode(',', $event->participants);
-                    $participantsData = [];
-    
-                    foreach ($participantIds as $participantId) {
-                        $participantId = trim($participantId);
-                        if (!empty($participantId)) {
-                            $user = User::find($participantId);
-                            if ($user) {
-                                $userData = $user->userData;
-                                if ($userData) {
-                                    $participantsData[] = [
-                                        'user_id' => $participantId,
-                                        'event_id' => $eventId,
-                                        'volunteering_hours' => $event->volunteer_hours,
-                                    ];
-                                }
-
-                                $rewardClaim = $user->rewardClaim;
-
-                                if ($rewardClaim) {
-                                    $totalHours = $rewardClaim->total_hours + $event->volunteer_hours;
-                                    $claimableHours = $totalHours - $rewardClaim->total_claimed_hours;
-                                    $rewardClaim->update([
-                                        'total_hours' => $totalHours,
-                                        'claimable_hours' => $claimableHours,
-                                    ]);
-                                } else {
-                                    RewardClaim::create([
-                                        'user_id' => $participantId,
-                                        'total_hours' => $event->volunteer_hours,
-                                        'claimable_hours' => $event->volunteer_hours,
-                                    ]);
-                                }
-                            }
-                        }
-                    }
-    
-                    if (!empty($participantsData)) {
-                        VolunteerHours::insert($participantsData);
-                    }
-                    $this->popup_message = null;
-                    $this->popup_message = "Status updated successfully.";
-                    $this->options2 = null;
-                }else{
-                    $this->popup_message = null;
-                    $this->popup_message = "Status update unsuccessfully.";
-                    $this->options2 = null;
-                }
+                $this->popup_message = null;
+                $this->popup_message = "Status updated successfully.";
+                $this->options2 = null;
+            }else{
+                $this->popup_message = null;
+                $this->popup_message = "Status update unsuccessfully.";
+                $this->options2 = null;
             }
         } catch (Exception $e) {
             throw $e;
@@ -628,6 +596,59 @@ class VolunteerEventsAndTrainingsTable extends Component
             }
         }catch(Exception $e){
             throw $e;        
+        }
+    }
+
+    public function grantHours($userId, $eventId){
+        try{
+            $user = User::where('id', $userId)->first();
+            $event = VolunteerEventsAndTrainings::find($eventId);
+            if($user){
+                // Grant to the participants the volunteering hours
+                $this->validate([
+                    'hours' => 'required|numeric|min:1',
+                ]);
+
+                if($this->hours > $event->volunteer_hours){
+                    $this->addError('hours', 'Invalid number of hours.');
+                    return;
+                }
+
+                $rewardClaim = $user->rewardClaim;
+
+                if($rewardClaim) {
+                    $totalHours = $rewardClaim->total_hours + $this->hours;
+                    $claimableHours = $totalHours - $rewardClaim->total_claimed_hours;
+                    $rewardClaim->update([
+                        'total_hours' => $totalHours,
+                        'claimable_hours' => $claimableHours,
+                    ]);
+                }else{
+                    RewardClaim::create([
+                        'user_id' => $user->id,
+                        'total_hours' => $this->hours,
+                        'claimable_hours' => $event->volunteer_hours,
+                    ]);
+                }
+
+
+                VolunteerHours::create([
+                    'user_id' => $user->id,
+                    'event_id' => $event->id,
+                    'volunteering_hours' => $this->hours,
+                ]);
+
+                $this->popup_message = null;
+                $this->popup_message = "Status updated successfully.";
+                $this->options2 = null;
+                $this->viewParticipants($event->id);
+            }else{
+                $this->popup_message = null;
+                $this->popup_message = "Status update unsuccessfully.";
+                $this->options2 = null;
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 }

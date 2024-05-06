@@ -21,4 +21,10 @@ class RewardClaim extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function scopeSearch($query, $term){
+        return $query->whereHas('user', function ($q) use ($term) {
+            $q->where('name', 'like', '%' . $term . '%');
+        });
+    }
 }

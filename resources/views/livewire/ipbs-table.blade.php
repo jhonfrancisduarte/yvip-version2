@@ -415,6 +415,77 @@
                                     </tbody>
                                 </table>
                                 <div class="mt-3"></div>
+                                <table id="volunteers-table" class="table-main">
+                                    <thead>
+                                        <tr>
+                                            <th  width="40%">Category</th>
+                                            <th  width="60%">Skills</th>
+                                        </tr>
+                                    </thead>
+        
+                                    <tbody>
+                                        @if(!$groupedSkills->isEmpty())
+                                            @foreach($groupedSkills as $categoryName => $skills)
+                                                <tr class="recordRow">
+                                                    <td class="categoryColumn">
+                                                        <div>
+                                                            <p>{{ $categoryName }}</p>
+                                                        </div>
+                                                    </td>
+                                                    <td class="skillsColumn">
+                                                        <div>
+                                                        @foreach($skills as $skill)
+                                                            <li>{{ $skill->all_skills_name }}</li>
+                                                        @endforeach
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td style="color: #ccc;">
+                                                   No Categories Yet
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+
+                                <table id="volunteers-table" class="table-main">
+                                    <thead>
+                                        <tr>
+                                            <th  width="40%">Experience</th>
+                                            <th  width="60%"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr style="background: #CFE9FF; border-top: 1px solid #f5f5f5;">
+                                            <td>Nature of Work</td>
+                                            <td>Participation</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        @if(!$volunteerExperiences->isEmpty())
+                                            @foreach($volunteerExperiences as $experience)
+                                                <tr class="recordRow">
+                                                    <td>{{ $experience->nature_of_event }}</td>
+                                                    <td>{{ $experience->participation }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td style="color: #ccc;">
+                                                    No Experience Yet
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+
+                                <div class="mt-3"></div>
                                 <div class="row1">
                                     <div class="col">
                                         <div class="user-data">
@@ -429,10 +500,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="card-body">
-                                
                             </div>
 
                         </div>

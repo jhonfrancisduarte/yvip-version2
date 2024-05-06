@@ -11,22 +11,10 @@ class VolunteerCategory extends Model
         'user_id',
         'category_name',
         'description',
-        // Add other fillable fields as needed
     ];
 
-    public function all_categories()
-    {
-        return $this->belongsTo(Categories::class);
-    }
-
-    public function user()
-    {
+    public function user(){
         return $this->belongsTo(User::class);
-    }
-
-    public function volunteer()
-    {
-        return $this->belongsTo(Volunteer::class);
     }
 
 }

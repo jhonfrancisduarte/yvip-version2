@@ -69,22 +69,21 @@
                         <div class="row1">
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Firstname: <span>{{ $user ? $user['first_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('first_name')"></i></label>
+                                    <label class="label">Fullname: 
+                                        <span>{{ $user ? $user['first_name'] : '' }} {{ $user ? $user['middle_name'] : '' }} {{ $user ? $user['last_name'] : '' }}
+                                            <i class="nav-icon bi bi-pencil-square" wire:click="editThis('full_name')"></i>
+                                        </span> 
+                                    </label>
                                 </div>
                             </div>
                             <div class="col2">
                                 <div class="user-data">
-                                    <label class="label">Lastname: <span>{{ $user ? $user['last_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('last_name')"></i></label>
+                                    <label class="label">Nickname: <span>{{ $user ? $user['nickname'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('nickname')"></i></label>
                                 </div>
                             </div>
                         </div>
         
                         <div class="row1">
-                            <div class="col2">
-                                <div class="user-data">
-                                    <label class="label">Middlename: <span>{{ $user ? $user['middle_name'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('middle_name')"></i></label>
-                                </div>
-                            </div>
                             <div class="col2">
                                 <div class="user-data">
                                     <label class="label">Email: <span>{{ $user ? $user['email'] : '' }}</span> <i class="nav-icon bi bi-pencil-square" wire:click="editThis('email')"></i></label>
@@ -176,6 +175,30 @@
                                 @error('new_password') 
                                     <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                 @enderror
+                            @elseif($toBeEdited === "full_name")
+                                <div class="row1">
+                                    <div class="col2">
+                                        <label class="label label-formatted">Firstname</label>
+                                        <input class="form-control" type="text" wire:model.live="first_name" required value="{{ $first_name }}">
+                                    </div>
+                                    @error('first_name') 
+                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                    @enderror
+                                    <div class="col2">
+                                        <label class="label label-formatted">Middlename</label>
+                                        <input class="form-control" type="text" wire:model.live="middle_name" required value="{{ $middle_name }}">
+                                    </div>
+                                    @error('middle_name') 
+                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                    @enderror
+                                    <div class="col2">
+                                        <label class="label label-formatted">Lastname</label>
+                                        <input class="form-control" type="text" wire:model.live="last_name" required value="{{ $last_name }}">
+                                    </div>
+                                    @error('last_name') 
+                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             @else
                                 <div class="row1">
                                     <div class="form-group">

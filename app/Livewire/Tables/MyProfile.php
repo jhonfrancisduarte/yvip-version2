@@ -39,6 +39,9 @@ class MyProfile extends Component
     public $new_password;
     public $c_new_pass;
     public $deleteAccDialog;
+    public $first_name;
+    public $middle_name;
+    public $last_name;
 
     protected $rules = [
         'password' => 'required|min:8',
@@ -159,6 +162,11 @@ class MyProfile extends Component
                 }
                 elseif($data === "password"){
                 }
+                elseif($data === "full_name"){
+                    $this->first_name = $user->userData->first_name;
+                    $this->middle_name = $user->userData->middle_name;
+                    $this->last_name = $user->userData->last_name;
+                }
                 else{
                     $columnValue = $user->userData->{$data};
                     $this->thisData = $columnValue;
@@ -252,6 +260,23 @@ class MyProfile extends Component
                     $this->popup_message = null;
                     $this->popup_message =  'Password updated successfully.';
                 }
+                elseif($info === "full_name"){
+                    $this->validate([
+                        'first_name' => 'required|min:2',
+                        'last_name' => 'required|min:2',
+                    ]);
+
+                    $user->update([
+                        'name' => $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name,
+                    ]);
+                    $user->userData->update([
+                        'first_name' => $this->first_name,
+                        'middle_name' => $this->middle_name,
+                        'last_name' => $this->last_name,
+                    ]);
+                    $this->popup_message = null;
+                    $this->popup_message =  'Fullname updated successfully.';
+                }
                 else{
                     $user->userData()->update([
                         $info => $this->thisData,
@@ -268,6 +293,10 @@ class MyProfile extends Component
                 $this->employer = null;
                 $this->name_of_school = null;
                 $this->course = null;
+                $this->first_name = null;
+                $this->middle_name = null;
+                $this->last_name = null;
+                redirect('/profile');
             }
         }catch(Exception $e){
             throw $e;

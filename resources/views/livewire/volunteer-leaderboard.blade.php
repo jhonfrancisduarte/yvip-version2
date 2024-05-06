@@ -8,13 +8,10 @@
                     <div class="card-body scroll-table">
                         @php 
                             $myRank = 1; 
-                            $previousHours = null;
                         @endphp
                         @foreach ($totalHoursPerUser as $record)
                             @if(auth()->user()->id !== $record->user_id)
-                                @if($previousHours !== $record->total_volunteer_hours && $previousHours !== null)
-                                    @php $myRank++; @endphp
-                                @endif
+                                @php $myRank++; @endphp
                             @else
                                 <div class="my-rank">
                                     <div class="r">
@@ -30,7 +27,7 @@
                                             @endif
                                             <p @if($myRank === 1)class="rank1"@endif>{{ $myRank }}</p>
                                         </div>
-                                        <div>
+                                        <div class="my-name">
                                             <p><img class="profile_picture" src="{{ $record->profile_picture }}" alt="profile picture" width="40">{{ $record->fullname }}</p>
                                         </div>
                                     </div>
@@ -40,10 +37,6 @@
                                 </div>
                                 @break
                             @endif
-                            
-                            @php
-                                $previousHours = $record->total_volunteer_hours;
-                            @endphp
                         @endforeach
                         <table id="volunteers-table">
                             <thead>
