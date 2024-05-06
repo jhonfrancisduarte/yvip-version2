@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\IpPostProgramObligation;
 use App\Models\IpEvents;
+use Exception;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +17,12 @@ class PostProgramObligationTable extends Component
     public $popup_message;
     public $file;
     public $link;
+    public $thisPpoId;
+
+    protected $rules = [
+        'link' => 'required|min:2',
+    ];
+
     public function render(){
         $ipEvents = IpEvents::join('users', 'users.id', '=', 'ip_events.user_id')
             ->select('users.name', 'ip_events.*')
@@ -39,35 +46,45 @@ class PostProgramObligationTable extends Component
     }
 
     public function uploadPostProgramObligation($eventId){
-        $userId = Auth::user()->id;
-        $event = IpEvents::find($eventId);
-        if($userId && $event){
-            
-            if($this->file && $this->link){
-                $this->addError('chooseOne', 'Choose only 1 way of file submission.');
-                return;
+        try{
+            $this->thisPpoId = $eventId;
+            $userId = Auth::user()->id;
+            $event = IpEvents::find($eventId);
+            if($userId && $event){
+                
+                if($this->file && $this->link){
+                    $this->addError('chooseOne', 'Choose only 1 way of file submission.');
+                    return;
+                }
+    
+                $ppo = IpPostProgramObligation::create([
+                    'event_id' => $event->id,
+                    'user_id' => $userId,
+                    'file_paths' => '',
+                    'file_links' => '',
+                ]);
+    
+    
+                if ($this->file) {
+                    $filePath = $this->file->storeAs('postProgramObligations', $this->file->getClientOriginalName(), 'public_uploads');
+                    $filePath = "uploads/" . $filePath;
+                    $ppo->update(['file_paths' => $filePath]);
+                }
+    
+                if ($this->link) {
+                    $ppo->update(['file_links' => $this->link]);
+                }
+    
+                $this->popup_message = null;
+                $this->popup_message = "File uploaded successfully.";
+                $this->thisPpoId = null;
             }
-
-            $ppo = IpPostProgramObligation::create([
-                'event_id' => $event->id,
-                'user_id' => $userId,
-                'file_paths' => '',
-                'file_links' => '',
-            ]);
-
-
-            if ($this->file) {
-                $filePath = $this->file->storeAs('postProgramObligations', $this->file->getClientOriginalName(), 'public_uploads');
-                $filePath = "uploads/" . $filePath;
-                $ppo->update(['file_paths' => $filePath]);
-            }
-
-            if ($this->link) {
-                $ppo->update(['file_links' => $this->link]);
-            }
-
-            $this->popup_message = null;
-            $this->popup_message = "File uploaded successfully.";
+        }catch(Exception $e){
+            throw $e;
         }
+    }
+
+    public function closePopup(){
+        $this->popup_message = null;
     }
 }

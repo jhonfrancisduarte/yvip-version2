@@ -21,3 +21,6 @@
 
 @endsection
 
+@section('js')
+
+@endsection

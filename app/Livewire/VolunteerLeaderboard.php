@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\RewardClaim;
 use Livewire\Component;
 use App\Models\Volunteer;
 use App\Models\UserData;
@@ -13,9 +14,8 @@ class VolunteerLeaderboard extends Component
 
     public function mount()
     {
-        $this->totalHoursPerUser = Volunteer::select('user_id', DB::raw('SUM(volunteering_hours) as total_volunteer_hours'))
-        ->groupBy('user_id')
-        ->get();
+        $this->totalHoursPerUser = RewardClaim::select('user_id', 'total_hours as total_volunteer_hours')
+            ->get();
 
         foreach ($this->totalHoursPerUser as $record) {
             $userData = UserData::where('user_id', $record->user_id)->first();

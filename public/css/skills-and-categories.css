@@ -6,28 +6,6 @@
     margin-left: 15px;
 }
 
-.anns {
-    position: fixed;
-    top: 0;
-    height: 100% !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.add-announcement-container {
-    margin-top: 0px;
-    height: 100% !important;
-    padding-top: 50px;
-}
-
-.add-announcement-container .modal-dialog {
-    padding-bottom: 50px !important;
-}
-
-.anns .card-primary {
-    width: 100%;
-}
 
 .skill-checkbox {
     display: flex;

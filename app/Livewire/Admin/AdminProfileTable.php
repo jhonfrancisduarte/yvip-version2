@@ -73,7 +73,7 @@ class AdminProfileTable extends Component
             elseif($data === "password"){
             }
             else{
-                $columnValue = $user->admin->get([$data])->pluck($data)->first();
+                $columnValue = $user->admin->{$data};
                 $this->thisData = $columnValue;
             }
             $this->toBeEdited = $data;
@@ -145,25 +145,36 @@ class AdminProfileTable extends Component
     }
 
     public function editProfilePic($id){
-        try{
-            $user = User::where('id', $id)->first();
-    
-            $pathToDelete = $user->admin->profile_picture;
-            $pathToDelete = str_replace('uploads', '', $pathToDelete);
-            if (Storage::disk('public_uploads')->exists($pathToDelete)) {
-                Storage::disk('public_uploads')->delete($pathToDelete);
-            }                         
-    
+        try{ 
+            $this->validate([
+                'profile_picture' => [
+                    'image',
+                    'max:4096',
+                ],
+            ]);
+   
             if($this->profile_picture){
+                $user = User::where('id', $id)->first();
+                $pathToDelete = $user->admin->profile_picture;
+                $pathToDelete = str_replace('uploads', '', $pathToDelete);
+                if (Storage::disk('public_uploads')->exists($pathToDelete)) {
+                    Storage::disk('public_uploads')->delete($pathToDelete);
+                }   
+
                 $imageName = $this->profile_picture->getClientOriginalName();
                 $imagePath = $this->profile_picture->storeAs('profilePics', $imageName, 'public_uploads');
                 $imagePath = "uploads/" . $imagePath;
                 $user->admin()->update(['profile_picture' => $imagePath]);
+                $this->popup_message = null;
+                $this->popup_message = 'Profile picture updated successfully.';
+                $this->profile_picture = null;
+                $this->openEditProfile = null;
+            }else{
+                $this->popup_message = null;
+                $this->popup_message = 'Update profile picture unsuccessful.';
+                $this->profile_picture = null;
+                $this->openEditProfile = null;
             }
-            $this->popup_message = null;
-            $this->popup_message = 'Profile picture updated successfully.';
-            $this->profile_picture = null;
-            $this->openEditProfile = null;
         }catch(Exception $e){
             throw $e;
         }

@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="images/yvip_logo.png">
-        
+
         @yield ('title')
 
         <!-- CSS FILES -->
@@ -43,7 +43,7 @@
         <script src="Login and Register/vendor/datepicker/moment.min.js"></script>
         <script src="Login and Register/vendor/datepicker/daterangepicker.js"></script>
         <script src="Login and Register/js/global.js"></script>
-
+        @livewireScripts
     </body>
 
 </html>

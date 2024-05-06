@@ -7,11 +7,10 @@ use App\Models\VolunteerCategory;
 use App\Models\Volunteer;
 use App\Models\Skills;
 use App\Models\Categories;
-use App\Models\User;
+use App\Models\VolunteerExperience;
+use Exception;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +18,8 @@ class CategoryForm extends Component
 {
     public $skills;
     public $selectedSkills = [];
-    public $experience;
+    public $nature_of_event;
+    public $participation;
     public $addSkillForm;
     public $addExperience;
     public $popup_message;
@@ -117,7 +117,7 @@ class CategoryForm extends Component
         $selectedSkillNames = VolunteerSkills::where('user_id', $user->id)->pluck('skill_name')->first();
         $selectedSkillNamesArray = $selectedSkillNames ? explode(',', $selectedSkillNames) : [];
         $userCategories = VolunteerCategory::where('user_id', $user->id)->pluck('category_name')->first();
-        $volunteerExperiences = Volunteer::where('user_id', Auth::id())->get();
+        $volunteerExperiences = VolunteerExperience::where('user_id', Auth::id())->get();
         $allSkills = Skills::all();
 
         $selectedSkillsWithCategories = DB::table('all_skills')
@@ -156,19 +156,27 @@ class CategoryForm extends Component
 
     public function addExp()
     {
-        $user = Auth::user();
-
-        $this->validate();
-
-        Volunteer::create([
-            'user_id' => $user->id,
-            'volunteer_experience' => $this->experience,
-        ]);
-
-        $this->experience = '';
-        $this->addExperience = null;
-        $this->popup_message = null;
-        $this->popup_message = "Experience added successfully.";
+        try{
+            $user = Auth::user();
+            $this->validate([
+                'nature_of_event' => ['required', 'min:5'],
+                'participation' => ['required', 'min:5'],
+            ]);
+    
+            VolunteerExperience::create([
+                'user_id' => $user->id,
+                'nature_of_event' => $this->nature_of_event,
+                'participation' => $this->participation,
+            ]);
+    
+            $this->nature_of_event = null;
+            $this->participation = null;
+            $this->addExperience = null;
+            $this->popup_message = null;
+            $this->popup_message = "Experience added successfully.";
+        }catch(Exception $e){
+            throw $e;
+        }
     }
     
     public function rules()
@@ -178,27 +186,45 @@ class CategoryForm extends Component
         ];
     }
 
-    public function editExpForm($id)
-    {
-        // $this->edit = true;
-        $this->editId = $id;
-        $this->editContent = Volunteer::find($id)->volunteer_experience;
+    public function editExpForm($id){
+        try{
+            $exp = VolunteerExperience::find($id);
+            if($exp){
+                $this->editId = $id;
+                $this->nature_of_event = $exp->nature_of_event;
+                $this->participation = $exp->participation;
+            }
+        }catch(Exception $e){
+            throw $e;
+        }
     }
 
-    public function updateExp()
-    {
-        $this->validate([
-            'editContent' => ['required', 'min:5'],
-        ]);
+    public function updateExp(){
+        try{
+            $this->validate([
+                'nature_of_event' => ['required', 'min:5'],
+                'participation' => ['required', 'min:5'],
+            ]);
+        
+            $experience = VolunteerExperience::find($this->editId);
+            if($experience){
+                $experience->update([
+                    'nature_of_event' => $this->nature_of_event,
+                    'participation' => $this->participation,
+                ]);
     
-        $experience = Volunteer::find($this->editId);
-        $experience->volunteer_experience = $this->editContent;
-        $experience->save();
-    
-        $this->editId = null;
-        $this->editContent = '';
+                $this->editId = null;
+                $this->editContent = null;
+                $this->popup_message = "Experience updated successfully.";
+            }else{
+                $this->editId = null;
+                $this->editContent = null;
+                $this->popup_message = "Experience update unsuccessfully.";
+            }
 
-        $this->popup_message = "Experience updated successfully.";
+        }catch(Exception $e){
+            throw $e;
+        }
     }
 
     public function closeEditExpForm()

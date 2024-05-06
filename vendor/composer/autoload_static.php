@@ -614,10 +614,6 @@ class ComposerStaticInitf9985d2fbac80db1beb2b346fbe4e2ec
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
-        'App\\Filament\\Resources\\EventsAndTrainingsResource' => __DIR__ . '/../..' . '/app/Filament/Resources/EventsAndTrainingsResource.php',
-        'App\\Filament\\Resources\\EventsAndTrainingsResource\\Pages\\CreateEventsAndTrainings' => __DIR__ . '/../..' . '/app/Filament/Resources/EventsAndTrainingsResource/Pages/CreateEventsAndTrainings.php',
-        'App\\Filament\\Resources\\EventsAndTrainingsResource\\Pages\\EditEventsAndTrainings' => __DIR__ . '/../..' . '/app/Filament/Resources/EventsAndTrainingsResource/Pages/EditEventsAndTrainings.php',
-        'App\\Filament\\Resources\\EventsAndTrainingsResource\\Pages\\ListEventsAndTrainings' => __DIR__ . '/../..' . '/app/Filament/Resources/EventsAndTrainingsResource/Pages/ListEventsAndTrainings.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',

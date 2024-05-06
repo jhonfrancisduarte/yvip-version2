@@ -8,6 +8,8 @@ use App\Models\IpEvents;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class VirtualPassportTable extends Component
 {
@@ -15,30 +17,28 @@ class VirtualPassportTable extends Component
 
     public $qrCodeUrl;
     public $search;
+    public $totalVolunteeringHours;
     public $myEvents = [];
+    public $generatingPdf = false;
 
     public function mount()
     {
         $this->generateQrCodeUrl();
+        // Compute the total volunteering hours for the current authenticated user
+        $this->totalVolunteeringHours = $this->getTotalVolunteeringHours();
+    }
+
+    private function getTotalVolunteeringHours()
+    {
+        // Get the current authenticated user
+        $user = Auth::user();
+
+        // Retrieve the total volunteering hours for the user
+        return $user->rewardClaim->total_hours;
     }
 
     private function getUserIpEvents()
     {
-        $userData = Auth::user()->userData;
-        $details = [
-            'Passport No.' => $userData->passport_number,
-            'Name' => $userData->first_name . ' ' . $userData->last_name,
-            'Nationality' => $userData->nationality,
-            'Date of Birth' => $userData->date_of_birth,
-        ];
-
-        $text = '';
-        foreach ($details as $key => $value) {
-            $text .= "$key: $value\n";
-        }
-
-        $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($text);
-
         $userId = Auth::id();
         return IpEvents::whereRaw('find_in_set(?, participants)', [$userId])->get();
     }
@@ -46,7 +46,6 @@ class VirtualPassportTable extends Component
     public function generateQrCodeUrl()
     {
         $userData = Auth::user()->userData;
-        $userId = Auth::user()->id;
         $details = [
             'Passport No.: ' . $userData->passport_number,
             'Name: ' . $userData->first_name . ' ' . $userData->last_name,
@@ -59,14 +58,16 @@ class VirtualPassportTable extends Component
         ];
 
         $userIpEvents = $this->getUserIpEvents();
+        $eventNumber = 1; // Initialize event number
 
         foreach ($userIpEvents as $event) {
-            $details[] = implode(' | ', [
+            $details[] = $eventNumber . '. ' . implode(' | ', [
                 $event->event_name,
                 $event->organizer_sponsor,
                 Carbon::parse($event->start)->format('Y-m-d'),
                 Carbon::parse($event->end)->format('Y-m-d'),
             ]);
+            $eventNumber++; // Increment event number
         }
 
         $qrData = implode("\n", $details);
@@ -104,14 +105,6 @@ class VirtualPassportTable extends Component
                     }
                 }
             }
-            $currentDate = now();
-            if ($currentDate >= $event->start && $currentDate <= $event->end) {
-                $event->status = 'Ongoing';
-            } elseif ($currentDate > $event->end) {
-                $event->status = 'Completed';
-            } else {
-                $event->status = 'Upcoming';
-            }
 
             $event->participantData = $participantData;
             $event->qualifications = explode(',', $event->qualifications);
@@ -122,6 +115,27 @@ class VirtualPassportTable extends Component
 
         return view('livewire.tables.virtual-passport-table', compact('ipEvents'), [
             'qrCodeUrl' => $this->qrCodeUrl,
+            'totalVolunteeringHours' => $this->totalVolunteeringHours,
         ]);
     }
+
+    public function generatePdf()
+    {
+        $this->generatingPdf = true;
+
+        $ipEvents = $this->getUserIpEvents();
+        $profilePictureUrl = Auth::user()->userData->profile_picture;
+        $pdf = PDF::loadView('pdf.passport-pdf', [
+            'ipEvents' => $ipEvents,
+            'qrCodeUrl' => $this->qrCodeUrl,
+            'profilePictureUrl' => $profilePictureUrl,
+        ]);
+
+        $pdf->save(public_path('passport.pdf'));
+
+        $this->generatingPdf = false;
+
+        return response()->download(public_path('passport.pdf'));
+    }
+
 }

@@ -1,10 +1,12 @@
 <section class="content profile-content">
+
     <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
         </button>
         <p>{{ $popup_message }}</p>
     </div>
+
     <div class="profile-header">
         <div class="cover">
            <img src="images/yvip_logo.png" alt="logo" width="100">
@@ -14,7 +16,7 @@
                 <div class="top-info">
                     <div class="profile-pic">
                         <img src="{{ $user->profile_picture }}" alt="profile picture">
-                        <i class="nav-icon fas fa-camera" wire:click="opedEditProfileForm"></i>
+                        <i class="nav-icon fas fa-camera" wire:click="opedEditProfileForm('{{ $user->user_id }}')"></i>
                     </div>
                     <div class="name">
                         <h3>{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</h3>
@@ -346,27 +348,27 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form enctype="multipart/form-data" wire:submit="editProfilePic('{{ $user->user_id }}')">
+                        <form wire:submit.prevent="editProfilePic('{{ $user->user_id }}')">
                             <div class="card card-primary">
                                 <div class="card-body">
-
-                                    <div class="row">
-                                        <img src="" alt="" class="selected-image">
-                                    </div>
 
                                     <div class="row">     
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label class="label">Select picture</label>
-                                                <input type="file" accept="image/*" id="profile_picture" wire:model.blur='profile_picture' required/>
+                                                <input type="file" accept="image/*" wire:model.blur="profile_picture" required/>
                                             </div>
+                                            @error('profile_picture') <span class="red">Wait until file is uploaded</span> @enderror
                                         </div>
                                     </div>
 
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button class="btn-submit" type="submit">Submit</button>
+                                    <button class="btn-submit" type="submit" {{ $profile_picture ? '' : 'disabled' }}>Submit</button>
+                                    <div wire:loading wire:target="profile_picture" class="loading-container">
+                                        <div class="loading-spinner"></div>
+                                    </div>
                                 </div>
                             </div>
                         </form>

@@ -17,9 +17,11 @@ return new class extends Migration
                 $table->uuid('user_id');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
                 $table->string('number_of_hours');
-                $table->text('rewards');
-                $table->date('award_date')->format('d F Y');
-                $table->text('claim_status')->default(0);
+                $table->unsignedBigInteger('reward_id');
+                $table->foreign('reward_id')->references('id')->on('rewards');
+                $table->date('request_date')->format('d F Y')->nullable();
+                $table->boolean('request_status')->default(1);
+                $table->boolean('claim_status')->default(0);
                 $table->date('claim_date')->format('d F Y')->nullable();
                 $table->timestamps();
             });

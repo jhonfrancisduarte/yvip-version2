@@ -3,15 +3,18 @@
 namespace App\Livewire;
 
 use App\Models\Categories;
+use App\Models\RewardClaim;
 use Livewire\Component;
 use App\Models\VolunteerEventsAndTrainings;
 use App\Models\User;
-use Illuminate\Validation\Rule;
+use App\Models\VolunteerExperience;
+use App\Models\VolunteerHours;
 use Exception;
 use Livewire\WithPagination;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class VolunteerEventsAndTrainingsTable extends Component
 {
@@ -72,6 +75,9 @@ class VolunteerEventsAndTrainingsTable extends Component
     public $filterBy = 'start';
     public $selectedDate;
     public $search;
+    
+    public $volunteerExperiences;
+    public $groupedSkills;
 
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
@@ -306,7 +312,7 @@ class VolunteerEventsAndTrainingsTable extends Component
                 if ($user) {
                     $joinRequestsData[] = [
                         'user_id' => $user->id,
-                        'name' => $user->name,
+                        'name' => $user->userData->first_name . ' ' . $user->userData->middle_name . ' ' . $user->userData->last_name,
                     ];
                 }
             }
@@ -475,6 +481,9 @@ class VolunteerEventsAndTrainingsTable extends Component
                     ->select('users.email', 'users.active_status', 'user_data.*')
                     ->first();
                 $this->thisUserDetails = $this->thisUserDetails->getAttributes();
+                $this->getSkillsAndCategory($userId);
+                $this->openJoinRequestsTable = null;
+                $this->options = null;
             }
         }catch(Exception $e){
             throw $e;
@@ -528,21 +537,69 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->eventId = null;
         $this->options = null;
         $this->closeParticipantsForm();
+        $this->openJoinRequests($this->joinEventId);
     }
 
     public function changeStatus($eventId, $status){
-        try{
+        try {
             $event = VolunteerEventsAndTrainings::find($eventId);
-            if($event){
+            if ($event) {
                 $event->update([
                     'status' => $status,
                 ]);
     
-                $this->popup_message = null;
-                $this->popup_message = "Status updated successfully.";
-                $this->options2 = null;
+                // Grant to the participants the volunteering hours
+                if ($status === 'Completed') {
+                    $participantIds = explode(',', $event->participants);
+                    $participantsData = [];
+    
+                    foreach ($participantIds as $participantId) {
+                        $participantId = trim($participantId);
+                        if (!empty($participantId)) {
+                            $user = User::find($participantId);
+                            if ($user) {
+                                $userData = $user->userData;
+                                if ($userData) {
+                                    $participantsData[] = [
+                                        'user_id' => $participantId,
+                                        'event_id' => $eventId,
+                                        'volunteering_hours' => $event->volunteer_hours,
+                                    ];
+                                }
+
+                                $rewardClaim = $user->rewardClaim;
+
+                                if ($rewardClaim) {
+                                    $totalHours = $rewardClaim->total_hours + $event->volunteer_hours;
+                                    $claimableHours = $totalHours - $rewardClaim->total_claimed_hours;
+                                    $rewardClaim->update([
+                                        'total_hours' => $totalHours,
+                                        'claimable_hours' => $claimableHours,
+                                    ]);
+                                } else {
+                                    RewardClaim::create([
+                                        'user_id' => $participantId,
+                                        'total_hours' => $event->volunteer_hours,
+                                        'claimable_hours' => $event->volunteer_hours,
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+    
+                    if (!empty($participantsData)) {
+                        VolunteerHours::insert($participantsData);
+                    }
+                    $this->popup_message = null;
+                    $this->popup_message = "Status updated successfully.";
+                    $this->options2 = null;
+                }else{
+                    $this->popup_message = null;
+                    $this->popup_message = "Status update unsuccessfully.";
+                    $this->options2 = null;
+                }
             }
-        }catch(Exception $e){
+        } catch (Exception $e) {
             throw $e;
         }
     }
@@ -552,6 +609,25 @@ class VolunteerEventsAndTrainingsTable extends Component
             $this->options2 = null;
         }else{
             $this->options2 = $eventId;
+        }
+    }
+
+    public function getSkillsAndCategory($userId){
+        try{
+            $user = User::where('id', $userId)->first();
+            if($user){
+                $this->volunteerExperiences = VolunteerExperience::where('user_id', $user->id)->get();
+                $selectedSkillIds = Cache::get("user_{$userId}_selected_skill_ids", []);
+                $selectedSkillsWithCategories = DB::table('all_skills')
+                    ->whereIn('all_skills.id', $selectedSkillIds)
+                    ->join('all_categories', 'all_skills.category_id', '=', 'all_categories.id')
+                    ->select('all_skills.*', 'all_categories.all_categories_name')
+                    ->get();
+
+                $this->groupedSkills = $selectedSkillsWithCategories->groupBy('all_categories_name');
+            }
+        }catch(Exception $e){
+            throw $e;        
         }
     }
 }

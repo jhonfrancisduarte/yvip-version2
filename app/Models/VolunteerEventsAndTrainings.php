@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class VolunteerEventsAndTrainings extends Model
 {
@@ -33,6 +34,14 @@ class VolunteerEventsAndTrainings extends Model
             $query->where('event_name', 'like', $term)
                 ->orWhere('organizer_facilitator', 'like', $term);
         });
+    }
+
+    public function participants(): BelongsToMany{
+        return $this->belongsToMany(User::class, 'volunteer_events_and_trainings', 'event_id', 'user_id');
+    }
+
+    public function volunteerHours(){
+        return $this->hasMany(VolunteerHours::class);
     }
 
 }

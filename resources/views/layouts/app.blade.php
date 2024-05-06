@@ -60,8 +60,6 @@
 
     @yield('content')
 
-    @yield('js')
-
     <script>
         var table = document.getElementById('volunteers-table');
         var isHovering = false;
@@ -97,6 +95,8 @@
     <script src="dist/js/demo.js"></script>
     <script src="dist/js/pages/dashboard.js"></script>
     <script src="js/dashboard.js"></script>
+
+    @yield('js')
 
 </body>
 </html>

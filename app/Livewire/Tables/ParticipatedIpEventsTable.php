@@ -19,17 +19,6 @@ class ParticipatedIpEventsTable extends Component
         $ipEvents->transform(function ($event) use (&$joinRequestsData) {
             $participantIds = explode(',', $event->participants);
             $userId = auth()->user()->id;
-
-    
-            $currentDate = now();
-            if ($currentDate >= $event->start && $currentDate <= $event->end) {
-                $event->status = 'Ongoing';
-            } elseif ($currentDate > $event->end) {
-                $event->status = 'Completed';
-            } else {
-                $event->status = 'Upcoming';
-            }
-    
             $event->approved = in_array($userId, $participantIds);
 
             return $event;

@@ -79,7 +79,14 @@
                                                     <div class="ppo-upload-file-container">
                                                         <form class="ppo-upload-file" wire:submit.prevent="uploadPostProgramObligation({{ $event->id }})">
                                                             <input type="file" id="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" required/>
-                                                            <button class="btn-submit" type="submit"><i class="bi bi-upload"></i></button>
+                                                            
+                                                            <button class="btn-submit" type="submit" {{ $file ? '' : 'disabled' }}><i class="bi bi-upload"></i></button>
+                                                            
+                                                            @if($thisPpoId === $event->id)
+                                                                <div wire:loading wire:target="file" class="loading-container">
+                                                                    <div class="loading-spinner"></div>
+                                                                </div>
+                                                            @endif
                                                         </form>
                                                     </div>
                                                     Or

@@ -13,13 +13,11 @@ use App\Models\PhilippineProvinces;
 use App\Models\PhilippineCities;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-use DateTime;
 use Illuminate\Support\Facades\Session;
 class MyProfile extends Component
 {
     use WithFileUploads;
     public $popup_message;
-    #[Rule('required')]
     public $profile_picture;
     public $openEditProfile;
     public $myInfo = true;
@@ -27,25 +25,18 @@ class MyProfile extends Component
     public $toBeEdited;
     public $formattedData;
     public $value;
-    #[Rule('required|min:2|max:100')]
     public $thisData;
     public $name_of_school;
     public $course;
     public $nature_of_work;
     public $employer;
-    #[Rule('required')]
     public $selectedProvince;
-    #[Rule('required')]
     public $selectedCity;
-    #[Rule('required|min:2')]
     public $p_street_barangay;
     public $provinces;
     public $cities;
-    #[Rule('required|min:8')]
     public $password;
-    #[Rule('required|min:8')]
     public $new_password;
-    #[Rule('required|min:8')]
     public $c_new_pass;
     public $deleteAccDialog;
 
@@ -87,28 +78,46 @@ class MyProfile extends Component
 
     public function editProfilePic($id){
         try{
-            $user = User::where('id', $id)->first();
-            
-            $pathToDelete = $user->userData->profile_picture;
-            $pathToDelete = str_replace('uploads', '', $pathToDelete);
-            if (Storage::disk('public_uploads')->exists($pathToDelete)) {
-                Storage::disk('public_uploads')->delete($pathToDelete);
-            }   
-            
+            $this->validate([
+                'profile_picture' => [
+                    'image',
+                    'max:4096',
+                ],
+            ]);
+
             if($this->profile_picture){
+                $user = User::where('id', $id)->first();
+                $pathToDelete = $user->userData->profile_picture;
+                $pathToDelete = str_replace('uploads', '', $pathToDelete);
+                if (Storage::disk('public_uploads')->exists($pathToDelete)) {
+                    Storage::disk('public_uploads')->delete($pathToDelete);
+                }
+
                 $imageName = $this->profile_picture->getClientOriginalName();
                 $imagePath = $this->profile_picture->storeAs('profilePics', $imageName, 'public_uploads');
                 $imagePath = "uploads/" . $imagePath;
                 $user->userData()->update(['profile_picture' => $imagePath]);
+
+                $this->popup_message = null;
+                $this->popup_message = 'Profile picture updated successfully.';
+                $this->profile_picture = null;
+                $this->openEditProfile = null;
+            }else{
+                $this->popup_message = null;
+                $this->popup_message = 'Update profile picture unsuccessful.';
+                $this->profile_picture = null;
+                $this->openEditProfile = null;
             }
             
-            $this->popup_message = null;
-            $this->popup_message = 'Profile picture updated successfully.';
-            $this->profile_picture = null;
-            $this->openEditProfile = null;
         }catch(Exception $e){
             throw $e;
         }
+    }
+
+    public function rules(){
+        return [
+            'profile_picture' => 'required|file|max:2048',
+        ];
     }
 
     public function opedEditProfileForm(){

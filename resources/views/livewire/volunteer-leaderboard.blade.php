@@ -6,12 +6,16 @@
                 <div class="card" style="border-radius: 20px; overflow: hidden;">
 
                     <div class="card-body scroll-table">
-                        @php $myRank = 1; $previousHours = null;@endphp
+                        @php 
+                            $myRank = 1; 
+                            $previousHours = null;
+                        @endphp
                         @foreach ($totalHoursPerUser as $record)
-                            @if(auth()->user()->id === $record->user_id)
+                            @if(auth()->user()->id !== $record->user_id)
                                 @if($previousHours !== $record->total_volunteer_hours && $previousHours !== null)
                                     @php $myRank++; @endphp
                                 @endif
+                            @else
                                 <div class="my-rank">
                                     <div class="r">
                                         <div class="rank">

@@ -14,15 +14,28 @@ class VolunteerRewards extends Model
     protected $fillable = [
         'user_id',
         'number_of_hours',
-        'rewards',
-        'award_date',
+        'reward_id',
+        'request_date',
+        'request_status',
         'claim_status',
         'claim_date',
-        // Add other fillable fields as needed
     ];
 
-    public function user()
-    {
+    public function scopeSearch($query, $term){
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->whereHas('user', function ($query) use ($term) {
+                $query->where('name', 'like', $term);
+            });
+        });
+    }
+
+
+    public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function reward(){
+        return $this->belongsTo(Rewards::class);
     }
 }

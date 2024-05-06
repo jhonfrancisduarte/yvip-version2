@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Volunteer;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
@@ -47,8 +48,16 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
-    public function volunteer(){
-        return $this->hasOne(Volunteer::class);
+    public function volunteers(){
+        return $this->hasMany(Volunteer::class);
+    }
+
+    public function volunteerHours(){
+        return $this->hasMany(VolunteerHours::class);
+    }
+
+    public function rewardClaim(){
+        return $this->hasOne(RewardClaim::class);
     }
 
     public function volunteer_skills(){
@@ -74,12 +83,15 @@ class User extends Authenticatable
         return $this->hasMany(VolunteerRewards::class);
     }
 
+    public function volunteerExperience(){
+        return $this->hasMany(VolunteerExperience::class);
+    }
+
     public function claimRequest(){
         return $this->hasMany(ClaimRequest::class);
     }
 
-    public function scopeSearch($query, $term)
-    {
+    public function scopeSearch($query, $term){
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
             $query->where('user_data.first_name', 'like', $term)
@@ -106,7 +118,6 @@ class User extends Authenticatable
 
     protected static function boot(){
         parent::boot();
-
 
         static::saved(function ($user) {
 

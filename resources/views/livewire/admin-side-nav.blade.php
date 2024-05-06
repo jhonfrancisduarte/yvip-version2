@@ -29,7 +29,7 @@
                             <i class="nav-icon bi bi-people"></i>
                             <p>
                                 Youth Volunteer
-                                @if($volunteerRegs !== 0 || $volunteerJoinRequests !== 0)
+                                @if($volunteerRegs !== 0 || $volunteerJoinRequests !== 0 || $claimRequests !== 0)
                                     <span style="color: red; font-size:30px; position: absolute; top: -5px;">•</span>
                                 @endif
                                 <i class="right bi bi-caret-left pos-right"></i>
@@ -80,6 +80,9 @@
                                 <i class="nav-icon bi bi-award"></i>
                                 <p>
                                     Volunteer Rewards
+                                    @if($claimRequests !== 0)
+                                        <span class="badge bg-primary2">{{ $claimRequests }}</span>
+                                    @endif
                                 </p>
                                 </a>
                             </li>

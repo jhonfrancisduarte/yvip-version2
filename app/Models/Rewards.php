@@ -15,7 +15,9 @@ class Rewards extends Model
         'level',
         'number_of_hours',
         'rewards',
-        // Add other fillable fields as needed
-
     ];
+
+    public function volunteerRewards(){
+        return $this->hasMany(VolunteerRewards::class);
+    }
 }

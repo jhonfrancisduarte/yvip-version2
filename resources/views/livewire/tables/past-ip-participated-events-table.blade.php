@@ -39,14 +39,14 @@
                                                 <!-- Edit button -->
                                                 <div class="btn-g">
                                                     @if($event->confirmed)
-                                                    <button type="button" class="btn-submit mx-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Cannot Edit Confirmed Event!">
-                                                        <i class="bi bi-pencil-fill"></i>
+                                                    <button type="button" class="btn-submit mx-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Cannot Edit Confirmed Event!" disabled>
+                                                        <i class="bi bi-pencil-square"></i>
                                                     </button>
 
 
                                                     @else
                                                         <button type="button" class="btn-submit mx-1" wire:click="editEvent({{ $event->id }})">
-                                                            <i class="bi bi-pencil-fill"></i>
+                                                            <i class="bi bi-pencil-square"></i>
                                                         </button>
                                                         <span class="span span-delete">Edit</span>
                                                     @endif

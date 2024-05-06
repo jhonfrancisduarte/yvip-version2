@@ -6,12 +6,15 @@ use App\Models\IpEvents;
 use App\Models\IpPostProgramObligation;
 use Livewire\Component;
 use App\Models\User;
+use App\Models\VolunteerExperience;
 use Livewire\Attributes\Rule;
 use Exception;
 use Livewire\WithPagination;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class IpEventsTable extends Component
 {
@@ -47,13 +50,15 @@ class IpEventsTable extends Component
     public $joinNotif = false;
     public $participants = [];
     public $ipEvent;
+    public $volunteerExperiences;
+    public $groupedSkills;
 
     protected $rules = [
         'event_name' => 'required|min:2',
         'organizer_sponsor' => 'required|min:2',
         'start' => 'required|date',
         'end' => 'required|date',
-        'newSkills' => 'required|array',
+        'qualifications' => 'required|array',
     ];
 
     public function addQualification(){
@@ -156,7 +161,7 @@ class IpEventsTable extends Component
                 'start' => $this->start,
                 'end' => $this->end,
                 'status' => $status,
-                'qualifications' => implode(', ', $this->newSkills),
+                'qualifications' => implode(', ', $this->qualifications),
             ]);
 
             $this->popup_message = null;
@@ -169,7 +174,7 @@ class IpEventsTable extends Component
     }
 
     private function resetForm(){
-        $this->reset(['event_name', 'organizer_sponsor', 'start', 'end', 'newSkills']);
+        $this->reset(['event_name', 'organizer_sponsor', 'start', 'end', 'qualifications']);
     }
 
     public function editEvent(){
@@ -411,12 +416,15 @@ class IpEventsTable extends Component
                     $participantIds = explode(',', $event->participants);
                     $this->isParticipant = in_array($userId, $participantIds);
                 }
-    
-                $this->thisUserDetails = User::where('users.id', $userId)
+                
+                $this->thisUserDetails = User::where('users.id', $user->id)
                     ->join('user_data', 'users.id', '=', 'user_data.user_id')
                     ->select('users.email', 'users.active_status', 'user_data.*')
                     ->first();
                 $this->thisUserDetails = $this->thisUserDetails->getAttributes();
+                $this->getSkillsAndCategory($userId);
+                $this->openJoinRequestsTable = null;
+                $this->options = null;
             }
         }catch(Exception $e){
             throw $e;
@@ -428,6 +436,7 @@ class IpEventsTable extends Component
         $this->eventId = null;
         $this->options = null;
         $this->closeParticipantsForm();
+        $this->openJoinRequests($this->joinEventId);
     }
 
     public function toggleOptions($eventId){
@@ -472,6 +481,7 @@ class IpEventsTable extends Component
     }
     public function closeSubmissionsTable(){
         $this->ppoSubmisions = null;
+        $this->options = null;
     }
 
     public function viewParticipants($eventId){
@@ -510,5 +520,24 @@ class IpEventsTable extends Component
         $this->isParticipant = null;
         $this->participants = null;
         $this->options = null;
+    }
+
+    public function getSkillsAndCategory($userId){
+        try{
+            $user = User::where('id', $userId)->first();
+            if($user){
+                $this->volunteerExperiences = VolunteerExperience::where('user_id', $user->id)->get();
+                $selectedSkillIds = Cache::get("user_{$userId}_selected_skill_ids", []);
+                $selectedSkillsWithCategories = DB::table('all_skills')
+                    ->whereIn('all_skills.id', $selectedSkillIds)
+                    ->join('all_categories', 'all_skills.category_id', '=', 'all_categories.id')
+                    ->select('all_skills.*', 'all_categories.all_categories_name')
+                    ->get();
+
+                $this->groupedSkills = $selectedSkillsWithCategories->groupBy('all_categories_name');
+            }
+        }catch(Exception $e){
+            throw $e;        
+        }
     }
 }
