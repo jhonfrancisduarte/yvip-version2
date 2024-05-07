@@ -77,7 +77,7 @@
             </div>
             <table class="passport-table">
                 <tr>
-                    <td rowspan="7"><img src="{{ $profilePictureUrl }}" alt="Profile Picture" style="width: 150px; height: auto"></td>
+                    <td rowspan="8"><img src="{{ $profilePictureUrl }}" alt="Profile Picture" style="width: 150px; height: auto"></td>
                     <th>Passport No.</th>
                     <td>{{ $passportNumber }}</td>
                 </tr>
@@ -105,9 +105,53 @@
                     <th>QR Code</th>
                     <td><center><img src="{{ $qrCodeUrl }}" alt="QR Code" style="max-width: 80px; height: auto;"></td></center>
                 </tr>
+                <tr>
+                    <th>Total Volunteering Hours</th>
+                    <td>{{ $totalVolunteeringHours }}</td>
+                </tr>
             </table>
+            <center>
+                <h5>Generated As of : {{ now() }}</h5>
+            </center>
+
         </div>
         <div class="page-break"></div>
+
+        <div class="passport">
+            <!-- Watermark logo -->
+            <img src="images/yvip_logo.png" alt="Logo" class="watermark">
+
+            <h3 class="passport-title">My Volunteer Events and Trainings</h3>
+            <table class="passport-table">
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Category</th>
+                        <th>Date / Period</th>
+                        <th>Hours</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($volunteerEventsAndTrainings as $event)
+                    <tr>
+                        <td>{{ $event->event_name }}</td>
+                        <td>{{ $event->volunteer_category }}</td>
+                        <td>{{ $event->start_date }} - {{ $event->end_date }}</td>
+                        <td>{{ $event->volunteer_hours }}</td>
+                        <td>{{ $event->status }}</td>
+
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <center>
+                <h5>Generated As of : {{ now() }}</h5>
+            </center>
+        </div>
+        <div class="page-break"></div>
+
+
         <div class="passport">
             <!-- Watermark logo -->
             <img src="images/yvip_logo.png" alt="Logo" class="watermark">
@@ -132,6 +176,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <center>
+                <h5>Generated As of : {{ now() }}</h5>
+            </center>
         </div>
         @if (! $loop->last)
             <div class="page-break"></div>

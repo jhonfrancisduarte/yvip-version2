@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 class MyParticipatedYvEventsTable extends Component
 {
     use WithPagination;
-    
+
     public $search;
 
     public function render(){
