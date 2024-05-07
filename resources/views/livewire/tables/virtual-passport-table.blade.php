@@ -17,7 +17,6 @@
     </div>
 
 
-    <!-- Your content goes here -->
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-9">
@@ -67,12 +66,66 @@
             <div class="col-md-9">
                 <div class="card" style="border-radius: 20px; overflow: hidden;">
                     <h3 class="card-title text-center fw-bold fs-4 my-4">Total Volunteering Hours: {{ $totalVolunteeringHours }}</h3>
+                    <p class="text-center">As of: {{ now() }}</p>
 
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Participated YV Events -->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <div class="card" style="border-radius: 20px; overflow: hidden;">
+                    <h3 class="card-title text-center fw-bold fs-4 my-4">Participated YV Events</h3>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name of Event</th>
+                                        <th>Category</th>
+                                        <th>Date / Period</th> <!-- Changed column name here -->
+                                        <th>Hours</th>
+                                        <th>Status</th> <!-- Changed position here -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($volunteerEventsAndTrainings as $event)
+                                        <tr>
+                                            @if($event->approved)
+                                                <td>{{ $event->event_name }}</td>
+                                                <td>{{ $event->event_type }}</td>
+                                                <td>{{ $event->start_date }} - {{ $event->end_date }}</td> <!-- Combined start and end dates -->
+                                                <td>{{ $event->volunteer_hours }}</td>
+                                                <td>
+                                                    <span
+                                                        @if($event->status === "Ongoing")
+                                                            class="badge bg-success"
+                                                        @elseif($event->status === "Completed")
+                                                            class="badge bg-primary"
+                                                        @else
+                                                            class="badge bg-warning"
+                                                        @endif>
+                                                        {{ $event->status }}
+                                                    </span>
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="m-3">
+                        {{ $volunteerEventsAndTrainings->links('livewire::bootstrap') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- My IP Events -->
     <div class="container mt-4">
@@ -120,14 +173,18 @@
             </div>
         </div>
     </div>
+
+
     <div class="row justify-content-center">
-        <div class="col-md-9 d-flex justify-content-center">
-            <button type="button" class="btn-submit mb-4" wire:click="generatePdf" wire:loading.remove>
+        <div class="col-md-9 d-flex justify-content-center mb-4">
+            <button type="button" class="btn-submit" wire:click="generatePdf" wire:loading.remove>
                 Generate PDF
             </button>
             <div wire:loading wire:target="generatePdf">
-                Generating PDF...
+                <div class="spinner-border text-primary" role="status">
+                </div>
             </div>
+
         </div>
     </div>
 

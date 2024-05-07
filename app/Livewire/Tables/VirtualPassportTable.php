@@ -6,6 +6,7 @@ use App\Models\RewardClaim;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\IpEvents;
+use App\Models\VolunteerEventsAndTrainings;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -25,7 +26,6 @@ class VirtualPassportTable extends Component
     public function mount()
     {
         $this->generateQrCodeUrl();
-        // Compute the total volunteering hours for the current authenticated user
         $this->totalVolunteeringHours = $this->getTotalVolunteeringHours();
     }
 
@@ -89,7 +89,7 @@ class VirtualPassportTable extends Component
         $ipEvents = IpEvents::join('users', 'users.id', '=', 'ip_events.user_id')
             ->select('users.name', 'ip_events.*')
             ->orderBy('ip_events.created_at', 'desc')
-            ->paginate(5); // Adjust the number of items per page as needed
+            ->paginate(10);
 
         $ipEvents->transform(function ($event) use ($userIpEvents) {
             $participantIds = explode(',', $event->participants);
@@ -120,11 +120,31 @@ class VirtualPassportTable extends Component
             return $event;
         });
 
-        return view('livewire.tables.virtual-passport-table', compact('ipEvents'), [
+        $volunteerEventsAndTrainings = VolunteerEventsAndTrainings::join('users', 'users.id', '=', 'volunteer_events_and_trainings.user_id')
+            ->select('users.name', 'volunteer_events_and_trainings.*', 'volunteer_events_and_trainings.start_date', 'volunteer_events_and_trainings.end_date')
+            ->search(trim($this->search))
+            ->orderBy('volunteer_events_and_trainings.created_at', 'desc')
+            ->paginate(10);
+
+        $volunteerEventsAndTrainings->transform(function ($yvevent) {
+            $participantIds = explode(',', $yvevent->participants);
+            $userId = auth()->user()->id;
+
+            $yvevent->approved = in_array($userId, $participantIds);
+
+            return $yvevent;
+        });
+
+        return view('livewire.tables.virtual-passport-table', [
+            'ipEvents' => $ipEvents,
             'qrCodeUrl' => $this->qrCodeUrl,
             'totalVolunteeringHours' => $this->totalVolunteeringHours,
+            'volunteerEventsAndTrainings' => $volunteerEventsAndTrainings,
         ]);
     }
+
+
+
 
     public function generatePdf()
     {
@@ -132,10 +152,21 @@ class VirtualPassportTable extends Component
 
         $ipEvents = $this->getUserIpEvents();
         $profilePictureUrl = Auth::user()->userData->profile_picture;
+        $totalVolunteeringHours = $this->getTotalVolunteeringHours();
+
+        $userId = Auth::id();
+        $volunteerEventsAndTrainings = VolunteerEventsAndTrainings::join('users', 'users.id', '=', 'volunteer_events_and_trainings.user_id')
+            ->select('users.name', 'volunteer_events_and_trainings.*', 'volunteer_events_and_trainings.start_date', 'volunteer_events_and_trainings.end_date')
+            ->whereRaw('find_in_set(?, volunteer_events_and_trainings.participants)', [$userId])
+            ->orderBy('volunteer_events_and_trainings.created_at', 'desc')
+            ->get();
+
         $pdf = PDF::loadView('pdf.passport-pdf', [
             'ipEvents' => $ipEvents,
             'qrCodeUrl' => $this->qrCodeUrl,
             'profilePictureUrl' => $profilePictureUrl,
+            'totalVolunteeringHours' => $totalVolunteeringHours,
+            'volunteerEventsAndTrainings' => $volunteerEventsAndTrainings,
         ]);
 
         $pdf->save(public_path('passport.pdf'));

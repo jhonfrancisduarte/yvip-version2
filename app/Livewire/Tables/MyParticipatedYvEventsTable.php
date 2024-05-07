@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 class MyParticipatedYvEventsTable extends Component
 {
     use WithPagination;
-    
+
     public $search;
 
     public function render(){
@@ -36,6 +36,6 @@ class MyParticipatedYvEventsTable extends Component
 
     private function getTotalVolunteeringHours(){
         $user = Auth::user();
-        return $user->volunteerHours()->sum('volunteering_hours');
+        return $user->rewardClaim->total_hours;
     }
 }
