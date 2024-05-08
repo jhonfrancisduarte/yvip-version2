@@ -55,6 +55,7 @@ class UserData extends Model
         'org_position',
         'is_volunteer',
         'is_ip_participant',
+        'advocacy_plans',
     ];
 
     public function setAttribute($key, $value){
