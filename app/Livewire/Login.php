@@ -40,14 +40,12 @@ class Login extends Component
                 }
             }elseif($user->active_status === 2){
                 $this->addError('login', 'Invalid credentials.');
-            }else{
+            }elseif($user->active_status === 0){
                 $this->addError('status', 'Your account has not been approved yet!');
             }
         }else{
             $this->addError('login', 'Invalid credentials.');
         }
-
-        $this->addError('email', 'Invalid credentials.');  
     }
 
     public function render(){

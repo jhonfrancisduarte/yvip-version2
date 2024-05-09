@@ -95,6 +95,15 @@
         display: block;
     }
 
+    .my-rank .profile_picture{
+        display: none;
+    }
+
+    .my-name p{
+        text-align: center;
+        padding-top: 10px;
+    }
+
     .r{
         display: block;
         padding-top: 10px;

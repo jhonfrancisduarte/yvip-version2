@@ -4,9 +4,7 @@ namespace App\Livewire;
 
 use App\Models\RewardClaim;
 use Livewire\Component;
-use App\Models\Volunteer;
 use App\Models\UserData;
-use Illuminate\Support\Facades\DB;
 
 class VolunteerLeaderboard extends Component
 {

@@ -33,6 +33,9 @@ class AdminProfileTable extends Component
     #[Rule('required|min:8')]
     public $c_new_pass;
     public $deleteAccDialog;
+    public $first_name;
+    public $middle_name;
+    public $last_name;
 
     protected $rules = [
         'password' => 'required|min:8',
@@ -71,6 +74,11 @@ class AdminProfileTable extends Component
                 $this->thisData = $columnValue;
             }
             elseif($data === "password"){
+            }
+            elseif($data === "full_name"){
+                $this->first_name = $user->admin->first_name;
+                $this->middle_name = $user->admin->middle_name;
+                $this->last_name = $user->admin->last_name;
             }
             else{
                 $columnValue = $user->admin->{$data};
@@ -124,6 +132,23 @@ class AdminProfileTable extends Component
                 $this->popup_message = null;
                 $this->popup_message =  'Password updated successfully.';
             }
+            elseif($info === "full_name"){
+                $this->validate([
+                    'first_name' => 'required|min:2',
+                    'last_name' => 'required|min:2',
+                ]);
+
+                $user->update([
+                    'name' => $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name,
+                ]);
+                $user->admin->update([
+                    'first_name' => $this->first_name,
+                    'middle_name' => $this->middle_name,
+                    'last_name' => $this->last_name,
+                ]);
+                $this->popup_message = null;
+                $this->popup_message =  'Fullname updated successfully.';
+            }
             else{
                 $user->admin()->update([
                     $info => $this->thisData,
@@ -133,8 +158,11 @@ class AdminProfileTable extends Component
             }
             $this->toBeEdited = null;
             $this->thisData = null;
+            $this->first_name = null;
+            $this->middle_name = null;
+            $this->last_name = null;
+            redirect('/admin-profile');
         }
-
     }
 
     public function closePopup(){

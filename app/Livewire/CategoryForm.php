@@ -82,8 +82,7 @@ class CategoryForm extends Component
         $this->selectedSkills = $this->selectedSkillIds;
     }
 
-    public function submit()
-    {
+    public function submit(){
         $user = Auth::user();
 
         if (!empty($this->selectedSkillIds)) {

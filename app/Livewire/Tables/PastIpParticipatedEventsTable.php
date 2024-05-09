@@ -24,15 +24,14 @@ class PastIpParticipatedEventsTable extends Component
 
     protected $listeners = ['deleteEventConfirmed'];
 
-    public function render()
-    {
+    public function render(){
         $pastIpEvents = PastIpEvent::where('user_id', Auth::id())
-        ->leftJoin('users', 'past_ip_events.user_id', '=', 'users.id') // Join the users table
-        ->select('past_ip_events.*', 'users.name as user_name') // Select the name column from users
-        ->orderBy('confirmed', 'asc') // Pending status first
-        ->orderByDesc('past_ip_events.created_at') // Latest inserted events first
-        ->orderBy('user_name') // Sort by user's name
-        ->paginate(5);
+                                    ->leftJoin('users', 'past_ip_events.user_id', '=', 'users.id')
+                                    ->select('past_ip_events.*', 'users.name as user_name')
+                                    ->orderBy('confirmed', 'asc')
+                                    ->orderByDesc('past_ip_events.created_at')
+                                    ->orderBy('user_name')
+                                    ->paginate(5);
 
         return view('livewire.tables.past-ip-participated-events-table', [
             'pastIpEvents' => $pastIpEvents,
@@ -105,8 +104,7 @@ class PastIpParticipatedEventsTable extends Component
         $this->confirmingDelete = false;
     }
 
-    private function createEvent()
-    {
+    private function createEvent(){
         PastIpEvent::create([
             'user_id' => Auth::id(),
             'event_name' => $this->eventName,

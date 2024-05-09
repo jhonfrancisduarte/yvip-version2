@@ -97,9 +97,9 @@
                                             <tr>
                                                 <td>{{ $reward->reward->rewards }}</td>
                                                 <td>
-                                                    {{ $reward->claim_status ? 'Claimed' : 'Unclaimed' }} | 
+                                                    {{ $reward->claim_status ? 'Claimed' : 'Unclaimed' }}
                                                     @if($reward->claim_status)
-                                                        <span>{{ $reward->claim_date }}</span>
+                                                        <span>  | {{ $reward->claim_date }}</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -407,16 +407,16 @@
 
                                 <tbody>
                                     @foreach ($claimableRewards as $claimableReward)
-                                        @if(!$claimableReward['requestStatus'])
-                                            <tr>
-                                                <td>{{ $claimableReward['reward'] }}</td>
-                                                <td>
-                                                    <button type="button" class="btn-success float-right" wire:click="claimReward({{ $claimableReward['id'] }})">
-                                                            Claim Reward
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        @endif
+
+                                        <tr>
+                                            <td>{{ $claimableReward['reward'] }}</td>
+                                            <td>
+                                                <button type="button" class="btn-success float-right" wire:click="claimReward({{ $claimableReward['id'] }})">
+                                                        Claim Reward
+                                                </button>
+                                            </td>
+                                        </tr>
+                            
                                     @endforeach
                                 </tbody>
                             </table>

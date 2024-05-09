@@ -1,12 +1,10 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar elevation-4">
         <a href="#" class="brand-link">
             <img src="images/yvip_logo.png" alt="yvip logo" class="brand-image brand-image1" style="opacity: .8">
             <span class="brand-text font-weight-bold">THE NYC - YVIP</span>
         </a>
 
         <div class="sidebar">
-
-            <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
@@ -49,7 +47,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                <a href="{{ route('participated-yv-events') }}" class="nav-link {{ request()->routeIs('participated-yv-events') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('participated-yv-events') }}" class="nav-link {{ request()->routeIs('participated-yv-events') ? 'active' : '' }}">
                                     <i class="nav-icon bi bi-card-checklist"></i>
                                     <p>
                                         Participated YV Events

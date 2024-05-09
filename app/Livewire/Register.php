@@ -120,7 +120,13 @@ class Register extends Component
 
     public function create(){
         try {
+            $this->permanent_selectedProvince = Str::ucfirst(Str::lower($this->permanent_selectedProvince));
+            $this->permanent_selectedCity = Str::ucfirst(Str::lower($this->permanent_selectedCity));
+            $this->residential_selectedProvince = Str::ucfirst(Str::lower($this->residential_selectedProvince));
+            $this->residential_selectedCity = Str::ucfirst(Str::lower($this->residential_selectedCity));
+
             $this->validate();
+            
             if (!$this->isPasswordComplex($this->password)) {
                 $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
                 return;
@@ -138,6 +144,10 @@ class Register extends Component
                 'password' => $this->password,
                 'user_role' => $this->user_role,
                 'name' => $this->first_name . " " . $this->middle_name . " " . $this->last_name,
+            ]);
+
+            $user->rewardClaim()->create([
+                'user_id' => $user->id,
             ]);
 
             $user->userData()->create([

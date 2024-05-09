@@ -48,7 +48,6 @@ class SkillsAndCategoriesTable extends Component
 
     public function render(){
         $categories = Categories::with('all_skills')
-                    ->whereNotIn('id', [1])
                     ->search(trim($this->search))
                     ->get();
 

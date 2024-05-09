@@ -291,7 +291,34 @@
     transition: 0.5s ease-in-out;
 }
 
+.reg-logo-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/images/yvip_bg.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 5px 5px 0 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+ }
+
+ .volunteers-name{
+    cursor: pointer;
+ }
+
+ .volunteers-name:hover{
+    transform: scale(1.1);
+    color: green;
+ }
+
 @media (max-width:768px) {
+
+    .display-flex{
+        display: flex !important; 
+    }
+
     .user-info .row1 {
         display: block;
     }

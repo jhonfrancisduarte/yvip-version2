@@ -48,10 +48,6 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
-    public function volunteers(){
-        return $this->hasMany(Volunteer::class);
-    }
-
     public function volunteerHours(){
         return $this->hasMany(VolunteerHours::class);
     }
@@ -85,10 +81,6 @@ class User extends Authenticatable
 
     public function volunteerExperience(){
         return $this->hasMany(VolunteerExperience::class);
-    }
-
-    public function claimRequest(){
-        return $this->hasMany(ClaimRequest::class);
     }
 
     public function scopeSearch($query, $term){
