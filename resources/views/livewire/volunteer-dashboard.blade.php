@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Volunteers' Dashboard</title>
+    <title>Volunteer Announcement</title>
 @endsection
 
 @section('css')
@@ -18,12 +18,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Volunteers' Dashboard</h1>
+                        <h1 class="m-0">Volunteer Announcements</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/admin-dashboard" wire:navigate>Home</a></li>
-                            <li class="breadcrumb-item active">Volunteers' Dashboard</li>
+                            <li class="breadcrumb-item active">Volunteer Announcements</li>
                         </ol>
                     </div>
                 </div>

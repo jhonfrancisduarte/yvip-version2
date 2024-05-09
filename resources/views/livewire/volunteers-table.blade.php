@@ -490,13 +490,27 @@
                                 <div class="row1">
                                     <div class="col">
                                         <div class="user-data">
-                                            @if($active_status === 2)
-                                                <button class="btn-success" wire:click="reactivateDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Activate</button>
+                                            @if(Auth::user()->user_role !== 'vsa')
+                                                <button class="btn-success" wire:click="exportToPdf" wire:loading.attr="disabled">
+                                                    <span><i class="bi bi-filetype-pdf"></i> Export Data</span>
+                                                    <div wire:loading wire:target="exportToPdf" class="loading-container">
+                                                        <div class="loading-spinner"></div>
+                                                    </div>
+                                                </button>
+                                                @if($active_status === 2)
+                                                    <button class="btn-success" wire:click="reactivateDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Activate</button>
+                                                @else
+                                                    <button class="btn-warning" wire:click="deactDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Deactivate</button>
+                                                    <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete Volunteer</button>
+                                                @endif
                                             @else
-                                                <button class="btn-success" wire:click="exportToPdf" wire:loading.attr="disabled">Export Data</button>
-                                                <button class="btn-warning" wire:click="deactDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Deactivate</button>
+                                                <button class="btn-success" wire:click="exportToPdf" wire:loading.attr="disabled">
+                                                    <span wire:loading.remove><i class="bi bi-filetype-pdf"></i> Export Data</span>
+                                                    <div wire:loading wire:target="exportToPdf" class="loading-container">
+                                                        <div class="loading-spinner"></div>
+                                                    </div>
+                                                </button>
                                             @endif
-                                            <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete Volunteer</button>
                                             <button class="btn-cancel" wire:click="hideUserData">Close</button>
                                         </div>
                                     </div>

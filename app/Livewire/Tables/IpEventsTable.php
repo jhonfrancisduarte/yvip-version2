@@ -7,14 +7,13 @@ use App\Models\IpPostProgramObligation;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\VolunteerExperience;
-use Livewire\Attributes\Rule;
 use Exception;
 use Livewire\WithPagination;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class IpEventsTable extends Component
 {
@@ -134,6 +133,9 @@ class IpEventsTable extends Component
             $event->hasJoined = in_array($userId, $joinRequests);
             $event->approved = in_array($userId, $participantIds);
             $event->disapprovedParticipants = in_array($userId, $disapprovedIds);
+
+            $event->start = Carbon::parse($event->start)->format('d F, Y');
+            $event->end = Carbon::parse($event->end)->subDay()->format('d F, Y');
 
             return $event;
         });
@@ -514,7 +516,6 @@ class IpEventsTable extends Component
             $this->participants = $participantsData;
         }
     }
-
     public function closeParticipantsForm(){
         $this->ipEvent = null;
         $this->isParticipant = null;
@@ -535,6 +536,60 @@ class IpEventsTable extends Component
                     ->get();
 
                 $this->groupedSkills = $selectedSkillsWithCategories->groupBy('all_categories_name');
+            }
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    public function exportParticipantsList($eventId){
+        try{
+            $event = IpEvents::find($eventId);
+            if($event){
+                $participantIds = explode(',', $event->participants);
+                $participantData = [];
+                foreach ($participantIds as $participantId) {
+                    $participantId = trim($participantId);
+
+                    if (!empty($participantId)){
+                        $user = User::find($participantId);
+
+                        if ($user) {
+                            $userData = $user->userData;
+
+                            if ($userData) {
+                                $name = trim($userData->first_name . ' ' . $userData->middle_name . ' ' . $userData->last_name);
+                                $passportNumber = $userData->passport_number;
+
+                                $participantData[] = [
+                                    'name' => $name,
+                                    'passport_number' => $passportNumber,
+                                ];
+                            }
+                        }
+                    }
+                }
+
+                $eventStart = Carbon::parse($event->start)->format('d F, Y');
+                $eventEnd = Carbon::parse($event->end)->subDay()->format('d F, Y');
+                $eventData = [
+                    'event_name' => $event->event_name,
+                    'event_type' => null,
+                    'organizer_facilitator' => $event->organizer_sponsor,
+                    'hours' => null,
+                    'event_start' => $eventStart,
+                    'event_end' => $eventEnd,
+                    'participant_type' => "ip",
+                ];
+
+                $pdf = Pdf::loadView('pdf.participants-pdf', [
+                    'participantData' => $participantData,
+                    'eventData' => $eventData,
+                ]);
+                $pdf->setPaper('A4', 'portrait');
+                return response()->streamDownload(function () use ($pdf) {
+                    echo $pdf->stream();
+                }, $event->event_name . '_participants.pdf');
             }
         }catch(Exception $e){
             throw $e;

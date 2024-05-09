@@ -21,7 +21,7 @@
                         <h1 class="m-0">Volunteer Manual
                         </h1>
                         <a href="{{ asset('uploads/NYVP-Operational-Guidelines.pdf') }}" download>
-                            <button class="btn-submit">Download Manual</button>
+                            <button class="btn-submit" style="margin-left: 20px;">Download Manual</button>
                         </a>
                     </div>
                     <div class="col-sm-6">

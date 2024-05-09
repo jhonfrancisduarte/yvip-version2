@@ -8,13 +8,6 @@
             @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa' || session('user_role') == 'ips')
                 <div class="container-fluid">
                     <div class="announcement-header">
-                        <div class="card-header">
-                            @if($dashboardType === "yv")
-                                <h3 class="card-title">Volunteer Announcements</h3>
-                            @else
-                                <h3 class="card-title">International Program Announcements</h3>
-                            @endif 
-                        </div>
                         <div class="card-header header-sticky-top">
                             <div class="col-md-3">
                                 <input type="search" class="form-control" wire:model.live="search" placeholder="Search announcement...">

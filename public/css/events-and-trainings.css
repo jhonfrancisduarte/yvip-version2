@@ -55,6 +55,7 @@
     display: flex !important;
     justify-content: space-between;
     border-bottom: 1px solid #ccc;
+    padding-top: 10px;
     padding-bottom: 10px;
 }
 
@@ -322,6 +323,24 @@
 
 .reset-date i{
     cursor: pointer;
+}
+
+.btn-approval{
+    display: flex;
+}
+
+.btn-approval .form-control{
+    width: 80px;
+    margin-right: 5px;
+    height: 35px;
+}
+
+.participant-list-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
 }
 
 @media (max-width:768px){

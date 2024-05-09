@@ -22,14 +22,15 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 
-     <div class="wrapper">
-        <!--Top Navbar Buttons -->
+    <div class="wrapper">
         <nav class="main-header navbar navbar-expand navbar-light navbar-pink">
+
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link navs" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
             </ul>
+
             <ul class="navbar-nav ml-auto">
                 {{-- <li class="nav-item">
                     <a class="nav-link navs" data-widget="fullscreen" href="#" role="button">
@@ -55,6 +56,7 @@
                     </div>
                 </li>
             </ul>
+
         </nav>
     </div>
 

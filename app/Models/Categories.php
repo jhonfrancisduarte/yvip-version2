@@ -14,12 +14,8 @@ class Categories extends Model
     protected $fillable = [
         'all_categories_name',
         'description',
-        // Add other fillable fields as needed
     ];
 
-    public function volunteer_categories(){
-        return $this->hasOne(VolunteerCategory::class);
-    }
 
     public function all_skills(){
         return $this->hasMany(Skills::class, 'category_id', 'id');

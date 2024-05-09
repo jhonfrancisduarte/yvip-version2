@@ -28,7 +28,7 @@
                                             <p @if($myRank === 1)class="rank1"@endif>{{ $myRank }}</p>
                                         </div>
                                         <div class="my-name">
-                                            <p><img class="profile_picture" src="{{ $record->profile_picture }}" alt="profile picture" width="40">{{ $record->fullname }}</p>
+                                            <p><img class="profile_picture" src="{{ $record->profile_picture }}" alt="profile picture" width="40" style="height: 40px">{{ $record->fullname }}</p>
                                         </div>
                                     </div>
                                     <div class="my-hours">
@@ -73,7 +73,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <img class="profile_picture" src="{{ $record->profile_picture }}" alt="profile picture" width="40">
+                                                <img class="profile_picture" src="{{ $record->profile_picture }}" alt="profile picture" width="40" style="height: 40px">
                                                 {{ $record->fullname }}
                                             </td>
                                             <td class="centered">

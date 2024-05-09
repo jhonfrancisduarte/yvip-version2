@@ -20,7 +20,7 @@
             <div class="col-2">
                 <div class="input-group">
                     <button type="submit" class="login-button">
-                        {{ __('Send Password Reset Link') }}
+                        Reset Password
                     </button>
                 </div>
             </div>

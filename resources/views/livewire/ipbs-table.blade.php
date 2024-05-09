@@ -492,7 +492,12 @@
                                             @if($active_status === 2)
                                                 <button class="btn-success" wire:click="reactivateDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Activate</button>
                                             @else
-                                                <button class="btn-success" wire:click="exportToPdf" wire:loading.attr="disabled">Export Data</button>
+                                                <button class="btn-success" wire:click="exportToPdf" wire:loading.attr="disabled">
+                                                    <span><i class="bi bi-filetype-pdf"></i> Export Data</span>
+                                                    <div wire:loading wire:target="exportToPdf" class="loading-container">
+                                                        <div class="loading-spinner"></div>
+                                                    </div>
+                                                </button>
                                                 <button class="btn-warning" wire:click="deactDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Deactivate</button>
                                             @endif
                                             <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete</button>

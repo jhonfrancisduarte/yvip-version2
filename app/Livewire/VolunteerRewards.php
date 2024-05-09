@@ -177,7 +177,8 @@ class VolunteerRewards extends Component
 
     public function submitReward(){
         try{
-            $thisVolunteerHours = Volunteer::where('user_id', $this->thisUserId)->sum('volunteering_hours');
+            $thisVolunteerHours = RewardClaim::where('user_id', $this->thisUserId)->first();
+            $thisVolunteerHours = $thisVolunteerHours->total_hours;
 
             $reward = VolunteerReward::create([
                 'user_id'=>$this->thisUserId,
