@@ -126,7 +126,7 @@ class Register extends Component
             $this->residential_selectedCity = Str::ucfirst(Str::lower($this->residential_selectedCity));
 
             $this->validate();
-            
+
             if (!$this->isPasswordComplex($this->password)) {
                 $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
                 return;
@@ -136,7 +136,7 @@ class Register extends Component
                 $this->user_role = "yip";
             }
 
-            $passportNumber = 'YVIP' . date('Y') . $this->generateUserId();
+            $passportNumber = 'YP' . date('Y') . $this->generateUserId();
 
             $user = User::create([
                 'id' => Str::uuid(),

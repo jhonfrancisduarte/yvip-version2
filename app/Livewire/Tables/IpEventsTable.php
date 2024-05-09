@@ -201,7 +201,7 @@ class IpEventsTable extends Component
                     'status' => $status,
                     'qualifications' => implode(', ', $this->newSkills),
                 ]);
-    
+
                 $this->openEditEvent= null;
                 $this->editEventId = null;
                 $this->popup_message = null;
@@ -238,7 +238,7 @@ class IpEventsTable extends Component
                 $event->update([
                     'status' => $status,
                 ]);
-    
+
                 $this->popup_message = null;
                 $this->popup_message = "Status updated successfully.";
                 $this->options2 = null;
@@ -340,16 +340,16 @@ class IpEventsTable extends Component
                     return trim($value) !== (string) $userId;
                 });
                 $event->join_requests = implode(',', array_filter($joinRequests));
-    
+
                 // Add user ID to participants column
                 $participants = explode(',', $event->participants);
                 if (!in_array($userId, $participants)) {
                     $participants[] = $userId;
                     $event->participants = implode(',', $participants);
                 }
-    
+
                 $event->save();
-    
+
                 $this->openJoinRequestsTable = null;
                 $this->joinEventId = null;
                 $this->popup_message = null;
@@ -369,29 +369,29 @@ class IpEventsTable extends Component
             if($event == null){
                 $event = IpEvents::find($this->eventId);
             }
-    
+
             if($event){
                 // Remove user ID from join_requests column
                 $joinRequests = array_filter(explode(',', $event->join_requests), function ($value) use ($userId) {
                     return trim($value) !== (string) $userId;
                 });
                 $event->join_requests = implode(',', array_filter($joinRequests));
-    
+
                 // Remove user ID from participants column
                 $thisParticipants = array_filter(explode(',', $event->participants), function ($value) use ($userId) {
                     return trim($value) !== (string) $userId;
                 });
                 $event->participants = implode(',', array_filter($thisParticipants));
-    
+
                 // Add user ID to disapproved column
                 $participants = explode(',', $event->disapproved);
                 if (!in_array($userId, $participants)) {
                     $participants[] = $userId;
                     $event->disapproved = implode(',', $participants);
                 }
-    
+
                 $event->save();
-    
+
                 $this->openJoinRequestsTable = null;
                 $this->joinEventId = null;
                 $this->popup_message = null;
@@ -416,7 +416,7 @@ class IpEventsTable extends Component
                     $participantIds = explode(',', $event->participants);
                     $this->isParticipant = in_array($userId, $participantIds);
                 }
-                
+
                 $this->thisUserDetails = User::where('users.id', $user->id)
                     ->join('user_data', 'users.id', '=', 'user_data.user_id')
                     ->select('users.email', 'users.active_status', 'user_data.*')
@@ -492,13 +492,13 @@ class IpEventsTable extends Component
             $participantsData = [];
             foreach ($participantIds as $participantId) {
                 $participantId = trim($participantId);
-    
+
                 if (!empty($participantId)){
                     $user = User::find($participantId);
-    
+
                     if ($user) {
                         $userData = $user->userData;
-    
+
                         if ($userData) {
                             $name = trim($userData->first_name . ' ' . $userData->middle_name . ' ' . $userData->last_name);
                             $participantsData[] = [
@@ -514,7 +514,7 @@ class IpEventsTable extends Component
             $this->participants = $participantsData;
         }
     }
-    
+
     public function closeParticipantsForm(){
         $this->ipEvent = null;
         $this->isParticipant = null;
@@ -537,7 +537,7 @@ class IpEventsTable extends Component
                 $this->groupedSkills = $selectedSkillsWithCategories->groupBy('all_categories_name');
             }
         }catch(Exception $e){
-            throw $e;        
+            throw $e;
         }
     }
 }

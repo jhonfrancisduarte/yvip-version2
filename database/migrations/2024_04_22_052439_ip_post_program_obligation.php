@@ -20,6 +20,7 @@ return new class extends Migration
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
                 $table->string('file_paths', 1000)->nullable();
                 $table->string('file_links', 1000)->nullable();
+                $table->string('file_type', 1000)->nullable();
                 $table->timestamps();
             });
         }

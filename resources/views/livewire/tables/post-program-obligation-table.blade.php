@@ -13,7 +13,7 @@
                 <div class="card" style="border-radius: 20px; overflow: hidden;">
 
                     <div class="card-header">
-                            <h3 class="card-title">International Program Events List</h3> 
+                            <h3 class="card-title">International Program Events List</h3>
                     </div>
 
                     <div class="card-header card-header1">
@@ -64,7 +64,7 @@
                                                             <a href="{{ asset($thisEvent->file_paths) }}" download>
                                                                 <i class="bi bi-file-earmark-arrow-down"></i> Download
                                                             </a>
-                                                            
+
                                                             @if(pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) === 'pdf' ||
                                                                 pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) === 'docx' ||
                                                                 pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) === 'txt' ||
@@ -79,9 +79,9 @@
                                                     <div class="ppo-upload-file-container">
                                                         <form class="ppo-upload-file" wire:submit.prevent="uploadPostProgramObligation({{ $event->id }})">
                                                             <input type="file" id="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" required/>
-                                                            
+
                                                             <button class="btn-submit" type="submit" {{ $file ? '' : 'disabled' }}><i class="bi bi-upload"></i></button>
-                                                            
+
                                                             @if($thisPpoId === $event->id)
                                                                 <div wire:loading wire:target="file" class="loading-container">
                                                                     <div class="loading-spinner"></div>

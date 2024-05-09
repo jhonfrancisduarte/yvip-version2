@@ -138,7 +138,7 @@
                         <td>{{ $event->event_name }}</td>
                         <td>{{ $event->volunteer_category }}</td>
                         <td>{{ $event->start_date }} - {{ $event->end_date }}</td>
-                        <td>{{ $event->volunteer_hours }}</td>
+                        <td>{{ $event->volunteer_hours }} hrs</td>
                         <td>{{ $event->status }}</td>
 
                     </tr>
