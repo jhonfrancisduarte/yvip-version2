@@ -10,6 +10,9 @@ Auth::routes();
 Route::get('/', function () {return view('welcome');});
 Route::get('/registration', function () {return view('registration');});
 Route::get('/registered', function () {return view('registered');});
+Route::get('/terms-and-privacy-policy', function () {
+     return view('livewire.terms-and-privacy-policy');
+ });
 
 
 

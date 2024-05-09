@@ -69,13 +69,14 @@
   margin-left: 10px;
 }
 
-.reg-btn-holder{
+.reg-btn-holder {
   position: relative;
 }
 
 .loading-container {
   position: absolute;
-  top: 25px; left: 100px;
+  top: 25px;
+  left: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,8 +93,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width:768px) {

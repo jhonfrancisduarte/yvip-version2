@@ -358,9 +358,19 @@
                     </div>
 
                     <div class="row row-space">
+                        <div class="col-4" style="width: 100%">
+                            <center>
+                                <label class="labelPolicy">By clicking Sign Up, you agree to our 
+                                    <a href="/terms-and-privacy-policy" target="_blank" style="color:#0061C4">Terms and Privacy Policy</a>
+                                </label>
+                            </center>
+                        </div>
+                    </div>
+
+                    <div class="row row-space">
                         <div class="col-2">
                             <div class="p-t-15 reg-btn-holder">
-                                <button  class="register-button" type="submit" wire:loading.attr="disabled">Submit</button>
+                                <button  class="register-button" type="submit" wire:loading.attr="disabled">Sign Up</button>
                                 {{-- <div wire:loading wire:target="create" class="loading-container">
                                     <div class="loading-spinner"></div>
                                 </div> --}}
