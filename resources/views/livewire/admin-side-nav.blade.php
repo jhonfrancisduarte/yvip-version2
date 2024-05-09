@@ -37,10 +37,10 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('volunteer-dashboard') }}" class="nav-link {{ request()->routeIs('volunteer-dashboard') ? 'active' : '' }}" >
+                                <a href="{{ route('volunteer-announcements') }}" class="nav-link {{ request()->routeIs('volunteer-announcements') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-speedometer2"></i>
                                 <p>
-                                    Volunteer Dashboard
+                                    Volunteer Announcements
                                 </p>
                                 </a>
                             </li>
@@ -134,10 +134,10 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('ip-dashboard') }}" class="nav-link {{ request()->routeIs('ip-dashboard') ? 'active' : '' }}" >
+                                <a href="{{ route('ip-announcements') }}" class="nav-link {{ request()->routeIs('ip-announcements') ? 'active' : '' }}" >
                                 <i class="nav-icon bi bi-speedometer2"></i>
                                 <p>
-                                    IP Dashboard
+                                    IP Announcements
                                 </p>
                                 </a>
                             </li>

@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class VolunteerEventsAndTrainingsTable extends Component
 {
@@ -78,7 +79,8 @@ class VolunteerEventsAndTrainingsTable extends Component
     
     public $volunteerExperiences;
     public $groupedSkills;
-    public $hours;
+    public $hours = [];
+
 
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
 
@@ -107,6 +109,13 @@ class VolunteerEventsAndTrainingsTable extends Component
                     return $query->whereBetween($dateColumn, [$startDate, $endDate]);
                 })
                 ->paginate(10);
+
+        $events->transform(function ($event) {
+            $event->start_date = Carbon::parse($event->start_date)->format('d F, Y');
+            $event->end_date = Carbon::parse($event->end_date)->subDay()->format('d F, Y');
+
+            return $event;
+        });
 
         $this->joinRequestsData = $this->fetchJoinRequestsData();
 
@@ -600,55 +609,110 @@ class VolunteerEventsAndTrainingsTable extends Component
     }
 
     public function grantHours($userId, $eventId){
-        try{
+        try {
             $user = User::where('id', $userId)->first();
             $event = VolunteerEventsAndTrainings::find($eventId);
-            if($user){
-                // Grant to the participants the volunteering hours
+    
+            if ($user) {
                 $this->validate([
-                    'hours' => 'required|numeric|min:1',
+                    "hours.$userId" => 'required|numeric|min:1',
                 ]);
-
-                if($this->hours > $event->volunteer_hours){
-                    $this->addError('hours', 'Invalid number of hours.');
+    
+                $submittedHours = $this->hours[$userId];
+                if ($submittedHours > $event->volunteer_hours) {
+                    $this->addError("hours.$userId", 'Invalid number of hours.');
                     return;
                 }
-
+    
                 $rewardClaim = $user->rewardClaim;
-
-                if($rewardClaim) {
-                    $totalHours = $rewardClaim->total_hours + $this->hours;
+                if ($rewardClaim) {
+                    $totalHours = $rewardClaim->total_hours + $submittedHours;
                     $claimableHours = $totalHours - $rewardClaim->total_claimed_hours;
                     $rewardClaim->update([
                         'total_hours' => $totalHours,
                         'claimable_hours' => $claimableHours,
                     ]);
-                }else{
+                } else {
                     RewardClaim::create([
                         'user_id' => $user->id,
-                        'total_hours' => $this->hours,
+                        'total_hours' => $submittedHours,
                         'claimable_hours' => $event->volunteer_hours,
                     ]);
                 }
-
-
+    
                 VolunteerHours::create([
                     'user_id' => $user->id,
                     'event_id' => $event->id,
-                    'volunteering_hours' => $this->hours,
+                    'volunteering_hours' => $submittedHours,
                 ]);
+    
+                $this->resetValidation("hours.$userId");
+                $this->reset("hours.$userId");
 
-                $this->popup_message = null;
                 $this->popup_message = "Status updated successfully.";
                 $this->options2 = null;
                 $this->viewParticipants($event->id);
-            }else{
-                $this->popup_message = null;
+            } else {
                 $this->popup_message = "Status update unsuccessfully.";
                 $this->options2 = null;
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function exportParticipantsList($eventId){
+        try{
+            $event = VolunteerEventsAndTrainings::find($eventId);
+            if($event){
+                $participantIds = explode(',', $event->participants);
+                $participantData = [];
+                foreach ($participantIds as $participantId) {
+                    $participantId = trim($participantId);
+        
+                    if (!empty($participantId)){
+                        $user = User::find($participantId);
+        
+                        if ($user) {
+                            $userData = $user->userData;
+        
+                            if ($userData) {
+                                $name = trim($userData->first_name . ' ' . $userData->middle_name . ' ' . $userData->last_name);
+                                $passportNumber = $userData->passport_number;  
+                                
+                                $participantData[] = [
+                                    'name' => $name,
+                                    'passport_number' => $passportNumber,
+                                ];
+                            }
+                        }
+                    }
+                }
+
+                $eventStart = Carbon::parse($event->start_date)->format('d F, Y');
+                $eventEnd = Carbon::parse($event->end_date)->subDay()->format('d F, Y');
+                $eventData = [
+                    'event_name' => $event->event_name,
+                    'event_type' => $event->event_type,
+                    'organizer_facilitator' => $event->organizer_facilitator,
+                    'hours' => $event->volunteer_hours,
+                    'event_start' => $eventStart,
+                    'event_end' => $eventEnd,
+                    'participant_type' => "yv",
+                ];
+    
+                $pdf = Pdf::loadView('pdf.participants-pdf', [
+                    'participantData' => $participantData,
+                    'eventData' => $eventData,
+                ]);
+                $pdf->setPaper('A4', 'portrait');
+                return response()->streamDownload(function () use ($pdf) {
+                    echo $pdf->stream();
+                }, $event->event_name . '_participants.pdf');
             }
         }catch(Exception $e){
             throw $e;
         }
     }
+    
 }

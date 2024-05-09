@@ -23,7 +23,7 @@
                             <br><br>
                             We will notify you through your email.
                         </p>
-                        <a href="/" wire:navigate><button class="login-button" type="submit">Sign In</button></a>
+                        <a href="/"><button class="login-button" type="submit">Sign In</button></a>
                 </div>
             </div>
     </div>

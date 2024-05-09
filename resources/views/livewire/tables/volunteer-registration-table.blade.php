@@ -133,6 +133,24 @@
         </div>    
     @endif
 
+    @if($approving)
+        <div class="anns anns-full-h">
+            <div class="close-form"></div>
+            <div class="add-announcement-container">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>Approving...</p>
+                        <span>
+                            <div wire:loading wire:target="approveUser" class="loading-container">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    @endif
+
     @if($selectedUserDetails)
         <div class="users-data-all-container">
             <div class="close-form" wire:click="hideUserData"></div>
@@ -336,8 +354,8 @@
                 <div class="row1 row-footer">
                     <div class="col">
                         <div class="user-data">
-                            <button class="btn-submit" wire:click="approveUser({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Approve</button>
-                            <button class="btn-delete" wire:click="deleteDialog({{ $selectedUserDetails['user_id'] }})" wire:loading.attr="disabled">Disapprove</button>
+                            <button class="btn-submit" wire:click="approveUser('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Approve</button>
+                            <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Disapprove</button>
                             <button class="btn-cancel" wire:click="hideUserData">Close</button>
                         </div>
                     </div>

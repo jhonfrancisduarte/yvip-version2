@@ -4,6 +4,7 @@ namespace App\Livewire\Tables;
 use App\Models\IpEvents;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Carbon\Carbon;
 
 class ParticipatedIpEventsTable extends Component
 {
@@ -16,10 +17,13 @@ class ParticipatedIpEventsTable extends Component
             ->orderBy('ip_events.created_at', 'desc')
             ->paginate(10);
     
-        $ipEvents->transform(function ($event) use (&$joinRequestsData) {
+        $ipEvents->transform(function ($event) {
             $participantIds = explode(',', $event->participants);
             $userId = auth()->user()->id;
             $event->approved = in_array($userId, $participantIds);
+
+            $event->start = Carbon::parse($event->start)->format('d F, Y');
+            $event->end = Carbon::parse($event->end)->subDay()->format('d F, Y');
 
             return $event;
         });

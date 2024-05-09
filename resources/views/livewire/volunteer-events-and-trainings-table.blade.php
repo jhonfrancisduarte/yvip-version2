@@ -83,7 +83,7 @@
                                     <td>{{ $event->event_type }}</td>
                                     <td>{{ $event->event_name }}</td>
                                     <td>{{ $event->organizer_facilitator }}</td>
-                                    <td>{{ $event->start_date }} - {{ $event->end_date }}</td>
+                                    <td>{{ $event->start_date }} - <br> {{ $event->end_date }}</td>
                                     <td>
                                         <div class="options">
                                             <span  
@@ -142,7 +142,7 @@
                                         @endif
                                         @if(session('user_role') == 'yip' || session('user_role') == 'yv')
                                             @if(!$event->hasJoined && !$event->approved && !$event->disapprovedParticipants && !$event->join_status)
-                                                @if($event->status === "Completed" || $event->status === "Ongoing")
+                                                @if($event->status === "Completed")
                                                     {{-- No action --}}
                                                 @else
                                                     @php
@@ -464,8 +464,17 @@
 
                     <div class="modal-body">
                         @if(!empty($participants))
-                            <label style="font-weight: 500;"><b>{{ count($participants) }}</b> Participant/s</label>
+                            <div class="participant-list-header">
+                                <label style="font-weight: 500;"><b>{{ count($participants) }}</b> Participant/s</label>
+                                <button class="btn-submit float-right" wire:click="exportParticipantsList({{ $volunteerEvent->id }})" wire:loading.attr='disabled'>
+                                    <span><i class="bi bi-filetype-pdf"></i> Export List</span>
+                                    <div wire:loading wire:target="exportParticipantsList" class="loading-container">
+                                        <div class="loading-spinner"></div>
+                                    </div>
+                                </button>
+                            </div>
                         @endif
+
                         @if(empty($participants))
                             <p>No participants yet!</p>
                         @else
@@ -483,13 +492,15 @@
                                                 @if(!$participant['hoursGranted'])
                                                     <form wire:submit.prevent="grantHours('{{ $participant['id'] }}', {{ $volunteerEvent->id }})">
                                                         <div class="btn-approval">
-                                                            <input class="form-control" type="number" wire:model.live="hours" required>
+                                                            <input class="form-control" type="number" wire:model="hours.{{ $participant['id'] }}" required>
                                                             <button class="btn-success" type="submit">Grant Hours</button>
                                                         </div>
-                                                        @error('hours') <span class="text-danger">{{ $message }}</span> @enderror
+                                                        @error('hours.' . $participant['id'])
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </form>
                                                 @else
-                                                    {{ $participant['hoursGranted'] }} Volunteer Hours Granted
+                                                    <span>{{ $participant['hoursGranted'] }} Volunteer Hours Granted</span>
                                                 @endif
                                             @endif
                                         </div>

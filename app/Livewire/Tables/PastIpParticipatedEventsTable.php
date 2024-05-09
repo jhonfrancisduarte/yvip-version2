@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\PastIpEvent;
 use Livewire\Component;
 use Livewire\WithPagination;
-
+use Carbon\Carbon;
 
 class PastIpParticipatedEventsTable extends Component
 {
@@ -32,6 +32,12 @@ class PastIpParticipatedEventsTable extends Component
                                     ->orderByDesc('past_ip_events.created_at')
                                     ->orderBy('user_name')
                                     ->paginate(5);
+        $pastIpEvents->transform(function ($event) {
+            $event->start = Carbon::parse($event->start)->format('d F, Y');
+            $event->end = Carbon::parse($event->end)->subDay()->format('d F, Y');
+
+            return $event;
+        });
 
         return view('livewire.tables.past-ip-participated-events-table', [
             'pastIpEvents' => $pastIpEvents,

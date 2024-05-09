@@ -3,27 +3,26 @@
 <head>
     <title>Passport PDF</title>
     <style>
-        /* Add CSS styles here */
         body {
             font-family: Arial, sans-serif;
         }
         .passport {
-            max-width: 800px; /* Adjust the max-width as needed */
+            max-width: 800px;
             margin: 0 auto;
             border: 2px solid #000;
             padding: 20px;
             border-radius: 10px;
             background-color: #f9f9f9;
-            position: relative; /* Relative position for watermark positioning */
+            position: relative; 
         }
         .watermark {
-            position: absolute; /* Absolute position to make it a watermark */
+            position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%); /* Center the watermark */
-            opacity: 0.1; /* Adjust opacity to make it more subtle */
-            pointer-events: none; /* Ensure the watermark doesn't interfere with clicks */
-            z-index: -1; /* Send watermark to the back */
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
         }
         .passport-header {
             text-align: center;
@@ -39,7 +38,7 @@
             margin-bottom: 10px;
         }
         .passport-table {
-            width: 100%; /* Make the table width 100% */
+            width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }

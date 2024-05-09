@@ -53,7 +53,7 @@ Route::middleware(['auth', 'user_role:sa,vs,vsa,ips'])->group(function (){
 
 Route::middleware(['auth', 'user_role:sa,vs,vsa'])->group(function (){
      // Private pages accessible only to admin users (super admin, volunteer secretariat and assistant)
-     Route::get('/volunteer-dashboard', function () {return view('livewire.volunteer-dashboard');})->name('volunteer-dashboard');
+     Route::get('/volunteer-announcements', function () {return view('livewire.volunteer-dashboard');})->name('volunteer-announcements');
      Route::get('/volunteer-registration', function () {return view('livewire.yv.volunteer-registration');})->name('volunteer-registration');
      Route::get('/volunteers', function () {return view('livewire.volunteers');})->name('volunteers');
      Route::get('/volunteer-hours', function () {return view('livewire.yv.volunteer-hours');})->name('volunteer-hours');
@@ -65,7 +65,7 @@ Route::middleware(['auth', 'user_role:sa,vs,vsa'])->group(function (){
 
 Route::middleware(['auth', 'user_role:sa,ips'])->group(function (){
      // Private pages accessible only to admin users (super admin, ip secretariat)
-     Route::get('/ip-dashboard', function () {return view('livewire.ip-dashboard');})->name('ip-dashboard');
+     Route::get('/ip-announcements', function () {return view('livewire.ip-dashboard');})->name('ip-announcements');
      Route::get('/ip-registration', function () {return view('livewire.ip.ip-registration');})->name('ip-registration');
      Route::get('/ip-beneficiaries', function () {return view('livewire.ip-beneficiaries');})->name('ip-beneficiaries');
      Route::get('/ip-validation', function () {return view('livewire.ip-validation');})->name('ip-validation');

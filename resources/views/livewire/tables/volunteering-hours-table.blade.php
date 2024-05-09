@@ -19,14 +19,12 @@
                             <div class="badge-body">
                                 <span class="t-2">
                                     @php 
-                                        $myLevel = 1; 
+                                        $myLevel = 0; 
                                     @endphp
                                     @if($rewardMatrix)
                                         @foreach($rewardMatrix as $hours)
                                             @if($totalHours >= $hours)
                                                 @php $myLevel++; @endphp
-                                            @else
-                                                @break
                                             @endif
                                         @endforeach
                                         

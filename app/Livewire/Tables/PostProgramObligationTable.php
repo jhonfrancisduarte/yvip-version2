@@ -9,6 +9,7 @@ use App\Models\IpEvents;
 use Exception;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class PostProgramObligationTable extends Component
 {
@@ -30,11 +31,13 @@ class PostProgramObligationTable extends Component
             ->orderBy('ip_events.created_at', 'desc')
             ->paginate(10);
     
-        $ipEvents->transform(function ($event) use (&$joinRequestsData) {
+        $ipEvents->transform(function ($event) {
             $participantIds = explode(',', $event->participants);
             $userId = auth()->user()->id;
     
             $event->approved = in_array($userId, $participantIds);
+            $event->start = Carbon::parse($event->start)->format('d F, Y');
+            $event->end = Carbon::parse($event->end)->subDay()->format('d F, Y');
 
             return $event;
         });

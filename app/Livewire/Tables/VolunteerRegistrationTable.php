@@ -21,6 +21,7 @@ class VolunteerRegistrationTable extends Component
     public $deleteMessage;
     public $userDetails;
     public $popup_message;
+    public $approving;
 
     public function render(){
         $volunteers = User::where('user_role', 'yv')
@@ -45,6 +46,7 @@ class VolunteerRegistrationTable extends Component
 
     public function approveUser($userId){
         $admin = Auth::user()->email;
+        $this->approving = true;
         $registrant = User::where('id', $userId)->first();
         if ($registrant){
             $registrant->update([
@@ -54,6 +56,7 @@ class VolunteerRegistrationTable extends Component
             $this->popup_message = 'Registrant approved successfully.';
             Mail::to($registrant->email)->send(new UserApprovalNotification($registrant->name, $admin));
             $this->selectedUserDetails = null;
+            $this->approving = null;
         }else{
             $this->popup_message = null;
             $this->popup_message = 'Registrant approved unsuccessfully.';

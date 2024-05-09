@@ -85,7 +85,7 @@
                                         <td>{{ $event->event_name }}</td>
                                         <td>{{ $event->organizer_sponsor }}</td>
                                         <td>
-                                            {{ $event->start }} - {{ $event->end }}
+                                            {{ $event->start }} - <br> {{ $event->end }}
                                         </td>
                                         <td>
                                             <div class="options">
@@ -455,7 +455,18 @@
                     </div>
 
                     <div class="modal-body">
-                        <label style="font-weight: 500;"><b>{{ count($participants) }}</b> Participant/s</label>
+                        @if(!empty($participants))
+                            <div class="participant-list-header">
+                                <label style="font-weight: 500;"><b>{{ count($participants) }}</b> Participant/s</label>
+                                <button class="btn-submit float-right" wire:click="exportParticipantsList({{ $ipEvent->id }})" wire:loading.attr='disabled'>
+                                    <span><i class="bi bi-filetype-pdf"></i> Export List</span>
+                                    <div wire:loading wire:target="exportParticipantsList" class="loading-container">
+                                        <div class="loading-spinner"></div>
+                                    </div>
+                                </button>
+                            </div>
+                        @endif
+
                         @if(empty($participants))
                             <p>No participants yet!</p>
                         @else

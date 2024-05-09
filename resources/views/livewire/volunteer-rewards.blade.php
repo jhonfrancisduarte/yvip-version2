@@ -131,7 +131,7 @@
                 <div class="rewards-form">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Reward Matrix</h4>
+                            <h4 class="modal-title" style="margin-right: 10px;">Reward Matrix</h4>
                             @if(session('user_role') === 'sa' || session('user_role') === 'vs' || session('user_role') === 'vsa')
                                 <p class="btn-submit add-reward" wire:click="toggleAddRewardMatrix">
                                     <i class="bi bi-plus-lg"></i>
