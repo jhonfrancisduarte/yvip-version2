@@ -7,6 +7,7 @@
         <p>{{ $popup_message }}</p>
     </div>
 
+
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-12">
@@ -47,9 +48,10 @@
                             <table id="rewards-table" class="table-main">
                                 <thead>
                                     <tr>
-                                        <th width="30%" class="th-border-rad">Name</th>
+                                        <th width="30%">Name</th>
                                         <th width="30%">Total of hours</th>
-                                        <th class="th-action-btn">Reward</th>
+                                        <th width="30%">Reward</th>
+                                        <th width="10%" class="sa-actions">Actions</th>
                                     </tr>
                                 </thead>
 
@@ -119,7 +121,6 @@
                     </div>
                     
                 </div>
-                <div class="mt-5"></div>
             </div>
         </div>
     </div>
