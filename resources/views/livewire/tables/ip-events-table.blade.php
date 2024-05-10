@@ -1,5 +1,5 @@
 <div>
-    
+
     <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
         <button type="button" class="close" wire:click="closePopup">
             <span aria-hidden="true">&times;</span>
@@ -13,7 +13,7 @@
                 <div class="card" style="border-radius: 20px; overflow: hidden;">
 
                     <div class="card-header">
-                        <h3 class="card-title">International Program Events List</h3> 
+                        <h3 class="card-title">International Program Events List</h3>
                         @if(session('user_role') == 'sa' || session('user_role') == 'ips')
                             <button type="button" class="btn-submit btn-add-event float-right" wire:click="openAddForm">Add Event</button>
                         @endif
@@ -35,7 +35,7 @@
 
                         @if(session('user_role') == 'sa' || session('user_role') == 'ips')
                             <div class="divider"></div>
-                            
+
                             <div class="col-md-2">
                                 <div class="input-group-radio">
                                     <div class="radio">
@@ -89,7 +89,7 @@
                                         </td>
                                         <td>
                                             <div class="options">
-                                                <span  
+                                                <span
                                                 @if($event->status === "Ongoing")
                                                     class="green"
                                                     wire:click="toggleOptions2({{ $event->id }})"
@@ -207,7 +207,7 @@
                             <p>Are you sure you want to deactivate this event?</p>
                         @endif
                     </div>
-                    
+
                     <div class="modal-footer">
                         @if($disableButton == "No")
                             <button class="btn-delete" wire:click="deleteEvent" wire:loading.attr="disabled">Yes</button>
@@ -219,7 +219,7 @@
 
                 </div>
             </div>
-        </div>    
+        </div>
     @endif
 
     @if($openAddEvent)
@@ -236,13 +236,13 @@
                             </button>
                         </div>
 
-                        <div class="modal-body">      
+                        <div class="modal-body">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Name of Exchange Program/Event</label>
                                         <input type="text" class="form-control" row="5" wire:model.live='event_name' placeholder="Add the name of exchange program or event" required>
-                                        @error('event_name') 
+                                        @error('event_name')
                                             <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -254,7 +254,7 @@
                                     <div class="form-group">
                                         <label>Organizer / Sponsor</label>
                                         <input type="text" class="form-control" row="5" wire:model.live='organizer_sponsor' placeholder="Add organizer or sponsor" required>
-                                        @error('organizer_sponsor') 
+                                        @error('organizer_sponsor')
                                             <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -266,7 +266,7 @@
                                     <div class="form-group">
                                         <label>Start Date</label>
                                         <input type="date" class="form-control" row="5" wire:model.live='start' required>
-                                        @error('start') 
+                                        @error('start')
                                             <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -275,7 +275,7 @@
                                     <div class="form-group">
                                         <label>End Date</label>
                                         <input type="date" class="form-control" row="5" wire:model.live='end' required>
-                                        @error('end') 
+                                        @error('end')
                                             <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -299,11 +299,11 @@
                                 </div>
                             </div>
                         </div>
-                                
+
                         <div class="modal-footer justify-content-between">
                             <button class="btn-success" type="submit">Submit</button>
                         </div>
-                            
+
                     </form>
                 </div>
             </div>
@@ -325,13 +325,13 @@
 
                     <div class="modal-body">
                         <form wire:submit.prevent='editEvent'>
-                                
+
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Name of Exchange Program/Event</label>
                                         <input type="text" class="form-control" row="5" wire:model.live='event_name' placeholder="Add the name of exchange program or event" required>
-                                        @error('event_name') 
+                                        @error('event_name')
                                             <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -343,7 +343,7 @@
                                     <div class="form-group">
                                         <label>Organizer / Sponsor</label>
                                         <input type="text" class="form-control" row="5" wire:model.live='organizer_sponsor' placeholder="Add organizer or sponsor" required>
-                                        @error('organizer_sponsor') 
+                                        @error('organizer_sponsor')
                                             <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -355,7 +355,7 @@
                                     <div class="form-group">
                                         <label>Start Date</label>
                                         <input type="date" class="form-control" row="5" wire:model.live='start' required>
-                                        @error('start') 
+                                        @error('start')
                                             <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -364,7 +364,7 @@
                                     <div class="form-group">
                                         <label>End Date</label>
                                         <input type="date" class="form-control" row="5" wire:model.live='end' required>
-                                        @error('end') 
+                                        @error('end')
                                             <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -387,11 +387,11 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="modal-footer justify-content-between">
                                 <button class="btn-success" type="submit">Submit</button>
                             </div>
-                                
+
                         </form>
                     </div>
 
@@ -470,7 +470,7 @@
                         @if(empty($participants))
                             <p>No participants yet!</p>
                         @else
-                            
+
                             @foreach($participants as $participant)
                                 <div class="row">
                                     <div class="col-12">
@@ -519,7 +519,7 @@
                                                 <a href="{{ asset($ppoSubmision->file_paths) }}" download>
                                                     <i class="bi bi-file-earmark-arrow-down"></i> Download
                                                 </a>
-                                                
+
                                                 @if(pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) === 'pdf' ||
                                                     pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) === 'docx' ||
                                                     pathinfo(asset($ppoSubmision->file_paths), PATHINFO_EXTENSION) === 'txt' ||
@@ -566,7 +566,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row1">
                         <div class="col2">
                             <div class="user-data">
@@ -778,9 +778,9 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
-        </div>    
+        </div>
     @endif
 
 </div>

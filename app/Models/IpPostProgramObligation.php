@@ -10,6 +10,7 @@ class IpPostProgramObligation extends Model
     use HasFactory;
 
     protected $table = 'ip_post_program_obligations';
+
     protected $fillable = [
         'event_id',
         'user_id',
@@ -17,10 +18,13 @@ class IpPostProgramObligation extends Model
         'file_links',
     ];
 
-    public function ipEvents(){
+    public function ipEvents()
+    {
         return $this->belongsTo(IpEvents::class);
     }
-    public function user(){
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

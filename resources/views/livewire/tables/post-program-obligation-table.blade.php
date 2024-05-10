@@ -13,7 +13,7 @@
                 <div class="card" style="border-radius: 20px; overflow: hidden;">
 
                     <div class="card-header">
-                            <h3 class="card-title">International Program Events List</h3> 
+                            <h3 class="card-title">International Program Events List</h3>
                     </div>
 
                     <div class="card-header card-header1">
@@ -47,60 +47,63 @@
                                             </td>
                                             <td width="30%">
                                                 @php
-                                                    $thisEvent = null;
+                                                    $thisEvents = $ppoFiles->where('event_id', $event->id);
                                                 @endphp
 
-                                                @foreach($ppoFiles as $file)
-                                                    @if($file->event_id === $event->id)
-                                                        @php
-                                                            $thisEvent = $file;
-                                                        @endphp
-                                                    @endif
-                                                @endforeach
-                                                @if($thisEvent)
-                                                    @if($thisEvent->file_paths)
-                                                        <p>{{ pathinfo(asset($thisEvent->file_paths), PATHINFO_FILENAME) }}.{{ pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) }}</p>
+                                            @foreach($thisEvents as $thisEvent)
+                                                @if($thisEvent->file_paths)
+                                                    <div class="file-container d-flex justify-content-between align-items-center">
+                                                        <p class="mb-0">
+
+                                                            @if(strlen(pathinfo(asset($thisEvent->file_paths), PATHINFO_FILENAME)) > 10)
+
+                                                                {{ substr(pathinfo(asset($thisEvent->file_paths), PATHINFO_FILENAME), 0, 10) }}...
+                                                            @else
+
+                                                                {{ pathinfo(asset($thisEvent->file_paths), PATHINFO_FILENAME) }}
+                                                            @endif
+                                                            .{{ pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) }}
+                                                        </p>
                                                         <div class="anns-buttons">
-                                                            <a href="{{ asset($thisEvent->file_paths) }}" download>
-                                                                <i class="bi bi-file-earmark-arrow-down"></i> Download
+                                                            <a href="{{ asset($thisEvent->file_paths) }}" download class="btn btn-primary btn-sm mr-2">
+                                                                <i class="bi bi-file-earmark-arrow-down"></i>
                                                             </a>
-                                                            
-                                                            @if(pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) === 'pdf' ||
-                                                                pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) === 'docx' ||
-                                                                pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) === 'txt' ||
-                                                                pathinfo(asset($thisEvent->file_paths), PATHINFO_EXTENSION) === 'csv')
-                                                                <a href="#" onclick="window.open('{{ asset($thisEvent->file_paths) }}', '_blank')"><i class="bi bi-eye"></i> Preview</a>
-                                                            @endif
+                                                            <button wire:click="deleteFile({{ $thisEvent->id }})" class="btn btn-danger btn-sm">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
                                                         </div>
-                                                    @else
-                                                        <a href="{{ $thisEvent->file_links }}" target="_blank"><p class="p-break">{{ $thisEvent->file_links }}</p></a>
-                                                    @endif
-                                                @else
-                                                    <div class="ppo-upload-file-container">
-                                                        <form class="ppo-upload-file" wire:submit.prevent="uploadPostProgramObligation({{ $event->id }})">
-                                                            <input type="file" id="file" wire:model.live='file' accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" required/>
-                                                            
-                                                            <button class="btn-submit" type="submit" {{ $file ? '' : 'disabled' }}><i class="bi bi-upload"></i></button>
-                                                            
-                                                            @if($thisPpoId === $event->id)
-                                                                <div wire:loading wire:target="file" class="loading-container">
-                                                                    <div class="loading-spinner"></div>
-                                                                </div>
-                                                            @endif
-                                                        </form>
                                                     </div>
-                                                    Or
-                                                    <div class="ppo-upload-file-container">
-                                                        <form class="ppo-upload-file" wire:submit.prevent="uploadPostProgramObligation({{ $event->id }})">
-                                                            <input class="form-control" type="text" id="file" wire:model.live='link' placeholder="Paste file link here" required/>
-                                                            <button class="btn-submit" type="submit"><i class="bi bi-upload"></i></button>
-                                                        </form>
-                                                    </div>
-                                                    @error('chooseOne')
-                                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                                    @enderror
+                                                @elseif($thisEvent->file_links)
+                                                    <a href="{{ $thisEvent->file_links }}" target="_blank">
+                                                        <p class="p-break">{{ $thisEvent->file_links }}</p>
+                                                    </a>
                                                 @endif
+                                            @endforeach
+                                            <div class="ppo-upload-file-container">
+                                                <form class="ppo-upload-file" wire:submit.prevent="uploadPostProgramObligation({{ $event->id }})">
+                                                    <input type="file" id="file" wire:model="files" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple required/>
+
+                                                    <button class="btn-submit" type="submit" {{ $files ? '' : 'disabled' }}>
+                                                        <i class="bi bi-upload"></i>
+                                                        <div wire:loading wire:target="uploadPostProgramObligation({{ $event->id }})" class="loading-container">
+                                                            <div class="loading-spinner"></div>
+                                                        </div>
+                                                    </button>
+                                                </form>
+                                            </div>
+
+                                                Or
+                                                <div class="ppo-upload-file-container">
+                                                    <form class="ppo-upload-file" wire:submit.prevent="uploadPostProgramObligation({{ $event->id }})">
+                                                        <input class="form-control" type="text" id="file" wire:model.live='link' placeholder="Paste file link here" required/>
+                                                        <button class="btn-submit" type="submit"><i class="bi bi-upload"></i></button>
+                                                    </form>
+                                                </div>
+                                                @error('chooseOne')
+                                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                                @enderror
                                             </td>
+
                                         @endif
                                     </tr>
                                 @endforeach

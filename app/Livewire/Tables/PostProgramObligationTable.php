@@ -16,11 +16,12 @@ class PostProgramObligationTable extends Component
     use WithFileUploads, WithPagination;
     public $search;
     public $popup_message;
-    public $file;
+    public $files;
     public $link;
     public $thisPpoId;
 
     protected $rules = [
+        'files.*' => 'required|file|max:10240',
         'link' => 'required|min:2',
     ];
 
@@ -30,18 +31,18 @@ class PostProgramObligationTable extends Component
             ->search(trim($this->search))
             ->orderBy('ip_events.created_at', 'desc')
             ->paginate(10);
-    
+
         $ipEvents->transform(function ($event) {
             $participantIds = explode(',', $event->participants);
             $userId = auth()->user()->id;
-    
+
             $event->approved = in_array($userId, $participantIds);
             $event->start = Carbon::parse($event->start)->format('d F, Y');
             $event->end = Carbon::parse($event->end)->subDay()->format('d F, Y');
 
             return $event;
         });
-        
+
         $userId = auth()->user()->id;
         $ppoFiles = IpPostProgramObligation::where('user_id', $userId)->get();
 
@@ -54,36 +55,46 @@ class PostProgramObligationTable extends Component
             $userId = Auth::user()->id;
             $event = IpEvents::find($eventId);
             if($userId && $event){
-                
-                if($this->file && $this->link){
-                    $this->addError('chooseOne', 'Choose only 1 way of file submission.');
-                    return;
-                }
-    
-                $ppo = IpPostProgramObligation::create([
-                    'event_id' => $event->id,
-                    'user_id' => $userId,
-                    'file_paths' => '',
-                    'file_links' => '',
-                ]);
-    
-    
-                if ($this->file) {
-                    $filePath = $this->file->storeAs('postProgramObligations', $this->file->getClientOriginalName(), 'public_uploads');
+
+
+                $ppos = [];
+
+                foreach ($this->files as $file) {
+                    $ppo = IpPostProgramObligation::create([
+                        'event_id' => $event->id,
+                        'user_id' => $userId,
+                        'file_paths' => '',
+                        'file_links' => '',
+                    ]);
+
+                    $filePath = $file->storeAs('postProgramObligations', $file->getClientOriginalName(), 'public_uploads');
                     $filePath = "uploads/" . $filePath;
                     $ppo->update(['file_paths' => $filePath]);
+
+                    $ppos[] = $ppo;
                 }
-    
-                if ($this->link) {
-                    $ppo->update(['file_links' => $this->link]);
-                }
-    
+
                 $this->popup_message = null;
-                $this->popup_message = "File uploaded successfully.";
+                $this->popup_message = "Files uploaded successfully.";
                 $this->thisPpoId = null;
+                $this->files = null;
             }
         }catch(Exception $e){
             throw $e;
+        }
+    }
+
+    public function deleteFile($fileId)
+    {
+        $file = IpPostProgramObligation::find($fileId);
+        if ($file) {
+
+            if (file_exists(public_path($file->file_paths))) {
+                unlink(public_path($file->file_paths));
+            }
+
+            $file->delete();
+            $this->popup_message = "File deleted successfully.";
         }
     }
 
