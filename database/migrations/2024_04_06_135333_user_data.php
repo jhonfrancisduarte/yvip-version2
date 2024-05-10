@@ -41,6 +41,7 @@ return new class extends Migration
             $table->string('profile_picture')->nullable();
             $table->boolean('is_volunteer')->nullable();
             $table->boolean('is_ip_participant')->nullable();
+            $table->string('advocacy_plans');
             $table->string('name_of_school', 50)->nullable();
             $table->string('course', 50)->nullable();
             $table->string('organization_name', 50)->nullable();
@@ -48,7 +49,6 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

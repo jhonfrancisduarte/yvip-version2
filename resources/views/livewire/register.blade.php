@@ -302,7 +302,7 @@
                         </div>
                     </div>
 
-                    <div class="row row-space org-detail" @if($is_org_member == 'no') style="display: none;" @endif>
+                    <div class="row row-space org-detail" @if($is_org_member = 'no') style="display: none;" @endif>
                         <div class="col-2">
                             <div class="input-group">
                                 <label class="label">Organization name</label>
@@ -315,6 +315,33 @@
                                 <input class="input--style-4" type="text" wire:model="org_position" name="org_position">
                             </div>
                         </div>
+                    </div>
+
+                    <div class="col-md-2 ten-advocacy-plans">
+                        <label class="label">Ten Advocacy Plans</label>
+                        <div class="row">
+                            <div class="col">
+                                <div class="checkboxes p-t-10">
+                                    <label class="checkbox-container">Health<input type="checkbox" wire:model="selectedAdvocacyPlans" value="Health"></label>
+                                    <label class="checkbox-container">Education<input type="checkbox" wire:model="selectedAdvocacyPlans" value="Education"> </label>
+                                    <label class="checkbox-container">Economic Empowerment<input type="checkbox" wire:model="selectedAdvocacyPlans" value="Economic Empowerment"></label>
+                                    <label class="checkbox-container">Social Inclusion and Equity<input type="checkbox" wire:model="selectedAdvocacyPlans" value="Social Inclusion and Equity"></label>
+                                    <label class="checkbox-container">Peace-building and Security<input type="checkbox" wire:model="selectedAdvocacyPlans" value="Peace-building and Security"></label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="checkboxes p-t-10">
+                                    <label class="checkbox-container">Governance<input type="checkbox" wire:model="selectedAdvocacyPlans" value="Governance"></label>
+                                    <label class="checkbox-container">Active Citizenship<input type="checkbox" wire:model="selectedAdvocacyPlans" value="Active Citizenship"></label>
+                                    <label class="checkbox-container">Environment<input type="checkbox" wire:model="selectedAdvocacyPlans" value="Environment"></label>
+                                    <label class="checkbox-container">Global Mobility<input type="checkbox" wire:model="selectedAdvocacyPlans" value="Global Mobility"></label>
+                                    <label class="checkbox-container">Agriculture<input type="checkbox" wire:model="selectedAdvocacyPlans" value="Agriculture"></label>
+                                </div>
+                            </div>
+                        </div>
+                        @error('selectedAdvocacyPlans')
+                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="row row-space">

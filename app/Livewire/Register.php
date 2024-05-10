@@ -49,6 +49,7 @@ class Register extends Component
     public $rcities;
     public $permanent_cities;
     public $residential_cities;
+    public $selectedAdvocacyPlans = [];
 
     protected $rules = [
         'first_name' => 'required|min:2',
@@ -72,6 +73,7 @@ class Register extends Component
         'is_volunteer' => 'required',
         'password' => 'required|min:8',
         'c_password' => 'required|same:password',
+        'selectedAdvocacyPlans' => 'required|array|min:1',
     ];
 
     public function mount(){
@@ -183,6 +185,7 @@ class Register extends Component
                 'org_position' => $this->org_position,
                 'is_volunteer' => $this->is_volunteer,
                 'is_ip_participant' => $this->is_ip_participant,
+                'advocacy_plans' => implode(', ', $this->selectedAdvocacyPlans),
             ]);
 
             $this->reset();
