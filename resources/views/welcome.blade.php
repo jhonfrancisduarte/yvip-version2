@@ -7,6 +7,8 @@
 @section ('css')
     <link href="css/welcome.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/announcement.css">
+    <link rel="stylesheet" type="text/css" href="css/volunteer.css">
 @endsection
 
 
@@ -27,6 +29,8 @@
                     </div> --}}
                 </div>
 
+                
+
                 <div class="login-container">
                     <div class="login-form-container">
                         @livewire('login')
@@ -35,6 +39,8 @@
                 </div>
 
             </div>
+
+            @livewire('main-announcement')
     </div>
 
 @endsection
