@@ -16,11 +16,12 @@ class PostProgramObligationTable extends Component
     use WithFileUploads, WithPagination;
     public $search;
     public $popup_message;
-    public $file;
+    public $files;
     public $link;
     public $thisPpoId;
 
     protected $rules = [
+        'files.*' => 'required|file|max:10240',
         'link' => 'required|min:2',
     ];
 
@@ -55,35 +56,44 @@ class PostProgramObligationTable extends Component
             $event = IpEvents::find($eventId);
             if($userId && $event){
 
-                if($this->file && $this->link){
-                    $this->addError('chooseOne', 'Choose only 1 way of file submission.');
-                    return;
-                }
 
-                $ppo = IpPostProgramObligation::create([
-                    'event_id' => $event->id,
-                    'user_id' => $userId,
-                    'file_paths' => '',
-                    'file_links' => '',
-                ]);
+                $ppos = [];
 
+                foreach ($this->files as $file) {
+                    $ppo = IpPostProgramObligation::create([
+                        'event_id' => $event->id,
+                        'user_id' => $userId,
+                        'file_paths' => '',
+                        'file_links' => '',
+                    ]);
 
-                if ($this->file) {
-                    $filePath = $this->file->storeAs('postProgramObligations', $this->file->getClientOriginalName(), 'public_uploads');
+                    $filePath = $file->storeAs('postProgramObligations', $file->getClientOriginalName(), 'public_uploads');
                     $filePath = "uploads/" . $filePath;
                     $ppo->update(['file_paths' => $filePath]);
-                }
 
-                if ($this->link) {
-                    $ppo->update(['file_links' => $this->link]);
+                    $ppos[] = $ppo;
                 }
 
                 $this->popup_message = null;
-                $this->popup_message = "File uploaded successfully.";
+                $this->popup_message = "Files uploaded successfully.";
                 $this->thisPpoId = null;
             }
         }catch(Exception $e){
             throw $e;
+        }
+    }
+
+    public function deleteFile($fileId)
+    {
+        $file = IpPostProgramObligation::find($fileId);
+        if ($file) {
+
+            if (file_exists(public_path($file->file_paths))) {
+                unlink(public_path($file->file_paths));
+            }
+
+            $file->delete();
+            $this->popup_message = "File deleted successfully.";
         }
     }
 
