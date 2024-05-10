@@ -32,11 +32,11 @@ class Login extends Component
                 }
                 elseif (($user->user_role === 'ips')) {
                     session(['user_role' => $user->user_role]);
-                    return redirect()->intended('/ip-dashboard');
+                    return redirect()->intended('/ip-announcements');
                 }
                 elseif (in_array($user->user_role, ['vs', 'vsa'])) {
                     session(['user_role' => $user->user_role]);
-                    return redirect()->intended('/volunteer-dashboard');
+                    return redirect()->intended('/volunteer-announcements');
                 }
             }elseif($user->active_status === 2){
                 $this->addError('login', 'Invalid credentials.');

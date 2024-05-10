@@ -1,7 +1,7 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4"  wire:poll.30s="counter">
             <a href="#" class="brand-link" >
-                <img src="/images/yvip_logo.png" alt="AdminLTE Logo" class="brand-image brand-image1" style="opacity: .8">
+                <img src="/images/yvip_logo.png" alt="AdminLTE Logo" class="brand-image brand-image1">
                 <span class="brand-text font-weight-bold">THE NYC - YVIP</span>
             </a>
 
@@ -180,6 +180,18 @@
                                 <i class="nav-icon bi bi-card-list"></i>
                                 <p>
                                     IP Events
+                                    @if($joinRequests !== 0)
+                                        <span class="badge bg-primary2">{{ $joinRequests }}</span>
+                                    @endif
+                                </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('post-program-obligations') }}" class="nav-link {{ request()->routeIs('post-program-obligations') ? 'active' : '' }}" >
+                                <i class="nav-icon bi bi-card-list"></i>
+                                <p>
+                                    Post-Program Obligations
                                     @if($joinRequests !== 0)
                                         <span class="badge bg-primary2">{{ $joinRequests }}</span>
                                     @endif

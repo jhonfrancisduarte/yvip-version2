@@ -16,12 +16,14 @@ class PostProgramObligationTable extends Component
     use WithFileUploads, WithPagination;
     public $search;
     public $popup_message;
-    public $files;
     public $link;
     public $thisPpoId;
-
+    public $file;
+    public $file_for = [];
+    public $isHasUploadedFile;
+    public $hasFileLink;
     protected $rules = [
-        'files.*' => 'required|file|max:10240',
+        'file' => 'required|file|max:10240',
         'link' => 'required|min:2',
     ];
 
@@ -45,6 +47,8 @@ class PostProgramObligationTable extends Component
 
         $userId = auth()->user()->id;
         $ppoFiles = IpPostProgramObligation::where('user_id', $userId)->get();
+        $this->isHasUploadedFile = $this->hasUploadedFile();
+        $this->hasFileLink = $this->hasFilesLink();
 
         return view('livewire.tables.post-program-obligation-table',  compact('ipEvents', 'ppoFiles'));
     }
@@ -55,29 +59,130 @@ class PostProgramObligationTable extends Component
             $userId = Auth::user()->id;
             $event = IpEvents::find($eventId);
             if($userId && $event){
+                
+                if($this->file && $this->link){
+                    $this->addError("file_for.$event->id", 'Choose only 1 way of file submission.');
+                    return;
+                }
 
+                if($this->link === null){
+                    if(!$this->file_for){
+                        $this->addError("file_for.$event->id", 'Please select an option in the dropdown!');
+                        return;
+                    }
 
-                $ppos = [];
+                    $saveTo = '';
+                    switch($this->file_for[$event->id]){
+                        case "pper":
+                            $saveTo = 'post_program_eval_report';
+                            break;
+                        case "pb":
+                            $saveTo = 'policy_brief';
+                            break;
+                        case "gtr":
+                            $saveTo = 'group_terminal_report';
+                            break;
+                        case "vw":
+                            $saveTo = 'volunteer_work';
+                            break;
+                        case "ap":
+                            $saveTo = 'advocacy_plan';
+                            break;
+                        default:
+                            break;
+                    }
 
-                foreach ($this->files as $file) {
+                    $ppo = IpPostProgramObligation::where('user_id', $userId)
+                                                ->where('event_id', $event->id)
+                                                ->first();
+                    if($ppo){
+                        if ($this->file) {
+                            $filePath = $this->file->storeAs('postProgramObligationFiles/' . $saveTo , $this->file->getClientOriginalName(), 'public_uploads');
+                            $filePath = "uploads/" . $filePath;
+
+                            $alreadySubmitted = $ppo->{$saveTo};
+                            if(!$alreadySubmitted){
+                                $ppo->update([
+                                    $saveTo => $filePath,
+                                ]);
+                            }else{
+                                $this->addError("file_for.$event->id", 'You already submitted a file for this Post-Program Obligation!');
+                                return;
+                            }
+                        }
+                    }else{
+                        $ppo = IpPostProgramObligation::create([
+                            'event_id' => $event->id,
+                            'user_id' => $userId,
+                            'post_program_eval_report' => '',
+                            'policy_brief' => '',
+                            'group_terminal_report' => '',
+                            'volunteer_work' => '',
+                            'advocacy_plan' => '',
+                            'files_link' => '',
+                        ]);
+
+                        if ($this->file) {
+                            $filePath = $this->file->storeAs('postProgramObligationFiles/' . $saveTo , $this->file->getClientOriginalName(), 'public_uploads');
+                            $filePath = "uploads/" . $filePath;
+                            $ppo->update([
+                                $saveTo => $filePath,
+                            ]);
+                        }
+                    } 
+                }else{
                     $ppo = IpPostProgramObligation::create([
                         'event_id' => $event->id,
                         'user_id' => $userId,
-                        'file_paths' => '',
-                        'file_links' => '',
+                        'post_program_eval_report' => '',
+                        'policy_brief' => '',
+                        'group_terminal_report' => '',
+                        'volunteer_work' => '',
+                        'advocacy_plan' => '',
+                        'files_link' => '',
                     ]);
 
-                    $filePath = $file->storeAs('postProgramObligations', $file->getClientOriginalName(), 'public_uploads');
-                    $filePath = "uploads/" . $filePath;
-                    $ppo->update(['file_paths' => $filePath]);
-
-                    $ppos[] = $ppo;
+                    if ($this->link) {
+                        $ppo->update(['files_link' => $this->link]);
+                    }
                 }
-
+           
                 $this->popup_message = null;
-                $this->popup_message = "Files uploaded successfully.";
+                $this->popup_message = "File uploaded successfully.";
                 $this->thisPpoId = null;
-                $this->files = null;
+                $this->file = null;
+            }
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    public function hasUploadedFile(){
+        try{
+            $userId = auth()->user()->id;
+            $ppoFiles = IpPostProgramObligation::where('user_id', $userId)->first();
+            if($ppoFiles){
+                return $ppoFiles->post_program_eval_report && 
+                        $ppoFiles->policy_brief && 
+                        $ppoFiles->group_terminal_report &&
+                        $ppoFiles->volunteer_work &&
+                        $ppoFiles->advocacy_plan;
+            }else{
+                return false;
+            }
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    public function hasFilesLink(){
+        try{
+            $userId = auth()->user()->id;
+            $ppoFiles = IpPostProgramObligation::where('user_id', $userId)->first();
+            if($ppoFiles){
+                return $ppoFiles->files_link;
+            }else{
+                return false;
             }
         }catch(Exception $e){
             throw $e;

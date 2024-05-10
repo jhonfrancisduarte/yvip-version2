@@ -38,12 +38,78 @@ class IpbsTable extends Component
     public $volunteerCategories;
     public $volunteerExperiences;
     public $groupedSkills;
+    public $advocacy;
+    public $advocacyPlans = [];
+
+    public function render(){
+        if ($this->selectedProvince != null) {
+            $provinceCode = PhilippineProvinces::where('province_description', $this->selectedProvince)
+                            ->select('province_code')->first();
+            $provinceCode = $provinceCode->getAttributes();
+            $this->cities = PhilippineCities::where('province_code', $provinceCode['province_code'])->get();
+        }
+
+        $volunteers = User::where('user_role', 'yip')
+                ->join('user_data', 'users.id', '=', 'user_data.user_id')
+                ->select('users.email', 'users.active_status', 'user_data.*')
+                ->search(trim($this->search))
+                ->when($this->age_range, function ($query) {
+                    return $query->where('user_data.age', $this->age_range);
+                })
+                ->when($this->active_status, function ($query) {
+                    return $query->where('users.active_status', $this->active_status);
+                })
+                ->when($this->civil_status, function ($query) {
+                    return $query->where('user_data.civil_status', $this->civil_status);
+                })
+                ->when($this->selectedProvince, function ($query) {
+                    return $query->where('user_data.permanent_selectedProvince', $this->selectedProvince);
+                })
+                ->when($this->selectedCity, function ($query) {
+                    return $query->where('user_data.permanent_selectedCity', $this->selectedCity);
+                })
+                ->when($this->advocacy, function ($query) {
+                    return $query->where('user_data.advocacy_plans', 'LIKE', '%' . $this->advocacy . '%');
+                })
+                ->paginate(10);
+
+        $deactivatedIPs = User::where('user_role', 'yip')
+            ->where('users.active_status', 2)
+            ->get();
+
+        $ageRange = User::where('user_role', 'yip')
+                ->join('user_data', 'users.id', '=', 'user_data.user_id')
+                ->select('user_data.age')
+                ->orderBy('user_data.age', 'asc')
+                ->get();
+
+        $volunteers->transform(function ($volunteer){
+            $volunteer->advocacy_plans = explode(', ', $volunteer->advocacy_plans);
+            return $volunteer;
+        });
+
+        return view('livewire.ipbs-table', [
+            'volunteers' => $volunteers,
+            'deactivatedIPs' => $deactivatedIPs,  
+            'ageRange' => $ageRange, 
+            'cities' => $this->cities
+        ]);
+    }
+
+    public function deactivatedAccounts(){
+        if($this->active_status == 2){
+            $this->active_status = 1;
+        }else{
+            $this->active_status = 2;
+        }
+    }
 
     public function showUserData($userId){
         $selectedUserDetails = User::where('users.id', $userId)
                                 ->join('user_data', 'users.id', '=', 'user_data.user_id')
                                 ->select('users.email', 'users.user_role', 'users.active_status', 'user_data.*')
                                 ->first();
+        $this->advocacyPlans = explode(', ', $selectedUserDetails->advocacy_plans);
         $this->selectedUserDetails = $selectedUserDetails->getAttributes();
         $details = [
             'Passport No.' => $selectedUserDetails->passport_number,
@@ -127,60 +193,6 @@ class IpbsTable extends Component
             echo $pdf->stream();
         }, $userDetails['first_name'] . $userDetails['last_name'] . '_IP.pdf');
     }
-    public function render(){
-        if ($this->selectedProvince != null) {
-            $provinceCode = PhilippineProvinces::where('province_description', $this->selectedProvince)
-                            ->select('province_code')->first();
-            $provinceCode = $provinceCode->getAttributes();
-            $this->cities = PhilippineCities::where('province_code', $provinceCode['province_code'])->get();
-        }
-
-        $volunteers = User::where('user_role', 'yip')
-                ->join('user_data', 'users.id', '=', 'user_data.user_id')
-                ->select('users.email', 'users.active_status', 'user_data.*')
-                ->search(trim($this->search))
-                ->when($this->age_range, function ($query) {
-                    return $query->where('user_data.age', $this->age_range);
-                })
-                ->when($this->active_status, function ($query) {
-                    return $query->where('users.active_status', $this->active_status);
-                })
-                ->when($this->civil_status, function ($query) {
-                    return $query->where('user_data.civil_status', $this->civil_status);
-                })
-                ->when($this->selectedProvince, function ($query) {
-                    return $query->where('user_data.permanent_selectedProvince', $this->selectedProvince);
-                })
-                ->when($this->selectedCity, function ($query) {
-                    return $query->where('user_data.permanent_selectedCity', $this->selectedCity);
-                })
-                ->paginate(10);
-
-        $deactivatedIPs = User::where('user_role', 'yip')
-            ->where('users.active_status', 2)
-            ->get();
-
-        $ageRange = User::where('user_role', 'yip')
-                ->join('user_data', 'users.id', '=', 'user_data.user_id')
-                ->select('user_data.age')
-                ->orderBy('user_data.age', 'asc')
-                ->get();
-
-        return view('livewire.ipbs-table', [
-            'volunteers' => $volunteers,
-            'deactivatedIPs' => $deactivatedIPs,  
-            'ageRange' => $ageRange, 
-            'cities' => $this->cities
-        ]);
-    }
-
-    public function deactivatedAccounts(){
-        if($this->active_status == 2){
-            $this->active_status = 1;
-        }else{
-            $this->active_status = 2;
-        }
-    }
 
     public function reactivateVolunteer($userId){
         try{
@@ -246,7 +258,6 @@ class IpbsTable extends Component
                 $selectedSkillNames = VolunteerSkills::where('user_id', $user->id)->pluck('skill_name')->first();
                 $selectedSkillNamesArray = $selectedSkillNames ? explode(',', $selectedSkillNames) : [];
                 $userCategories = VolunteerCategory::where('user_id', $user->id)->pluck('category_name')->first();
-                $volunteerExperiences = Volunteer::where('user_id', $user->id)->get();
             }
         }catch(Exception $e){
             throw $e;

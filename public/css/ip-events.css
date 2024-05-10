@@ -135,11 +135,41 @@
     height: 100% !important;
 }
 
+.display-flex{
+    display: flex;
+}
+
 .ppo-upload-file-container {
     border: 1px solid #ccc;
     background: #ccc;
-    border-radius: 3px;
-    padding: 5px;
+    border-radius: 0 0 3px 3px;
+    padding: 4px;
+}
+
+.fieldset{
+    border: 1px solid #ccc;
+    padding: 0 5px 5px 5px;
+    border-radius: 5px;
+}
+
+.fieldset .file-for-label{
+    font-size: 11px;
+    color: #ccc;
+}
+
+.fieldset .file-container{
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    height: fit-content;
+}
+
+.file-for{
+    margin-top: 5px;
+}
+
+.file-for .form-control{
+    border-radius: 3px 3px 0 0 !important;
 }
 
 .p-break {
@@ -198,6 +228,37 @@
     position: relative;
 }
 
+.t-foot{
+    background: #eeeeee;
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 0 0 5px 5px;
+}
+
+.bordered{
+    width: 100%;
+    margin-bottom: 50px;
+    overflow-x: hidden;
+}
+
+.fitter{
+    width: 100%;
+}
+
+.absolute-top-right{
+    display: block;
+}
+
+.absolute-top-right a{
+    margin-left: 5px;
+}
+
+.fit-container{
+    position: relative !important;
+    display: flex;
+}
+
 @media (max-width:768px) {
     .btn-add-event {
         margin-top: 5px;
@@ -229,5 +290,14 @@
     .input-group-radio {
         margin-top: 10px;
     }
+
+    .fitter{
+        width: fit-content;
+    }
+
+    .bordered{
+        overflow-x: scroll;
+    }
+    
 
 }

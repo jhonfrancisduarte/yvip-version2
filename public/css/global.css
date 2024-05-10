@@ -78,6 +78,11 @@
     padding: 13px !important;
 }
 
+.bordered{
+    border: 1px solid #eeeeee;
+    border-radius: 6px;
+}
+
 .table-main td {
     padding: 10px !important;
     border-bottom: 1px solid #cccccc3f !important;
@@ -587,6 +592,10 @@
     margin-left: 20px !important;
 }
 
+.margin-top{
+    margin-top: 5px;
+}
+
 .loading-spinner {
     border: 2px solid #f3f3f3;
     border-top: 2px solid #3498db;
@@ -671,6 +680,10 @@
     .btn-delete:hover+.span,
     .btn-warning:hover+.span {
         display: none;
+    }
+
+    .margin-top-mobile{
+        margin-top: 5px;
     }
 }
 

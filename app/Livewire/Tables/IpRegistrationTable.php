@@ -19,6 +19,7 @@ class IpRegistrationTable extends Component
     public $deleteMessage;
     public $userDetails;
     public $popup_message;
+    public $approving;
 
     public function render(){
         $volunteers = User::where('user_role', 'yip')
@@ -49,10 +50,16 @@ class IpRegistrationTable extends Component
                 $registrant->update([
                     'active_status' => 1,
                 ]);
-                $this->popup_message = null;
-                $this->popup_message = 'Registrant approved successfully.';
-                Mail::to($registrant->email)->send(new UserApprovalNotification($registrant->name, $admin));
-                $this->selectedUserDetails = null;
+                $mailed = Mail::to($registrant->email)->send(new UserApprovalNotification($registrant->name, $admin));
+                if($mailed){
+                    $this->popup_message = null;
+                    $this->popup_message = 'Registrant approved successfully.';
+                    $this->selectedUserDetails = null;
+                }else{
+                    $this->popup_message = null;
+                    $this->popup_message = 'Failed to send approve mail.';
+                    $this->selectedUserDetails = null;
+                }
             }else{
                 $this->popup_message = null;
                 $this->popup_message = 'Registrant approved unsuccessfully.';

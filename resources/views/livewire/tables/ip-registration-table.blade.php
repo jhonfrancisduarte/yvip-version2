@@ -133,6 +133,25 @@
         </div>
     @endif
 
+    @if($approving)
+        <div class="anns anns-full-h">
+            <div class="close-form"></div>
+            <div class="add-announcement-container" style="width: 150px !important;">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <span style="display: block;">
+                            <div class="loading-container">
+                                <div class="loading-spinner"></div>
+                            </div>
+                            <center><p>Approving...</p></center>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif  
+
+
     @if($selectedUserDetails)
         <div class="users-data-all-container">
             <div class="close-form" wire:click="hideUserData"></div>

@@ -18,8 +18,7 @@
                 <div class="welcome-header">
                     <img class="logo" src="images/yvip_logo.png" width="230"/>
                     <div class="title-container">
-                        <h4>The NYC</h4>
-                        <img src="images/yvip.png" alt="" width="100">
+                        <img src="images/maskhead.png" alt="" width="220">
                         <h3>Youth Volunteers & International Programs Beneficiaries Hub</h3>
                     </div>
                     {{-- <div class="info-container">

@@ -45,21 +45,33 @@ class VolunteerRegistrationTable extends Component
     }
 
     public function approveUser($userId){
-        $admin = Auth::user()->email;
-        $this->approving = true;
-        $registrant = User::where('id', $userId)->first();
-        if ($registrant){
-            $registrant->update([
-                'active_status' => 1,
-            ]);
-            $this->popup_message = null;
-            $this->popup_message = 'Registrant approved successfully.';
-            Mail::to($registrant->email)->send(new UserApprovalNotification($registrant->name, $admin));
-            $this->selectedUserDetails = null;
-            $this->approving = null;
-        }else{
-            $this->popup_message = null;
-            $this->popup_message = 'Registrant approved unsuccessfully.';
+        try{
+            $this->approving = true;
+            $admin = Auth::user()->email;
+            $registrant = User::where('id', $userId)->first();
+            if ($registrant){
+                $registrant->update([
+                    'active_status' => 1,
+                ]);
+                $mailed = Mail::to($registrant->email)->send(new UserApprovalNotification($registrant->name, $admin));
+                if($mailed){
+                    $this->approving = null;
+                    $this->popup_message = null;
+                    $this->popup_message = 'Registrant approved successfully.';
+                    $this->selectedUserDetails = null;
+                }else{
+                    $this->approving = null;
+                    $this->popup_message = null;
+                    $this->popup_message = 'Failed to send approve mail.';
+                    $this->selectedUserDetails = null;
+                }
+            }else{
+                $this->approving = null;
+                $this->popup_message = null;
+                $this->popup_message = 'Registrant approved unsuccessfully.';
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 

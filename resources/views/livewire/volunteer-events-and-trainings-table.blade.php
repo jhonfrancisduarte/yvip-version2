@@ -690,22 +690,29 @@
                         </thead>
 
                         <tbody>
-                            @foreach($groupedSkills as $categoryName => $skills)
-                                <tr class="recordRow">
-                                    <td class="categoryColumn">
-                                        <div>
-                                            <p>{{ $categoryName }}</p>
-                                        </div>
-                                    </td>
-                                    <td class="skillsColumn">
-                                        <div>
-                                        @foreach($skills as $skill)
-                                            <li>{{ $skill->all_skills_name }}</li>
-                                        @endforeach
-                                        </div>
-                                    </td>
+                            @if(!$groupedSkills->isEmpty())
+                                @foreach($groupedSkills as $categoryName => $skills)
+                                    <tr class="recordRow">
+                                        <td class="categoryColumn">
+                                            <div>
+                                                <p>{{ $categoryName }}</p>
+                                            </div>
+                                        </td>
+                                        <td class="skillsColumn">
+                                            <div>
+                                            @foreach($skills as $skill)
+                                                <li>{{ $skill->all_skills_name }}</li>
+                                            @endforeach
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td>No Categories and Skills Yet</td>
+                                    <td></td>
                                 </tr>
-                            @endforeach
+                            @endif
                         </tbody>
                     </table>
 
@@ -725,16 +732,50 @@
                         </tbody>
 
                         <tbody>
-                            @foreach($volunteerExperiences as $experience)
-                                <tr class="recordRow">
-                                    <td>{{ $experience->nature_of_event }}</td>
-                                    <td>{{ $experience->participation }}</td>
+                            @if(!$volunteerExperiences->isEmpty())
+                                @foreach($volunteerExperiences as $experience)
+                                    <tr class="recordRow">
+                                        <td>{{ $experience->nature_of_event }}</td>
+                                        <td>{{ $experience->participation }}</td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td>No Experience Yet</td>
+                                    <td></td>
                                 </tr>
-                            @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+
+                    <table id="volunteers-table" class="table-main">
+                        <thead>
+                            <tr>
+                                <th  width="40%">Advocacy Plan/s</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(!empty($advocacyPlans))
+                            <tr class="recordRow">
+                                <td>
+                                    @foreach($advocacyPlans as $advocacyPlan)
+                                        <span>• {{  $advocacyPlan }}</span>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            @else
+                                <tr>
+                                    <td style="color: #ccc;">
+                                        No Advocacy Plan
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
 
                 </div>
+
                 <div class="row1">
                     <div class="col" style="margin-top: 10px;">
                         <div class="user-data">
@@ -748,6 +789,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>    
     @endif

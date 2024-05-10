@@ -73,6 +73,7 @@ Route::middleware(['auth', 'user_role:sa,ips'])->group(function (){
      Route::get('/ip-beneficiaries', function () {return view('livewire.ip-beneficiaries');})->name('ip-beneficiaries');
      Route::get('/ip-validation', function () {return view('livewire.ip-validation');})->name('ip-validation');
      Route::get('/ip-events', function () {return view('livewire.ip.ip-events');})->name('ip-events');
+     Route::get('/post-program-obligations', function () {return view('livewire.ip.post-program-obligation-submissions');})->name('post-program-obligations');
      Route::get('/ip-messages', function () {return view('livewire.ip-messages');})->name('ip-messages');
 
 });

@@ -14,8 +14,12 @@ class IpPostProgramObligation extends Model
     protected $fillable = [
         'event_id',
         'user_id',
-        'file_paths',
-        'file_links',
+        'post_program_eval_report',
+        'policy_brief',
+        'group_terminal_report',
+        'volunteer_work',
+        'advocacy_plan',
+        'files_link',
     ];
 
     public function ipEvents()

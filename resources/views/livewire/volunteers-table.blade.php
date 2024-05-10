@@ -32,47 +32,57 @@
                     </div>
 
                     <div class="card-header card-header1">
-                        <label for="" class="label" style="margin-top: 5px;">Filter: </label>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
                         </div>
-                        <div class="mx-2"></div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 margin-top-mobile">
                             <select class="form-control" wire:model.live="civil_status">
-                                <option selected disabled>Civil Status</option>
+                                <option selected value="">Civil Status</option>
                                 <option class="label" value="Single">Single</option>
                                 <option class="label" value="Married">Married</option>
                                 <option class="label" value="Widowed">Widowed</option>
                                 <option class="label" value="Legally Separated">Legally Separated</option>
                             </select>
                         </div>
-                        <div class="mx-2"></div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 margin-top-mobile">
                             <select class="form-control" wire:model.live="age_range">
-                                <option disabled selected>Age</option>
+                                <option value="" selected>Age</option>
                                 @foreach($ageRange as $age)
                                     <option value="{{ $age->age }}">{{ $age->age }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mx-2"></div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 margin-top-mobile">
                             <select wire:model.live="selectedProvince" id="province" class="form-control">
-                                <option value="">Select Province</option>
+                                <option selected value="">Select Province</option>
                                 @foreach ($provinces as $province)
                                     <option value="{{ $province->province_description }}">{{ $province->province_description }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mx-2"></div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 margin-top-mobile">
                             <select id="city" class="form-control" wire:model.live="selectedCity">
-                                <option value="">Select City</option>
+                                <option selected value="">Select City</option>
                                 @if($cities)
                                     @foreach ($cities as $city)
                                         <option value="{{ $city->city_municipality_description }}">{{ $city->city_municipality_description }}</option>
                                     @endforeach
                                 @endif
+                            </select>
+                        </div>
+                        <div class="col-md-2 margin-top-mobile">
+                            <select id="city" class="form-control" wire:model.live="advocacy">
+                                <option selected value="">Advocacy</option>
+                                <option value="HEALTH">Health</option>
+                                <option value="EDUCATION">Education</option>
+                                <option value="ECONOMIC EMPOWERMENT">Economic Empowerment</option>
+                                <option value="SOCIAL INCLUSION AND EQUITY">Social Inclusion and Equity</option>
+                                <option value="PEACE-BUILDING AND SECURITY">Peace-building and Security</option>
+                                <option value="GOVERNANCE">Governance</option>
+                                <option value="ACTIVE CITIZENSHIP">Active Citizenship</option>
+                                <option value="ENVIRONMENT">Environment</option>
+                                <option value="GLOBAL MOBILITY">Global Mobility</option>
+                                <option value="AGRICULTURE">Agriculture</option>   
                             </select>
                         </div>
                     </div>
@@ -110,6 +120,7 @@
                                     <th>Permanent Address</th>
                                     <th>Residential Address</th>
                                     <th>Educational Background</th>
+                                    <th>Advocacy Plans</th>
                                     <th>Status</th>
                                     <th>Work/School</th>
                                     <th>Employer/Course</th>
@@ -137,11 +148,20 @@
                                         <td>{{ $volunteer->p_street_barangay }} {{ $volunteer->permanent_selectedCity }} {{ $volunteer->permanent_selectedProvince }}</td>
                                         <td>{{ $volunteer->r_street_barangay }} {{ $volunteer->residential_selectedCity }} {{ $volunteer->residential_selectedProvince }}</td>
                                         <td>{{ $volunteer->educational_background }}</td>
+                                        <td>
+                                            @if(!@empty($volunteer->advocacy_plans))
+                                                @foreach ($volunteer->advocacy_plans as $advocacy_plan)
+                                                    <span>• {{ $advocacy_plan }}</span><br>
+                                                @endforeach
+                                            @else
+                                                <span style="color: #ccc;">None</span>
+                                            @endif
+                                        </td>
                                         <td>{{ $volunteer->status }}</td>
-                                        @if($volunteer->status == "Professional")
+                                        @if($volunteer->status == "PROFESSIONAL")
                                             <td>{{ $volunteer->nature_of_work }}</td>
                                             <td>{{ $volunteer->employer }}</td>
-                                        @elseif($volunteer->status == "Student")
+                                        @elseif($volunteer->status == "STUDENT")
                                             <td>{{ $volunteer->name_of_school }}</td>
                                             <td>{{ $volunteer->course }}</td>
                                         @else
@@ -485,6 +505,34 @@
                                         @endif
                                     </tbody>
                                 </table>
+
+                                <table id="volunteers-table" class="table-main">
+                                    <thead>
+                                        <tr>
+                                            <th  width="40%">Advocacy Plan/s</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if(!empty($advocacyPlans))
+                                        <tr class="recordRow">
+                                            <td>
+                                                @foreach($advocacyPlans as $advocacyPlan)
+                                                    <span>• {{  $advocacyPlan }}</span>
+                                                @endforeach
+                                            </td>
+                                        </tr>
+                                        @else
+                                            <tr>
+                                                <td style="color: #ccc;">
+                                                    No Advocacy Plan
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+
+
 
                                 <div class="mt-3"></div>
                                 <div class="row1">

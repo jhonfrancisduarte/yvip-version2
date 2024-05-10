@@ -51,6 +51,7 @@ class IpEventsTable extends Component
     public $ipEvent;
     public $volunteerExperiences;
     public $groupedSkills;
+    public $advocacyPlans = [];
 
     protected $rules = [
         'event_name' => 'required|min:2',
@@ -423,6 +424,7 @@ class IpEventsTable extends Component
                     ->join('user_data', 'users.id', '=', 'user_data.user_id')
                     ->select('users.email', 'users.active_status', 'user_data.*')
                     ->first();
+                $this->advocacyPlans = explode(', ',  $this->thisUserDetails->advocacy_plans);
                 $this->thisUserDetails = $this->thisUserDetails->getAttributes();
                 $this->getSkillsAndCategory($userId);
                 $this->openJoinRequestsTable = null;

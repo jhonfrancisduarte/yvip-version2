@@ -108,6 +108,14 @@ class User extends Authenticatable
         });
     }
 
+    public function scopeSearch3($query, $term){
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('ip_events.event_name', 'like', $term)
+                ->orWhere('ip_events.organizer_sponsor', 'like', $term);
+        });
+    }
+
     protected static function boot(){
         parent::boot();
 
