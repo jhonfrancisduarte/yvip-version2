@@ -77,6 +77,7 @@ class PostProgramObligationTable extends Component
                 $this->popup_message = null;
                 $this->popup_message = "Files uploaded successfully.";
                 $this->thisPpoId = null;
+                $this->files = null;
             }
         }catch(Exception $e){
             throw $e;

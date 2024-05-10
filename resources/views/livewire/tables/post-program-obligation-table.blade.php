@@ -79,21 +79,19 @@
                                                     </a>
                                                 @endif
                                             @endforeach
+                                            <div class="ppo-upload-file-container">
+                                                <form class="ppo-upload-file" wire:submit.prevent="uploadPostProgramObligation({{ $event->id }})">
+                                                    <input type="file" id="file" wire:model="files" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple required/>
 
+                                                    <button class="btn-submit" type="submit" {{ $files ? '' : 'disabled' }}>
+                                                        <i class="bi bi-upload"></i>
+                                                        <div wire:loading wire:target="uploadPostProgramObligation({{ $event->id }})" class="loading-container">
+                                                            <div class="loading-spinner"></div>
+                                                        </div>
+                                                    </button>
+                                                </form>
+                                            </div>
 
-                                                <div class="ppo-upload-file-container">
-                                                    <form class="ppo-upload-file" wire:submit.prevent="uploadPostProgramObligation({{ $event->id }})">
-                                                        <input type="file" id="file" wire:model="files" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple required/>
-
-                                                        <button class="btn-submit" type="submit" {{ $files ? '' : 'disabled' }}><i class="bi bi-upload"></i></button>
-
-                                                        @if($thisPpoId === $event->id)
-                                                            <div wire:loading wire:target="files" class="loading-container">
-                                                                <div class="loading-spinner"></div>
-                                                            </div>
-                                                        @endif
-                                                    </form>
-                                                </div>
                                                 Or
                                                 <div class="ppo-upload-file-container">
                                                     <form class="ppo-upload-file" wire:submit.prevent="uploadPostProgramObligation({{ $event->id }})">
