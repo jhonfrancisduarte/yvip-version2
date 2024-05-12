@@ -20,7 +20,7 @@ class Login extends Component
         $this->validate();
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             $user = Auth::user();
-            if($user->active_status === 1){
+            if($user->active_status === 1 || $user->active_status === 3){
                 if (($user->user_role === 'yv' || $user->user_role === 'yip')) {
                     session(['user_role' => $user->user_role]);
                     return redirect()->intended('/dashboard');

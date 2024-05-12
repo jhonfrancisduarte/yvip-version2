@@ -423,7 +423,12 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group requester">
-                                                <label class="label" wire:click="showParticipantDetails('{{ $requester['user_id'] }}', '')">{{ $requester['name'] }}</label>
+                                                <label class="label" wire:click="showParticipantDetails('{{ $requester['user_id'] }}', '')">
+                                                    @if($requester['active_status'] === 3)
+                                                        <span style="color: red;"><i class="bi bi-flag-fill"></i></span>
+                                                    @endif
+                                                    {{ $requester['name'] }}
+                                                </label>
                                                 <div class="btn-approval">
                                                     <button class="btn-delete" wire:click="disapproveParticipant('{{ $requester['user_id'] }}')">Disapprove</button>
                                                     <button class="btn-success" wire:click="approveParticipant('{{ $requester['user_id'] }}')" style="margin-right: 5px;">Approve</button>
@@ -550,7 +555,12 @@
                     <div class="row1 row-header">
                         <div class="col1" style="margin-bottom: 10px;">
                             <img src="{{ $thisUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
-                            <label class="label">Passport Number: <span>{{ $thisUserDetails ? $thisUserDetails['passport_number'] : '' }}</span></label>
+                            <label class="label">
+                                Passport Number: <span>{{ $thisUserDetails ? $thisUserDetails['passport_number'] : '' }}</span>
+                                @if($thisUserDetails['active_status'] === 3)
+                                    <span style="color: red;"> <i class="bi bi-flag-fill"></i></span>
+                                @endif
+                            </label>
                         </div>
                     </div>
 

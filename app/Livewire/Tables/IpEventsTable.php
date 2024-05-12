@@ -124,6 +124,7 @@ class IpEventsTable extends Component
                         $joinRequestsData[$event->id][] = [
                             'user_id' => $joinRequest,
                             'name' => $name,
+                            'active_status' => $user->active_status,
                         ];
                     }
                 }
