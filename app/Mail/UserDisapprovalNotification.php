@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class UserApprovalNotification extends Mailable
+class UserDisapprovalNotification extends Mailable
 {
     use Queueable, SerializesModels;
     protected $name;
@@ -24,19 +24,19 @@ class UserApprovalNotification extends Mailable
         return 
             $this->from($this->adminEmail)
                 ->view('emails.user-approval')
-                ->subject('Your NYC - YVIP registration has been approved')
+                ->subject('Your registration has been declined')
                 ->with(['name' => $this->name]);
     }
 
     public function envelope(): Envelope{
         return new Envelope(
-            subject: 'NYC - YVIP Registration Approval Notification',
+            subject: 'User Application Declined Notification',
         );
     }
 
     public function content(): Content{
         return new Content(
-            view: 'emails.user-approval',
+            view: 'emails.user-disapproval',
         );
     }
 

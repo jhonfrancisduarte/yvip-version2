@@ -474,15 +474,13 @@ class IpEventsTable extends Component
     }
 
     public function openPpoSubmissions($eventId){
-        $events = IpPostProgramObligation::join('users', 'users.id', '=', 'ip_post_program_obligations.user_id')
-                                        ->join('ip_events', 'ip_events.id', '=', 'ip_post_program_obligations.event_id')
-                                        ->where('event_id', $eventId)
-                                        ->select('users.name', 'ip_post_program_obligations.*', 'ip_events.event_name')
-                                        ->get();
-        if($events){
-            $this->ppoSubmisions = $events;
+        try{
+            return redirect()->to('/post-program-obligations?event_id=' . $eventId);
+        }catch(Exception $e){
+            throw $e;
         }
     }
+    
     public function closeSubmissionsTable(){
         $this->ppoSubmisions = null;
         $this->options = null;
@@ -518,6 +516,7 @@ class IpEventsTable extends Component
             $this->participants = $participantsData;
         }
     }
+
     public function closeParticipantsForm(){
         $this->ipEvent = null;
         $this->isParticipant = null;

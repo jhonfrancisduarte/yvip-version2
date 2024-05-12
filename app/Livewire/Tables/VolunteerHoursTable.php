@@ -24,12 +24,17 @@ class VolunteerHoursTable extends Component
     public $volunteerSkills;
     public $volunteerCategories;
     public $volunteerExperiences;
+    public$volunteerHours;
     public $groupedSkills;
+    public $hours;
 
     public function render(){
         $query = RewardClaim::with('user')
                             ->leftJoin('users', 'reward_claim.user_id', '=', 'users.id')
                             ->select('reward_claim.*', 'users.name')
+                            ->when($this->hours, function ($query) {
+                                return $query->where('reward_claim.total_hours', $this->hours);
+                            })
                             ->search(trim($this->search))
                             ->orderBy('reward_claim.total_hours', $this->sortDirection)
                             ->paginate(10);
@@ -76,6 +81,7 @@ class VolunteerHoursTable extends Component
         try{
             $user = User::where('id', $userId)->first();
             if($user){
+                $this->volunteerHours = RewardClaim::where('user_id', $user->id)->first();
                 $this->volunteerSkills = VolunteerSkills::where('user_id', $user->id)->pluck('skill_name')->first();
                 $this->volunteerCategories = VolunteerCategory::where('user_id', $user->id)->pluck('category_name')->first();
                 $this->volunteerExperiences = VolunteerExperience::where('user_id', $user->id)->get();

@@ -33,6 +33,7 @@ class IpbsTable extends Component
     public $selectedProvince;
     public $selectedCity;
     public $active_status = 1;
+    public $redflag_status = 3;
     public $qrCodeUrl;
     public $volunteerSkills;
     public $volunteerCategories;
@@ -40,6 +41,8 @@ class IpbsTable extends Component
     public $groupedSkills;
     public $advocacy;
     public $advocacyPlans = [];
+    public $flagRegistrantId;
+    public $activeStatus;
 
     public function render(){
         if ($this->selectedProvince != null) {
@@ -57,7 +60,14 @@ class IpbsTable extends Component
                     return $query->where('user_data.age', $this->age_range);
                 })
                 ->when($this->active_status, function ($query) {
-                    return $query->where('users.active_status', $this->active_status);
+                    if($this->active_status === 1){
+                        return $query->where('users.active_status', $this->active_status)
+                                    ->orWhere('users.active_status', $this->redflag_status);
+                    }elseif($this->active_status === 2){
+                        return $query->where('users.active_status', $this->active_status);
+                    }else{
+                        return $query->where('users.active_status', $this->active_status);
+                    }
                 })
                 ->when($this->civil_status, function ($query) {
                     return $query->where('user_data.civil_status', $this->civil_status);
@@ -97,7 +107,7 @@ class IpbsTable extends Component
     }
 
     public function deactivatedAccounts(){
-        if($this->active_status == 2){
+        if($this->active_status !== 1){
             $this->active_status = 1;
         }else{
             $this->active_status = 2;
@@ -170,6 +180,7 @@ class IpbsTable extends Component
         $this->deleteVolunteerId = null;
         $this->deactVolunteerId = null;
         $this->reactivateVolunteerId = null;
+        $this->flagRegistrantId = null;
         $this->disableButton = "No";
         if($this->selectedUserDetails != null){
             $this->selectedUserDetails = null;
@@ -282,6 +293,48 @@ class IpbsTable extends Component
             }
         }catch(Exception $e){
             throw $e;        
+        }
+    }
+
+    public function toggleFlaggedAccounts(){
+        if($this->active_status !== 3){
+            $this->active_status = 3;
+        }else{
+            $this->active_status = 1;
+        }
+    }
+
+    public function flagDialog($userId, $activeStatus){
+        $this->flagRegistrantId = $userId;
+        $this->activeStatus = $activeStatus;
+        if($this->selectedUserDetails != null){
+            $this->selectedUserDetails = null;
+        }
+    }
+
+    public function flagRegistrant($userId){
+        try{ 
+            $user = User::where('id', $userId)->first();
+            if ($user){
+                $status = 0;
+                if($this->activeStatus === 1){
+                    $status = 3;
+                }else{
+                    $status = 1;
+                }
+
+                $user->update([
+                    'active_status' => $status,
+                ]);
+                
+                $this->deleteMessage = 'Registrant flagged successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Registrant flagged unsuccessful.';
+                $this->disableButton = "Yes";
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 }

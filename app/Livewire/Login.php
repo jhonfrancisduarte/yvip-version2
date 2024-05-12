@@ -14,7 +14,6 @@ class Login extends Component
     #[Rule('required')]
     public $password;
     public $showPassword = false;
-
     public $remember = false;
 
     public function login(){
@@ -38,10 +37,10 @@ class Login extends Component
                     session(['user_role' => $user->user_role]);
                     return redirect()->intended('/volunteer-announcements');
                 }
-            }elseif($user->active_status === 2){
-                $this->addError('login', 'Invalid credentials.');
             }elseif($user->active_status === 0){
                 $this->addError('status', 'Your account has not been approved yet!');
+            }else{
+                $this->addError('login', 'Invalid credentials.');
             }
         }else{
             $this->addError('login', 'Invalid credentials.');

@@ -5,9 +5,12 @@
             <div class="col-12">
                 <div class="card" style="border-radius: 20px; overflow: hidden;">
 
-                    <div class="card-header">
+                    <div class="card-header card-header1">
                         <div class="col-md-4">
                             <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
+                        </div>
+                        <div class="col-md-2 margin-top-mobile">
+                            <input type="number" class="form-control" wire:model.live="hours" placeholder="No. of hours">
                         </div>
                     </div>
 
@@ -15,7 +18,8 @@
                         <table id="volunteers-table" class="table-main">
                             <thead>
                                 <tr>
-                                    <th class="th-border-rad">Name</th>
+                                    <th width="15%" class="th-border-rad">Passport Number</th>
+                                    <th>Name</th>
                                     <th width="20%" class="th-action-btn">
                                         <span>
                                             @if($sortDirection === "desc")
@@ -31,6 +35,7 @@
                             <tbody>
                                 @foreach ($userHours as $record)
                                     <tr>
+                                        <td><span wire:click="showUserData('{{ $record->user_id }}')" style="cursor: pointer;">{{ $record->user->userData->passport_number }}</span></td>
                                         <td>
                                             <img class="profile_picture volunteers-name" src="{{ $record->user->userData->profile_picture }}" alt="profile picture" width="40" style="margin-right: 15px; border-radius: 50%; height: 40px;" wire:click="showUserData('{{ $record->user_id }}')">
                                             <span class="volunteers-name" wire:click="showUserData('{{ $record->user_id }}')">{{ $record->name }}</span>
@@ -100,7 +105,13 @@
                                 <table id="volunteers-table" class="table-main">
                                     <thead>
                                         <tr>
-                                            <th  width="100%" class="th-border-rad-2">Personal Data</th>
+                                            <th  width="100%" class="th-border-rad-2" style="border-bottom: 1px solid white;">Volunteering Hours: {{ $volunteerHours->total_hours }}</th>
+                                        </tr>
+                                    </thead>
+
+                                    <thead>
+                                        <tr>
+                                            <th  width="100%">Personal Data</th>
                                         </tr>
                                     </thead>
         

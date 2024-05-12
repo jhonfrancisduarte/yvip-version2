@@ -16,7 +16,14 @@
                                     <div class="is-desktop-view">
                                         Deactivated Accounts
                                     </div>
-                                @else
+                                @elseif($active_status === 2)
+                                    <div class="is-mobile-view">
+                                        <i class="fas fa-user-check"></i>                                
+                                    </div>
+                                    <div class="is-desktop-view">
+                                        Active Accounts
+                                    </div>
+                                @elseif($active_status === 3)
                                     <div class="is-mobile-view">
                                         <i class="fas fa-user-check"></i>                                
                                     </div>
@@ -88,15 +95,30 @@
                     </div>
 
                     <div class="card-header card-header1">
-                        <label class="label" style="color: {{ $active_status === 2 ? 'red' : 'green' }}">
+                        <label class="label" style="color: {{ $active_status === 2 || $active_status === 3 ? 'red' : 'green' }}">
                             @if($active_status === 2)
-                                Deactivated Accounts  
+                                Deactivated Accounts
+                            @elseif($active_status === 3)  
+                                Red Flag Accounts
                             @else
                                 Active Accounts 
                             @endif
                             <span> | </span>
                         </label>
                         <label class="label"> Number of Results: <span>{{ count($volunteers )}}</span></label>
+
+                        <div class="btn-g btn-pos-right">
+                            <button class="{{ $active_status === 3 ? 'btn-success' : 'btn-delete' }}" wire:click="toggleFlaggedAccounts">
+                                <i class="bi bi-flag-fill"></i>
+                            </button>
+                            <span class="span span-submit">
+                                @if($active_status === 3)
+                                    Green Flags
+                                @else
+                                    Red Flags
+                                @endif
+                            </span>
+                        </div>
                     </div>
 
                     <div class="card-body scroll-table" id="scroll-table">
@@ -131,8 +153,13 @@
 
                             <tbody>
                                 @foreach($volunteers as $volunteer)
-                                    <tr>
-                                        <td>{{ $volunteer->passport_number }}</td>
+                                    <tr class="{{ $volunteer->active_status === 3 ? 'background-red' : '' }}">
+                                        <td style="position: relative;">
+                                            @if($volunteer->active_status === 3)
+                                                <span class="red-flag"><i class="bi bi-flag-fill"></i></span>
+                                            @endif
+                                            {{ $volunteer->passport_number }}
+                                        </td>
                                         <td>{{ $volunteer->first_name }}</td>
                                         <td>{{ $volunteer->middle_name }}</td>
                                         <td>{{ $volunteer->last_name }}</td>
@@ -169,7 +196,7 @@
                                             <td style="color: #ccc;">N/A</td>
                                             <td style="color: #ccc;">N/A</td>
                                         @endif
-                                        <td class="action-btn width">
+                                        <td class="action-btn width {{ $volunteer->active_status === 3 ? 'background-red' : '' }}">
                                             <div class="btn-group-2" role="group">
                                                 <div class="btn-g">
                                                     <button class="btn-submit" wire:click="showUserData('{{ $volunteer->user_id }}')">
@@ -179,19 +206,40 @@
                                                 </div>
                                                 <div class="mx-2"></div>
                                                 @if(session('user_role') !== 'vsa')
-                                                    @if($active_status === 2)
+                                                    @if($volunteer->active_status === 2)
                                                         <div class="btn-g">
                                                             <button class="btn-success" wire:click="reactivateDialog('{{ $volunteer->user_id }}')">
                                                                 <i class="bi bi-person-check"></i>
                                                             </button>
                                                             <span class="span span-delete">Activate</span>
                                                         </div>
-                                                    @elseif($active_status === 1) 
+                                                    @elseif($volunteer->active_status === 1) 
                                                         <div class="btn-g">
                                                             <button class="btn-warning" wire:click="deactDialog('{{ $volunteer->user_id }}')">
                                                                 <i class="bi bi-ban"></i>
                                                             </button>
                                                             <span class="span span-delete">Deactivate</span>
+                                                        </div>
+                                                        <div class="mx-2"></div>
+                                                        <div class="btn-g">
+                                                            <button class="btn-delete" wire:click="flagDialog('{{ $volunteer->user_id }}', {{ $volunteer->active_status }})">
+                                                                <i class="bi bi-flag-fill"></i>
+                                                            </button>
+                                                            <span class="span span-submit">Redflag</span>
+                                                        </div>
+                                                    @elseif($volunteer->active_status === 3) 
+                                                        <div class="btn-g">
+                                                            <button class="btn-warning" wire:click="deactDialog('{{ $volunteer->user_id }}')">
+                                                                <i class="bi bi-ban"></i>
+                                                            </button>
+                                                            <span class="span span-delete">Deactivate</span>
+                                                        </div>
+                                                        <div class="mx-2"></div>
+                                                        <div class="btn-g">
+                                                            <button class="btn-success" wire:click="flagDialog('{{ $volunteer->user_id }}', {{ $volunteer->active_status }})">
+                                                                <i class="bi bi-flag-fill"></i>
+                                                            </button>
+                                                            <span class="span span-submit">Greenflag</span>
                                                         </div>
                                                     @endif
                                                     <div class="mx-2"></div>
@@ -325,6 +373,52 @@
                 </div>
             </div>
         </div>    
+    @endif
+
+    @if($flagRegistrantId)
+        <div class="anns anns-full-h">
+            <div class="close-form" wire:click="hideDeleteDialog"></div>
+            <div class="add-announcement-container">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            @if($activeStatus === 1)
+                                Confirm Red Flag
+                            @else
+                                Confirm Green Flag
+                            @endif
+                        </h5>
+                        <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        @if($deleteMessage)
+                            <p style="color: green;">{{ $deleteMessage }}</p>
+                        @else
+                            @if($activeStatus === 1)
+                                <p>Are you sure you want to red flag this registrant?</p>
+                            @else
+                                <p>Are you sure you want to green flag this registrant?</p>
+                            @endif
+                        @endif
+                    </div>
+
+                    <div class="modal-footer">
+                        @if($disableButton == "No")
+                            <button class="{{ $activeStatus === 1 ? 'btn-delete' : 'btn-success' }}" wire:click="flagRegistrant('{{ $flagRegistrantId }}')" wire:loading.attr="disabled">Yes
+                            </button>
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                        @else
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                        @endif
+                    </div>
+
+                </div>
+            </div>
+        </div>
     @endif
 
     @if($selectedUserDetails)

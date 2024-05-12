@@ -78,6 +78,13 @@
                                                         </button>
                                                         <span class="span span-delete">Disapprove</span>
                                                     </div>
+                                                    <div class="mx-2"></div>
+                                                    <div class="btn-g">
+                                                        <button class="btn-delete" wire:click="redflagDialog('{{ $volunteer->user_id }}')">
+                                                            <i class="bi bi-flag-fill"></i>
+                                                        </button>
+                                                        <span class="span span-submit">Redflag</span>
+                                                    </div>
                                                 @endif
                                             </div>
                                         </td>
@@ -151,6 +158,41 @@
         </div>
     @endif  
 
+    @if($redflagRegistrantId)
+        <div class="anns anns-full-h">
+            <div class="close-form" wire:click="hideDeleteDialog"></div>
+            <div class="add-announcement-container">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Red Flag</h5>
+                        <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        @if($deleteMessage)
+                            <p style="color: green;">{{ $deleteMessage }}</p>
+                        @else
+                            <p>Are you sure you want to red flag this registrant?</p>
+                        @endif
+                    </div>
+
+                    <div class="modal-footer">
+                        @if($disableButton == "No")
+                            <button class="btn-delete" wire:click="redflagRegistrant('{{ $redflagRegistrantId }}')" wire:loading.attr="disabled">Yes
+                            </button>
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                        @else
+                            <button class="btn-cancel" wire:click="hideDeleteDialog">Close</button>
+                        @endif
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    @endif
 
     @if($selectedUserDetails)
         <div class="users-data-all-container">
@@ -357,6 +399,7 @@
                         <div class="user-data">
                             <button class="btn-submit" wire:click="approveUser('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Approve</button>
                             <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Disapprove</button>
+                            <button class="btn-delete" wire:click="redflagDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Red Flag</button>
                             <button class="btn-cancel" wire:click="hideUserData">Close</button>
                         </div>
                     </div>

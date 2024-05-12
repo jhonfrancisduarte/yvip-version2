@@ -13,13 +13,39 @@
                 <div class="card" style="border-radius: 20px; overflow: hidden;">
 
                     <div class="card-header">
-                            <h3 class="card-title">Post-Program Obligations File Submissions</h3>
+                            <h3 class="card-title">Post-Program Obligation File Submissions</h3>
                     </div>
 
                     <div class="card-header card-header1">
                         <div class="search-bar">
-                            <input type="search" class="form-control" wire:model.live="search" placeholder="Search...">
+                            <input type="search" class="form-control" wire:model.live="search" placeholder="Search event...">
                         </div>
+
+                        @if(session('user_role') == 'sa' || session('user_role') == 'ips')
+                            <div class="divider"></div>
+
+                            <div class="col-md-2">
+                                <div class="input-group-radio">
+                                    <div class="radio">
+                                        <input type="radio" value="start" checked="checked" wire:model.live="filterBy" name="date">
+                                        <label>Start date</label>
+                                    </div>
+                                    <div class="radio">
+                                        <input type="radio" value="end" wire:model.live="filterBy" name="date">
+                                        <label>End date</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 date-pick">
+                                <div class="input-group">
+                                    <input class="form-control" type="date" wire:model.live="selectedDate" max="{{ now()->format('Y-m') }}">
+                                    <div class="reset-date">
+                                        <i class="bi bi-arrow-clockwise" wire:click='resetDateFilter'></i>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="card-body scroll-table" id="scroll-table">
@@ -53,13 +79,20 @@
                                                 <table class="table-main">
                                                     <tbody>
                                                         <tr style="background: #eeeeee;">
-                                                            <td>PARTICIPANTS</td>
+                                                            <td width="15%">
+                                                                <button class="btn-submit" wire:click="exportParticipantsList({{ $ipEvent->id }})" wire:loading.attr='disabled'>
+                                                                    <span><i class="bi bi-filetype-pdf"></i> Export List</span>
+                                                                    <div wire:loading wire:target="exportParticipantsList" class="loading-container">
+                                                                        <div class="loading-spinner"></div>
+                                                                    </div>
+                                                                </button>
+                                                            </td>
                                                             <td></td>
                                                             <td></td>
                                                             <td></td>
                                                             <td></td>
                                                             <td></td>
-                                                            <td width="15%"></td>
+                                                            <td width="30%"></td>
                                                         </tr>
                                                     </tbody>
                                                     <tbody>

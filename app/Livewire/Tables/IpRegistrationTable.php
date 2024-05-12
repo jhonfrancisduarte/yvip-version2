@@ -4,6 +4,7 @@ namespace App\Livewire\Tables;
 use App\Models\User;
 use Livewire\Component;
 use App\Mail\UserApprovalNotification;
+use App\Mail\UserDisapprovalNotification;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -15,6 +16,7 @@ class IpRegistrationTable extends Component
     public $age_range;
     public $status;
     public $deleteRegistrantId;
+    public $redflagRegistrantId;
     public $disableButton = "No";
     public $deleteMessage;
     public $userDetails;
@@ -85,6 +87,7 @@ class IpRegistrationTable extends Component
     public function hideDeleteDialog(){
         $this->deleteMessage = null;
         $this->deleteRegistrantId = null;
+        $this->redflagRegistrantId = null;
         $this->disableButton = "No";
         if($this->selectedUserDetails != null){
             $this->selectedUserDetails = null;
@@ -96,18 +99,49 @@ class IpRegistrationTable extends Component
     }
 
     public function deleteRegistrant($userId){
-        try{
+        try{ 
+            $admin = Auth::user()->email;
             $user = User::where('id', $userId)->first();
             if ($user){
-                $user->userData()->delete();
-                $user->delete();
-                $this->deleteMessage = 'Registrant disapproved successfully.';
-                $this->disableButton = "Yes";
+                $mailed = Mail::to($user->email)->send(new UserDisapprovalNotification($user->name, $admin));
+                if($mailed){
+                    $user->userData()->delete();
+                    $user->delete();
+                    $this->deleteMessage = 'Registrant disapproved successfully.';
+                    $this->disableButton = "Yes";
+                }else{
+                    $this->deleteMessage = 'Registrant disapproved unsuccessful.';
+                    $this->disableButton = "Yes";
+                }
             }else{
-                $this->deleteMessage = 'Registrant disapproved unsuccessfully.';
+                $this->deleteMessage = 'Registrant disapproved unsuccessful.';
                 $this->disableButton = "Yes";
             }
-            $this->deleteRegistrantId = null;
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    public function redflagDialog($userId){
+        $this->redflagRegistrantId = $userId;
+        if($this->selectedUserDetails != null){
+            $this->selectedUserDetails = null;
+        }
+    }
+
+    public function redflagRegistrant($userId){
+        try{ 
+            $user = User::where('id', $userId)->first();
+            if ($user){
+                $user->update([
+                    'active_status' => 3,
+                ]);
+                $this->deleteMessage = 'Registrant red flagged successfully.';
+                $this->disableButton = "Yes";
+            }else{
+                $this->deleteMessage = 'Registrant red flagged unsuccessful.';
+                $this->disableButton = "Yes";
+            }
         }catch(Exception $e){
             throw $e;
         }

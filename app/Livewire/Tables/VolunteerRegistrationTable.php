@@ -4,6 +4,7 @@ namespace App\Livewire\Tables;
 use App\Models\User;
 use Livewire\Component;
 use App\Mail\UserApprovalNotification;
+use App\Mail\UserDisapprovalNotification;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -68,7 +69,7 @@ class VolunteerRegistrationTable extends Component
             }else{
                 $this->approving = null;
                 $this->popup_message = null;
-                $this->popup_message = 'Registrant approved unsuccessfully.';
+                $this->popup_message = 'Registrant approved unsuccessful.';
             }
         }catch(Exception $e){
             throw $e;
@@ -103,14 +104,21 @@ class VolunteerRegistrationTable extends Component
 
     public function deleteRegistrant($userId){
         try{ 
+            $admin = Auth::user()->email;
             $user = User::where('id', $userId)->first();
             if ($user){
-                $user->userData()->delete();
-                $user->delete();
-                $this->deleteMessage = 'Registrant disapproved successfully.';
-                $this->disableButton = "Yes";
+                $mailed = Mail::to($user->email)->send(new UserDisapprovalNotification($user->name, $admin));
+                if($mailed){
+                    $user->userData()->delete();
+                    $user->delete();
+                    $this->deleteMessage = 'Registrant disapproved successfully.';
+                    $this->disableButton = "Yes";
+                }else{
+                    $this->deleteMessage = 'Registrant disapproved unsuccessful.';
+                    $this->disableButton = "Yes";
+                }
             }else{
-                $this->deleteMessage = 'Registrant disapproved unsuccessfully.';
+                $this->deleteMessage = 'Registrant disapproved unsuccessful.';
                 $this->disableButton = "Yes";
             }
         }catch(Exception $e){

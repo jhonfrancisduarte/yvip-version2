@@ -120,7 +120,7 @@
 
                     <div class="modal-footer">
                         @if($disableButton == "No")
-                            <button class="btn-delete" wire:click="deleteRegistrant({{ $deleteRegistrantId }})" wire:loading.attr="disabled">Yes
+                            <button class="btn-delete" wire:click="deleteRegistrant('{{ $deleteRegistrantId }}')" wire:loading.attr="disabled">Yes
                             </button>
                             <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
                         @else
