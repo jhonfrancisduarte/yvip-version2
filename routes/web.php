@@ -8,6 +8,7 @@ Auth::routes();
 
 // Public pages
 Route::get('/', function () {return view('welcome');});
+Route::get('/sign-in', function () {return view('sign-in');});
 Route::get('/registration', function () {return view('registration');});
 Route::get('/registered', function () {return view('registered');});
 Route::get('/main-announcement', function () {return view('main-announcement');});

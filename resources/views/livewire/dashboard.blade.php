@@ -30,11 +30,9 @@
             </div>
         </div>
 
-        @if(session('user_role') === "yip")
-            <livewire:announcement-table />
-        @elseif(session('user_role') === "yv")
-            <livewire:announcement-table :dashboardType="'yv'" />
-        @endif
+
+        <livewire:announcement-table />
+
 
     </div>
 

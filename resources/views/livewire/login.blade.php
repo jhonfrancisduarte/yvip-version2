@@ -1,4 +1,5 @@
 <div class="login-form">
+    
         <h2 class="title">Sign in to your account</h2>
         <form wire:submit.prevent="login">
             <div class="row row-space login-input-div">

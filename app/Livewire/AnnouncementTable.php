@@ -77,7 +77,6 @@ class AnnouncementTable extends Component
             throw $e;
         }
     }
-
     public function resetForm(){
         $this->reset(['title', 'content', 'category']);
     }
