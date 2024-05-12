@@ -1,17 +1,17 @@
-.announcement-content{
+.announcement-content {
     width: 100%;
     padding-bottom: 100px;
     overflow-x: hidden !important;
 }
 
 
-.announcement-content .container-fluid{
+.announcement-content .container-fluid {
     width: 100%;
     overflow-x: hidden;
     padding-bottom: 50px;
 }
 
-.announcement-container{
+.announcement-container {
     width: 100%;
     height: auto;
     display: flex;
@@ -19,7 +19,7 @@
     overflow-x: hidden;
 }
 
-.announcement-box{
+.announcement-box {
     position: relative;
     width: 60%;
     height: auto;
@@ -31,39 +31,39 @@
     margin-bottom: 20px;
 }
 
-.announcement-box .author{
+.announcement-box .author {
     display: flex;
     padding: 15px;
 }
 
-.announcement-box .author img{
+.announcement-box .author img {
     width: 60px;
     height: 60px;
     border-radius: 50%;
 }
 
-.announcement-box .author-info{
+.announcement-box .author-info {
     margin-left: 15px;
     display: block;
     margin-top: 8px;
 }
 
-.announcement-box .author-info h4{
-   font-size: 18px;
-   font-weight: bold;
+.announcement-box .author-info h4 {
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.announcement-box .author-info p{
+.announcement-box .author-info p {
     margin-top: -8px;
-   font-size: 13px;
+    font-size: 13px;
 }
 
-.announcement-box .nav-icon{
+.announcement-box .nav-icon {
     color: gray;
     margin-left: 5px;
 }
 
-.featured-image{
+.featured-image {
     width: 100%;
     height: 250px;
     background-position: center;
@@ -71,46 +71,48 @@
     border-radius: 0 0 5px 5px;
 }
 
-.featured-image img{
+.featured-image img {
     width: 100%;
     height: 100%;
 }
 
-.attached-file{
+.attached-file {
     display: block;
     padding-left: 25px;
     margin-bottom: 10px;
 }
-.announcement-info{
+
+.announcement-info {
     display: flex;
     padding-left: 25px;
 }
 
-.attached-file span{
+.attached-file span {
     color: rgb(0, 27, 0);
 }
 
-.attached-file .btn-resized{
+.attached-file .btn-resized {
     margin-top: 1px;
     height: 25px;
 }
 
 .attached-file a,
-.attached-file p{
+.attached-file p {
     padding-right: 5px;
 }
 
-.announcement-info{
+.announcement-info {
     padding-top: 10px;
     background: #0262C6;
     border-radius: 0 0 5px 5px;
 }
-.announcement-info p{
+
+.announcement-info p {
     font-size: 14px;
     color: white;
 }
 
-.announcement-box .content{
+.announcement-box .content {
     margin: 15px;
     padding: 10px;
     margin-top: -15px;
@@ -118,39 +120,41 @@
     border-radius: 5px;
 }
 
-.btn-infos{
+.btn-infos {
     color: white !important;
     background: #28a745 !important;
 }
 
-.admin-btn{
+.admin-btn {
     position: absolute;
     top: 5px;
     display: flex;
     right: 10px;
 }
 
-.admin-btn p{
+.admin-btn p {
     margin-right: 5px;
     cursor: pointer;
 }
 
-.btn-attach-file{
+.btn-attach-file {
     background: #045C9C !important;
     border-radius: 3px !important;
     padding: 7px !important;
 }
 
-.btn-featured-img{
+.btn-featured-img {
     background: #045C9C !important;
     border-radius: 3px !important;
     padding: 7px !important;
 }
 
-.anns{
+.anns {
     width: 100%;
     height: 100vh !important;
-    position: fixed; top: 0; left: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -160,13 +164,13 @@
     padding-bottom: 50px;
 }
 
-.anns-full-h{
+.anns-full-h {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
 }
 
-.add-announcement-container{
+.add-announcement-container {
     width: 500px;
     height: fit-content;
 }
@@ -175,43 +179,43 @@
     min-height: 250px;
 }
 
-.announcement-header{
+.announcement-header {
     position: relative;
 }
 
-.announcement-content .header-sticky-top{
+.announcement-content .header-sticky-top {
     position: sticky !important;
     top: 200px !important;
     display: flex;
 }
 
-.announcement-info p{
+.announcement-info p {
     text-transform: capitalize;
 }
 
-.anns-buttons{
+.anns-buttons {
     display: flex;
     align-items: center;
     justify-content: start;
 }
 
-.anns-buttons a{
+.anns-buttons a {
     color: white;
     background: #1796aa;
     text-align: center;
-    vertical-align:middle;
+    vertical-align: middle;
     margin-right: 7px;
     padding: 1px 7px 3px 7px;
     border-radius: 3px;
     transition: .3s ease-in-out;
 }
 
-.anns-buttons a:hover{
+.anns-buttons a:hover {
     color: white;
     background: #10798a;
 }
 
-.pop-up-message{
+.pop-up-message {
     position: absolute;
     top: -100px;
     right: 10px;
@@ -230,12 +234,12 @@
     z-index: 9999;
 }
 
-.pop-up-message .close{
-   margin-top: -7px;
-   margin-left: -10px;
+.pop-up-message .close {
+    margin-top: -7px;
+    margin-left: -10px;
 }
 
-.pop-up-message p{
+.pop-up-message p {
     margin-top: 13px;
     margin-left: 10px;
     text-align: center;
@@ -244,29 +248,35 @@
 
 
 
-.close-form{
+.close-form {
     width: 100%;
     height: 100vh;
     position: fixed;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
 }
 
-@media (max-width:768px){
-    .announcement-box{
+@media (max-width:768px) {
+    .announcement-box {
         width: 100%;
     }
-    .anns{      
-        position: absolute; top: 0; left: 0;
+
+    .anns {
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 
-    .add-announcement-container{
+    .add-announcement-container {
         width: 100vw;
     }
 
-    .anns{
+    .anns {
         width: 100%;
         height: 100vh;
-        position: fixed; top: 0; left: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
         z-index: 9999;
         display: flex;
         justify-content: center;
@@ -275,5 +285,5 @@
         padding-top: 50px;
         padding-bottom: 50px;
     }
-    
+
 }
