@@ -20,6 +20,18 @@
     font-size: 14px;
 }
 
+.side-nav-logo{
+    width: 250px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    z-index: 1;
+}
+
 .brand-link{
     background-image: url('/images/yvip_bg.webp');
     background-size: cover;
@@ -69,6 +81,7 @@
     background-position: center;
     color: transparent;
     background-clip: text;
+    font-size: 17px !important;
 }
 
 .user-panel{

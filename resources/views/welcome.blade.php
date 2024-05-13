@@ -9,6 +9,7 @@
     <link href="css/main.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/announcement.css">
     <link rel="stylesheet" type="text/css" href="css/volunteers.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 @endsection
 
 
@@ -24,15 +25,28 @@
                                 <a href="/sign-in" class="sign-in margin-right">Sign In</a>
                                 <a href="/registration" target="_blank">Register</a>
                             </div>
-                            <div class="nyc">
-                                <img src="images/nyc-logo_orig.png" width="70"/>
-                                <p>National Youth Commission</p>
+                        </div>
+
+                        <div class="top-nav-onscroll">
+                            <div class="top-buttons">
+                                <a href="/sign-in" class="sign-in margin-right">Sign In</a>
+                                <a href="/registration" target="_blank">Register</a>
+                            </div>
+                            <div class="onscroll-logos">
+                                <img src="images/nyc-logo_orig.png" width="50"/>
+                                <img src="images/yvip_logo.png" width="45"/>
+                                <span class="brand-text">THE NYC - </span>
+                                <span class="y">Y</span>
+                                <span class="v">V</span>
+                                <span class="i">I</span>
+                                <span class="p">P</span>
                             </div>
                         </div>
     
                         <div class="title-container">
                             <div class="mobile-logos">
                                 <img class="m-logo" src="images/yvip_logo.png"/>
+                                <img class="m-logo" src="images/nyc-logo_orig.png"/>
                             </div>
                             <div class="desktop-logos">
                                 <img class="logo" src="images/yvip_logo.png"/>
@@ -40,6 +54,11 @@
                             <div class="yvip">
                                 <img src="images/maskhead.png" alt="" width="220">
                                 <h3>Youth Volunteers & <br>International Programs Beneficiaries Hub</h3>
+                            </div>
+                            <div class="desktop-logos">
+                                <a href="https://nyc.gov.ph/" target="_blank">
+                                    <img class="logo" src="images/nyc-logo_orig.png"/>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -54,3 +73,22 @@
 
 @endsection
 
+@section('js')
+<script>
+    if (window.innerWidth >= 1024) {
+        const topNav = document.querySelector('.top-nav');
+        const topNavOnScroll = document.querySelector('.top-nav-onscroll');
+
+        function toggleTopNavOnScroll() {
+            const isOffScreen = topNav.getBoundingClientRect().top < 0;
+            topNavOnScroll.style.height = isOffScreen ? '80px' : '0';
+        }
+
+        toggleTopNavOnScroll();
+
+        window.addEventListener('wheel', function() {
+            toggleTopNavOnScroll();
+        });
+    }
+</script>
+@endsection
