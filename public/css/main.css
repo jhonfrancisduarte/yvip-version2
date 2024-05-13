@@ -1036,3 +1036,39 @@
     width: 60%;
   }
 }
+
+/* Animations ------------------------------------------------------------------------*/
+
+.title-container .logos-1{
+  opacity: 0;
+  margin-right: 350px;
+  transition: all 2s ease-out;
+}
+
+.title-container .logos-2{
+  opacity: 0;
+  margin-left: 350px;
+  transition: all 2s ease-out;
+}
+
+.title-container .logos-3{
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.5s ease-out;
+}
+
+.title-container .logos-1.animate{
+  opacity: 1;
+  margin-right: 0;
+}
+
+.title-container .logos-2.animate{
+  opacity: 1;
+  margin-left: -10px;
+}
+
+.title-container .logos-3.animate{
+  opacity: 1;
+  transform: scale(1);
+}
+

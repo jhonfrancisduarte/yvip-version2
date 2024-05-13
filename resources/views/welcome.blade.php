@@ -20,6 +20,7 @@
             <div class="landing-content">
                 <div class="landing-page-hero"> 
                     <div class="welcome-header">
+
                         <div class="top-nav">
                             <div class="top-buttons">
                                 <a href="/sign-in" class="sign-in margin-right">Sign In</a>
@@ -48,14 +49,14 @@
                                 <img class="m-logo" src="images/yvip_logo.png"/>
                                 <img class="m-logo" src="images/nyc-logo_orig.png"/>
                             </div>
-                            <div class="desktop-logos">
+                            <div class="desktop-logos logos-1">
                                 <img class="logo" src="images/yvip_logo.png"/>
                             </div>
-                            <div class="yvip">
+                            <div class="yvip logos-3">
                                 <img src="images/maskhead.png" alt="" width="220">
                                 <h3>Youth Volunteers & <br>International Programs Beneficiaries Hub</h3>
                             </div>
-                            <div class="desktop-logos">
+                            <div class="desktop-logos logos-2">
                                 <a href="https://nyc.gov.ph/" target="_blank">
                                     <img class="logo" src="images/nyc-logo_orig.png"/>
                                 </a>
@@ -89,6 +90,19 @@
         window.addEventListener('wheel', function() {
             toggleTopNavOnScroll();
         });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const logo1 = document.querySelector('.logos-1');
+            const logo2 = document.querySelector('.logos-2');
+            const logo3 = document.querySelector('.logos-3');
+        
+            logo1.classList.add('animate');
+        
+            logo2.classList.add('animate');
+        
+            logo3.classList.add('animate');
+        });
     }
+
 </script>
 @endsection
