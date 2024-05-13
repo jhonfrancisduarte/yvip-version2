@@ -194,9 +194,6 @@
                                     <i class="nav-icon bi bi-card-list"></i>
                                     <p>
                                         Post-Program Obligations
-                                        @if($joinRequests !== 0)
-                                            <span class="badge bg-primary2">{{ $joinRequests }}</span>
-                                        @endif
                                     </p>
                                     </a>
                                 </li>
