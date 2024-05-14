@@ -46,6 +46,11 @@ return new class extends Migration
             $table->string('course', 50)->nullable();
             $table->string('organization_name', 50)->nullable();
             $table->string('org_position', 50)->nullable();
+            $table->string('birth_certificate')->nullable();
+            $table->string('curriculum_vitae')->nullable();
+            $table->string('good_moral_cert')->nullable();
+            $table->string('valid_Id')->nullable();
+            $table->text('other_document')->nullable(); 
             $table->timestamps();
         });
     }

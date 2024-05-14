@@ -22,6 +22,7 @@
         <link href="Login and Register/vendor/select2/select2.min.css" rel="stylesheet" media="all">
         <link href="Login and Register/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
         <link href="Login and Register/css/main.css" rel="stylesheet" media="all">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     </head>
 

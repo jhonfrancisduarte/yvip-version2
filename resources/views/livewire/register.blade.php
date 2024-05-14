@@ -362,7 +362,104 @@
                             </div>
                         </div>
                     </div>
-                    
+
+
+
+                    <div class="form-group">
+                        <label for="birth_certificate" class="name">Birth Certificate</label>
+                        <div class="d-flex align-items-center">
+                            <div class="file-box mr-2 d-flex align-items-center justify-content-between">
+                                <span class="file-name">{{ $birth_certificate ? $birth_certificate->getClientOriginalName() : 'No file chosen' }}</span>
+                                @if($birth_certificate)
+                                <button type="button" class="btn-delete ml-2" wire:click="removeBirthCertificate">Remove</button>
+                                @endif
+                            </div>
+                            <button type="button" class="btn-submit upload" onclick="document.getElementById('birth_certificate').click()">
+                                <i class="bi bi-upload"></i>
+                            </button>
+                            <input type="file" id="birth_certificate" wire:model="birth_certificate" style="display: none;">
+                        </div>
+                        @error('birth_certificate') <span class="error">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="curriculum_vitae" class="col-form-label">Curriculum Vitae</label>
+                        <div class="d-flex align-items-center">
+                            <div class="file-box mr-2 d-flex align-items-center justify-content-between">
+                                <span class="file-name">{{ $curriculum_vitae ? $curriculum_vitae->getClientOriginalName() : 'No file chosen' }}</span>
+                                @if($curriculum_vitae)
+                                <button type="button" class="btn-delete ml-2" wire:click="removeCurriculumVitae">Remove</button>
+                                @endif
+                            </div>
+                            <button type="button" class="btn-submit upload" onclick="document.getElementById('curriculum_vitae').click()">
+                                <i class="bi bi-upload"></i>
+                            </button>
+                            <input type="file" id="curriculum_vitae" wire:model="curriculum_vitae" style="display: none;">
+                        </div>
+                        @error('curriculum_vitae') <span class="error">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="good_moral_cert" class="col-form-label">Good Moral Certificate</label>
+                        <div class="d-flex align-items-center">
+                            <div class="file-box mr-2 d-flex align-items-center justify-content-between">
+                                <span class="file-name">{{ $good_moral_cert ? $good_moral_cert->getClientOriginalName() : 'No file chosen' }}</span>
+                                @if($good_moral_cert)
+                                <button type="button" class="btn-delete ml-2" wire:click="removeGoodMoralCertificate">Remove</button>
+                                @endif
+                            </div>
+                            <button type="button" class="btn-submit upload" onclick="document.getElementById('good_moral_cert').click()">
+                                <i class="bi bi-upload"></i>
+                            </button>
+                            <input type="file" id="good_moral_cert" wire:model="good_moral_cert" style="display: none;">
+                        </div>
+                        @error('good_moral_cert') <span class="error">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="valid_Id" class="col-form-label">Valid ID</label>
+                        <div class="d-flex align-items-center">
+                            <div class="file-box mr-2 d-flex align-items-center justify-content-between">
+                                <span class="file-name">{{ $valid_Id ? $valid_Id->getClientOriginalName() : 'No file chosen' }}</span>
+                                @if($valid_Id)
+                                <button type="button" class="btn-delete ml-2" wire:click="removeValidId">Remove</button>
+                                @endif
+                            </div>
+                            <button type="button" class="btn-submit upload" onclick="document.getElementById('valid_Id').click()">
+                                <i class="bi bi-upload"></i>
+                            </button>
+                            <input type="file" id="valid_Id" wire:model="valid_Id" style="display: none;">
+                        </div>
+                        @error('valid_Id') <span class="error">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="other_document" class="col-form-label">Other</label>
+                        <div class="d-flex align-items-center">
+                            <div class="file-box d-flex flex-column align-items-start justify-content-between">
+                                @if($other_documents && count($other_documents) > 0)
+                                @foreach($other_documents as $index => $document)
+                                <div class="d-flex align-items-center w-100 mb-1">
+                                    <span class="file-name">{{ $document->getClientOriginalName() }}</span>
+                                    <button type="button" class="btn-delete ml-2" wire:click="removeDocument({{ $index }})">Remove</button>
+                                </div>
+                                @endforeach
+                                @else
+                                <span class="file-name">No file chosen</span>
+                                @endif
+                            </div>
+                            <button type="button" class="btn-submit upload ml-2" onclick="document.getElementById('other_document').click()">
+                                <i class="bi bi-upload"></i>
+                            </button>
+                            <input type="file" id="other_document" wire:model="other_documents" style="display: none;" multiple>
+                        </div>
+                        @error('other_documents.*') <span class="error">{{ $message }}</span> @enderror
+                    </div>
+
+
+
+
+
                     <div class="row row-space">
                         <div class="col-2">
                             <div class="input-group">

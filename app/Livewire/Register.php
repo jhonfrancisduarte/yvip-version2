@@ -3,13 +3,17 @@
 namespace App\Livewire;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use App\Models\User;
 use App\Models\PhilippineProvinces;
 use App\Models\PhilippineCities;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class Register extends Component
 {
+    use WithFileUploads;
+
     public $first_name;
     public $last_name;
     public $middle_name;
@@ -51,6 +55,13 @@ class Register extends Component
     public $residential_cities;
     public $selectedAdvocacyPlans = [];
 
+    public $birth_certificate;
+    public $curriculum_vitae;
+    public $good_moral_cert;
+    public $valid_Id;
+
+    public $other_documents = [];
+
     protected $rules = [
         'first_name' => 'required|min:2',
         'last_name' => 'required|min:2',
@@ -74,6 +85,11 @@ class Register extends Component
         'password' => 'required|min:8',
         'c_password' => 'required|same:password',
         'selectedAdvocacyPlans' => 'required|array|min:1',
+        'birth_certificate' => 'file|max:20480',
+        'curriculum_vitae' => 'file|max:20480',
+        'good_moral_cert' => 'file|max:20480',
+        'valid_Id' => 'file|max:20480',
+        'other_documents.*' => 'nullable|file|max:20480',
     ];
 
     public function mount(){
@@ -186,6 +202,11 @@ class Register extends Component
                 'is_volunteer' => $this->is_volunteer,
                 'is_ip_participant' => $this->is_ip_participant,
                 'advocacy_plans' => implode(', ', $this->selectedAdvocacyPlans),
+                'birth_certificate' => $this->birth_certificate ? $this->storeFile($this->birth_certificate) : null,
+                'curriculum_vitae' => $this->curriculum_vitae ? $this->storeFile($this->curriculum_vitae) : null,
+                'good_moral_cert' => $this->good_moral_cert ? $this->storeFile($this->good_moral_cert) : null,
+                'valid_Id' => $this->valid_Id ? $this->storeFile($this->valid_Id) : null,
+                'other_document' => $this->other_documents ? json_encode($this->storeOtherDocuments()) : null,
             ]);
 
             $this->reset();
@@ -195,6 +216,34 @@ class Register extends Component
             throw $e;
         }
     }
+
+    private function storeOtherDocuments()
+    {
+        $uploadedDocuments = [];
+        foreach ($this->other_documents as $document) {
+            $uploadedDocuments[] = $this->storeFile($document);
+        }
+        return $uploadedDocuments;
+    }
+
+    public function storeFile($file)
+    {
+        $directory = 'public/uploads/registrationFiles';
+        Storage::makeDirectory($directory);
+    
+        $originalName = $file->getClientOriginalName();
+    
+        $fileName = pathinfo($originalName, PATHINFO_FILENAME);
+    
+        $extension = $file->getClientOriginalExtension();
+
+        $fileNameWithExtension = $fileName . '.' . $extension;
+    
+        $file->storeAs($directory, $fileNameWithExtension);
+    
+        return $fileNameWithExtension;
+    }
+    
 
     private function isPasswordComplex($password){
         $containsUppercase = preg_match('/[A-Z]/', $password);
@@ -210,4 +259,41 @@ class Register extends Component
         return strval($nextUserId);
         // return str_pad($nextUserId, 5, '0', STR_PAD_LEFT);
     }
+
+    // Function to remove a birth certificate file
+    public function removeBirthCertificate(){
+        $this->birth_certificate = null;
+    }
+
+    // Function to remove a curriculum vitae file
+    public function removeCurriculumVitae(){
+        $this->curriculum_vitae = null;
+    }
+
+    // Function to remove a good moral certificate file
+    public function removeGoodMoralCertificate(){
+        $this->good_moral_cert = null;
+    }
+
+    // Function to remove a valid ID file
+    public function removeValidId(){
+        $this->valid_Id = null;
+    }
+
+    public function save()
+    {
+        $this->validate([
+            'other_documents.*' => 'nullable|file|max:10240', // Adjust the max file size as needed
+        ]);
+    
+        foreach ($this->other_documents as $document) {
+            $this->other_documents[] = $document;
+        }
+    }
+    
+    public function removeDocument($identifier)
+    {
+        unset($this->other_documents[$identifier]);
+    }
+    
 }
