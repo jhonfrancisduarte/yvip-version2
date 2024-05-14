@@ -1,0 +1,168 @@
+  .progress-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    width: 100%;
+  }
+  
+  .progress-bar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+  }
+  
+  .progress-bar .circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  .progress-bar .circle.active {
+    background-color: dodgerblue;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+  }
+
+  .dot.active{
+    opacity: 1;
+  }
+
+  .dot.active.validated{
+    background: dodgerblue;
+  }
+  
+  
+  .progress-bar .circle.active + .circle::after {
+    background-color: lightgray;
+    z-index: -1;
+  }
+  
+  .progress {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: lightgray;
+    transition: width 0.3s;
+    z-index: 1;
+  }
+
+  .dot{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: white;
+    border:2px solid dodgerblue;
+    z-index: 9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+  }
+
+  #progress-colored {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: dodgerblue;
+    transition: width 0.3s;
+    z-index: 2;
+  }
+  
+  .form-section{
+    display: block;
+  }
+
+  .card-body{
+    box-shadow: 0px 0px 15px 1px rgba(113, 106, 202, 0.1) !important;
+    border-radius: 20px !; 
+    overflow: hidden !important;
+    padding: 30px;
+    border-radius: 20px;
+  }
+  
+  button {
+    margin: 10px 5px;
+  }
+
+  .reg-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: -30px;
+  }
+
+  .reg-title {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  .section-title{
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .section-buttons{
+    width: 100%;
+  }
+
+  .float-right{
+    float: right;
+  }
+
+  .float-left{
+    float: left;
+  }
+
+  .file-box{
+    padding: 2.5px 5px !important;
+  }
+
+  .circle span{
+    position: absolute;
+    bottom: 25px;
+    font-size: 12px;
+  }
+
+  .circle.active span{
+    color: black;
+    width: 150px;
+    text-align: center;
+  }
+
+  .fa-check{
+    opacity: 0;
+    font-size: 12px;
+    margin-right: 1px;
+  }
+
+  .fa-check.active{
+    opacity: 1;
+  }
+
+  @media (max-width: 768px){
+    .circle span{
+        display: none;
+    }
+  }
+  

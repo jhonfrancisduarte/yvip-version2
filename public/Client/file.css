@@ -45,24 +45,6 @@
   margin-bottom: 20px;
 }
 
-.reg-logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url('/images/yvip_bg.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 5px 5px 0 0;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-
-.reg-title {
-  margin-top: -30px;
-  text-transform: uppercase;
-}
-
 .select-status {
   width: 100%;
   height: 50px;

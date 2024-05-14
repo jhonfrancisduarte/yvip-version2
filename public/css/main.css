@@ -1077,3 +1077,55 @@
   transform: scale(1);
 }
 
+/* new css --------------------------------------------------------------------------- */
+
+.file-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.file-box {
+  margin-right: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ced4da;
+  padding: 2.5px 85px;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  min-width: 100px;
+  width: auto;
+  min-height: 25px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-box span {
+  margin-right: 5px;
+}
+
+.file-name {
+  text-align: left;
+}
+
+.btn-delete {
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 2px 5px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.upload {
+  height: 28px;
+  margin-left: -20px;
+  margin-top: -20px !important;
+}
+
+.d-flex.align-items-center {
+  display: flex;
+  align-items: center;
+}
