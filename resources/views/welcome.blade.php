@@ -24,14 +24,14 @@
                         <div class="top-nav">
                             <div class="top-buttons">
                                 <a href="/sign-in" class="sign-in margin-right">Sign In</a>
-                                <a href="/registration" target="_blank">Register</a>
+                                <a href="/registration">Register</a>
                             </div>
                         </div>
 
                         <div class="top-nav-onscroll">
                             <div class="top-buttons">
                                 <a href="/sign-in" class="sign-in margin-right">Sign In</a>
-                                <a href="/registration" target="_blank">Register</a>
+                                <a href="/registration">Register</a>
                             </div>
                             <div class="onscroll-logos">
                                 <img src="images/nyc-logo_orig.png" width="50"/>
@@ -82,7 +82,7 @@
 
         function toggleTopNavOnScroll() {
             const isOffScreen = topNav.getBoundingClientRect().top < 0;
-            topNavOnScroll.style.height = isOffScreen ? '80px' : '0';
+            topNavOnScroll.style.opacity = isOffScreen ? '1' : '0';
         }
 
         toggleTopNavOnScroll();

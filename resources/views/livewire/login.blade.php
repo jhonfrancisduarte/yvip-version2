@@ -53,7 +53,7 @@
                 <span style="color: red;">Your account has not been approved yet!</span>
             @endif
  
-            <p class="p"><a href="/registration" wire:navigate>I don't have an account yet!</a></p>
+            <p class="p"><a href="/registration">I don't have an account yet!</a></p>
             @if (session('status'))
                 <p class="green">{{ session('status') }}</p>
             @endif
