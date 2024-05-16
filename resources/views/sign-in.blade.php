@@ -23,16 +23,19 @@
             </div>
 
             <div class="sign-inside">
-                <div class="nyc2">
-                    <img class="signin-logo2" src="images/nyc_logo.png"/>
-                    <p>National Youth Commission</p>
-                </div>
                 <div class="signin-logos">
-                    <img class="signin-logo" src="images/yvip_logo.png"/>
-                    <div class="yvip">
-                        <img src="images/maskhead.png" alt="" width="220">
-                        <p style="font-size: 20px">Youth Volunteers & <br>International Programs <br>Beneficiaries Hub</p>
+        
+                    <img class="signin-logo" src="images/yvip_logo.png" alt="yvip logo"/>
+        
+                    <div class="yvip2">
+                        <div class="nyc-yvip">
+                            <img src="images/maskhead.png" alt="yvip maskhead">
+                            <p style="font-size: 17px">Youth Volunteers & <br>International Programs Beneficiaries Hub</p>
+                        </div>
                     </div>
+                    
+                    <img class="signin-logo2" src="images/nyc_logo.png" alt="nyc logo"/>
+                
                 </div>
             </div>
 
@@ -61,17 +64,5 @@
             }
             });
         }
-
-        // const signInLink = document.querySelector('.sign-in');
-        // const loginContainer = document.querySelector('.login-container');
-        // const content = document.querySelector('.landing-content');
-
-        // signInLink.addEventListener('click', (event) => {
-        //     event.preventDefault();
-
-        //     loginContainer.classList.toggle('show');
-        //     content.classList.toggle('show');
-        // });
-
     </script>
 @endsection

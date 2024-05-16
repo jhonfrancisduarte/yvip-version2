@@ -1,15 +1,18 @@
 <?php
 
 namespace App\Livewire;
-use Livewire\Attributes\Rule;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use App\Models\User;
 use App\Models\PhilippineProvinces;
 use App\Models\PhilippineCities;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class Register extends Component
 {
+    use WithFileUploads;
+
     public $first_name;
     public $last_name;
     public $middle_name;
@@ -51,6 +54,16 @@ class Register extends Component
     public $residential_cities;
     public $selectedAdvocacyPlans = [];
 
+    public $birth_certificate;
+    public $curriculum_vitae;
+    public $good_moral_cert;
+    public $valid_Id;
+    public $other_documents = [];
+    public $currentStep = 1;
+    public $section1Validated = false;
+    public $section2Validated = false;
+    public $section3Validated = false;
+
     protected $rules = [
         'first_name' => 'required|min:2',
         'last_name' => 'required|min:2',
@@ -74,6 +87,11 @@ class Register extends Component
         'password' => 'required|min:8',
         'c_password' => 'required|same:password',
         'selectedAdvocacyPlans' => 'required|array|min:1',
+        'birth_certificate' => 'file|max:20480',
+        'curriculum_vitae' => 'file|max:20480',
+        'good_moral_cert' => 'file|max:20480',
+        'valid_Id' => 'file|max:20480',
+        'other_documents.*' => 'nullable|file|max:20480',
     ];
 
     public function mount(){
@@ -186,6 +204,11 @@ class Register extends Component
                 'is_volunteer' => $this->is_volunteer,
                 'is_ip_participant' => $this->is_ip_participant,
                 'advocacy_plans' => implode(', ', $this->selectedAdvocacyPlans),
+                'birth_certificate' => $this->birth_certificate ? $this->storeFile($this->birth_certificate) : null,
+                'curriculum_vitae' => $this->curriculum_vitae ? $this->storeFile($this->curriculum_vitae) : null,
+                'good_moral_cert' => $this->good_moral_cert ? $this->storeFile($this->good_moral_cert) : null,
+                'valid_Id' => $this->valid_Id ? $this->storeFile($this->valid_Id) : null,
+                'other_document' => $this->other_documents ? json_encode($this->storeOtherDocuments()) : null,
             ]);
 
             $this->reset();
@@ -194,6 +217,32 @@ class Register extends Component
         } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    private function storeOtherDocuments()
+    {
+        $uploadedDocuments = [];
+        foreach ($this->other_documents as $document) {
+            $uploadedDocuments[] = $this->storeFile($document);
+        }
+        return $uploadedDocuments;
+    }
+
+    public function storeFile($file){
+        $directory = 'public/uploads/registrationFiles';
+        Storage::makeDirectory($directory);
+    
+        $originalName = $file->getClientOriginalName();
+    
+        $fileName = pathinfo($originalName, PATHINFO_FILENAME);
+    
+        $extension = $file->getClientOriginalExtension();
+
+        $fileNameWithExtension = $fileName . '.' . $extension;
+    
+        $file->storeAs($directory, $fileNameWithExtension);
+    
+        return $fileNameWithExtension;
     }
 
     private function isPasswordComplex($password){
@@ -210,4 +259,96 @@ class Register extends Component
         return strval($nextUserId);
         // return str_pad($nextUserId, 5, '0', STR_PAD_LEFT);
     }
+
+    // Function to remove a birth certificate file
+    public function removeBirthCertificate(){
+        $this->birth_certificate = null;
+    }
+
+    // Function to remove a curriculum vitae file
+    public function removeCurriculumVitae(){
+        $this->curriculum_vitae = null;
+    }
+
+    // Function to remove a good moral certificate file
+    public function removeGoodMoralCertificate(){
+        $this->good_moral_cert = null;
+    }
+
+    // Function to remove a valid ID file
+    public function removeValidId(){
+        $this->valid_Id = null;
+    }
+
+    public function save(){
+        $this->validate([
+            'other_documents.*' => 'nullable|file|max:10240', // Adjust the max file size as needed
+        ]);
+    
+        foreach ($this->other_documents as $document) {
+            $this->other_documents[] = $document;
+        }
+    }
+    
+    public function removeDocument($identifier){
+        unset($this->other_documents[$identifier]);
+    }
+    
+    public function nextSection($section){
+        switch($section){
+            case '2':
+                $this->validate([
+                    'first_name' => 'required|min:2',
+                    'last_name' => 'required|min:2',
+                    'middle_name' => 'required|min:2',
+                    'date_of_birth' => 'required|date',
+                    'civil_status' => 'required',
+                    'age' => 'required|numeric',
+                    'nationality' => 'required',
+                    'blood_type' => 'required|max:4|min:1',
+                    'sex' => 'required',
+                ]);
+                $this->section1Validated = true;
+                $this->currentStep = 2;
+                break;
+            case '3':
+                $this->validate([
+                    'mobile_number' => ['required', 'regex:/^\+639\d{9}$|^\d{11}$/'],
+                    'permanent_selectedProvince' => 'required',
+                    'permanent_selectedCity' => 'required',
+                    'p_street_barangay' => 'required',
+                    'residential_selectedProvince' => 'required',
+                    'residential_selectedCity' => 'required',
+                    'r_street_barangay' => 'required',
+                    'email' => 'required|email|unique:users,email'
+                ]);
+                $this->section2Validated = true;
+                $this->currentStep = 3;
+                break;
+            case '4':
+                $this->validate([
+                    'educational_background' => 'required',
+                    'status' => 'required|min:2',
+                ]);
+                $this->section3Validated = true;
+                $this->currentStep = 4;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public function prevSection(){
+        if ($this->currentStep > 1){
+            if($this->currentStep == 2){
+                $this->section1Validated = false;
+            }elseif($this->currentStep == 3){
+                $this->section2Validated = false;
+            }elseif($this->currentStep == 4){
+                $this->section3Validated = false;
+            }
+            $this->currentStep--;
+        }
+    }
+
 }

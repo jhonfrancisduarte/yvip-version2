@@ -2,13 +2,13 @@
 
 namespace App\Livewire;
 
-use Livewire\Attributes\Rule;
 use App\Models\Announcement;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 use DateTime;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class AnnouncementTable extends Component
 {
@@ -17,6 +17,7 @@ class AnnouncementTable extends Component
     public $title;
     public $content;
     public $category;
+    public $type;
     public $file;
     public $featured_image;
     public $openAddAnnouncementForm;
@@ -38,17 +39,10 @@ class AnnouncementTable extends Component
 
     public function createAnnouncement(){
         try{
-            if(auth()->user()->user_role === "sa"){
-                if(request()->routeIs('volunteer-dashboard')){
-                    $this->dashboardType = 'yv';
-                }elseif(request()->routeIs('ip-dashboard')){
-                    $this->dashboardType = 'ip';
-                }
-            }
             $this->validate();
-            $userId = Auth::user()->id;
+            $user = Auth::user();
             $announcement = Announcement::create([
-                'user_id' => $userId,
+                'user_id' => $user->id,
                 'title' => $this->title,
                 'content' => $this->content,
                 'type' => $this->dashboardType,
@@ -72,7 +66,8 @@ class AnnouncementTable extends Component
             $this->popup_message = null;
             $this->popup_message = "Announcement created successfully";
             $this->resetForm(); 
-            $this->resetValidation();   
+            $this->resetValidation();  
+            $this->dashboardType = $announcement->type; 
         }catch(Exception $e){
             throw $e;
         }

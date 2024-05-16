@@ -31,6 +31,30 @@
     margin-bottom: 20px;
 }
 
+.announcement-header {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.announcement-head {
+    position: relative;
+    width: 60%;
+    height: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.announcement-header p{
+    font-size: 22px;
+}
+
+.announcement-head p{
+    font-size: 22px;
+}
+
 .announcement-box .author {
     display: flex;
     padding: 15px;
@@ -61,6 +85,64 @@
 .announcement-box .nav-icon {
     color: gray;
     margin-left: 5px;
+}
+
+.footer{
+    height: 200px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(0,136,211,1) 0%, rgba(0,163,222,1) 35%, rgba(0,198,236,1) 100%);
+    margin-top: 80px;
+    padding-top: 40px;
+    color: white;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+}
+
+.footer .contact-info,
+.footer .social-links{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+}
+
+.links-1{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px 0 50px;
+}
+
+.links-2{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 50px 0 50px;
+}
+
+.links-1 a,
+.links-2 a{
+    font-size: 30px;
+}
+
+.link-title h4{
+    font-weight: 600;
+}
+
+.social-links .link-title{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.contacts p{
+    font-weight: 500;
+}
+
+.contacts p span{
+    font-weight: 400;
 }
 
 .featured-image {
@@ -286,4 +368,58 @@
         padding-bottom: 50px;
     }
 
+    .announcement-header{
+        width: 100%;
+    }
+
+    .announcement-head{
+        width: 100%;
+        margin-left: 10px;
+        padding-left: 0;
+    }
+
+    .footer{
+        height: fit-content;
+        width: 100%;
+        color: white;
+        display: block;
+        align-items: start;
+        justify-content: center;
+    }
+    
+    .footer .contact-info,
+    .footer .social-links{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        flex-direction: column;
+        padding: 20px;
+    }
+    
+    .contact-info .link-title{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .contacts p{
+        text-align: center;
+    }
+    
+}
+
+/* Tablet View -----------------------------------------------------------------------------*/
+
+@media (max-width: 1024px) and (min-width: 768px) {
+    
+    .footer{
+        height: fit-content;
+        padding-bottom: 50px;
+    }
+
+    .footer .contact-info,
+    .footer .social-links{
+        width: 30%;
+    }
 }

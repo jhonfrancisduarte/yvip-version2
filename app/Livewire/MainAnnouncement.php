@@ -4,19 +4,26 @@ namespace App\Livewire;
 
 use App\Models\Announcement;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class MainAnnouncement extends Component
 {
+    use WithPagination;
     public $contentIndexes = [];
+    public $perPageCount = 10;
 
     public function render(){
         $announcements = Announcement::join('users', 'announcement.user_id', '=', 'users.id')
             ->leftJoin('admin', 'users.id', '=', 'admin.user_id')
             ->select('announcement.*', 'admin.first_name', 'admin.last_name', 'admin.middle_name', 'admin.profile_picture')
             ->orderBy('announcement.created_at', 'desc')
+            ->take($this->perPageCount)
             ->get();
 
-        if (empty($this->contentIndexes)) {
+        $totalAnnouncements = Announcement::count();
+
+        if (empty($this->contentIndexes) || count($this->contentIndexes) !== count($announcements)) {
+            $this->contentIndexes = [];
             foreach ($announcements as $announcement) {
                 $this->contentIndexes[$announcement->id] = false;
             }
@@ -47,7 +54,12 @@ class MainAnnouncement extends Component
 
         return view('livewire.main-announcement', [
             'announcements' => $announcements,
+            'totalAnnouncements' => $totalAnnouncements,
         ]);
+    }
+
+    public function load(){
+        $this->perPageCount += 10;
     }
 
     public function toggleContent($announcementId){
