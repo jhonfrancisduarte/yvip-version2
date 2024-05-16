@@ -17,7 +17,7 @@
     <div class="main-container">
 
             <div class="landing-content">
-                <div class="landing-page-hero"> 
+                <div class="landing-page-hero">
                     <div class="welcome-header">
                         <div class="top-nav">
                             <div class="top-buttons">
@@ -29,7 +29,7 @@
                                 <p>National Youth Commission</p>
                             </div>
                         </div>
-    
+
                         <div class="title-container">
                             <div class="mobile-logos">
                                 <img class="m-logo" src="images/yvip_logo.png"/>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="landing-page-content">
                     <livewire:main-announcement />
                 </div>
