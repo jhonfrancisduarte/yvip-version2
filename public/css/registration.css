@@ -1,12 +1,24 @@
   .progress-container {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 30px;
+    background: white;
     width: 100%;
+    z-index: 999;
+  }
+
+  .progress-container-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: white;
+    width: 100%;
+    height: 50px;
+    z-index: 998;
   }
   
   .progress-bar {
@@ -124,6 +136,13 @@
 
   .section-buttons{
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .section-buttons b a{
+    text-decoration: none;
   }
 
   .float-right{
@@ -132,6 +151,10 @@
 
   .float-left{
     float: left;
+  }
+
+  .btn-cancel{
+    margin-right: 1px !important;
   }
 
   .file-box{
@@ -159,6 +182,47 @@
   .fa-check.active{
     opacity: 1;
   }
+
+  .form-section{
+    display: none !important;
+  }
+
+  .form-section.visible{
+    display: contents !important;
+  }
+
+.loading-container {
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  margin-bottom: 3px;
+  margin-left: 1px;
+  animation: spin 2s linear infinite;
+}
+
+.d-none{
+  display: none !important;
+}
+
+.d-flex{
+  display: flex;
+}
+
+.disabled{
+  background: lightgray;
+}
 
   @media (max-width: 768px){
     .circle span{

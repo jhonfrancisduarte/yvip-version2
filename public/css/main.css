@@ -160,13 +160,23 @@
 }
 
 .top-nav{
+  position: sticky;
+  top: 0;
   height: 80px;
   width: 100%;
   display: flex;
   align-items: center;
   padding-right: 50px;
-  z-index: 99999;
+  z-index: 11;
 }
+
+.scroll-detector{
+  position: absolute;
+  top: 0; left: 0;
+  height: 80px;
+  width: 100vw;
+}
+
 
 .top-nav2{
   position: absolute;
@@ -177,6 +187,7 @@
   padding-right: 50px;
   z-index: 99999;
   color: white;
+  transition: all 0.2s ease-in-out;
 }
 
 .nyc{
@@ -225,11 +236,13 @@
 }
 
 .welcome-header .title-container {
+  position: relative;
   width: 100%;
   height: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 .yvip{
@@ -659,32 +672,16 @@
   margin-right: 10px;
 }
 
-.top-nav-onscroll{
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 80px;
-  opacity: 0;
-  background-image: url('/images/yvip_bg4.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding-right: 50px;
-  transition: 0.2s ease-in-out;
-  z-index: 99999;
-  overflow: hidden;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+.top-nav.active{
+  background: white;
 }
 
-.top-nav-onscroll .top-buttons a{
-  margin-left: 10px;
-  color: white;
+.top-nav.active .onscroll-logos{
+  opacity: 1;
 }
 
 .onscroll-logos{
+  opacity: 0;
   display: flex;
   align-items: center;
   margin-left: 40px;
@@ -854,7 +851,7 @@
     display: block;
     align-items: center;
     margin-top: 30px;
-    z-index: 99999;
+    z-index: 999;
   }
 
   .nyc{
@@ -869,7 +866,7 @@
     position: relative;
     padding-right: 5px;
     margin-left: 0;
-    z-index: 99999;
+    z-index: 999;
   }
 
   .top-nav2 .top-buttons{
@@ -1085,13 +1082,14 @@
 }
 
 .file-box {
+  position: relative;
   margin-right: 10px;
   margin-bottom: 20px;
   border: 1px solid #ced4da;
   padding: 2.5px 85px;
   border-radius: 4px;
   background-color: #f8f9fa;
-  min-width: 100px;
+  width: 100% !important;
   width: auto;
   min-height: 25px;
   display: flex;
@@ -1103,6 +1101,11 @@
 
 .file-box span {
   margin-right: 5px;
+}
+
+.file-box button{
+  position: absolute !important;
+  right: 0 !important;
 }
 
 .file-name {
@@ -1120,7 +1123,9 @@
 }
 
 .upload {
+  position: relative;
   height: 28px;
+  width: 28px;
   margin-left: -20px;
   margin-top: -20px !important;
 }
