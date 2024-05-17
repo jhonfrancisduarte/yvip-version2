@@ -221,6 +221,10 @@
     z-index: -1;
 }
 
+.btn-delete:before i{
+    color: #bb2635 !important;
+}
+
 .btn-delete:after {
     content: "";
     position: absolute;

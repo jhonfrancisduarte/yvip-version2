@@ -57,7 +57,7 @@ class Register extends Component
     public $good_moral_cert = null;
     public $valid_Id;
     public $other_documents = [];
-    public $currentStep = 1;
+    public $currentStep = 4;
     public $section1Validated = false;
     public $section2Validated = false;
     public $section3Validated = false;

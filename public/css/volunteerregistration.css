@@ -59,6 +59,20 @@ input[type="checkbox"] {
     color: #28a745;
 }
 
+.file-container {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.req-files-buttons{
+    width: 100%;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    padding: 5px;
+}
+
+
 @media (max-width:768px){
     .action-btn{
         position: sticky; 

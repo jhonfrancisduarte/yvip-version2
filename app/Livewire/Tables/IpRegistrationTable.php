@@ -22,6 +22,8 @@ class IpRegistrationTable extends Component
     public $userDetails;
     public $popup_message;
     public $approving;
+    public $advocacyPlans = [];
+    public $otherDocs = [];
 
     public function render(){
         $volunteers = User::where('user_role', 'yip')
@@ -37,11 +39,13 @@ class IpRegistrationTable extends Component
     }
 
     public function showUserData($userId){
-        $this->selectedUserDetails = User::where('users.id', $userId)
+        $selectedUserDetails = User::where('users.id', $userId)
                                 ->join('user_data', 'users.id', '=', 'user_data.user_id')
                                 ->select('users.*', 'user_data.*')
                                 ->first();
-        $this->selectedUserDetails = $this->selectedUserDetails->getAttributes();
+        $this->advocacyPlans = explode(', ', $selectedUserDetails->advocacy_plans);
+        $this->otherDocs = explode(', ', $selectedUserDetails->other_document);
+        $this->selectedUserDetails = $selectedUserDetails->getAttributes();
     }
 
     public function approveUser($userId){

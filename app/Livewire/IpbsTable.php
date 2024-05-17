@@ -43,6 +43,7 @@ class IpbsTable extends Component
     public $advocacyPlans = [];
     public $flagRegistrantId;
     public $activeStatus;
+    public $otherDocs = [];
 
     public function render(){
         if ($this->selectedProvince != null) {
@@ -120,6 +121,7 @@ class IpbsTable extends Component
                                 ->select('users.email', 'users.user_role', 'users.active_status', 'user_data.*')
                                 ->first();
         $this->advocacyPlans = explode(', ', $selectedUserDetails->advocacy_plans);
+        $this->otherDocs = explode(', ', $selectedUserDetails->other_document);
         $this->selectedUserDetails = $selectedUserDetails->getAttributes();
         $details = [
             'Passport No.' => $selectedUserDetails->passport_number,
@@ -170,9 +172,6 @@ class IpbsTable extends Component
 
     public function deleteDialog($userId){
         $this->deleteVolunteerId = $userId;
-        if($this->selectedUserDetails != null){
-            $this->selectedUserDetails = null;
-        }
     }
 
     public function hideDeleteDialog(){
@@ -182,9 +181,6 @@ class IpbsTable extends Component
         $this->reactivateVolunteerId = null;
         $this->flagRegistrantId = null;
         $this->disableButton = "No";
-        if($this->selectedUserDetails != null){
-            $this->selectedUserDetails = null;
-        }
     }
 
     public function mount(){
@@ -307,9 +303,6 @@ class IpbsTable extends Component
     public function flagDialog($userId, $activeStatus){
         $this->flagRegistrantId = $userId;
         $this->activeStatus = $activeStatus;
-        if($this->selectedUserDetails != null){
-            $this->selectedUserDetails = null;
-        }
     }
 
     public function flagRegistrant($userId){

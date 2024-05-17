@@ -513,7 +513,7 @@
                                         <button type="button" class="btn-submit upload" onclick="document.getElementById('valid_Id').click()">
                                             <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
-                                        <input type="file" id="valid_Id" wire:model="valid_Id" style="display: none;">
+                                        <input type="file" id="valid_Id" wire:model="valid_Id" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*">
                                     </div>
                                     @error('valid_Id') <span class="error">{{ $message }}</span> @enderror
                                 </div>
