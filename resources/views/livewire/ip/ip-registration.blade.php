@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        @livewire('tables.ip-registration-table');
+        @livewire('tables.ip-registration-table')
         
     </div>
 

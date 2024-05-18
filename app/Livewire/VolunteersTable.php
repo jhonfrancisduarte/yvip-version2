@@ -39,6 +39,8 @@ class VolunteersTable extends Component
     public $groupedSkills;
     public $advocacy;
     public $advocacyPlans = [];
+    
+    public $otherDocs = [];
 
     public function render(){
         if ($this->selectedProvince != null) {
@@ -102,6 +104,7 @@ class VolunteersTable extends Component
                                 ->select('users.email', 'users.user_role', 'users.active_status', 'user_data.*')
                                 ->first();
         $this->advocacyPlans = explode(', ', $selectedUserDetails->advocacy_plans);
+        $this->otherDocs = explode(', ', $selectedUserDetails->other_document);
         $this->selectedUserDetails = $selectedUserDetails->getAttributes();
         $details = [
             'Passport No.' => $selectedUserDetails->passport_number,

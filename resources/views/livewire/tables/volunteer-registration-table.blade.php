@@ -155,201 +155,368 @@
         <div class="users-data-all-container">
             <div class="close-form" wire:click="hideUserData"></div>
             <div class="user-info">
-            <div class="info">
-                <div class="row1">
-                    <div class="col1">
-                        <img src="{{ $selectedUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
+                <div class="info">
+                    <div class="row1">
+                        <div class="col1">
+                            <img src="{{ $selectedUserDetails['profile_picture'] }}" alt="" width="100" style="border-radius: 10px;">
+                        </div>
                     </div>
-                </div>
 
-                <div class="row1  row-header">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Passport Number: <span>{{ $selectedUserDetails ? $selectedUserDetails['passport_number'] : '' }}</span></label>
+                    <div class="row1  row-header">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Passport Number: <span>{{ $selectedUserDetails ? $selectedUserDetails['passport_number'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Registration Status: <span class="red">@if($selectedUserDetails['active_status'] === 0)Pending @endif</span></label>
+                            </div>
                         </div>
                     </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Registration Status: <span class="red">@if($selectedUserDetails['active_status'] === 0)Pending @endif</span></label>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Firstname: <span>{{ $selectedUserDetails ? $selectedUserDetails['first_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Lastname: <span>{{ $selectedUserDetails ? $selectedUserDetails['last_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Middlename: <span>{{ $selectedUserDetails ? $selectedUserDetails['middle_name'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Nickname: <span>{{ $selectedUserDetails ? $selectedUserDetails['nickname']: '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Date of Birth: <span>{{ $selectedUserDetails ? $selectedUserDetails['date_of_birth'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Civil Status: <span>{{ $selectedUserDetails ? $selectedUserDetails['civil_status'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Age: <span>{{ $selectedUserDetails ? $selectedUserDetails['age'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Nationality: <span>{{ $selectedUserDetails ? $selectedUserDetails['nationality'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Tel Number: <span>{{ $selectedUserDetails ? $selectedUserDetails['tel_number'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Mobile Number: <span>{{ $selectedUserDetails ? $selectedUserDetails['mobile_number'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Email: <span>{{ $selectedUserDetails ? $selectedUserDetails['email'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Blood Type: <span>{{ $selectedUserDetails ? $selectedUserDetails['blood_type'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Sex at Birth: <span>{{ $selectedUserDetails ? $selectedUserDetails['sex'] : '' }}</span></label>
-                        </div>
-                    </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Educational Background: <span>{{ $selectedUserDetails ? $selectedUserDetails['educational_background'] : '' }}</span></label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col1">
-                        <label class="label label-capitalize">Permanent Adrress: <span>{{ $volunteer->p_street_barangay }}, {{ $volunteer->permanent_selectedCity }}, {{ $volunteer->permanent_selectedProvince }}</span></label>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col1">
-                        <label class="label label-capitalize">Residential Adrress: <span>{{ $volunteer->r_street_barangay }}, {{ $volunteer->residential_selectedCity }}, {{ $volunteer->residential_selectedProvince }}</span></label>
-                    </div>
-                </div>
-
-                <div class="row1">
-                    <div class="col1">
-                        <label class="label">Status: <span>{{ $selectedUserDetails ? $selectedUserDetails['status'] : '' }}</span></label>
-                    </div>
-                </div>
-
-                @if($selectedUserDetails['name_of_school'])
                     <div class="row1">
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">School Name: <span>{{ $selectedUserDetails ? $selectedUserDetails['name_of_school'] : '' }}</span></label>
+                                <label class="label">Firstname: <span>{{ $selectedUserDetails ? $selectedUserDetails['first_name'] : '' }}</span></label>
                             </div>
                         </div>
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Course: <span>{{ $selectedUserDetails ? $selectedUserDetails['course'] : '' }}</span></label>
+                                <label class="label">Lastname: <span>{{ $selectedUserDetails ? $selectedUserDetails['last_name'] : '' }}</span></label>
                             </div>
                         </div>
                     </div>
-                @endif
 
-                @if($selectedUserDetails['nature_of_work'])
                     <div class="row1">
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Nature of Work: <span>{{ $selectedUserDetails ? $selectedUserDetails['nature_of_work'] : '' }}</span></label>
+                                <label class="label">Middlename: <span>{{ $selectedUserDetails ? $selectedUserDetails['middle_name'] : '' }}</span></label>
                             </div>
                         </div>
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Employer: <span>{{ $selectedUserDetails ? $selectedUserDetails['employer'] : '' }}</span></label>
+                                <label class="label">Nickname: <span>{{ $selectedUserDetails ? $selectedUserDetails['nickname']: '' }}</span></label>
                             </div>
                         </div>
                     </div>
-                @endif
 
-                @if($selectedUserDetails['organization_name'])
                     <div class="row1">
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Organization Name: <span>{{ $selectedUserDetails ? $selectedUserDetails['organization_name'] : '' }}</span></label>
+                                <label class="label">Date of Birth: <span>{{ $selectedUserDetails ? $selectedUserDetails['date_of_birth'] : '' }}</span></label>
                             </div>
                         </div>
                         <div class="col2">
                             <div class="user-data">
-                                <label class="label">Position: <span>{{ $selectedUserDetails ? $selectedUserDetails['org_position'] : '' }}</span></label>
+                                <label class="label">Civil Status: <span>{{ $selectedUserDetails ? $selectedUserDetails['civil_status'] : '' }}</span></label>
                             </div>
                         </div>
                     </div>
-                @endif
 
-                <div class="row1">
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">Youth Volunteer:
-                                <span>
-                                    <input type="checkbox" class="checkbox" {{ $selectedUserDetails && $selectedUserDetails['is_volunteer'] ? 'checked' : '' }} disabled>
-                                </span>
-                            </label>
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Age: <span>{{ $selectedUserDetails ? $selectedUserDetails['age'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Nationality: <span>{{ $selectedUserDetails ? $selectedUserDetails['nationality'] : '' }}</span></label>
+                            </div>
                         </div>
                     </div>
-                    <div class="col2">
-                        <div class="user-data">
-                            <label class="label">IP Parcicipant:
-                                <span>
-                                    <input type="checkbox" class="checkbox" {{ $selectedUserDetails && $selectedUserDetails['is_ip_participant'] ? 'checked' : '' }} disabled>
-                                </span>
-                            </label>
+
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Tel Number: <span>{{ $selectedUserDetails ? $selectedUserDetails['tel_number'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Mobile Number: <span>{{ $selectedUserDetails ? $selectedUserDetails['mobile_number'] : '' }}</span></label>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Email: <span>{{ $selectedUserDetails ? $selectedUserDetails['email'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Blood Type: <span>{{ $selectedUserDetails ? $selectedUserDetails['blood_type'] : '' }}</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Sex at Birth: <span>{{ $selectedUserDetails ? $selectedUserDetails['sex'] : '' }}</span></label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Educational Background: <span>{{ $selectedUserDetails ? $selectedUserDetails['educational_background'] : '' }}</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col1">
+                            <label class="label label-capitalize">Permanent Adrress: <span>{{ $volunteer->p_street_barangay }}, {{ $volunteer->permanent_selectedCity }}, {{ $volunteer->permanent_selectedProvince }}</span></label>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col1">
+                            <label class="label label-capitalize">Residential Adrress: <span>{{ $volunteer->r_street_barangay }}, {{ $volunteer->residential_selectedCity }}, {{ $volunteer->residential_selectedProvince }}</span></label>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="col1">
+                            <label class="label">Status: <span>{{ $selectedUserDetails ? $selectedUserDetails['status'] : '' }}</span></label>
+                        </div>
+                    </div>
+
+                    @if($selectedUserDetails['name_of_school'])
+                        <div class="row1">
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">School Name: <span>{{ $selectedUserDetails ? $selectedUserDetails['name_of_school'] : '' }}</span></label>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Course: <span>{{ $selectedUserDetails ? $selectedUserDetails['course'] : '' }}</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($selectedUserDetails['nature_of_work'])
+                        <div class="row1">
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Nature of Work: <span>{{ $selectedUserDetails ? $selectedUserDetails['nature_of_work'] : '' }}</span></label>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Employer: <span>{{ $selectedUserDetails ? $selectedUserDetails['employer'] : '' }}</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($selectedUserDetails['organization_name'])
+                        <div class="row1">
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Organization Name: <span>{{ $selectedUserDetails ? $selectedUserDetails['organization_name'] : '' }}</span></label>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="user-data">
+                                    <label class="label">Position: <span>{{ $selectedUserDetails ? $selectedUserDetails['org_position'] : '' }}</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="row1">
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">Youth Volunteer:
+                                    <span>
+                                        <input type="checkbox" class="checkbox" {{ $selectedUserDetails && $selectedUserDetails['is_volunteer'] ? 'checked' : '' }} disabled>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="user-data">
+                                <label class="label">IP Parcicipant:
+                                    <span>
+                                        <input type="checkbox" class="checkbox" {{ $selectedUserDetails && $selectedUserDetails['is_ip_participant'] ? 'checked' : '' }} disabled>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table id="volunteers-table" class="table-main">
+                        <thead>
+                            <tr>
+                                <th  width="40%">Advocacy Plan/s</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(!empty($advocacyPlans))
+                            <tr class="recordRow">
+                                <td>
+                                    @foreach($advocacyPlans as $advocacyPlan)
+                                        <span>• {{  $advocacyPlan }}</span>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            @else
+                                <tr>
+                                    <td style="color: #ccc;">
+                                        No Advocacy Plan
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+
+                    <table class="table-main">
+                        <thead>
+                            <tr>
+                                <th>Birth Certificate</th>
+                                <th>Curriculum Vitae</th>
+                                <th>Good Moral Certificate</th>
+                                <th>Valid ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="position: relative">
+                                    @if($selectedUserDetails['birth_certificate'])
+                                        <div class="file-container fit-container">
+                                            <span>{{ pathinfo(asset($selectedUserDetails['birth_certificate']), PATHINFO_FILENAME) }}.{{ pathinfo(asset($selectedUserDetails['birth_certificate']), PATHINFO_EXTENSION) }}</span>
+                                        </div>
+                                        <div class="req-files-buttons">
+                                            <a class="btn-submit" href="{{ asset($selectedUserDetails['birth_certificate']) }}" download>
+                                                <i class="bi bi-file-earmark-arrow-down"></i>
+                                            </a>
+                                            @if(pathinfo(asset($selectedUserDetails['birth_certificate']), PATHINFO_EXTENSION) === 'pdf' ||
+                                                pathinfo(asset($selectedUserDetails['birth_certificate']), PATHINFO_EXTENSION) === 'docx' ||
+                                                pathinfo(asset($selectedUserDetails['birth_certificate']), PATHINFO_EXTENSION) === 'txt' ||
+                                                pathinfo(asset($selectedUserDetails['birth_certificate']), PATHINFO_EXTENSION) === 'csv')
+                                                <a class="btn-submit" href="#" onclick="window.open('{{ asset($selectedUserDetails['birth_certificate']) }}', '_blank')"><i class="bi bi-eye"></i></a>
+                                            @endif
+                                        </div>
+                                    @else
+                                        <span style="color: #ccc;">none</span>
+                                    @endif
+                                </td>
+                                <td style="position: relative">
+                                    @if($selectedUserDetails['curriculum_vitae'])
+                                        <div class="file-container fit-container">
+                                            <span>{{ pathinfo(asset($selectedUserDetails['curriculum_vitae']), PATHINFO_FILENAME) }}.{{ pathinfo(asset($selectedUserDetails['curriculum_vitae']), PATHINFO_EXTENSION) }}</span>
+                                        </div>
+                                        <div class="req-files-buttons">
+                                            <a class="btn-submit" href="{{ asset($selectedUserDetails['curriculum_vitae']) }}" download>
+                                                <i class="bi bi-file-earmark-arrow-down"></i>
+                                            </a>
+                                            @if(pathinfo(asset($selectedUserDetails['curriculum_vitae']), PATHINFO_EXTENSION) === 'pdf' ||
+                                                pathinfo(asset($selectedUserDetails['curriculum_vitae']), PATHINFO_EXTENSION) === 'docx' ||
+                                                pathinfo(asset($selectedUserDetails['curriculum_vitae']), PATHINFO_EXTENSION) === 'txt' ||
+                                                pathinfo(asset($selectedUserDetails['curriculum_vitae']), PATHINFO_EXTENSION) === 'csv')
+                                                <a class="btn-submit" href="#" onclick="window.open('{{ asset($selectedUserDetails['curriculum_vitae']) }}', '_blank')"><i class="bi bi-eye"></i></a>
+                                            @endif
+                                        </div>
+                                    @else
+                                        <span style="color: #ccc;">none</span>
+                                    @endif
+                                </td>
+                                <td style="position: relative;">
+                                    @if($selectedUserDetails['good_moral_cert'])
+                                        <div class="file-container fit-container">
+                                            <span>{{ pathinfo(asset($selectedUserDetails['good_moral_cert']), PATHINFO_FILENAME) }}.{{ pathinfo(asset($selectedUserDetails['good_moral_cert']), PATHINFO_EXTENSION) }}</span>
+                                        </div>
+                                        <div class="req-files-buttons">
+                                            <a class="btn-submit" href="{{ asset($selectedUserDetails['good_moral_cert']) }}" download>
+                                                <i class="bi bi-file-earmark-arrow-down"></i>
+                                            </a>
+                                            @if(pathinfo(asset($selectedUserDetails['good_moral_cert']), PATHINFO_EXTENSION) === 'pdf' ||
+                                                pathinfo(asset($selectedUserDetails['good_moral_cert']), PATHINFO_EXTENSION) === 'docx' ||
+                                                pathinfo(asset($selectedUserDetails['good_moral_cert']), PATHINFO_EXTENSION) === 'txt' ||
+                                                pathinfo(asset($selectedUserDetails['good_moral_cert']), PATHINFO_EXTENSION) === 'csv')
+                                                <a class="btn-submit" href="#" onclick="window.open('{{ asset($selectedUserDetails['good_moral_cert']) }}', '_blank')"><i class="bi bi-eye"></i></a>
+                                            @endif
+                                        </div>
+                                    @else
+                                        <span style="color: #ccc;">none</span>
+                                    @endif
+                                </td>
+                                <td style="position: relative;">
+                                    @if($selectedUserDetails['valid_Id'])
+                                        <div class="file-container fit-container">
+                                            <span>{{ pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_FILENAME) }}.{{ pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) }}</span>
+                                        </div>
+                                        <div class="req-files-buttons">
+                                            <a class="btn-submit" href="{{ asset($selectedUserDetails['valid_Id']) }}" download>
+                                                <i class="bi bi-file-earmark-arrow-down"></i>
+                                            </a>
+                                            @if(pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'pdf' ||
+                                                pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'docx' ||
+                                                pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'txt' ||
+                                                pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'png' ||
+                                                pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'jpg' ||
+                                                pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'jpeg' ||
+                                                pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'csv')
+                                                <a class="btn-submit" href="#" onclick="window.open('{{ asset($selectedUserDetails['valid_Id']) }}', '_blank')"><i class="bi bi-eye"></i></a>
+                                            @endif
+                                        </div>
+                                    @else
+                                        <span style="color: #ccc;">none</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody style="margin-top: 10px">
+                            <tr style="background: #CFE9FF">
+                                <td><b>Other Documents</b></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            @if(!@empty($otherDocs))
+                                @foreach ($otherDocs as $docu)
+                                    <tr>
+                                        <td style="position: relative;">
+                                            <div class="file-container fit-container">
+                                                <span>{{ pathinfo(asset($docu), PATHINFO_FILENAME) }}.{{ pathinfo(asset($docu), PATHINFO_EXTENSION) }}</span>
+                                            </div>
+                                            <div class="req-files-buttons">
+                                                <a class="btn-submit" href="{{ asset($docu) }}" download>
+                                                    <i class="bi bi-file-earmark-arrow-down"></i>
+                                                </a>
+                                                @if(pathinfo(asset($docu), PATHINFO_EXTENSION) === 'pdf' ||
+                                                    pathinfo(asset($docu), PATHINFO_EXTENSION) === 'docx' ||
+                                                    pathinfo(asset($docu), PATHINFO_EXTENSION) === 'txt' ||
+                                                    pathinfo(asset($docu), PATHINFO_EXTENSION) === 'csv')
+                                                    <a class="btn-submit" href="#" onclick="window.open('{{ asset($docu) }}', '_blank')"><i class="bi bi-eye"></i></a>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td>None</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+
                 </div>
-            </div>
 
                 <div class="row1 row-footer">
                     <div class="col">

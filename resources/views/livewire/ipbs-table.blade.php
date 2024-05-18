@@ -444,6 +444,9 @@
                                     <div class="col-md-6">
                                         <p class="card-text" style="font-family: Arial, sans-serif;">
                                             Passport No. : {{ $selectedUserDetails['passport_number'] }}
+                                            @if($selectedUserDetails['active_status'] === 3)
+                                                <span class="red-flag"> <i class="bi bi-flag-fill"></i></span>
+                                            @endif
                                             <br>
                                             Full Name : {{ $selectedUserDetails['first_name'] }} {{ $selectedUserDetails ? $selectedUserDetails['middle_name'] : '' }} {{ $selectedUserDetails['last_name'] }}
                                             <br>
@@ -629,11 +632,151 @@
                                     </tbody>
                                 </table>
 
+                                <table class="table-main">
+                                    <thead>
+                                        <tr>
+                                            <th>Birth Certificate</th>
+                                            <th>Curriculum Vitae</th>
+                                            <th>Good Moral Certificate</th>
+                                            <th>Valid ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="position: relative">
+                                                @if($selectedUserDetails['birth_certificate'])
+                                                    <div class="file-container fit-container">
+                                                        <span>{{ pathinfo(asset($selectedUserDetails['birth_certificate']), PATHINFO_FILENAME) }}.{{ pathinfo(asset($selectedUserDetails['birth_certificate']), PATHINFO_EXTENSION) }}</span>
+                                                    </div>
+                                                    <div class="req-files-buttons">
+                                                        <a class="btn-submit" href="{{ asset($selectedUserDetails['birth_certificate']) }}" download>
+                                                            <i class="bi bi-file-earmark-arrow-down"></i>
+                                                        </a>
+                                                        @if(pathinfo(asset($selectedUserDetails['birth_certificate']), PATHINFO_EXTENSION) === 'pdf' ||
+                                                            pathinfo(asset($selectedUserDetails['birth_certificate']), PATHINFO_EXTENSION) === 'docx' ||
+                                                            pathinfo(asset($selectedUserDetails['birth_certificate']), PATHINFO_EXTENSION) === 'txt' ||
+                                                            pathinfo(asset($selectedUserDetails['birth_certificate']), PATHINFO_EXTENSION) === 'csv')
+                                                            <a class="btn-submit" href="#" onclick="window.open('{{ asset($selectedUserDetails['birth_certificate']) }}', '_blank')"><i class="bi bi-eye"></i></a>
+                                                        @endif
+                                                    </div>
+                                                @else
+                                                    <span style="color: #ccc;">none</span>
+                                                @endif
+                                            </td>
+                                            <td style="position: relative">
+                                                @if($selectedUserDetails['curriculum_vitae'])
+                                                    <div class="file-container fit-container">
+                                                        <span>{{ pathinfo(asset($selectedUserDetails['curriculum_vitae']), PATHINFO_FILENAME) }}.{{ pathinfo(asset($selectedUserDetails['curriculum_vitae']), PATHINFO_EXTENSION) }}</span>
+                                                    </div>
+                                                    <div class="req-files-buttons">
+                                                        <a class="btn-submit" href="{{ asset($selectedUserDetails['curriculum_vitae']) }}" download>
+                                                            <i class="bi bi-file-earmark-arrow-down"></i>
+                                                        </a>
+                                                        @if(pathinfo(asset($selectedUserDetails['curriculum_vitae']), PATHINFO_EXTENSION) === 'pdf' ||
+                                                            pathinfo(asset($selectedUserDetails['curriculum_vitae']), PATHINFO_EXTENSION) === 'docx' ||
+                                                            pathinfo(asset($selectedUserDetails['curriculum_vitae']), PATHINFO_EXTENSION) === 'txt' ||
+                                                            pathinfo(asset($selectedUserDetails['curriculum_vitae']), PATHINFO_EXTENSION) === 'csv')
+                                                            <a class="btn-submit" href="#" onclick="window.open('{{ asset($selectedUserDetails['curriculum_vitae']) }}', '_blank')"><i class="bi bi-eye"></i></a>
+                                                        @endif
+                                                    </div>
+                                                @else
+                                                    <span style="color: #ccc;">none</span>
+                                                @endif
+                                            </td>
+                                            <td style="position: relative;">
+                                                @if($selectedUserDetails['good_moral_cert'])
+                                                    <div class="file-container fit-container">
+                                                        <span>{{ pathinfo(asset($selectedUserDetails['good_moral_cert']), PATHINFO_FILENAME) }}.{{ pathinfo(asset($selectedUserDetails['good_moral_cert']), PATHINFO_EXTENSION) }}</span>
+                                                    </div>
+                                                    <div class="req-files-buttons">
+                                                        <a class="btn-submit" href="{{ asset($selectedUserDetails['good_moral_cert']) }}" download>
+                                                            <i class="bi bi-file-earmark-arrow-down"></i>
+                                                        </a>
+                                                        @if(pathinfo(asset($selectedUserDetails['good_moral_cert']), PATHINFO_EXTENSION) === 'pdf' ||
+                                                            pathinfo(asset($selectedUserDetails['good_moral_cert']), PATHINFO_EXTENSION) === 'docx' ||
+                                                            pathinfo(asset($selectedUserDetails['good_moral_cert']), PATHINFO_EXTENSION) === 'txt' ||
+                                                            pathinfo(asset($selectedUserDetails['good_moral_cert']), PATHINFO_EXTENSION) === 'csv')
+                                                            <a class="btn-submit" href="#" onclick="window.open('{{ asset($selectedUserDetails['good_moral_cert']) }}', '_blank')"><i class="bi bi-eye"></i></a>
+                                                        @endif
+                                                    </div>
+                                                @else
+                                                    <span style="color: #ccc;">none</span>
+                                                @endif
+                                            </td>
+                                            <td style="position: relative;">
+                                                @if($selectedUserDetails['valid_Id'])
+                                                    <div class="file-container fit-container">
+                                                        <span>{{ pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_FILENAME) }}.{{ pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) }}</span>
+                                                    </div>
+                                                    <div class="req-files-buttons">
+                                                        <a class="btn-submit" href="{{ asset($selectedUserDetails['valid_Id']) }}" download>
+                                                            <i class="bi bi-file-earmark-arrow-down"></i>
+                                                        </a>
+                                                        @if(pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'pdf' ||
+                                                            pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'docx' ||
+                                                            pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'txt' ||
+                                                            pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'png' ||
+                                                            pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'jpg' ||
+                                                            pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'jpeg' ||
+                                                            pathinfo(asset($selectedUserDetails['valid_Id']), PATHINFO_EXTENSION) === 'csv')
+                                                            <a class="btn-submit" href="#" onclick="window.open('{{ asset($selectedUserDetails['valid_Id']) }}', '_blank')"><i class="bi bi-eye"></i></a>
+                                                        @endif
+                                                    </div>
+                                                @else
+                                                    <span style="color: #ccc;">none</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody style="margin-top: 10px">
+                                        <tr style="background: #CFE9FF">
+                                            <td><b>Other Documents</b></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        @if(!@empty($otherDocs))
+                                            @foreach ($otherDocs as $docu)
+                                                <tr>
+                                                    <td style="position: relative;">
+                                                        <div class="file-container fit-container">
+                                                            <span>{{ pathinfo(asset($docu), PATHINFO_FILENAME) }}.{{ pathinfo(asset($docu), PATHINFO_EXTENSION) }}</span>
+                                                        </div>
+                                                        <div class="req-files-buttons">
+                                                            <a class="btn-submit" href="{{ asset($docu) }}" download>
+                                                                <i class="bi bi-file-earmark-arrow-down"></i>
+                                                            </a>
+                                                            @if(pathinfo(asset($docu), PATHINFO_EXTENSION) === 'pdf' ||
+                                                                pathinfo(asset($docu), PATHINFO_EXTENSION) === 'docx' ||
+                                                                pathinfo(asset($docu), PATHINFO_EXTENSION) === 'txt' ||
+                                                                pathinfo(asset($docu), PATHINFO_EXTENSION) === 'csv')
+                                                                <a class="btn-submit" href="#" onclick="window.open('{{ asset($docu) }}', '_blank')"><i class="bi bi-eye"></i></a>
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td>None</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+
                                 <div class="mt-3"></div>
                                 <div class="row1">
                                     <div class="col">
                                         <div class="user-data">
-                                            @if($active_status === 2)
+                                            @if($selectedUserDetails['active_status'] === 2)
                                                 <button class="btn-success" wire:click="reactivateDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Activate</button>
                                             @else
                                                 <button class="btn-success" wire:click="exportToPdf" wire:loading.attr="disabled">
@@ -643,6 +786,19 @@
                                                     </div>
                                                 </button>
                                                 <button class="btn-warning" wire:click="deactDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Deactivate</button>
+                                            @endif
+                                            @if($selectedUserDetails['active_status'] === 1) 
+                                                <div class="btn-g">
+                                                    <button class="btn-delete" wire:click="flagDialog('{{ $selectedUserDetails['user_id'] }}', {{ $selectedUserDetails['active_status'] }})">
+                                                        <i class="bi bi-flag-fill"></i>
+                                                    </button>
+                                                </div>
+                                            @elseif($selectedUserDetails['active_status'] === 3) 
+                                                <div class="btn-g">
+                                                    <button class="btn-success" wire:click="flagDialog('{{ $selectedUserDetails['user_id'] }}', {{ $selectedUserDetails['active_status'] }})">
+                                                        <i class="bi bi-flag-fill"></i>
+                                                    </button>
+                                                </div>
                                             @endif
                                             <button class="btn-delete" wire:click="deleteDialog('{{ $selectedUserDetails['user_id'] }}')" wire:loading.attr="disabled">Delete</button>
                                             <button class="btn-cancel" wire:click="hideUserData">Close</button>

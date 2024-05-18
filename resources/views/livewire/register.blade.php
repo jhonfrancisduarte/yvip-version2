@@ -34,6 +34,8 @@
                 </div>
             </div>
         </div>
+        <div class="progress-container-bg">
+        </div>
 
         <div class="reg-logo-container">
             <img src="images/yvip_logo.png" width="60"/>
@@ -42,8 +44,8 @@
 
         <div class="card-body">
             <form wire:submit.prevent="create" >
-                @if($currentStep == 1)
-                    <div class="form-section">
+  
+                    <div class="form-section {{ $currentStep === 1 ? 'visible' : '' }}">
                         <div class="section-title">
                             <h4>Your information</h4>
                         </div>
@@ -149,11 +151,11 @@
                                     <label class="label">Sex at birth</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Male
-                                            <input type="radio" value="Male" checked="checked" wire:model.blur="sex" name="sex">
+                                            <input type="radio" value="Male" checked="checked" wire:model.blur="sex" name="sex" required>
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">Female
-                                            <input type="radio" value="Female" wire:model.blur="sex" name="sex">
+                                            <input type="radio" value="Female" wire:model.blur="sex" name="sex" required>
                                             <span class="checkmark"></span>
                                         </label>
                                         <br>
@@ -165,11 +167,12 @@
                         </div>
 
                         <div class="section-buttons">
+                            <b><a href="/sign-in" style="color:#0061C4">I already have an Account.</a></b>
                             <button  class="register-button float-right" type="button" wire:click="nextSection(2)">Next<i class="bi bi-arrow-right-short"></i></button>
                         </div>
                     </div>
-                @elseif($currentStep == 2)
-                    <div class="form-section">
+
+                    <div class="form-section {{ $currentStep === 2 ? 'visible' : '' }}">
                         <div class="section-title">
                             <h4>Contact information</h4>
                         </div>
@@ -286,8 +289,8 @@
                             <button  class="register-button float-right" type="button" wire:click="nextSection(3)">Next<i class="bi bi-arrow-right-short"></i></button>
                         </div>
                     </div>
-                @elseif($currentStep == 3)
-                    <div class="form-section">
+
+                    <div class="form-section {{ $currentStep === 3 ? 'visible' : '' }}">
                         <div class="section-title">
                             <h4>Background Info</h4>
                         </div>
@@ -306,7 +309,7 @@
                         <div class="input-group">
                             <label class="label">Status</label>
                             <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                <select class="label select-status" id="status" wire:model.blur="status" name="status" required>
+                                <select class="label select-status" id="status" wire:model.defer="status" name="status" required>
                                     <option selected value="" class="label">Choose option</option>
                                     <option value="Student" class="label">Student</option>
                                     <option value="Professional" class="label">Professional</option>
@@ -316,7 +319,7 @@
                             </div>
                         </div>
 
-                        <div class="row row-space student-details" @if($status != 'Student') style="display: none;" @endif>
+                        <div class="row row-space student-details" style="{{ $status != 'Student' ? 'display: none' : '' }}">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">School name</label>
@@ -331,7 +334,7 @@
                             </div>
                         </div>
 
-                        <div class="row row-space professional-details" @if($status != 'Professional') style="display: none;" @endif>
+                        <div class="row row-space professional-details" style="{{ $status != 'Professional' ? 'display: none' : '' }}">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Nature of work</label>
@@ -353,12 +356,12 @@
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">
                                             Yes
-                                            <input class="org-r1" type="radio" wire:model="is_org_member" value="yes">
+                                            <input class="org-r1" type="radio" wire:model.live="is_org_member" value="yes">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">
                                             No
-                                            <input class="org-r2" type="radio" wire:model="is_org_member" value="no">
+                                            <input class="org-r2" type="radio" wire:model.live="is_org_member" value="no">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -366,7 +369,7 @@
                             </div>
                         </div>
 
-                        <div class="row row-space org-detail" @if($is_org_member = 'no') style="display: none;" @endif>
+                        <div class="row row-space org-detail" style="{{ $is_org_member === 'no' ? 'display: none' : '' }}">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Organization name</label>
@@ -386,14 +389,14 @@
                             <button  class="register-button float-right" type="button" wire:click="nextSection(4)">Next<i class="bi bi-arrow-right-short"></i></button>
                         </div>
                     </div>
-                @elseif($currentStep == 4)
-                    <div class="form-section">
+
+                    <div class="form-section {{ $currentStep === 4 ? 'visible' : '' }}">
                         <div class="section-title">
                             <h4>Requirements</h4>
                         </div>
 
                         <div class="col-md-2 ten-advocacy-plans">
-                            <label class="label">Ten Advocacy Plans</label>
+                            <label class="label">Advocacy Plans</label>
                             <div class="row row-space">
                                 <div class="col-2">
                                     <div class="checkboxes p-t-10">
@@ -446,13 +449,13 @@
                                         <div class="file-box mr-2 d-flex align-items-center justify-content-center">
                                             <span class="file-name">{{ $birth_certificate ? $birth_certificate->getClientOriginalName() : 'No file chosen' }}</span>
                                             @if($birth_certificate)
-                                                <button type="button" class="btn-delete ml-2" wire:click="removeBirthCertificate">Remove</button>
+                                                <button type="button" class="btn-cancel" wire:click="removeBirthCertificate">&times;</button>
                                             @endif
                                         </div>
                                         <button type="button" class="btn-submit upload" onclick="document.getElementById('birth_certificate').click()">
-                                            <i class="bi bi-upload"></i>
+                                            <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
-                                        <input type="file" id="birth_certificate" wire:model="birth_certificate" style="display: none;">
+                                        <input type="file" id="birth_certificate" wire:model="birth_certificate" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     </div>
                                     @error('birth_certificate') <span class="error">{{ $message }}</span> @enderror
                                 </div>
@@ -465,13 +468,13 @@
                                         <div class="file-box mr-2 d-flex align-items-center justify-content-between">
                                             <span class="file-name">{{ $curriculum_vitae ? $curriculum_vitae->getClientOriginalName() : 'No file chosen' }}</span>
                                             @if($curriculum_vitae)
-                                            <button type="button" class="btn-delete ml-2" wire:click="removeCurriculumVitae">Remove</button>
+                                            <button type="button" class="btn-cancel" wire:click="removeCurriculumVitae">&times;</button>
                                             @endif
                                         </div>
                                         <button type="button" class="btn-submit upload" onclick="document.getElementById('curriculum_vitae').click()">
-                                            <i class="bi bi-upload"></i>
+                                            <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
-                                        <input type="file" id="curriculum_vitae" wire:model="curriculum_vitae" style="display: none;">
+                                        <input type="file" id="curriculum_vitae" wire:model="curriculum_vitae" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     </div>
                                     @error('curriculum_vitae') <span class="error">{{ $message }}</span> @enderror
                                 </div>
@@ -483,16 +486,16 @@
                                 <div class="form-group">
                                     <label for="good_moral_cert" class="col-form-label">Good Moral Certificate</label>
                                     <div class="d-flex align-items-center">
+                                        <input type="file" id="good_moral_cert" wire:model.defer="good_moral_cert" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                         <div class="file-box mr-2 d-flex align-items-center justify-content-between">
                                             <span class="file-name">{{ $good_moral_cert ? $good_moral_cert->getClientOriginalName() : 'No file chosen' }}</span>
                                             @if($good_moral_cert)
-                                            <button type="button" class="btn-delete ml-2" wire:click="removeGoodMoralCertificate">Remove</button>
+                                                <button type="button" class="btn-cancel" wire:click="removeGoodMoralCertificate">&times;</button>
                                             @endif
                                         </div>
-                                        <button type="button" class="btn-submit upload" onclick="document.getElementById('good_moral_cert').click()">
-                                            <i class="bi bi-upload"></i>
+                                        <button type="button" class="btn-submit upload" onclick="document.getElementById('good_moral_cert').click()" wire:loading.attr='disabled'>
+                                            <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
-                                        <input type="file" id="good_moral_cert" wire:model="good_moral_cert" style="display: none;">
                                     </div>
                                     @error('good_moral_cert') <span class="error">{{ $message }}</span> @enderror
                                 </div>
@@ -504,13 +507,13 @@
                                         <div class="file-box mr-2 d-flex align-items-center justify-content-between">
                                             <span class="file-name">{{ $valid_Id ? $valid_Id->getClientOriginalName() : 'No file chosen' }}</span>
                                             @if($valid_Id)
-                                            <button type="button" class="btn-delete ml-2" wire:click="removeValidId">Remove</button>
+                                            <button type="button" class="btn-cancel" wire:click="removeValidId">&times;</button>
                                             @endif
                                         </div>
                                         <button type="button" class="btn-submit upload" onclick="document.getElementById('valid_Id').click()">
-                                            <i class="bi bi-upload"></i>
+                                            <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
-                                        <input type="file" id="valid_Id" wire:model="valid_Id" style="display: none;">
+                                        <input type="file" id="valid_Id" wire:model="valid_Id" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*">
                                     </div>
                                     @error('valid_Id') <span class="error">{{ $message }}</span> @enderror
                                 </div>
@@ -527,7 +530,7 @@
                                             @foreach($other_documents as $index => $document)
                                                 <div class="d-flex align-items-center w-100 mb-1">
                                                     <span class="file-name">{{ $document->getClientOriginalName() }}</span>
-                                                    <button type="button" class="btn-delete ml-2" wire:click="removeDocument({{ $index }})">Remove</button>
+                                                    <button type="button" class="btn-cancel" wire:click="removeDocument({{ $index }})">&times;</button>
                                                 </div>
                                             @endforeach
                                             @else
@@ -535,9 +538,9 @@
                                             @endif
                                         </div>
                                         <button type="button" class="btn-submit upload ml-2" onclick="document.getElementById('other_document').click()">
-                                            <i class="bi bi-upload"></i>
+                                            <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
-                                        <input type="file" id="other_document" wire:model="other_documents" style="display: none;" multiple>
+                                        <input type="file" id="other_document" wire:model="other_documents" style="display: none;" multiple accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     </div>
                                     @error('other_documents.*') <span class="error">{{ $message }}</span> @enderror
                                 </div>
@@ -574,7 +577,7 @@
                                 </center>
                                 <center>
                                     <div class="to-login-button">
-                                        <b><a href="/sign-in" style="color:#0061C4" wire:navigate>I already have an Account.</a></b>
+                                        <b><a href="/sign-in" style="color:#0061C4">I already have an Account.</a></b>
                                     </div>
                                 </center>
                             </div>
@@ -584,10 +587,12 @@
                             <div class="col-2" style="width: 100%">
                                 <div class="p-t-15 reg-btn-holder">
                                     <button  class="register-button float-left" type="button" wire:click="prevSection"><i class="bi bi-arrow-left-short"></i>Prev</button>
-                                    <button  class="register-button float-right" type="submit" wire:loading.attr="disabled">Sign Up</button>
-                                    {{-- <div wire:loading wire:target="create" class="loading-container">
-                                        <div class="loading-spinner"></div>
-                                    </div> --}}
+                                    <button  class="register-button float-right" type="submit" wire:loading.attr="disabled">
+                                        <span>Sign Up</span>
+                                        <div class="loading-container {{ !$registering ? 'd-none' : '' }}">
+                                            <div class="loading-spinner"></div>
+                                        </div>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -599,7 +604,7 @@
                             </div>
                         @endif
                     </div>
-                @endif
+
             </form>
         </div>
 

@@ -64,9 +64,19 @@ class UserData extends Model
     ];
 
     public function setAttribute($key, $value){
-        if ($key !== 'profile_picture' && in_array($key, $this->fillable) && is_string($value)) {
+        if ($key !== 'profile_picture'
+            && $key !== 'birth_certificate'
+            && $key !== 'curriculum_vitae'
+            && $key !== 'good_moral_cert'
+            && $key !== 'valid_Id'
+            && $key !== 'other_document'
+            && in_array($key, $this->fillable) 
+            && is_string($value)) 
+        {
             $this->attributes[$key] = strtoupper($value);
-        } else {
+        } 
+        else 
+        {
             parent::setAttribute($key, $value);
         }
     }

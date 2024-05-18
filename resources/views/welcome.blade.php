@@ -17,18 +17,12 @@
 
     <div class="main-container">
 
+        <div class="scroll-detector"></div>
             <div class="landing-content">
                 <div class="landing-page-hero">
                     <div class="welcome-header">
 
-                        <div class="top-nav">
-                            <div class="top-buttons">
-                                <a href="/sign-in" class="sign-in margin-right">Sign In</a>
-                                <a href="/registration">Register</a>
-                            </div>
-                        </div>
-
-                        <div class="top-nav-onscroll">
+                        <div class="top-nav" id="topNavBar">
                             <div class="top-buttons">
                                 <a href="/sign-in" class="sign-in margin-right">Sign In</a>
                                 <a href="/registration">Register</a>
@@ -77,18 +71,26 @@
 @section('js')
 <script>
     if (window.innerWidth >= 1024) {
-        const topNav = document.querySelector('.top-nav');
-        const topNavOnScroll = document.querySelector('.top-nav-onscroll');
+        let isOffScreen = false;
+        const topNavBar = document.getElementById('topNavBar');
+        const scrollDetector = document.querySelector('.scroll-detector');
 
-        function toggleTopNavOnScroll() {
-            const isOffScreen = topNav.getBoundingClientRect().top < 0;
-            topNavOnScroll.style.opacity = isOffScreen ? '1' : '0';
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                isOffScreen = !entry.isIntersecting;
+                topNavBar.classList.toggle('active', isOffScreen);
+            },
+            { threshold: 0.1 }
+        );
+
+        if (scrollDetector) {
+            observer.observe(scrollDetector);
         }
 
-        toggleTopNavOnScroll();
-
-        window.addEventListener('wheel', function() {
-            toggleTopNavOnScroll();
+        window.addEventListener('beforeunload', function () {
+            if (scrollDetector) {
+                observer.unobserve(scrollDetector);
+            }
         });
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -103,6 +105,5 @@
             logo3.classList.add('animate');
         });
     }
-
 </script>
 @endsection

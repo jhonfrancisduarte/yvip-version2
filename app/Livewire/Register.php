@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\PhilippineProvinces;
 use App\Models\PhilippineCities;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class Register extends Component
 {
@@ -53,36 +52,18 @@ class Register extends Component
     public $permanent_cities;
     public $residential_cities;
     public $selectedAdvocacyPlans = [];
-
     public $birth_certificate;
     public $curriculum_vitae;
-    public $good_moral_cert;
+    public $good_moral_cert = null;
     public $valid_Id;
     public $other_documents = [];
     public $currentStep = 1;
     public $section1Validated = false;
     public $section2Validated = false;
     public $section3Validated = false;
+    public $registering = false;
 
     protected $rules = [
-        'first_name' => 'required|min:2',
-        'last_name' => 'required|min:2',
-        'middle_name' => 'required|min:2',
-        'date_of_birth' => 'required|date',
-        'civil_status' => 'required',
-        'age' => 'required|numeric',
-        'nationality' => 'required',
-        'mobile_number' => ['required', 'regex:/^\+639\d{9}$|^\d{11}$/'],
-        'blood_type' => 'required|max:4|min:1',
-        'sex' => 'required',
-        'permanent_selectedProvince' => 'required',
-        'permanent_selectedCity' => 'required',
-        'p_street_barangay' => 'required',
-        'residential_selectedProvince' => 'required',
-        'residential_selectedCity' => 'required',
-        'r_street_barangay' => 'required',
-        'educational_background' => 'required',
-        'status' => 'required|min:2',
         'is_volunteer' => 'required',
         'password' => 'required|min:8',
         'c_password' => 'required|same:password',
@@ -140,6 +121,7 @@ class Register extends Component
 
     public function create(){
         try {
+            $this->registering = true;
             $this->permanent_selectedProvince = Str::ucfirst(Str::lower($this->permanent_selectedProvince));
             $this->permanent_selectedCity = Str::ucfirst(Str::lower($this->permanent_selectedCity));
             $this->residential_selectedProvince = Str::ucfirst(Str::lower($this->residential_selectedProvince));
@@ -204,11 +186,11 @@ class Register extends Component
                 'is_volunteer' => $this->is_volunteer,
                 'is_ip_participant' => $this->is_ip_participant,
                 'advocacy_plans' => implode(', ', $this->selectedAdvocacyPlans),
-                'birth_certificate' => $this->birth_certificate ? $this->storeFile($this->birth_certificate) : null,
-                'curriculum_vitae' => $this->curriculum_vitae ? $this->storeFile($this->curriculum_vitae) : null,
-                'good_moral_cert' => $this->good_moral_cert ? $this->storeFile($this->good_moral_cert) : null,
-                'valid_Id' => $this->valid_Id ? $this->storeFile($this->valid_Id) : null,
-                'other_document' => $this->other_documents ? json_encode($this->storeOtherDocuments()) : null,
+                'birth_certificate' => $this->birth_certificate ? $this->storeFile($this->birth_certificate, 'birthCert') : null,
+                'curriculum_vitae' => $this->curriculum_vitae ? $this->storeFile($this->curriculum_vitae, 'currVitae') : null,
+                'good_moral_cert' => $this->good_moral_cert ? $this->storeFile($this->good_moral_cert, 'goodMoralCert') : null,
+                'valid_Id' => $this->valid_Id ? $this->storeFile($this->valid_Id, 'id') : null,
+                'other_document' => $this->other_documents ? implode(', ', $this->storeOtherDocuments() ) : null,
             ]);
 
             $this->reset();
@@ -223,26 +205,19 @@ class Register extends Component
     {
         $uploadedDocuments = [];
         foreach ($this->other_documents as $document) {
-            $uploadedDocuments[] = $this->storeFile($document);
+            $uploadedDocuments[] = $this->storeFile($document, 'otherFiles');
         }
         return $uploadedDocuments;
     }
 
-    public function storeFile($file){
-        $directory = 'public/uploads/registrationFiles';
-        Storage::makeDirectory($directory);
+    public function storeFile($file, $saveTo){
+        $filePath = '';
+        if ($file) {
+            $filePath = $file->storeAs('registrationFiles/' . $saveTo , $file->getClientOriginalName(), 'public_uploads');
+            $filePath = "uploads/" . $filePath;
+        }
     
-        $originalName = $file->getClientOriginalName();
-    
-        $fileName = pathinfo($originalName, PATHINFO_FILENAME);
-    
-        $extension = $file->getClientOriginalExtension();
-
-        $fileNameWithExtension = $fileName . '.' . $extension;
-    
-        $file->storeAs($directory, $fileNameWithExtension);
-    
-        return $fileNameWithExtension;
+        return $filePath;
     }
 
     private function isPasswordComplex($password){
@@ -300,7 +275,6 @@ class Register extends Component
                 $this->validate([
                     'first_name' => 'required|min:2',
                     'last_name' => 'required|min:2',
-                    'middle_name' => 'required|min:2',
                     'date_of_birth' => 'required|date',
                     'civil_status' => 'required',
                     'age' => 'required|numeric',
