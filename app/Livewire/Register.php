@@ -109,8 +109,7 @@ class Register extends Component
 
     public function create(){
         try {
-            
-            $validator = $this->validate([
+            $this->validate([
                 'is_volunteer' => 'required',
                 'password' => 'required|min:8',
                 'c_password' => 'required|same:password',
@@ -122,16 +121,6 @@ class Register extends Component
                 'other_documents.*' => 'nullable|file|max:20480',
             ]);
             
-            if ($validator) {
-                $this->reset([
-                    'birth_certificate', 
-                    'curriculum_vitae', 
-                    'good_moral_cert', 
-                    'valid_Id'
-                ]);
-            }
-            
-
             $this->registering = true;
             if (!$this->isPasswordComplex($this->password)) {
                 $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
