@@ -114,10 +114,10 @@ class Register extends Component
                 'password' => 'required|min:8',
                 'c_password' => 'required|same:password',
                 'selectedAdvocacyPlans' => 'required|array|min:1',
-                'birth_certificate' => 'file|max:20480',
-                'curriculum_vitae' => 'file|max:20480',
-                'good_moral_cert' => 'file|max:20480',
-                'valid_Id' => 'file|max:20480',
+                'birth_certificate' => 'required|file|max:20480',
+                'curriculum_vitae' => 'required|file|max:20480',
+                'good_moral_cert' => 'required|file|max:20480',
+                'valid_Id' => 'required|file|max:20480',
                 'other_documents.*' => 'nullable|file|max:20480',
             ]);
             
