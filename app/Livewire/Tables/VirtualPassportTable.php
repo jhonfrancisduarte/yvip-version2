@@ -29,16 +29,17 @@ class VirtualPassportTable extends Component
 
     }
 
-    private function getTotalVolunteeringHours(){
+    private function getTotalVolunteeringHours() {
         $user = Auth::user();
         $rewardClaim = $user->rewardClaim;
 
         if ($rewardClaim && $rewardClaim->total_hours) {
             return $rewardClaim->total_hours;
         } else {
-            return 'None';
+            return 0;
         }
     }
+
 
     private function getUserIpEvents()
     {
@@ -179,8 +180,8 @@ class VirtualPassportTable extends Component
         $this->generatingPdf = true;
 
         $ipEvents = $this->getUserIpEvents();
-        $profilePictureUrl = Auth::user()->userData->profile_picture;
-        $totalVolunteeringHours = $this->getTotalVolunteeringHours();
+        $profilePictureUrl = Auth::user()->userData->profile_picture ?? 'default-profile-picture.png';
+        $totalVolunteeringHours = $this->getTotalVolunteeringHours() ?? 0;
 
         $userId = Auth::id();
         $volunteerEventsAndTrainings = VolunteerEventsAndTrainings::join('users', 'users.id', '=', 'volunteer_events_and_trainings.user_id')
@@ -188,6 +189,27 @@ class VirtualPassportTable extends Component
             ->whereRaw('find_in_set(?, volunteer_events_and_trainings.participants)', [$userId])
             ->orderBy('volunteer_events_and_trainings.created_at', 'desc')
             ->get();
+
+        if ($ipEvents->isEmpty()) {
+            $ipEvents = collect([(object)[
+                'event_name' => 'None',
+                'organizer_sponsor' => 'None',
+                'start' => 'None',
+                'end' => 'None',
+                'status' => 'None',
+            ]]);
+        }
+
+        if ($volunteerEventsAndTrainings->isEmpty()) {
+            $volunteerEventsAndTrainings = collect([(object)[
+                'event_name' => 'None',
+                'volunteer_category' => 'None',
+                'start_date' => 'None',
+                'end_date' => 'None',
+                'volunteer_hours' => 0,
+                'status' => 'None',
+            ]]);
+        }
 
         $pdf = PDF::loadView('pdf.passport-pdf', [
             'ipEvents' => $ipEvents,
@@ -203,5 +225,9 @@ class VirtualPassportTable extends Component
 
         return response()->download(public_path('passport.pdf'));
     }
+
+
+
+
 
 }

@@ -13,7 +13,7 @@
             padding: 20px;
             border-radius: 10px;
             background-color: #f9f9f9;
-            position: relative; 
+            position: relative;
         }
         .watermark {
             position: absolute;
@@ -56,18 +56,16 @@
 </head>
 <body>
     @php
-
-        $passportNumber = auth()->user()->userData->passport_number;
-        $fullName = auth()->user()->userData->first_name . ' ' . auth()->user()->userData->last_name;
-        $nationality = auth()->user()->userData->nationality;
-        $sex = auth()->user()->userData->sex;
-        $address = auth()->user()->userData->p_street_barangay . ', ' . auth()->user()->userData->permanent_selectedCity . ', ' . auth()->user()->userData->permanent_selectedProvince;
-        $dateOfBirth = auth()->user()->userData->date_of_birth;
+        $passportNumber = auth()->user()->userData->passport_number ?? 'None';
+        $fullName = auth()->user()->userData->first_name . ' ' . auth()->user()->userData->last_name ?? 'None';
+        $nationality = auth()->user()->userData->nationality ?? 'None';
+        $sex = auth()->user()->userData->sex ?? 'None';
+        $address = auth()->user()->userData->p_street_barangay . ', ' . auth()->user()->userData->permanent_selectedCity . ', ' . auth()->user()->userData->permanent_selectedProvince ?? 'None';
+        $dateOfBirth = auth()->user()->userData->date_of_birth ?? 'None';
     @endphp
 
     @foreach ($ipEvents->chunk(5) as $chunk)
         <div class="passport">
-
             <!-- Watermark logo -->
             <img src="images/yvip_logo.png" alt="Logo" class="watermark">
 
@@ -106,13 +104,12 @@
                 </tr>
                 <tr>
                     <th>Total Volunteering Hours</th>
-                    <td>{{ $totalVolunteeringHours }}</td>
+                    <td>{{ $totalVolunteeringHours }} hrs</td>
                 </tr>
             </table>
             <center>
                 <h5>Generated As of : {{ now() }}</h5>
             </center>
-
         </div>
         <div class="page-break"></div>
 
@@ -133,14 +130,13 @@
                 </thead>
                 <tbody>
                     @foreach($volunteerEventsAndTrainings as $event)
-                    <tr>
-                        <td>{{ $event->event_name }}</td>
-                        <td>{{ $event->volunteer_category }}</td>
-                        <td>{{ $event->start_date }} - {{ $event->end_date }}</td>
-                        <td>{{ $event->volunteer_hours }} hrs</td>
-                        <td>{{ $event->status }}</td>
-
-                    </tr>
+                        <tr>
+                            <td>{{ $event->event_name }}</td>
+                            <td>{{ $event->volunteer_category }}</td>
+                            <td>{{ $event->start_date }} - {{ $event->end_date }}</td>
+                            <td>{{ $event->volunteer_hours }} hrs</td>
+                            <td>{{ $event->status }}</td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -149,7 +145,6 @@
             </center>
         </div>
         <div class="page-break"></div>
-
 
         <div class="passport">
             <!-- Watermark logo -->
@@ -166,12 +161,12 @@
                 </thead>
                 <tbody>
                     @foreach($chunk as $event)
-                    <tr>
-                        <td>{{ $event->event_name }}</td>
-                        <td>{{ $event->organizer_sponsor }}</td>
-                        <td>{{ $event->start }} - {{ $event->end }}</td>
-                        <td>{{ $event->status }}</td>
-                    </tr>
+                        <tr>
+                            <td>{{ $event->event_name }}</td>
+                            <td>{{ $event->organizer_sponsor }}</td>
+                            <td>{{ $event->start }} - {{ $event->end }}</td>
+                            <td>{{ $event->status }}</td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
