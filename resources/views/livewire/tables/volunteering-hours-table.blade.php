@@ -54,9 +54,9 @@
                             <thead>
                                 <tr>
                                     <th class="th-border-rad">Event Name</th>
-                                    <th style="text-align: center;">Volunteering Hours <br><span style="font-weight: 400;">( Completed )</span></th>
-                                    <th style="text-align: center;">Volunteering Hours <br><span style="font-weight: 400;">( Ongoing )</span></th>
-                                    <th style="text-align: center;" class="th-action-btn">Volunteering Hours <br><span style="font-weight: 400;">( Upcoming )</span></th>
+                                    <th style="text-align: center;">No. of Volunteering Hours <br><span style="font-weight: 400;">( Completed )</span></th>
+                                    <th style="text-align: center;">No. of Volunteering Hours <br><span style="font-weight: 400;">( Ongoing )</span></th>
+                                    <th style="text-align: center;" class="th-action-btn">No. of Volunteering Hours <br><span style="font-weight: 400;">( Upcoming )</span></th>
                                 </tr>
                             </thead>
 
@@ -67,7 +67,7 @@
                                             <td>{{ $event->event_name }}</td>
                                             <td style="text-align: center;">
                                                 @if($event->status === "Completed")
-                                                    {{ $event->volunteer_hours }}
+                                                    <b>{{ isset($grantedHours[$event->id]) ? $grantedHours[$event->id] : 'No hours granted yet' }}</b> out of {{ $event->volunteer_hours }}
                                                 @else
                                                     <span style="color: #ccc;">N/A</span>
                                                 @endif

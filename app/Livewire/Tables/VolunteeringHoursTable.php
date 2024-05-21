@@ -2,10 +2,10 @@
 
 namespace App\Livewire\Tables;
 
-use App\Models\RewardClaim;
 use App\Models\Rewards;
 use Livewire\Component;
 use App\Models\VolunteerEventsAndTrainings;
+use App\Models\VolunteerHours;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
@@ -33,10 +33,19 @@ class VolunteeringHoursTable extends Component
         $totalHours = $this->getTotalVolunteeringHours();
         $rewardMatrix = Rewards::orderBy('number_of_hours', 'desc')->pluck('number_of_hours')->toArray();
 
+        $userId = Auth::user()->id;
+        $grantedHours = [];
+        $volunteerHours = VolunteerHours::where('user_id', $userId)->get();
+        foreach ($volunteerHours as $volunteerHour) {
+            $grantedHours[$volunteerHour->event_id] = $volunteerHour->volunteering_hours;
+        }
+
+
         return view('livewire.tables.volunteering-hours-table', [
             'volunteerEventsAndTrainings' => $volunteerEventsAndTrainings,
             'totalHours' => $totalHours,
             'rewardMatrix' => $rewardMatrix,
+            'grantedHours' => $grantedHours,
         ]);
     }
 
@@ -44,4 +53,5 @@ class VolunteeringHoursTable extends Component
         $user = Auth::user();
         return $user->rewardClaim->total_hours;
     }
+
 }

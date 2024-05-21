@@ -121,11 +121,12 @@ class Register extends Component
                 'other_documents.*' => 'nullable|file|max:20480',
             ]);
             
-            $this->registering = true;
             if (!$this->isPasswordComplex($this->password)) {
                 $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
                 return;
             }
+
+            $this->registering = true;
 
             if($this->is_ip_participant === true){
                 $this->user_role = "yip";

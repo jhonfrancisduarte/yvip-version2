@@ -110,7 +110,7 @@
                                     <td class="centered-content">{{ $event->volunteer_hours }}</td>
                                     <td>{{ $event->volunteer_category }}</td>
                                     <td class="action-btn2">
-                                        @if(session('user_role') == 'sa' || session('user_role') == 'ips')
+                                        @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa')
                                             <div class="btn-g">
                                                 <button class="btn-success" wire:click="openJoinRequests({{ $event->id }})"><i class="bi bi-person-plus"></i></button>
                                                 <span class="span" style="margin-top: -20px !important;">Join Requests</span>
@@ -124,7 +124,7 @@
                                                 </div>
                                                 @if($selectedEventId === $event->id)
                                                     <div class="inside-settings-buttons">
-                                                        <button class="btn-success" wire:click="viewParticipants({{ $event->id }})"><i class="bi bi-people"></i> Participants</button>
+                                                        <button class="btn-success" wire:click="viewParticipants({{ $event->id }}, 'participants')"><i class="bi bi-people"></i> Participants</button>
                                                         @if($event->status !== "Completed")
                                                             <button class="btn-submit" wire:click="toggleJoinStatus({{ $event->id }})" wire:loading.attr="disabled">
                                                                 @if($event->join_status == 0)
@@ -138,6 +138,12 @@
                                                         <button class="btn-delete" wire:click="deleteDialog({{ $event->id }})"><i class="bi bi-trash3"></i> Delete</button>
                                                     </div>
                                                 @endif
+                                            </div>
+                                            <div class="mx-2"></div>
+                                            <div class="btn-g">
+                                                <button class="btn-submit" wire:click="viewParticipants({{ $event->id }}, 'grant')"><i class="bi bi-clock"></i></button>
+                                                <span class="span" style="margin-top: -20px !important;">Grant Hours</span>
+                                                <span class="notif-count" style="color: white; background-color: {{ $hoursUngrantedParticipants[$event->id] > 0 ? 'red' : '#F7F7F7' }}">{{ $hoursUngrantedParticipants[$event->id] }}</span>
                                             </div>
                                         @endif
                                         @if(session('user_role') == 'yip' || session('user_role') == 'yv')
@@ -463,7 +469,7 @@
                     </div>
 
                     <div class="modal-body">
-                        @if(!empty($participants))
+                        @if(!empty($participants) && $type === 'participants')
                             <div class="participant-list-header">
                                 <label style="font-weight: 500;"><b>{{ count($participants) }}</b> Participant/s</label>
                                 <button class="btn-submit float-right" wire:click="exportParticipantsList({{ $volunteerEvent->id }})" wire:loading.attr='disabled'>
@@ -484,11 +490,11 @@
                                     <div class="col-12">
                                         <div class="form-group requester">
                                             <label class="label" wire:click="showParticipantDetails('{{ $participant['id'] }}', '')">{{ $participant['name'] }}</label>
-                                            @if($volunteerEvent->status !== "Completed")
+                                            @if($volunteerEvent->status !== "Completed" && $type === 'participants')
                                                 <div class="btn-approval">
                                                     <button class="btn-delete" wire:click="disapproveParticipant('{{ $participant['id'] }}')">Remove</button>
                                                 </div>
-                                            @else
+                                            @elseif($volunteerEvent->status === "Completed" && $type === 'grant')
                                                 @if(!$participant['hoursGranted'])
                                                     <form wire:submit.prevent="grantHours('{{ $participant['id'] }}', {{ $volunteerEvent->id }})">
                                                         <div class="btn-approval">

@@ -309,7 +309,7 @@
                         <div class="input-group">
                             <label class="label">Status</label>
                             <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                <select class="label select-status" id="status" wire:model.defer="status" name="status" required>
+                                <select class="label select-status" id="status" wire:model.live="status" name="status" required>
                                     <option selected value="" class="label">Choose option</option>
                                     <option value="Student" class="label">Student</option>
                                     <option value="Professional" class="label">Professional</option>
@@ -319,35 +319,39 @@
                             </div>
                         </div>
 
-                        <div class="row row-space student-details" style="{{ $status != 'Student' ? 'display: none' : '' }}">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">School name</label>
-                                    <input class="input--style-4" type="text" wire:model="name_of_school" name="name_of_school">
+                        @if($status === 'Student')
+                            <div class="row row-space student-details">
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">School name</label>
+                                        <input class="input--style-4" type="text" wire:model="name_of_school" name="name_of_school">
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Course</label>
+                                        <input class="input--style-4" type="text" wire:model="course" name="course">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Course</label>
-                                    <input class="input--style-4" type="text" wire:model="course" name="course">
-                                </div>
-                            </div>
-                        </div>
+                        @endif
 
-                        <div class="row row-space professional-details" style="{{ $status != 'Professional' ? 'display: none' : '' }}">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Nature of work</label>
-                                    <input class="input--style-4" type="text" wire:model="nature_of_work" name="nature_of_work">
+                        @if($status === 'Professional')
+                            <div class="row row-space professional-details">
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Nature of work</label>
+                                        <input class="input--style-4" type="text" wire:model="nature_of_work" name="nature_of_work">
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Employer</label>
+                                        <input class="input--style-4" type="text" wire:model="employer" name="employer">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Employer</label>
-                                    <input class="input--style-4" type="text" wire:model="employer" name="employer">
-                                </div>
-                            </div>
-                        </div>
+                        @endif
 
                         <div class="row row-space">
                             <div class="col-2">
@@ -369,20 +373,22 @@
                             </div>
                         </div>
 
-                        <div class="row row-space org-detail" style="{{ $is_org_member === 'no' ? 'display: none' : '' }}">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Organization name</label>
-                                    <input class="input--style-4" type="text" wire:model="organization_name" name="organization_name">
+                        @if($is_org_member === 'yes')
+                            <div class="row row-space org-detail">
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Organization name</label>
+                                        <input class="input--style-4" type="text" wire:model="organization_name" name="organization_name">
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Position</label>
+                                        <input class="input--style-4" type="text" wire:model="org_position" name="org_position">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Position</label>
-                                    <input class="input--style-4" type="text" wire:model="org_position" name="org_position">
-                                </div>
-                            </div>
-                        </div>
+                        @endif
 
                         <div class="section-buttons">
                             <button  class="register-button float-left" type="button" wire:click="prevSection"><i class="bi bi-arrow-left-short"></i>Prev</button>

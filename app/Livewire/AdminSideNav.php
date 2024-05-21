@@ -11,6 +11,8 @@ use App\Models\VolunteerEventsAndTrainings;
 use Livewire\Attributes\On;
 use App\Models\User;
 use App\Models\ClaimRequest;
+use App\Models\VolunteerHours;
+use Exception;
 
 class AdminSideNav extends Component
 {
@@ -20,6 +22,7 @@ class AdminSideNav extends Component
     public $volunteerJoinRequests;
     public $ipRegs;
     public $claimRequests;
+    public $unassignedParticipantsCount = 0;
 
     public function logout(){
         Auth::logout();
@@ -38,6 +41,7 @@ class AdminSideNav extends Component
         $this->ipRegs = count($ips);
         $this->getJoinRequests();
         $this->getJoinRequestsVolunteer();
+        $this->getHoursUngrantedParticipants();
         $this->claimRequests = VolunteerRewards::where('request_status', 1)
                                 ->where('claim_status', 0)
                                 ->get();
@@ -59,6 +63,7 @@ class AdminSideNav extends Component
         $this->ipRegs = count($ips);
         $this->getJoinRequests();
         $this->getJoinRequestsVolunteer();
+        $this->getHoursUngrantedParticipants();
         $this->claimRequests = VolunteerRewards::where('request_status', 1)
                                 ->where('claim_status', 0)
                                 ->get();
@@ -101,14 +106,41 @@ class AdminSideNav extends Component
         $this->volunteerJoinRequests = $totalJoinRequests;
     }
 
-    public function render()
-    {
+    public function getHoursUngrantedParticipants(){
+        try{
+            $events = VolunteerEventsAndTrainings::all();
+            foreach ($events as $event) {
+                if($event->status === 'Completed'){
+                    $participantIds = array_map('trim', explode(',', $event->participants));
+                    $participants = explode(',', $event->participants);
+                    $totalParticipants = count($participants) - 1;
+                    $volunteerHours = VolunteerHours::where('event_id', $event->id)
+                                                    ->whereIn('user_id', $participantIds)
+                                                    ->get();
+        
+                    // Get the participant IDs that have volunteer hours
+                    $participantsWithHours = $volunteerHours->pluck('user_id')->unique()->toArray();
+        
+                    // Count the participants without hours
+                    if($totalParticipants > 0){
+                        $this->unassignedParticipantsCount += $totalParticipants - count($participantsWithHours);
+                    }
+                }
+            }
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+
+    public function render(){
         return view('livewire.admin-side-nav', [
             'confirmedEventsCount' => $this->confirmedEventsCount,
             'joinRequests' => $this->joinRequests,
             'volunteerRegs' => $this->volunteerRegs,
             'volunteerJoinRequests' => $this->volunteerJoinRequests,
             'ipRegs' => $this->ipRegs,
+            'unassignedParticipantsCount' => $this->unassignedParticipantsCount,
         ]);
     }
 }

@@ -21,48 +21,31 @@ class VolunteerEventsAndTrainingsTable extends Component
 {
     use WithPagination;
     public $eventType;
-
     public $eventName;
-
     public $organizer;
-
     public $startDate;
-
     public $endDate;
-
     public $volunteerHours;
-
     public $selectedTags = [];
-
     public $showForm;
     public $showTags = false;
     public $createdEvent;
     public $thisUserDetails;
     public $popup_message;
-
     public $insideSettingsButtonsShow = false;
-
     public $showEditDeleteButtons = false;
-
     public $selectedEventId;
-
     public $eventId;
-
     public $openEditEvent = false;
     public $editEventId;
-
     public $deleteEventId;
     public $deleteMessage;
     public $disableButton = "No";
-
     public $options;
-
     public $openJoinRequestsTable = false;
     public $joinRequestsData = [];
     public $joinEventId = null;
-
     public $disapproved = false;
-
     public $eventStatus;
     public $participant;
     public $isParticipant;
@@ -81,6 +64,8 @@ class VolunteerEventsAndTrainingsTable extends Component
     public $groupedSkills;
     public $hours = [];
     public $advocacyPlans = [];
+    public $type;
+    public $hoursUngrantedParticipants = [];
 
 
     protected $listeners = ['updateEndDateMin' => 'setEndDateMin'];
@@ -120,10 +105,44 @@ class VolunteerEventsAndTrainingsTable extends Component
 
         $this->joinRequestsData = $this->fetchJoinRequestsData();
 
+        $this->getHoursUngrantedParticipants();
+
         return view('livewire.volunteer-events-and-trainings-table', [
             'events' => $events,
             'categories' => $categories,
         ]);
+    }
+
+    public function getHoursUngrantedParticipants(){
+        try{
+            $events = VolunteerEventsAndTrainings::all();
+            foreach ($events as $event) {
+                if($event->status === 'Completed'){
+                    $participantIds = array_map('trim', explode(',', $event->participants));
+                    $participants = explode(',', $event->participants);
+                    $totalParticipants = count($participants) - 1;
+                    $volunteerHours = VolunteerHours::where('event_id', $event->id)
+                                                    ->whereIn('user_id', $participantIds)
+                                                    ->get();
+        
+                    // Get the participant IDs that have volunteer hours
+                    $participantsWithHours = $volunteerHours->pluck('user_id')->unique()->toArray();
+        
+                    // Count the participants without hours
+                    if($totalParticipants > 0){
+                        $unassignedParticipantsCount = $totalParticipants - count($participantsWithHours);
+                        $this->hoursUngrantedParticipants[$event->id] = $unassignedParticipantsCount;
+                    }else{
+                        $unassignedParticipantsCount = 0;
+                        $this->hoursUngrantedParticipants[$event->id] = $unassignedParticipantsCount;
+                    }
+                }else{
+                    $this->hoursUngrantedParticipants[$event->id] = 0;
+                }
+            }
+        }catch(Exception $e){
+            throw $e;
+        }
     }
 
     public function resetDateFilter(){
@@ -506,7 +525,8 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->popup_message = null;
     }
 
-    public function viewParticipants($eventId){
+    public function viewParticipants($eventId, $type){
+        $this->type = $type;
         $event = VolunteerEventsAndTrainings::find($eventId);
         $this->joinEventId = $event->id;
         if($event){
@@ -558,8 +578,6 @@ class VolunteerEventsAndTrainingsTable extends Component
         $this->thisUserDetails = null;
         $this->eventId = null;
         $this->options = null;
-        $this->closeParticipantsForm();
-        $this->openJoinRequests($this->joinEventId);
     }
 
     public function changeStatus($eventId, $status){
@@ -653,7 +671,7 @@ class VolunteerEventsAndTrainingsTable extends Component
 
                 $this->popup_message = "Status updated successfully.";
                 $this->options2 = null;
-                $this->viewParticipants($event->id);
+                $this->viewParticipants($event->id, 'grant');
             } else {
                 $this->popup_message = "Status update unsuccessfully.";
                 $this->options2 = null;
