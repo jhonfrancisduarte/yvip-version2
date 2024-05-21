@@ -478,8 +478,9 @@
     padding: 0px 3px;
     border-radius: 5px;
     position: absolute;
-    top: -10px;
+    top: -7px;
     left: -10px;
+    font-size: 11px;
     border: 1px solid #ccc;
     z-index: 1;
 }

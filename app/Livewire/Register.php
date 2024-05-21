@@ -63,18 +63,6 @@ class Register extends Component
     public $section3Validated = false;
     public $registering = false;
 
-    protected $rules = [
-        'is_volunteer' => 'required',
-        'password' => 'required|min:8',
-        'c_password' => 'required|same:password',
-        'selectedAdvocacyPlans' => 'required|array|min:1',
-        'birth_certificate' => 'file|max:20480',
-        'curriculum_vitae' => 'file|max:20480',
-        'good_moral_cert' => 'file|max:20480',
-        'valid_Id' => 'file|max:20480',
-        'other_documents.*' => 'nullable|file|max:20480',
-    ];
-
     public function mount(){
         $this->getProvicesAndCities();
     }
@@ -121,18 +109,24 @@ class Register extends Component
 
     public function create(){
         try {
-            $this->registering = true;
-            $this->permanent_selectedProvince = Str::ucfirst(Str::lower($this->permanent_selectedProvince));
-            $this->permanent_selectedCity = Str::ucfirst(Str::lower($this->permanent_selectedCity));
-            $this->residential_selectedProvince = Str::ucfirst(Str::lower($this->residential_selectedProvince));
-            $this->residential_selectedCity = Str::ucfirst(Str::lower($this->residential_selectedCity));
-
-            $this->validate();
-
+            $this->validate([
+                'is_volunteer' => 'required',
+                'password' => 'required|min:8',
+                'c_password' => 'required|same:password',
+                'selectedAdvocacyPlans' => 'required|array|min:1',
+                'birth_certificate' => 'required|file|max:20480',
+                'curriculum_vitae' => 'required|file|max:20480',
+                'good_moral_cert' => 'required|file|max:20480',
+                'valid_Id' => 'required|file|max:20480',
+                'other_documents.*' => 'nullable|file|max:20480',
+            ]);
+            
             if (!$this->isPasswordComplex($this->password)) {
                 $this->addError('password', 'The password must contain at least one uppercase letter, one number, and one special character.');
                 return;
             }
+
+            $this->registering = true;
 
             if($this->is_ip_participant === true){
                 $this->user_role = "yip";

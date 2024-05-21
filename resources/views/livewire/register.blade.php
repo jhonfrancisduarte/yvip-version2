@@ -251,7 +251,7 @@
                                     <div class="col-4" style="width: 100%">
                                         <div class="input-group">
                                             <label class="label" for="residential_province">Select Province:</label>
-                                            <select class="label select-status" wire:model.live="residential_selectedProvince" id="residential_province" name="residential_selectedProvince"  required>
+                                            <select class="label select-status" wire:model.live="residential_selectedProvince" id="residential_province" name="residential_selectedProvince"  required wire:ignore>
                                                 @if ($provinces)
                                                     <option class="label" value="">Select Province</option>
                                                     @foreach ($provinces->sortBy('province_description') as $province)
@@ -309,7 +309,7 @@
                         <div class="input-group">
                             <label class="label">Status</label>
                             <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                <select class="label select-status" id="status" wire:model.defer="status" name="status" required>
+                                <select class="label select-status" id="status" wire:model.live="status" name="status" required>
                                     <option selected value="" class="label">Choose option</option>
                                     <option value="Student" class="label">Student</option>
                                     <option value="Professional" class="label">Professional</option>
@@ -319,35 +319,39 @@
                             </div>
                         </div>
 
-                        <div class="row row-space student-details" style="{{ $status != 'Student' ? 'display: none' : '' }}">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">School name</label>
-                                    <input class="input--style-4" type="text" wire:model="name_of_school" name="name_of_school">
+                        @if($status === 'Student')
+                            <div class="row row-space student-details">
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">School name</label>
+                                        <input class="input--style-4" type="text" wire:model="name_of_school" name="name_of_school">
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Course</label>
+                                        <input class="input--style-4" type="text" wire:model="course" name="course">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Course</label>
-                                    <input class="input--style-4" type="text" wire:model="course" name="course">
-                                </div>
-                            </div>
-                        </div>
+                        @endif
 
-                        <div class="row row-space professional-details" style="{{ $status != 'Professional' ? 'display: none' : '' }}">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Nature of work</label>
-                                    <input class="input--style-4" type="text" wire:model="nature_of_work" name="nature_of_work">
+                        @if($status === 'Professional')
+                            <div class="row row-space professional-details">
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Nature of work</label>
+                                        <input class="input--style-4" type="text" wire:model="nature_of_work" name="nature_of_work">
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Employer</label>
+                                        <input class="input--style-4" type="text" wire:model="employer" name="employer">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Employer</label>
-                                    <input class="input--style-4" type="text" wire:model="employer" name="employer">
-                                </div>
-                            </div>
-                        </div>
+                        @endif
 
                         <div class="row row-space">
                             <div class="col-2">
@@ -369,20 +373,22 @@
                             </div>
                         </div>
 
-                        <div class="row row-space org-detail" style="{{ $is_org_member === 'no' ? 'display: none' : '' }}">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Organization name</label>
-                                    <input class="input--style-4" type="text" wire:model="organization_name" name="organization_name">
+                        @if($is_org_member === 'yes')
+                            <div class="row row-space org-detail">
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Organization name</label>
+                                        <input class="input--style-4" type="text" wire:model="organization_name" name="organization_name">
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <label class="label">Position</label>
+                                        <input class="input--style-4" type="text" wire:model="org_position" name="org_position">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Position</label>
-                                    <input class="input--style-4" type="text" wire:model="org_position" name="org_position">
-                                </div>
-                            </div>
-                        </div>
+                        @endif
 
                         <div class="section-buttons">
                             <button  class="register-button float-left" type="button" wire:click="prevSection"><i class="bi bi-arrow-left-short"></i>Prev</button>
@@ -418,7 +424,7 @@
                                 </div>
                             </div>
                             @error('selectedAdvocacyPlans')
-                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                <span style="color: red;">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -449,7 +455,7 @@
                                         <div class="file-box mr-2 d-flex align-items-center justify-content-center">
                                             <span class="file-name">{{ $birth_certificate ? $birth_certificate->getClientOriginalName() : 'No file chosen' }}</span>
                                             @if($birth_certificate)
-                                                <button type="button" class="btn-cancel" wire:click="removeBirthCertificate">&times;</button>
+                                                <button type="button" class="btn-cancel" wire:click.defer="removeBirthCertificate">&times;</button>
                                             @endif
                                         </div>
                                         <button type="button" class="btn-submit upload" onclick="document.getElementById('birth_certificate').click()">
@@ -457,7 +463,7 @@
                                         </button>
                                         <input type="file" id="birth_certificate" wire:model="birth_certificate" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     </div>
-                                    @error('birth_certificate') <span class="error">{{ $message }}</span> @enderror
+                                    @error('birth_certificate') <span style="color: red">{{ $message }}</span> @enderror
                                 </div>
                             </div>
 
@@ -474,9 +480,9 @@
                                         <button type="button" class="btn-submit upload" onclick="document.getElementById('curriculum_vitae').click()">
                                             <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
-                                        <input type="file" id="curriculum_vitae" wire:model="curriculum_vitae" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                        <input type="file" id="curriculum_vitae" wire:model.defer="curriculum_vitae" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     </div>
-                                    @error('curriculum_vitae') <span class="error">{{ $message }}</span> @enderror
+                                    @error('curriculum_vitae') <span style="color: red">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
@@ -497,7 +503,7 @@
                                             <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
                                     </div>
-                                    @error('good_moral_cert') <span class="error">{{ $message }}</span> @enderror
+                                    @error('good_moral_cert') <span style="color: red">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-2">
@@ -513,9 +519,9 @@
                                         <button type="button" class="btn-submit upload" onclick="document.getElementById('valid_Id').click()">
                                             <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
-                                        <input type="file" id="valid_Id" wire:model="valid_Id" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*">
+                                        <input type="file" id="valid_Id" wire:model.defer="valid_Id" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*">
                                     </div>
-                                    @error('valid_Id') <span class="error">{{ $message }}</span> @enderror
+                                    @error('valid_Id') <span style="color: red">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
@@ -540,9 +546,9 @@
                                         <button type="button" class="btn-submit upload ml-2" onclick="document.getElementById('other_document').click()">
                                             <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
-                                        <input type="file" id="other_document" wire:model="other_documents" style="display: none;" multiple accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                        <input type="file" id="other_document" wire:model.defer="other_documents" style="display: none;" multiple accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     </div>
-                                    @error('other_documents.*') <span class="error">{{ $message }}</span> @enderror
+                                    @error('other_documents.*') <span style="color: red">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>

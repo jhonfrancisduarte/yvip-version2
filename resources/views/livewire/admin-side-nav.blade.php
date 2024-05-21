@@ -1,5 +1,5 @@
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4"  wire:poll.30s="counter">
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
             <a href="#" class="brand-link" >
                 <img src="/images/yvip_logo.png" alt="yvip logo" class="brand-image brand-image1">
                 <span class="brand-text font-weight-bold">THE NYC - YVIP
@@ -31,7 +31,7 @@
                                 <i class="nav-icon bi bi-people"></i>
                                 <p>
                                     Youth Volunteer
-                                    @if($volunteerRegs !== 0 || $volunteerJoinRequests !== 0 || $claimRequests !== 0)
+                                    @if($volunteerRegs !== 0 || $volunteerJoinRequests !== 0 || $claimRequests !== 0 || $unassignedParticipantsCount !== 0)
                                         <span style="color: red; font-size:30px; position: absolute; top: -5px;">•</span>
                                     @endif
                                     <i class="right bi bi-caret-left pos-right"></i>
@@ -94,8 +94,8 @@
                                     <i class="nav-icon bi bi-card-list"></i>
                                     <p>
                                         Events and Trainings
-                                        @if($volunteerJoinRequests !== 0)
-                                            <span class="badge bg-primary2">{{ $volunteerJoinRequests }}</span>
+                                        @if($volunteerJoinRequests !== 0 || $unassignedParticipantsCount !== 0)
+                                            <span class="badge bg-primary2">{{ $volunteerJoinRequests + $unassignedParticipantsCount }}</span>
                                         @endif
                                     </p>
                                     </a>
