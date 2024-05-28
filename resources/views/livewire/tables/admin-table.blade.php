@@ -220,7 +220,7 @@
                             <span>Firstname <span class="required-mark">*</span></span>
                             <input type="text" class="panel-input-1" row="5" wire:model.live='first_name' placeholder="Firstname" required>
                             @error('first_name')
-                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                <p class="text-danger small" style="color: red;">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="v-spacer"></div>
@@ -228,7 +228,7 @@
                             <span>Lastname <span class="required-mark">*</span></span>
                             <input type="text" class="panel-input-1" row="5" wire:model.live='last_name' placeholder="Lastname" required>
                             @error('last_name')
-                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                <p class="text-danger small" style="color: red;">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="v-spacer"></div>
@@ -236,7 +236,7 @@
                             <span>Middlename</span>
                             <input type="text" class="panel-input-1" row="5" wire:model.live='middle_name' placeholder="Middlename">
                             @error('middle_name')
-                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                <p class="text-danger small" style="color: red;">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -246,7 +246,7 @@
                             <span>Email <span class="required-mark">*</span></span>
                             <input type="text" class="panel-input-1" row="5" wire:model.live='email' placeholder="Email" required>
                             @error('email')
-                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                <p class="text-danger small" style="color: red;">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="v-spacer"></div>
@@ -273,7 +273,7 @@
                             <span>Password <span class="required-mark">*</span></span>
                             <input type="password" class="panel-input-1" row="5" wire:model.live='password' placeholder="Password" required>
                             @error('password')
-                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                <p class="text-danger small" style="color: red;">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="v-spacer"></div>
@@ -281,13 +281,13 @@
                             <span>Confirm Password <span class="required-mark">*</span></span>
                             <input type="password" class="panel-input-1" row="5" wire:model.live='c_password' placeholder="Confirm Password" required>
                             @error('c_password')
-                                <span class="text-danger small" style="color: red;">Passwords didn't match!</span>
+                                <p class="text-danger small" style="color: red;">Passwords didn't match!</p>
                             @enderror
                         </div>
                     </div>
          
                     <div class="popup-panel-footer">
-                            <button class="close-dialog-btn btn-success btn-overide float-right" type="submit">Submit</button>
+                        <button class="btn-success btn-overide float-right" type="submit">Submit</button>
                     </div>
 
                 </form>

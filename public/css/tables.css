@@ -288,19 +288,19 @@
     outline: none;
 }
 
-.table-action-button.t-a-b-submit{
+.t-a-b-submit{
     border: 1px solid rgb(0, 51, 146);
     color: rgb(0, 51, 146);
 }
-.table-action-button.t-a-b-success{
+.t-a-b-success{
     border: 1px solid rgb(0, 146, 61);
     color: rgb(0, 146, 61);
 }
-.table-action-button.t-a-b-warning{
+.t-a-b-warning{
     border: 1px solid rgb(146, 46, 0);
     color: rgb(146, 46, 0);
 }
-.table-action-button.t-a-b-danger{
+.t-a-b-danger{
     border: 1px solid rgb(146, 0, 0);
     color: rgb(146, 0, 0);
 }
@@ -311,7 +311,7 @@
     width: 20px;
 }
 
-.table-btn-g .hover-p{
+.hover-p{
     position: absolute;
     text-align: right;
     right: 25px;

@@ -1,46 +1,27 @@
-.btn-accounts{
-    position: relative;
-}
-
-.btn-accounts span{
-    padding: 0px 5px;
-    border-radius: 5px;
-    position: absolute;
-    top: -10px; left: -10px;
-}
-
-.user-info{
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
-
-.red-flag{
-    color: red;
-    position: absolute;
-    top: 0px;
-}
-
-.background-red{
-    background-color: rgb(255, 242, 242) !important;
-}
-
-.btn-pos-right{
-    position: absolute !important;
-    right: 10px !important;
-}
-
-.btn-pos-right .span{
-    font-size: 12px;
-    margin-top: -15px;
-}
-
-.user-data{
-    width: 100% !important;
+.top-buttons{
     display: flex;
 }
 
+.btn-s{
+    color: rgb(0, 255, 0) !important;
+}
+
+.btn-d{
+    color: red !important;
+}
+
+.btn-g.btn-pos-right:hover .hover-p{
+    top: -25px;
+    transform: scale(1);
+}
+
+.table-overlay.background-red{
+    background: rgba(255, 0, 0, 0.05);
+    border: 1px solid white;
+}
+
 @media (max-width: 768px){
-    .btn-pos-right{
-        position: relative !important;
+    .table-files .req-files-buttons{
+        background: transparent !important;
     }
 }

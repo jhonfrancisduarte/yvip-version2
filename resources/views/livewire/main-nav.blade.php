@@ -45,7 +45,7 @@
 
     </div>
 
-    @if(session('user_role') !== 'yv' && session('user_role') !== 'yip')
+    @if(Auth::user()->user_role !== 'yv' && Auth::user()->user_role !== 'yip')
         <div class="side-nav-container"> 
             @livewire('admin-side-nav')
         </div>

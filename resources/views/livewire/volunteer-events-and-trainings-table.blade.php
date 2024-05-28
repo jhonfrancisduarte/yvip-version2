@@ -257,26 +257,26 @@
                     <div class="panel-form-group">
                         <span>Name of Event <span class="required-mark">*</span></span>
                         <input type="text" class="panel-input-1" name="event_name" id="event-name" placeholder="Enter Event Name" wire:model="eventName" required>
-                        @error('eventName') <span class="text-danger">{{ $message }}</span> @enderror
+                        @error('eventName') <p class="text-danger">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="panel-form-group">
                         <span>Organizer/Facilitator <span class="required-mark">*</span></span>
                         <input type="text" class="panel-input-1" name="organizer" placeholder="Enter Organizer/Facilitator" wire:model="organizer" required>
-                        @error('organizer') <span class="text-danger">{{ $message }}</span> @enderror
+                        @error('organizer') <p class="text-danger">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="panel-form-group block-on-mobile">
                         <div class="panel-form-group-2">
                             <span>Start Date <span class="required-mark">*</span></span>
                             <input type="date" class="panel-input-1" name="start_date" id="start-date" wire:model="startDate" required>
-                            @error('startDate') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('startDate') <p class="text-danger">{{ $message }}</p> @enderror
                         </div>
                         <div class="v-spacer"></div>
                         <div class="panel-form-group-2">
                             <span>End Date <span class="required-mark">*</span></span>
                             <input type="date" class="panel-input-1" name="end_date" id="end-date" wire:model="endDate" min="{{ $startDate ? $startDate : '' }}" required>
-                            @error('endDate') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('endDate') <p class="text-danger">{{ $message }}</p> @enderror
                         </div>
                     </div>
 
@@ -295,13 +295,13 @@
                                 <option value="Training">Training</option>
                             </select>
                             <i class="bi bi-caret-down select-icon"></i>
-                            @error('eventType') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('eventType') <p class="text-danger">{{ $message }}</p> @enderror
                         </div>
                     </div>
                     
                     <div class="panel-form-group" style="margin-top: -30px">
-                        <span>Volunteer category who can join <span class="required-mark">*</span></span>
-                        <select class="panel-input-1" wire:model="category"> 
+                        <span>Volunteer category who can join</span>
+                        <select class="panel-input-1" wire:model="category" required> 
                             <option value="">Categories</option> 
                             @foreach ($categories as $item)
                                 <option value="{{ $item->all_categories_name }}">{{ $item->all_categories_name }}</option> 
@@ -309,18 +309,18 @@
                         </select>
                         <i class="bi bi-caret-down select-icon" style="right: 60px;"></i>
                         <button type="button" class="theme-btn" wire:click='addTag' style="margin-left: 10px;"><i class="bi bi-plus-lg"></i></button>
-                        @error('category') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="panel-form-group" id="added-tags">
-                        <span>Added Categories: </span>
+                        <span>Added Categories:  <span class="required-mark">*</span></span>
                         @foreach($selectedTags as $tag)
                             <button type="button" class="theme-btn">{{ $tag }} <i class="fa fa-times" wire:click="removeTag('{{ $tag }}')"></i></button>
                         @endforeach
+                        @error('category') <p class="text-danger">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="popup-panel-footer">
-                        <button type="submit" class="close-dialog-btn btn-success btn-overide float-right">Submit</button>
+                        <button type="submit" class="btn-success btn-overide float-right">Submit</button>
                     </div>
 
                 </form>
@@ -347,26 +347,26 @@
                     <div class="panel-form-group">
                         <span>Name of Event <span class="required-mark">*</span></span>
                         <input type="text" class="panel-input-1" name="event_name" id="event-name" placeholder="Enter Event Name" value="{{$eventName}}" wire:model.live="eventName">
-                        @error('eventName') <span class="text-danger">{{ $message }}</span> @enderror
+                        @error('eventName') <p class="text-danger">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="panel-form-group">
                         <span>Organizer/Facilitator <span class="required-mark">*</span></span>
                         <input type="text" class="panel-input-1" name="organizer" value="{{$organizer}}" wire:model.live="organizer">
-                        @error('organizer') <span class="text-danger">{{ $message }}</span> @enderror
+                        @error('organizer') <p class="text-danger">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="panel-form-group block-on-mobile">
                         <div class="panel-form-group-2">
                             <span>Start Date <span class="required-mark">*</span></span>
                             <input type="date" class="panel-input-1" name="start_date" id="start-date" value="{{$startDate}}" wire:model.live="startDate">
-                            @error('startDate') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('startDate') <p class="text-danger">{{ $message }}</p> @enderror
                         </div>
                         <div class="v-spacer"></div>
                         <div class="panel-form-group-2">
                             <span>End Date <span class="required-mark">*</span></span>
                             <input type="date" class="panel-input-1" name="end_date" id="end-date" value="{{$endDate}}" wire:model.live="endDate" min="{{ $startDate ? $startDate : '' }}">
-                            @error('endDate') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('endDate') <p class="text-danger">{{ $message }}</p> @enderror
                         </div>
                     </div>
 
@@ -375,7 +375,7 @@
                         <div class="panel-form-group-2">
                             <span>Number of applicable volunteering hours <span class="required-mark">*</span></span>
                             <input type="number" class="panel-input-1" name="volunteering_hours" placeholder="Enter Number of Hours" value="{{$volunteerHours}}" wire:model.live="volunteerHours">
-                            @error('volunteerHours') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('volunteerHours') <p class="text-danger">{{ $message }}</p> @enderror
                         </div>
                         <div class="v-spacer"></div>
                         <div class="panel-form-group-2">
@@ -386,7 +386,7 @@
                                 <option value="Training">Training</option>
                             </select>
                             <i class="bi bi-caret-down select-icon"></i>
-                            @error('eventType') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('eventType') <p class="text-danger">{{ $message }}</p> @enderror
                         </div>
                     </div>
     
@@ -404,18 +404,18 @@
                         <i class="bi bi-caret-down select-icon" style="right: 60px;"></i>
                         <button type="button" class="theme-btn" wire:click='addTag' style="margin-left: 10px;"><i class="bi bi-plus-lg"></i></button>
                     </div>
-                    @error('category') <span class="text-danger">{{ $message }}</span> @enderror
 
                     <div class="paner-form-group" id="added-tags">
                         <span>Added Categories: </span>
                         @foreach($selectedTags as $tag)
                             <button type="button" class="theme-btn">{{ $tag }} <i class="fa fa-times" wire:click="removeTag('{{ $tag }}')"></i></button>
                         @endforeach
+                        @error('category') <p class="text-danger">{{ $message }}</p> @enderror
                     </div>
         
 
                     <div class="popup-panel-footer">
-                        <button type="submit" class="close-dialog-btn btn-success btn-overide float-right">Submit</button>
+                        <button type="submit" class="btn-success btn-overide float-right">Submit</button>
                     </div>
 
                 </form>

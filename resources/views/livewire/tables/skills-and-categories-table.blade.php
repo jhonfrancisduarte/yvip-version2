@@ -121,7 +121,7 @@
                             <span>Category Name <span class="required-mark">*</span></span>
                             <input type="text" class="panel-input-1" row="5" wire:model.live='category_name' placeholder="Category name..." required>
                             @error('category_name')
-                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                <p class="text-danger small" style="color: red;">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -129,7 +129,7 @@
                             <span>Description <span class="required-mark">*</span></span>
                             <textarea class="panel-input-1" row="5" wire:model.live='description' placeholder="Description" required></textarea>
                             @error('description')
-                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                <p class="text-danger small" style="color: red;">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -149,7 +149,7 @@
                     </form>
 
                     <div class="popup-panel-footer">
-                        <button class="close-dialog-btn btn-success btn-overide float-right" type="submit" wire:loading.attr="disabled">Submit</button>
+                        <button class="btn-success btn-overide float-right" type="submit" wire:loading.attr="disabled">Submit</button>
                     </div>
 
             </div>
@@ -174,7 +174,7 @@
                             <span>Category Name <span class="required-mark">*</span></span>
                             <input type="text" class="panel-input-1" row="5" wire:model.live='category_name' placeholder="Category name..." value="{{ $category_name }}" required>
                             @error('category_name')
-                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                <p class="text-danger small" style="color: red;">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -182,7 +182,7 @@
                             <span>Description <span class="required-mark">*</span></span>
                             <textarea class="panel-input-1" row="10" wire:model.live='description' required>{{ $description }}</textarea>
                             @error('description')
-                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                <p class="text-danger small" style="color: red;">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -202,7 +202,7 @@
                     </form>
 
                     <div class="popup-panel-footer">
-                        <button class="close-dialog-btn btn-success btn-overide float-right" type="submit" wire:loading.attr="disabled">Submit</button>
+                        <button class="btn-success btn-overide float-right" type="submit" wire:loading.attr="disabled">Submit</button>
                     </div>
 
             </div>

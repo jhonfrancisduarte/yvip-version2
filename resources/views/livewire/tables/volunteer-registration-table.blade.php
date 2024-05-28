@@ -8,7 +8,6 @@
     </div>
 
     <div class="table-wrapper">
-
         <div class="table-container">
 
             <div class="table-header bordered-bottom">
@@ -343,7 +342,6 @@
 
         </div>
     </div>
-
 
     <div class="popup popup-modal" @if(!$approving) style="display: none;" @endif>
         <div class="modal-overlay"></div>

@@ -5,7 +5,7 @@
     height: 60px;
     display: flex;
     justify-content: center;
-    z-index: 1;
+    z-index: 2;
 }
 
 .top-nav .top-nav-bg{
@@ -219,12 +219,14 @@
         align-items: center;
         margin-right: 10px;
         cursor: pointer;
+        border: 1px solid white;
     }
 
     .floating-nav .nav-item.yv-group-nav:hover,
     .floating-nav .nav-item.home-nav-item:hover,
     .floating-nav .nav-item.ip-group-nav:hover{
-        background: #252525 !important;
+        background: linear-gradient(45deg, rgb(203, 243, 255) 0%, rgb(247, 221, 199) 100%) !important;
+        border: 1px solid white; 
     }
     .acc-section .nav-item:hover{
         background: #e6e6e6 !important;
@@ -242,11 +244,12 @@
     }
 
     .floating-nav .nav-item.active{
-        background: #252525;
+        background: linear-gradient(45deg, rgb(203, 243, 255) 0%, rgb(247, 221, 199) 100%); 
+        border: 1px solid white; 
     }
 
     .floating-nav .nav-item.active a{
-        color: white !important;
+        color: rgb(0, 0, 0) !important;
     }
 
     .floating-nav .nav-item a{
@@ -337,7 +340,12 @@
 
 
     .floating-nav .nav-item.outlined{
-        border: 1px solid #939393;
+        background: linear-gradient(45deg, rgb(203, 243, 255) 0%, rgb(247, 221, 199) 100%);
+        border: 1px solid white; 
+    }
+
+    .floating-nav .nav-item.outlined .nav-link.a{
+        color: rgb(0, 0, 0) !important;
     }
 
     .scroll-detector{
@@ -487,14 +495,13 @@
     }
 
     .nav-link.active{
-        background: black !important;
-        color: white !important;
+        background: linear-gradient(45deg, rgb(203, 243, 255) 0%, rgb(247, 221, 199) 100%) !important;
         border-radius: 20px !important;
     }
 
     .nav-link.active p,
     .nav-link.active i{
-        color: white !important;
+        color: rgb(0, 0, 0) !important;
     }
 
 }

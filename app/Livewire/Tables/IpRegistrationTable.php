@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Tables;
 use App\Models\User;
+use App\Models\UserData;
 use Livewire\Component;
 use App\Mail\UserApprovalNotification;
 use App\Mail\UserDisapprovalNotification;
@@ -24,6 +25,7 @@ class IpRegistrationTable extends Component
     public $approving;
     public $advocacyPlans = [];
     public $otherDocs = [];
+    public $expandedRows = [];
 
     public function render(){
         $volunteersYip = User::where('user_role', 'yip')
@@ -48,11 +50,21 @@ class IpRegistrationTable extends Component
         ]);
     }
 
+    public function toggleRow($volunteerId){
+        if (in_array($volunteerId, $this->expandedRows)) {
+            $this->expandedRows = [];
+        } else {
+            $this->expandedRows = [$volunteerId];
+        }
+
+        $this->showUserData($volunteerId);
+    }
+
     public function showUserData($userId){
-        $selectedUserDetails = User::where('users.id', $userId)
-                                ->join('user_data', 'users.id', '=', 'user_data.user_id')
-                                ->select('users.*', 'user_data.*')
-                                ->first();
+        $selectedUserDetails = UserData::where('user_data.id', $userId)
+                                        ->join('users', 'users.id', '=', 'user_data.user_id')
+                                        ->select('users.user_role', 'users.email', 'user_data.*')
+                                        ->first();
         $this->advocacyPlans = explode(', ', $selectedUserDetails->advocacy_plans);
         $this->otherDocs = explode(', ', $selectedUserDetails->other_document);
         $this->selectedUserDetails = $selectedUserDetails->getAttributes();

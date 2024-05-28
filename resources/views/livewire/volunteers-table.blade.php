@@ -13,11 +13,11 @@
                 </div>
                 <div class="col-md-2 margin-top-mobile">
                     <select class="panel-input-1 w" wire:model.live="civil_status">
-                        <option selected value="">Civil Status</option>
-                        <option class="label" value="Single">Single</option>
-                        <option class="label" value="Married">Married</option>
-                        <option class="label" value="Widowed">Widowed</option>
-                        <option class="label" value="Legally Separated">Legally Separated</option>
+                        <option selected value="">Status</option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Legally Separated">Legally Separated</option>
                     </select>
                     <i class="bi bi-caret-down select-icon"></i>
                 </div>

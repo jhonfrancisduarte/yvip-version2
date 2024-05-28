@@ -104,7 +104,7 @@
                         <span>Title <span class="required-mark">*</span></span>
                         <input type="text" class="panel-input-1" row="5" wire:model.live='title' placeholder="Title..." required>
                         @error('title') 
-                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                            <p class="text-danger small" style="color: red;">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -112,7 +112,7 @@
                         <span>Your Announcement <span class="required-mark">*</span></span>
                         <textarea id="announcement" class="panel-input-1 textarea" rows="5" wire:model.live="content" placeholder="Enter announcement..." required></textarea>
                         @error('content') 
-                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                            <p class="text-danger small" style="color: red;">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -128,7 +128,7 @@
                                 <i class="bi bi-caret-down select-icon"></i>
                             </div>
                             @error('category') 
-                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                                <p class="text-danger small" style="color: red;">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="v-spacer"></div>
@@ -164,7 +164,7 @@
                     </div>
 
                     <div class="popup-panel-footer">
-                        <button class="close-dialog-btn btn-success btn-overide float-right" type="submit" wire:loading.attr="disabled">Submit</button>
+                        <button class="btn-success btn-overide float-right" type="submit" wire:loading.attr="disabled">Submit</button>
                     </div>
 
                 </form>
@@ -191,7 +191,7 @@
                         <span>Title <span class="required-mark">*</span></span>
                         <input type="text" class="panel-input-1" row="5" wire:model.live='title' placeholder="Title..." value="{{ $title }}" required>
                         @error('title') 
-                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                            <p class="text-danger small" style="color: red;">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -199,7 +199,7 @@
                         <span>Your Announcement <span class="required-mark">*</span></span>
                         <textarea class="panel-input-1 textarea" rows="5" wire:model.live="content" required>{{ $content }}</textarea>
                         @error('content') 
-                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                            <p class="text-danger small" style="color: red;">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -214,6 +214,9 @@
                                 </select>
                                 <i class="bi bi-caret-down select-icon"></i>
                             </div>
+                            @error('category') 
+                                <p class="text-danger small" style="color: red;">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="v-spacer"></div>
                         <div class="panel-form-group-3">
@@ -248,7 +251,7 @@
                     </div>
 
                     <div class="popup-panel-footer">
-                        <button class="close-dialog-btn btn-success btn-overide float-right" type="submit" wire:loading.attr="disabled">Submit</button>
+                        <button class="btn-success btn-overide float-right" type="submit" wire:loading.attr="disabled">Submit</button>
                     </div>
 
                 </form>

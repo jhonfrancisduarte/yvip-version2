@@ -214,7 +214,7 @@
 .panel-form-group-2{
     position: relative;
     width: 50%;
-    display: flex;
+    display: block;
     margin-bottom: 30px;
 }
 
@@ -222,10 +222,14 @@
     width: 5px;
 }
 
+.v-spacer-2{
+    width: 5px;
+}
+
 .panel-form-group-3{
     position: relative;
     width: 33.33%;
-    display: flex;
+    display: block;
     margin-bottom: 30px;
 }
 
@@ -302,6 +306,14 @@
     position: absolute !important;
     top: -5px !important;
     left: -5px !important;
+}
+
+.red{
+    color: red;
+}
+
+.green{
+    color: green;
 }
 
 .rs-select2{
