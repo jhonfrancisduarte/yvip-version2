@@ -26,12 +26,22 @@ class IpRegistrationTable extends Component
     public $otherDocs = [];
 
     public function render(){
-        $volunteers = User::where('user_role', 'yip')
+        $volunteersYip = User::where('user_role', 'yip')
             ->join('user_data', 'users.id', '=', 'user_data.user_id')
             ->select('users.email', 'users.active_status', 'user_data.*')
+            ->where('users.active_status', 0);
+
+        $volunteersYv = User::where('user_role', 'yv')
+            ->join('user_data', 'users.id', '=', 'user_data.user_id')
+            ->select('users.email', 'users.active_status', 'user_data.*')
+            ->where('users.active_status', 1)
+            ->where('users.ip_reg', 1);
+
+        $volunteers = $volunteersYip->union($volunteersYv)
             ->search(trim($this->search))
-            ->where('users.active_status', 0)
             ->paginate(10);
+
+   
 
         return view('livewire.tables.ip-registration-table',[
             'volunteers' => $volunteers, 
@@ -53,9 +63,16 @@ class IpRegistrationTable extends Component
             $admin = Auth::user()->email;
             $registrant = User::where('id', $userId)->first();
             if ($registrant){
-                $registrant->update([
-                    'active_status' => 1,
-                ]);
+                if($registrant->user_role === 'yv'){
+                    $registrant->update([
+                        'user_role' => 'yip',
+                    ]);
+                }else{
+                    $registrant->update([
+                        'active_status' => 1,
+                    ]);
+                }
+              
                 $mailed = Mail::to($registrant->email)->send(new UserApprovalNotification($registrant->name, $admin));
                 if($mailed){
                     $this->popup_message = null;

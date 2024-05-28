@@ -1,22 +1,11 @@
-.nav-link.active {
-    color: #fff;
-    background-color: #007bff;
-    /* background: linear-gradient(126deg, rgba(255,212,175,1) 0%, rgba(255,255,255,1) 100%); */
-    background: white !important;
-    color: #002f5c !important;
-    font-weight: 500;
-    border-radius: 5px !important;
-    width: 100% !important;
-    box-shadow: none !important;
-}
 
 .nav-link:hover {
-    color: #002f5c !important;
+    background: #e6e6e6;
+    border-radius: 25px;
 }
 
 .nav-link{
     color: #616161 !important;
-    /* font-family: poppins, Arial, sans-serif; */
     font-size: 14px;
 }
 

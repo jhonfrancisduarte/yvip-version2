@@ -1,62 +1,66 @@
-.skills-list ul {
-    padding-left: 20px !important;
+.s-c-row{
+    background: white;
+    margin-bottom: 10px;
+    padding: 25px 15px 15px 15px;
+    border-radius: 30px;
+    display: block;
+    position: relative;
+    overflow: hidden;
 }
 
-.btn-add-skills {
-    margin-left: 15px;
+.table-overlay{
+    border-radius: 30px !important;
 }
 
-
-.skill-checkbox {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    margin-bottom: 5px;
-    border-radius: 3px;
-}
-
-.every-checkbox {
-    width: auto;
-    margin-left: 10px;
-    margin-right: 5px;
-    cursor: pointer;
-}
-
-.every-label {
-    margin-left: 0;
-    margin-top: 5px;
-    max-width: 100%;
-    width: 100%;
-    cursor: pointer;
-}
-
-.btn-add-skill {
+.table-header .top-buttons {
+    position: relative;
     margin-top: 10px;
-    margin-left: 0;
+    margin-left: 10px;
 }
 
-.skill-form-control {
-    margin-bottom: 5px;
+.s-c-buttons{
+    position: absolute;
+    right: 15px;
+    display: flex;
+    top: 15px;
 }
 
-.add-edit-skill-input {
+.s-c-buttons .btn-group-2{
+    display: flex
+}
+
+.skills-list{
+    padding: 0 10px;
+}
+
+.panel-form-group{
+    display: block !important;
+}
+
+.add-edit-skill-input{
+    width: 100%;
+    margin-bottom: 10px;
     position: relative;
 }
 
-.add-edit-skill-input .close {
+.add-edit-skill-input .close{
+    width: 30px;
+    height: 30px;
+    background: white;
     position: absolute;
+    border-radius: 50%;
+    display: flex;
     top: 5px;
+    justify-content: center;
+    align-items: center;
     right: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: none;
+    transition: all 0.2s ease-in-out;
 }
 
-.row-footer .user-data {
-    padding-top: 10px;
-}
-
-@media (max-width:768px) {
-    .btn-add-skills {
-        margin-top: 5px;
-        margin-left: 0;
-    }
+.add-edit-skill-input .close:hover{
+    background: rgb(247, 84, 84);
+    color: white;
 }

@@ -1,0 +1,51 @@
+.pagination{
+    transition: all 0.2s ease-in-out;
+}
+
+.pagination:hover{
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+}
+
+
+@media (min-width: 768px){
+    .pagination{
+        border-radius: 20px !important;
+        overflow: hidden !important;
+        height: 35px !important;
+    }
+    
+    .page-item.active .page-link{
+        background-color: #00BFE8 !important;
+        border: none !important;
+    }
+    
+    .page-item{
+        background: white !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .page-item .page-link{
+        border: none !important;
+        border-radius: 50% !important;
+        height: 67%; width: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pagination{
+        border-radius: 20px !important;
+        overflow: hidden !important;
+        width: fit-content !important;
+    }
+
+    .page-item .page-link{
+        border: none !important;
+    }
+}
+

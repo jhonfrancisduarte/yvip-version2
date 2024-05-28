@@ -48,13 +48,7 @@
                                         <td>{{ $volunteer->middle_name }}</td>
                                         <td>{{ $volunteer->last_name }}</td>
                                         <td>{{ $volunteer->email }}</td>
-                                        <td>
-                                            @if($volunteer->active_status === 0)
-                                                Pending
-                                            @else
-                                                Active
-                                            @endif
-                                        </td>
+                                        <td>Pending</td>
                                         <td class="action-btn2">
                                             <div class="btn-group-2" role="group">
                                                 <div class="btn-g">

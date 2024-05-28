@@ -1,275 +1,160 @@
-.close-form {
+.table-thead{
     width: 100%;
-    height: 100%;
-    position: absolute;
-    background: rgba(0, 0, 0, 0.200);
-}
-
-.see-rewards {
-    position: fixed !important;
+    height: 65px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100%;
-    z-index: 9999;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-.rewards-form .modal-content {
-    width: 800px;
-}
-
-.modal-dialog {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.rewards-table-content .card {
-    display: inline-block !important;
-}
-
-.table-contain .card,
-#rewards-table {
-    width: 100%;
-}
-
-.table-contain {
-    width: 95% !important;
-    overflow-x: hidden !important;
-    border-radius: 5px;
-}
-
-.table-contain .card,
-#rewards-table,
-.rewards-row {
-    border-radius: 5px !important;
-}
-
-.rewards ul li {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    cursor: default;
-    pointer-events: none;
-    margin-bottom: 5px;
-    margin-left: 5px;
-}
-
-.rewards span {
-    margin-left: 5px;
-}
-
-.claim-reward {
-    list-style-type: none;
-}
-
-.reward-list li {
-    margin-bottom: 15px;
-}
-
-#rewards-table .reward-actions button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 13px;
-}
-
-.pop-up-message {
-    position: absolute;
-    top: -100px;
-    right: 10px;
-    width: auto;
-    height: 60px;
-    background: white;
-    box-shadow: 0px 0px 15px 1px rgba(113, 106, 202, 0.1);
-    border: 1px solid #e6eaee;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: .3s ease-in-out;
-    padding-left: 30px;
-    padding-right: 20px;
-    z-index: 9999;
-}
-
-.pop-up-message .close {
-    margin-top: -7px;
-    margin-left: -10px;
-}
-
-.pop-up-message p {
-    margin-top: 13px;
-    margin-left: 10px;
-    text-align: center;
-    color: #28a745;
-}
-
-.main-div-request {
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    overflow: hidden;
-}
-
-.request-form-container .request-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.main-div-request .card-primary {
-    width: 100%;
-    height: 100%;
-}
-
-.requester {
-    display: flex !important;
     justify-content: space-between;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-}
-
-.request-form .modal-content {
-    width: 600px;
-}
-
-#rewards-table .claim-status li {
-    margin-bottom: 15px;
-    list-style-type: none;
-}
-
-#rewards-table .actions {
-    text-align: center;
-}
-
-#rewards-table .claim-reward {
-    display: flex;
-    justify-content: center;
     align-items: center;
-    margin-bottom: 5px;
+    background: linear-gradient(138deg, rgba(117,224,254,0.2) 0%, rgba(255,201,157,0.2) 100%);
+    border-radius: 20px 20px 0 0;
 }
 
-.card-header button {
-    margin-left: 5px;
-    float: right;
+.rewards{
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    background: #fcfcfc;
 }
 
-.nav-for-action {
-    float: right;
-    color: black;
+.table-thead div{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 15px;
+    font-weight: 600;
 }
 
-.btn-reward {
-    margin-right: 7px;
+.rewards div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 15px;
 }
 
-.btn-claim-requests{
-    width: fit-content;
+.rewards form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    background: #f7f7f7;
+}
+
+.rewards form div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 15px;
+}
+
+.rewards-action{
     position: absolute;
-    right: 25px;
+    top: 0;
+    right: 0;
+    height: 100% !important;
+    width: 70px !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
-.btn-claim-requests .notif-count {
-    padding: 0px 3px;
-    border-radius: 5px;
-    position: absolute;
-    top: -10px;
-    right: -8px;
-    border: 1px solid #ccc;
-    z-index: 1;
-}
-
-.add-reward{
-    margin-left: 15px;
-    margin-top: 5px;
+.action{
+    padding: 5px !important;
 }
 
 .add-form{
     width: 100%;
-}
-
-.mx-0{
-    width: 5px;
-}
-
-.btn-group-2 .btn-submit{
-    margin-right: 5px;
-}
-
-.btn-group-3{
     display: flex;
-    justify-content: end;
+    justify-content: center;
+}
+
+.add-form .row{
+    width: 100%;
+}
+
+.popup-panel-content .modal-header{
+   padding: 0;
+   margin-bottom: 40px;
+   border: none !important;
+   padding-top: 10px;
+}
+
+.popup-panel-content .modal-header .row-buttons{
+   position: absolute;
+   bottom: -30px;
+}
+
+.rewards-header{
+    position: relative;
+    flex-direction: column;
     align-items: center;
+    padding: 30px 0 0 0 !important;
 }
 
-.btn-group-3 .light-blue{
-    margin-right: 5px;
-}
-
-.row-buttons{
+.btn-claim-requests{
     display: flex;
-    align-items: center;
-    justify-content: end;
+    position: absolute;
+    right: 160px;
 }
 
-.row-buttons .btn-success{
-    margin-bottom: -4px;
-    margin-right: 5px;
+.btn-claim-requests .notif-count{
+    position: absolute;
+    left: -13px; top: -7px;
+}
+
+.btn-claim-requests .notif-count{
+    padding: 0 5px;
+    border-radius: 7px;
+    z-index: 9;
+    border: 1px solid #fcfcfc;
 }
 
 @media (max-width: 768px){
-    .rewards-form .modal-content {
-        width: 100%;
-    }    
-
-    .btn-claim-requests {
-        position: relative;
-        width: 100%;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        right: 0;
+    .panel-content-wrapper{
+        height: fit-content !important;
     }
 
-    .block-on-mobile .card-title{
-        margin-bottom: 15px;
+    .rewards-header{
+        display: flex !important;
+    }
+    .rewards-action{
+        width: 10px !important;
+    }
+
+    .rewards form div{
+        padding: 0 5px !important;
+    }
+
+    .m-r-m{
+        margin-right: 20px;
+    }
+
+    .table-header.justify-left{
+        position: relative;
+        margin-bottom: 60px;
+    }
+
+    .btn-claim-requests {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 0;
+        top: 60px;
+        width: 100%;
     }
 
     .btn-claim-requests .notif-count {
-        padding: 0px 3px;
-        border-radius: 5px;
-        width: fit-content;
-        position: absolute;
-        top: -10px;
-        left: -5px;
-        border: 1px solid #ccc;
-        z-index: 1;
+        left: 0;
     }
-
-    .btn-group-2 .btn-submit{
-        margin-right: 0 !important;
-        margin-top: 5px;
-    }
-
-    .rewards-form .modal-content {
-        width: 100%;
-    }
-    
-    .request-form .modal-content {
-        width: 100%;
-        max-width: 100%;
-    }
-    
 }

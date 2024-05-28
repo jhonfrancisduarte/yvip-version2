@@ -4,20 +4,12 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Rewards;
-use App\Models\Volunteer;
-use App\Models\User;
-use App\Models\ClaimRequest;
 use App\Models\RewardClaim;
 use App\Models\VolunteerHours;
 use App\Models\VolunteerRewards as VolunteerReward; 
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-
 use Exception;
-
-use function Laravel\Prompts\select;
 
 class VolunteerRewards extends Component
 {
@@ -62,9 +54,13 @@ class VolunteerRewards extends Component
     
         $userRewards = null;
         $userHours = VolunteerHours::join('users', 'volunteer_hours.user_id', '=', 'users.id')
+            ->join('user_data', 'user_data.user_id', '=', 'users.id')
             ->whereIn('users.user_role', ['yv', 'yip'])
-            ->selectRaw('users.id as user_id, users.name as user_name, SUM(volunteer_hours.volunteering_hours) as total_hours')
-            ->groupBy('users.id', 'users.name')
+            ->selectRaw('users.id as user_id, 
+                        users.name as user_name,
+                        user_data.profile_picture as profile_picture,
+                        SUM(volunteer_hours.volunteering_hours) as total_hours')
+            ->groupBy('users.id', 'users.name', 'user_data.profile_picture')
             ->search(trim($this->search))
             ->paginate(10);
 

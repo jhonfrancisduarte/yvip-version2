@@ -1,0 +1,386 @@
+.pop-up-message{
+    position: fixed;
+    top: 170px; right: 100px;
+    background: #c6fdc8;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 10px;
+    height: 50px;
+    transition: all 0.3s ease-in-out;
+    transform-origin: right center;
+    transform: scale(0);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
+    z-index: 9;
+}
+
+.pop-up-message .close{
+    position: absolute;
+    right: 10px;
+    background: white;
+    border-radius: 15px;
+    opacity: 1;
+    font-weight: 400;
+    padding: 0 5px;
+    top: 13px;
+    color: #737373;
+}
+
+.pop-up-message p{
+    padding: 0 40px 0 7px;
+    margin-top: 10px;
+    vertical-align: middle;
+    text-align: center;
+    height: 100%;
+    margin-bottom: 0;
+}
+
+/* Main contents global --------------------------------------- */
+
+.full-window{
+    position: absolute !important;
+    width: 100%;
+    height: fit-content;
+    margin-top: 0 !important;
+    top: 135px; left: 0;
+}
+
+
+/* End main contents global ------------------------------------ */
+
+
+.search-bar-wrapper{
+    position: sticky;
+    top: 0; left: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    background: white;
+}
+
+.search-bar-container{
+    position: relative;
+    width: 800px;
+    height: 65px;
+    /* background: linear-gradient(115deg, rgba(180,180,180,1) 0%, rgba(128,128,128,1) 100%); */
+    background: linear-gradient(130deg, rgba(0,204,255,1) 0%, rgba(255,144,70,1) 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.theme-btn{
+    width: fit-content;
+    height: 35px;
+    padding: 0 9px;
+    border-radius: 20px;
+    border: 1.5px solid #E0E1E4;
+    box-shadow: 0px 0px 20px -20px;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.2s ease-in-out 0ms;
+    user-select: none;
+}
+
+.theme-btn:hover {
+    background-color: #F2F2F2;
+    box-shadow: 0px 0px 20px -18px;
+}
+  
+.theme-btn:active {
+    transform: scale(0.95);
+}
+
+.theme-btn:focus{
+    outline: none;
+}
+
+.close{
+    position: absolute;
+    top: 20px; right: 20px;
+}
+
+.close-2{
+    position: absolute;
+    top: 20px; right: 0;
+}
+
+.close-3{
+    position: absolute;
+    top: 20px; right: 20px;
+    z-index: 3;
+}
+
+.modal-header{
+    position: relative !important;
+}
+
+/* Add and Edit Panel --------------------------------------- */
+
+.popup-panel{
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; 
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-panel-overlay{
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; 
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 0;
+}
+
+.panel-content-wrapper{
+    width: 800px;
+    background: white;
+    border-radius: 20px;
+    height: 90%;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.panel-content-wrapper.h-fit-content{
+    height: fit-content;
+}
+
+.popup-panel-content{
+    width: 100%;
+    border-radius: 20px;
+    height: 100%;
+    padding: 0 30px 20px 30px;
+    z-index: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.popup-panel-content::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+.popup-panel-content::-webkit-scrollbar-thumb {
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    cursor: grab;
+}
+
+.popup-panel-content::-webkit-scrollbar-track {
+    background-color: #fdfdfd;
+}
+
+.popup-panel-header{
+    position: sticky;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    top: 0;
+    z-index: 2;
+    padding-top: 20px;
+    background: white;
+    margin-bottom: 20px;
+}
+
+.popup-panel-footer{
+    height: 60px;
+    margin-top: -30px
+}
+
+.panel-close-btn{
+    position: absolute;
+    top: 20px; right: 0;
+}
+
+.panel-form-group{
+    position: relative;
+    width: 100%;
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.panel-form-group-2{
+    position: relative;
+    width: 50%;
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.v-spacer{
+    width: 5px;
+}
+
+.panel-form-group-3{
+    position: relative;
+    width: 33.33%;
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.panel-form-group span{
+    position: absolute;
+    top: -20px;
+    left: 5px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.panel-input-1{
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    background: #f0f0f0;
+    padding: 0 15px;
+}
+
+.panel-input-1.w{
+    background: white;
+}
+
+/* Hide the default arrow */
+.panel-input-1 {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.full-width{
+    width: 100% !important;
+}
+
+.select-icon{
+    position: absolute;
+    top: 10px; right: 16px;
+    color: #ccc;
+    pointer-events: none;
+}
+
+.panel-input-1.textarea{
+    height: 150px;
+    padding: 10px;
+}
+
+.panel-input-1:focus{
+    outline: none;
+}
+
+.file-btn{
+    width: 150px;
+    height: 40px;
+    background: #f0f0f0;
+    border-radius: 15px;
+    border: none;
+    overflow-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.file-btn:focus{
+    outline: none;
+}
+
+.file-btn:hover{
+    background-color: #F2F2F2;
+    box-shadow: 0px 0px 20px -18px;
+}
+
+.required-mark{
+    color: red;
+    position: absolute !important;
+    top: -5px !important;
+    left: -5px !important;
+}
+
+.rs-select2{
+    width: 100% !important;
+}
+/* End of Add and Edit Panel --------------------------------------- */
+
+
+/* Button Overides ------------------------------------------------- */
+
+.btn-overide{
+    height: 40px !important;
+    border-radius: 15px !important;
+    width: 100px;
+}
+
+.m-top{
+    margin-top: -30px
+}
+
+/* End Button Overides --------------------------------------------- */
+
+
+@media (max-width: 768px){
+    .search-bar-container{
+        width: 96%;
+    }
+
+    .v-spacer{
+        display: none;
+    }
+    
+    .search-bar-wrapper{
+        position: sticky;
+        top: 55px; left: 0;
+        z-index: 1;
+    }
+
+    .popup-panel-content{
+        padding: 0 5px 10px 5px;
+    }
+
+    .panel-content-wrapper{
+        width: 96%;
+    }
+
+    .panel-form-group-2,
+    .panel-form-group-3{
+        width: 100%;
+    }
+
+    .modal-body.no-padding{
+        padding: 0 !important;
+    }
+
+    .popup-panel-footer{
+        height: 60px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .pop-up-message{
+        top: 80px;
+        right: 5px;
+    }
+
+    .panel-form-group.block-on-mobile{
+        display: block;
+    }
+
+    .panel-form-group-2{
+        margin-bottom: 0;
+        padding-bottom: 35px;
+    }
+
+    .m-top{
+        margin-top: -10px;
+        margin-bottom: 10px;
+    }
+    
+}

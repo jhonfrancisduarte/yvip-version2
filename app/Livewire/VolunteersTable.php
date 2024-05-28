@@ -4,6 +4,7 @@ namespace App\Livewire;
 use App\Models\User;
 use App\Models\PhilippineProvinces;
 use App\Models\PhilippineCities;
+use App\Models\UserData;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -41,6 +42,8 @@ class VolunteersTable extends Component
     public $advocacyPlans = [];
     
     public $otherDocs = [];
+    public $expandedRows = [];
+
 
     public function render(){
         if ($this->selectedProvince != null) {
@@ -98,10 +101,22 @@ class VolunteersTable extends Component
         ]);
     }
 
+    public function toggleRow($volunteerId){
+        if (in_array($volunteerId, $this->expandedRows)) {
+            $this->expandedRows = [];
+        } else {
+            $this->expandedRows = [$volunteerId];
+        }
+
+        $this->showUserData($volunteerId);
+    }
+    
+
+
     public function showUserData($userId){
-        $selectedUserDetails = User::where('users.id', $userId)
-                                ->join('user_data', 'users.id', '=', 'user_data.user_id')
-                                ->select('users.email', 'users.user_role', 'users.active_status', 'user_data.*')
+        $selectedUserDetails = UserData::where('user_data.id', $userId)
+                                ->join('users', 'users.id', '=', 'user_data.user_id')
+                                ->select('users.user_role', 'users.email', 'user_data.*')
                                 ->first();
         $this->advocacyPlans = explode(', ', $selectedUserDetails->advocacy_plans);
         $this->otherDocs = explode(', ', $selectedUserDetails->other_document);
@@ -119,7 +134,7 @@ class VolunteersTable extends Component
         }
 
         $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' . urlencode($text);
-        $this->getSkillsAndCategory($userId);
+        $this->getSkillsAndCategory($selectedUserDetails->user_id);
     }
 
     public function deleteVolunteer($userId){

@@ -6,21 +6,18 @@
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="css/profile.css">
-    <link rel="stylesheet" href="css/announcement.css">
 @endsection
 
 @section('content')
 
-    @livewire('admin-side-nav')
+    <div class="main-content-wrapper">
 
-    <div class="content-wrapper">
+        @livewire('main-nav')
+
+        <div class="scroll-detector"></div>
 
         @livewire('admin.admin-profile-table')
 
     </div>
-
-@endsection
-
-@section('js')
 
 @endsection

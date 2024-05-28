@@ -34,6 +34,7 @@ Route::middleware(['auth', 'user_role:yv,yip'])->group(function () {
      Route::get('/virtual-passport', function () {return view('livewire.virtual-passport');})->name('virtual-passport');
      Route::get('/volunteer-manual', function () {return view('livewire.volunteer-manual');})->name('volunteer-manual');
      Route::get('/leaderboard', function () {return view('livewire.leaderboard');})->name('leaderboard');
+     Route::get('/ip-application', function () {return view('livewire.ip.ip-application');})->name('ip-application');
      // Route::get('/messages', function () {return view('livewire.messages');})->name('messages');
 });
 

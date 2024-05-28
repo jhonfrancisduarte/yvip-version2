@@ -132,6 +132,14 @@ class Register extends Component
                 $this->user_role = "yip";
             }
 
+            if($this->status === 'Student'){
+                $this->nature_of_work = null;
+                $this->employer = null;
+            }else if($this->status === 'Professional'){
+                $this->name_of_school = null;
+                $this->course = null;
+            }
+
             $passportNumber = 'YP' . date('Y') . $this->generateUserId();
 
             $user = User::create([
@@ -139,6 +147,7 @@ class Register extends Component
                 'email' => $this->email,
                 'password' => $this->password,
                 'user_role' => $this->user_role,
+                'ip_reg' => 0,
                 'name' => $this->first_name . " " . $this->middle_name . " " . $this->last_name,
             ]);
 

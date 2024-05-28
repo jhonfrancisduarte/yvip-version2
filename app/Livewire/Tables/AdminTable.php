@@ -4,11 +4,10 @@ namespace App\Livewire\Tables;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
-use Illuminate\Support\Facades\DB;
 use App\Models\admin;
 use Exception;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+
 class AdminTable extends Component{
     public $selectedUserDetails;
     public $search;
@@ -34,6 +33,7 @@ class AdminTable extends Component{
     public $profile_picture = 'images/blank_profile_pic.png';
     public $active_status = 1;
     public $admin_position = "";
+    public $expandedRows = [];
 
     protected $rules = [
         'password' => 'required|min:8',
@@ -73,6 +73,16 @@ class AdminTable extends Component{
         } catch (Exception $e){
             throw $e;
         }
+    }
+
+    public function toggleRow($volunteerId){
+        if (in_array($volunteerId, $this->expandedRows)) {
+            $this->expandedRows = [];
+        } else {
+            $this->expandedRows = [$volunteerId];
+        }
+
+        $this->showUserData($volunteerId);
     }
 
     private function resetForm(){
@@ -162,11 +172,12 @@ class AdminTable extends Component{
     }
 
     public function showUserData($userId){
-        $this->selectedUserDetails = User::where('users.id', $userId)
-                                ->join('admin', 'users.id', '=', 'admin.user_id')
-                                ->select('users.email', 'users.user_role','admin.*')
+        $selectedUserDetails = admin::where('admin.id', $userId)
+                                ->join('users', 'users.id', '=', 'admin.user_id')
+                                ->select('users.user_role', 'users.email', 'admin.*')
                                 ->first();
-        $this->selectedUserDetails = $this->selectedUserDetails->getAttributes();
+        $this->selectedUserDetails = $selectedUserDetails->getAttributes();
+        
     }
 
     public function hideUserData(){

@@ -1,19 +1,19 @@
-<section class="content profile-content">
+<div class="main-contents">
 
-    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
+    <div class="pop-up-message" @if($popup_message)style="transform: scale(1) !important"@endif>
         <button type="button" class="close" wire:click="closePopup">
-            <span aria-hidden="true">&times;</span>
+            <span>&times;</span>
         </button>
         <p>{{ $popup_message }}</p>
     </div>
 
-    <div class="profile-header">
-        <div class="cover">
-           <img src="images/yvip_logo.png" alt="logo" width="100">
-        </div>
-        <div class="profile-body">
+    <div class="table-wrapper">
+        <div class="table-container">
+            <div class="cover">
+                <img class="cover-yvip-logo" src="images/yvip_logo.png" width="70">
+            </div>
+
             <div class="content">
-                
                 <div class="top-info">
                     <div class="profile-pic">
                         <img src="{{ $user->profile_picture }}" alt="profile picture">
@@ -31,7 +31,7 @@
 
                 @if($myInfo)
                     <div class="user-info">
-                        <div class="row1 row-header">
+                        <div class="row1">
                             <div class="col1">
                                 <label class="label">Position: 
                                     <span>
@@ -61,12 +61,12 @@
 
                 @if($editMyInfo)
                     <div class="user-info">
-                        <div class="edit-title">
-                            <h5>Edit profile</h5>
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit profile</h5>
                             <button class="btn-cancel" wire:click.live="closeEditMyInfo">Cancel</button>  
                         </div>
                         
-                        <div class="row1">
+                        <div class="row1" style="margin-top: 10px">
                             <div class="col2">
                                 <div class="user-data">
                                     <label class="label">Fullname: 
@@ -102,151 +102,148 @@
         </div>
     </div>
 
-    @if($openEditProfile)
-        <div class="anns anns-full-h">
-            <div class="close-form" wire:click="closeEditProfileForm"></div>
-            <div class="add-announcement-container">
-                <div class="modal-dialog modal-md">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Update Profile Picture</h4>
-                            <button type="button" class="close" wire:click="closeEditProfileForm">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form wire:submit.prevent="editProfilePic('{{ $user->user_id }}')">
-                            <div class="card card-primary">
-                                <div class="card-body">
-                                    <div class="row">     
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label class="label">Select picture</label>
-                                                <input type="file" accept="image/*" wire:model.blur='profile_picture' required/>
-                                            </div>
-                                            @error('profile_picture') <span class="red">Wait until file is uploaded</span> @enderror
-                                        </div>
-                                    </div>
-                                </div>
+    <div class="popup popup-modal" @if(!$openEditProfile) style="display: none;" @endif>
+        <div class="close-dialog-btn popup-panel-overlay" wire:click="closeEditProfileForm"></div>
+        <div class="popup-modal-content">
 
-                                <div class="modal-footer justify-content-between">
-                                    <button class="btn-submit" type="submit" {{ $profile_picture ? '' : 'disabled' }}>
-                                        Submit
-                                    </button>
-                                    <div wire:loading wire:target="profile_picture" class="loading-container">
-                                        <div class="loading-spinner"></div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </form>
+            <div class="modal-header">
+                <h3 class="modal-title">Update Profile Picture</h3>
+                <button type="button" class="close-dialog-btn close" wire:click="closeEditProfileForm">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <form wire:submit.prevent="editProfilePic('{{ $user->user_id }}')">
+
+                <div class="panel-form-group">
+                    <div wire:loading wire:target="featured_image" class="loading-container">
+                        <div class="loading-spinner"></div>
+                    </div>
+                    <input id="profile_picture" type="file" accept="image/*" wire:model.live='profile_picture' style="display: none"/>
+                    <button type="button" class="file-btn" onclick="document.getElementById('profile_picture').click()"> 
+                        @if($profile_picture)
+                            {{ $profile_picture->getClientOriginalName() }}
+                        @else
+                            <i class="bi bi-upload"style="margin-left: -2px"></i>
+                        @endif
+                    </button>
+                </div>
+                @error('profile_picture') <span class="red">Wait until file is uploaded</span> @enderror
+
+                <div class="modal-footer justify-content-between">
+                    <button class="btn-submit" type="submit" {{ $profile_picture ? '' : 'disabled' }}>
+                        Save
+                    </button>
+                    <div wire:loading wire:target="profile_picture" class="loading-container">
+                        <div class="loading-spinner"></div>
                     </div>
                 </div>
-            </div>
+                    
+            </form>
+    
         </div>
-    @endif
+    </div>
 
-    @if($toBeEdited)
-        <div class="anns anns-full-h">
-            <div class="close-form" wire:click="closeEditProfileForm"></div>
-            <div class="add-announcement-container">
-                <div class="modal-content">
-                    <form wire:submit.prevent="updateInfo('{{ $toBeEdited }}')">
 
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit password</h4>
-                            <button type="button" class="close" aria-label="Close" wire:click="closeEditProfileForm">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-                            @if($toBeEdited === "password")
-                                <div class="row1">
-                                    <div class="form-group">
-                                        <input class="form-control" type="password" wire:model.live="password" placeholder="Current Password" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" type="password" wire:model.live="new_password" placeholder="New Password" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" type="password" wire:model.live="c_new_pass" placeholder="Confirm New Password" required>
-                                    </div>
-                                </div>
-                                @error('new_password') 
-                                    <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                @enderror
-                            @elseif($toBeEdited === "full_name")
-                                <div class="row1">
-                                    <div class="col2">
-                                        <label class="label label-formatted">Firstname</label>
-                                        <input class="form-control" type="text" wire:model.live="first_name" required value="{{ $first_name }}">
-                                    </div>
-                                    @error('first_name') 
-                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                    @enderror
-                                    <div class="col2">
-                                        <label class="label label-formatted">Middlename</label>
-                                        <input class="form-control" type="text" wire:model.live="middle_name" required value="{{ $middle_name }}">
-                                    </div>
-                                    @error('middle_name') 
-                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                    @enderror
-                                    <div class="col2">
-                                        <label class="label label-formatted">Lastname</label>
-                                        <input class="form-control" type="text" wire:model.live="last_name" required value="{{ $last_name }}">
-                                    </div>
-                                    @error('last_name') 
-                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            @else
-                                <div class="row1">
-                                    <div class="form-group">
-                                            <label class="label label-formatted">{{ $formattedData }}</label>
-                                            <input class="form-control" type="text" wire:model.live="thisData" value="{{ $thisData }}" required>
-                                    </div>
-                                    @error('thisData') 
-                                        <span class="text-danger small" style="color: red;">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            @endif                     
-                        </div>
-
-                        <div class="modal-footer justify-content-between">
-                            <button class="btn-submit" type="submit">Submit</button>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endif
-
-    @if($deleteAccDialog)
-        <div class="anns anns-full-h">
-            <div class="close-form" wire:click="hideDeleteDialog"></div>
-            <div class="add-announcement-container">
-                <div class="modal-content">
+    <div class="popup popup-panel" @if(!$toBeEdited) style="display: none;" @endif>
+        <div class="close-dialog-btn popup-panel-overlay" wire:click="closeEditProfileForm"></div>
+        <div class="panel-content-wrapper h-fit-content">
+            <div class="popup-panel-content" style="margin-left: 5px">
                 
-                    <div class="modal-header">
-                        <h5 class="modal-title">Confirm Delete</h5>
-                        <button type="button" class="close" aria-label="Close" wire:click="hideDeleteDialog">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete your account?</p>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button class="btn-delete" wire:click="deleteAccount" wire:loading.attr="disabled">Yes</button>
-                        <button class="btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
-                    </div>
-
+                <div class="popup-panel-header">
+                    <h3 class="table-title">Edit info</h3>
+                    <button type="button" class="close-dialog-btn close close-2" wire:click="closeEditProfileForm">
+                        <span>&times;</span>
+                    </button>
                 </div>
-            </div>
-        </div>    
-    @endif
 
-</section>
+                <form wire:submit.prevent="updateInfo('{{ $toBeEdited }}')">
+                    @if($toBeEdited === "password")
+                      
+                        <div class="panel-form-group">
+                            <span class="span-label">Current Password <span class="required-mark">*</span></span>
+                            <input class="panel-input-1" type="password" wire:model.live="password" required>
+                        </div>
+                        <div class="panel-form-group">
+                            <span class="span-label">New Password <span class="required-mark">*</span></span>
+                            <input class="panel-input-1" type="password" wire:model.live="new_password" required>
+                        </div>
+                        <div class="panel-form-group">
+                            <span class="span-label">Confirm New Password <span class="required-mark">*</span></span>
+                            <input class="panel-input-1" type="password" wire:model.live="c_new_pass" required>
+                        </div>
+      
+                        @error('new_password') 
+                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                        @enderror
+                    @elseif($toBeEdited === "full_name")
+                        <div class="row1">
+                            <div class="panel-form-group">
+                                <span class="span-label">Firstname <span class="required-mark">*</span></span>
+                                <input class="panel-input-1" type="text" wire:model.live="first_name" required value="{{ $first_name }}">
+                            </div>
+                            @error('first_name') 
+                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                            @enderror
+
+                            <div class="panel-form-group">
+                                <span class="span-label">Middlename</span>
+                                <input class="panel-input-1" type="text" wire:model.live="middle_name" value="{{ $middle_name }}">
+                            </div>
+                            @error('middle_name') 
+                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                            @enderror
+
+                            <div class="panel-form-group">
+                                <span class="span-label">Lastname <span class="required-mark">*</span></span>
+                                <input class="panel-input-1" type="text" wire:model.live="last_name" required value="{{ $last_name }}">
+                            </div>
+                            @error('last_name') 
+                                <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    @else
+                        <div class="panel-form-group">
+                            <span class="span-label label-formatted">{{ $formattedData }} <span class="required-mark">*</span></span>
+                            <input class="panel-input-1" type="text" wire:model.live="thisData" value="{{ $thisData }}" required>
+                        </div>
+                        @error('thisData') 
+                            <span class="text-danger small" style="color: red;">{{ $message }}</span>
+                        @enderror
+
+                    @endif                     
+
+                    <div class="popup-panel-footer">
+                        <button class="close-dialog-btn btn-success btn-overide float-right" type="submit" wire:loading.attr="disabled" style="margin-right: 10px">Save</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popup popup-modal" @if(!$deleteAccDialog) style="display: none;" @endif>
+        <div class="close-dialog-btn modal-overlay" wire:click="hideDeleteDialog"></div>
+        <div class="popup-modal-content">
+            
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="close-dialog-btn close" wire:click="hideDeleteDialog">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Are you sure you want to delete your account?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="close-dialog-btn btn-delete" wire:click="deleteAccount" wire:loading.attr="disabled">Yes</button>
+                    <button class="close-dialog-btn btn-cancel" wire:click="hideDeleteDialog">Cancel</button>
+                </div>
+
+        </div>
+    </div>    
+
+</div>

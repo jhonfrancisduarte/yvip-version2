@@ -1,391 +1,347 @@
-.show-form{
-    position: fixed;
+.input-group{
+    flex-wrap: nowrap !important;
+}
+
+.date-filter{
+    position: relative;
+    width: fit-content;
+    background: white;
+    border-radius: 20px;
+    display: flex;
+    overflow: hidden;
+    justify-content: left;
+    align-items: center;
+    padding: 3px 0 0 10px;
+    height: 40px;
+}
+
+.col-md-2,
+.col-md-3{
+    padding: 0 !important;
+}
+
+.date-filter span{
+    font-size: 11px;
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 4px;
+}
+
+.reset-date{
+    position: absolute;
+    right: -36px;
+    top: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e6e6e6;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100%;
-    z-index: 9999;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
-.event-form-width{
-    max-width: 40% !important;
+.reset-date:hover{
+    background: #313131;
 }
 
-.close-event-form{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background: rgba(0,0,0, 0.200);
+.shadowed-left{
+    box-shadow: -2px 0 3px rgba(0, 0, 0, 0.075);
 }
 
-#calendar {
-    background-color: white !important;
+.date-wrapper{
+    width: 200px;
 }
 
-.action-buttons {
-    position: relative;
-    width: 100% !important;
+
+.reset-date.on-movile{
+    display: none;
 }
+
+.input-group input[type="radio"]:checked ~ .checkmark {
+    background-color: #75e0fe;
+}
+
 .options{
     position: relative;
 }
 
-.inside-settings-buttons {
-    width: 130px;
+.options.on-mobile .options-container{
     position: absolute;
-    left: -120px; top: -100px;
+    left:20px; top: 100px;
     background: white;
-    box-shadow: 0px 0px 15px 1px rgba(113, 106, 202, 0.1);
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    box-shadow: 5px 5px 35px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    display: none;
+    height: 100px;
+    width: 150px;
     padding: 8px;
-    z-index: 2 !important;
 }
 
-.form-group-2{
-    display: flex !important;
-}
-
-.requester{
-    display: flex !important;
-    justify-content: space-between;
-    border-bottom: 1px solid #ccc;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.requester .label{
-    cursor: pointer;
-}
-
-.requester .label:hover{
-    color: green;
-}
-
-.requester .btn-approve{
-    float: right;
-    width: 80px !important;
-}
-
-.focused:focus{
-    background: #1796aa;
-    color: white;
-}
-
-.divider{
-    width: 1px;
-    background: #ccc;
-    height: 38px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.options-container{
-    width: 130px;
+.options-container.on-desktop{
     position: absolute;
-    right: 40px; top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50px;
     background: white;
-    box-shadow: 0px 0px 15px 1px rgba(113, 106, 202, 0.1);
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    display: none;
+    height: 100px;
+    width: 150px;
     padding: 8px;
-    z-index: 3 !important;
-}
-
-.options-container button{
-    margin-top: 2px;
-    margin-bottom: 2px;
-    width: 100%;
-}
-
-.inside-settings-buttons button {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    width: 100%;
-}
-
-.show-buttons {
-    display: flex !important;
-}
-
-.settings{
-    width: 100%;
-}
-
-.join-requests-table{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-.join-btn{
-    width: 100%;
-}
-
-.green{
-    color: green;
-    font-weight: bold;
-}
-
-.blue{
-    color: #17a2b8;
-    font-weight: bold;
-}
-
-.orange{
-    color: orangered;
-    font-weight: bold;
-}
-
-.card-header1{
-    width: 100%;
-    display: flex;
-}
-
-.btn-accounts{
-    position: relative;
-}
-
-.search-bar{
-    display: flex;
-}
-
-.search-bar input{
-    margin-left: 5px;
-    width: 300px;
-}
-
-.button-container {
-    position: relative;
-    margin-left: 38px;
-}
-
-.join-requests-btn{
-    padding: 3.5px 5.5px !important;
-    left: -19px;
-}
-
-.badge-circle {
-    color: white;
-    position: absolute;
-    top: -10px;
-    left: -26px;
-    font-size: 12px;
-    padding: 1.5px 4px;
-    border-radius: 35%;
-    background-color: #CCCCCC;
-    border: 1px solid #AAAAAA;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
     z-index: 1;
 }
 
-.action-buttons .btn-info {
-    margin: 0 auto;
+.change-stat-container:hover .options-container.on-desktop{
+    position: absolute;
+    opacity: 1;
     display: block;
+    top: 25px;
 }
 
-.toggle-btn-large {
-    width: 30px;
-    height: 30px;
+.change-stat-container{
+    position: relative;
+    width: fit-content;
 }
 
-.toggleSettings {
-    margin-top: 5px !important;
-    background-color: #ffffff !important;
-    border: 1px solid #1796aa !important;
-    border-radius: 20% !important;
+.table-action-buttons{
+    width: 40% !important;
+    height: 100% !important;
+    align-items: end !important;
+    padding-right: 25px;
+    z-index: 1;
 }
 
-.toggleSettings .icon{
-  color: #1796aa !important;
+.table-action-button{
+    padding: 1px 2px 0 3px !important;
 }
 
-.join-status-event{
-    margin-top: 5px !important;
-    background-color: #ffffff !important;
-    border: 1px solid #1796aa !important;
-    border-radius: 6% !important;
-    color: #1796aa !important;
+.main-data{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.notif-count{
+    position: absolute;
+    top: -7px;
+    left: 20px;
+    padding: 0 5px;
+    border-radius: 5px;
+    font-size: 11px;
+    text-align: right;
+}
+
+.event-status-wrapper{
+    position: absolute;
+    top: 0; left: 0;
     width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    border-radius: 50px;
 }
 
-.edit-btn{
-    margin-top: 5px !important;
-    background-color: #ffffff !important;
-    border: 1px solid #1796aa !important;
-    border-radius: 6% !important;
-    color: #1796aa  !important;
-    width: 100%;
+.btn-status{
+    background: #f3f3f3;
+    border-radius: 20px;
+    margin-top: 5px;
+    color:#313131;
+    border: none;
+    padding: 0 10px;
+    border: 1px solid white;
+    transition: all 0.2s ease-in-out !important;
+    font-size: 12px;
+}
+.btn-status:hover{
+    padding: 0 15px;
+}
+.btn-status:focus{
+    outline: none;
 }
 
-.delete-button{
-    margin-top: 5px !important;
-    background-color: #ffffff !important;
-    border: 1px solid red !important;
-    border-radius: 6% !important;
-    color: red  !important;
-    width: 100%;
-}
-
-.bg-white.p-3 {
-  margin: 1rem;
-  border-radius: 0.5rem;
-}
-
-#thisUserDetailss-table th {
-  background-color: #087cfc;
-  color: white;
-}
-
-#thisUserDetailss-table td {
-  background-color: white;
-}
-
-.table{
-  border-collapse: separate;
-  border-spacing: 0;
-}
-
-#thisUserDetailss-table td {
-  border-bottom: 1px solid #eeeeee;
-}
-
-.search-container{ 
-  display: flex; 
-  align-items: center; 
-  width: 500px;
-} 
-
-.search-container input, .search-container select{ 
-  margin-right: 10px !important; 
-}
-
-.dropdown-menu {
+.grant-hours-form{
     width: 200px;
-}
-
-.dropdown-item {
-    padding: 5px 15px;
-}
-
-.dropdown-divider {
-    margin: 5px 0;
-}
-
-.input-group-radio{
-    margin-top: 4px;
-}
-
-.anns2{
-    padding-top: 100px;
-}
-
-.input-group-radio label{
-    font-weight: 400 !important;
-}
-
-.input-group-radio .radio{
-    display: flex;
-}
-
-.input-group-radio label{
-    line-height: 10px;
-}
-
-.input-group-radio input[type=radio]{
-    width: 13px;
-    margin-right: 5px;
-    margin-top: -7px;
-}
-
-.date-pick{
-    margin-left: -80px;
-}
-
-.reset-date{
-    height: 40px;
-    display: flex;
-    align-items: center;
-    margin-left: 5px;
-}
-
-.reset-date i{
-    cursor: pointer;
 }
 
 .btn-approval{
     display: flex;
-}
-
-.btn-approval .form-control{
-    width: 80px;
-    margin-right: 5px;
-    height: 35px;
-}
-
-.participant-list-header{
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+    justify-content: right;
+    position: relative;
 }
 
-@media (max-width:768px){
-    .btn-add-event{
-        margin-top: 5px;
-        margin-left: 0;
+.btn-grant{
+    position: absolute;
+    right: 5px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 4px;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-grant:hover{
+    background-color: rgb(98, 231, 132);
+}
+
+.grant-label{
+    position: absolute;
+    top: 3px;
+    font-size: 10px;
+    color: gray;
+    right: 45px;
+}
+.granted-hours{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    height: 100%;
+}
+
+.granted-hours p{
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 0;
+    text-align: right;
+    margin-bottom: 0;
+}
+
+.granted-hours span{
+    font-size: 12px;
+    text-align: right;
+}
+
+.inside-settings-buttons{
+    background: transparent;
+    width: fit-content;
+    height: 100%;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 10px;
+    transform-origin: right center;
+    transform: scale(0);
+    transition: all 0.2s ease-in-out;
+    pointer-events: none;
+}
+
+.inside-settings-buttons button{
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
+}
+
+.inside-settings-buttons.active{
+    transform: scale(1);
+    right: 40px;
+    pointer-events: all;
+}
+
+.inside-settings-buttons:hover{
+    transform: scale(1);
+    right: 40px;
+    pointer-events: all;
+}
+
+.options-hover{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px;
+    width: 20px;
+}
+
+.options-hover:hover + .inside-settings-buttons{
+    transform: scale(1);
+    right: 40px;
+    pointer-events: all;
+}
+
+.grant-hours-thead{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-bottom: 10px;
+}
+
+.grant-hours-thead span{
+    font-size: 13px;
+}
+
+@media (max-width: 768px){
+    .date-filter{
+        width: 100%;
     }
 
-    .action-btn2{
-        position: sticky; 
-        right: -22px;
-        background: white;
+    .reset-date.on-mobile{
+        position: absolute;
+        right: 175px;
+        top: 5px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #e6e6e6;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .card-header1 {
-        display: block;
-    }
-
-    .card-header1 .col-md-2{
-        margin-top: 5px;
-    }
-
-    .divider{
+    .reset-date.on-desktop{
         display: none;
     }
 
-    .date-pick{
-        margin-left: 0;
+    .options-container.on-desktop{
+        display: none;
     }
 
-    .input-group-radio{
-        margin-top: 10px;
+    .options.on-mobile .options-container{
+        display: block;
     }
 
-    .requester{
-        display: block !important;
+    .grant-hours-form{
+        width: 150px;
+        margin-right: -10px;
     }
 
-    .options-container{
-        position: absolute;
-        right: 70px; top: -100px;
+    .grant-label{
+        font-size: 8px;
     }
 
-    .inside-settings-buttons {
-        position: absolute;
-        left: -135px; top: -100px;
+    .main-data{
+        font-size: 12px;
+    }
+
+    .event-status-wrapper,
+    .table-tr .table-overlay,
+    .table-tr{
+        border-radius: 25px !important;
+    }
+
+    .table-action-buttons{
+        padding-right: 15px;
+    }
+
+    .options-hover:hover + .inside-settings-buttons{
+        right: 28px;
+    }
+
+    .inside-settings-buttons:hover{
+        right: 28px;
     }
 }

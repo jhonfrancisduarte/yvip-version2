@@ -343,6 +343,7 @@ class VolunteerEventsAndTrainingsTable extends Component
                     $joinRequestsData[] = [
                         'user_id' => $user->id,
                         'name' => $user->userData->first_name . ' ' . $user->userData->middle_name . ' ' . $user->userData->last_name,
+                        'picture' => $user->userData->profile_picture,
                     ];
                 }
             }
@@ -400,6 +401,8 @@ class VolunteerEventsAndTrainingsTable extends Component
                     $eventJoinRequestsData[] = [
                         'user_id' => $user->id,
                         'name' => $user->name,
+                        'picture' => $user->userData->profile_picture,
+                        'passport' => $user->userData->passport_number,
                     ];
                 }
             }
@@ -513,7 +516,6 @@ class VolunteerEventsAndTrainingsTable extends Component
                 $this->advocacyPlans = explode(', ',  $this->thisUserDetails->advocacy_plans);
                 $this->thisUserDetails = $this->thisUserDetails->getAttributes();
                 $this->getSkillsAndCategory($userId);
-                $this->openJoinRequestsTable = null;
                 $this->options = null;
             }
         }catch(Exception $e){
@@ -555,6 +557,8 @@ class VolunteerEventsAndTrainingsTable extends Component
                                 'id' => $participantId,
                                 'name' => $name,
                                 'hoursGranted' => $isGranted,
+                                'passport' => $userData->passport_number,
+                                'picture' => $userData->profile_picture,
                             ];
                         }
                     }

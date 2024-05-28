@@ -19,7 +19,7 @@
                             </a>
                         </li>
 
-                    @if(session('user_role') == 'yv' || session('user_role') == 'yip')
+                    @if(Auth::user()->user_role == 'yv' || Auth::user()->user_role == 'yip')
                         {{-- Youth Volunteer Tabs --}}
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link navs">
@@ -83,11 +83,22 @@
                                     </p>
                                     </a>
                                 </li>
+
+                                @if($volunteerHours === 100 && Auth::user()->user_role == 'yv')
+                                    <li class="nav-item">
+                                        <a href="{{ route('ip-application') }}" class="nav-link {{ request()->routeIs('ip-application') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-globe"></i>
+                                        <p>
+                                            IP Application
+                                        </p>
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                         </li>
                     @endif
 
-                    @if(session('user_role') == 'yip')
+                    @if(Auth::user()->user_role == 'yip')
                         {{-- IP Beneficiary Tabs --}}
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
@@ -137,7 +148,7 @@
                         </li>
                     @endif
 
-                    @if(session('user_role') == 'yv' || session('user_role') == 'yip')
+                    @if(Auth::user()->user_role == 'yv' || Auth::user()->user_role == 'yip')
                         <li class="nav-item">
                             <a href="{{ route('virtual-passport') }}" class="nav-link {{ request()->routeIs('virtual-passport') ? 'active' : '' }}">
                             <i class="nav-icon bi bi-passport"></i>

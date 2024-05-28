@@ -1,0 +1,16 @@
+.contents-header{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contents-header .title{
+    font-size: 25px;
+}
+
+.contents-header h1{
+    color: rgb(0, 131, 50);
+    font-size: 60px;
+}
