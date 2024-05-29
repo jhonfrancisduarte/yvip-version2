@@ -1,78 +1,70 @@
-<div>
+<div class="main-contents">
 
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="card" style="border-radius: 20px; overflow: hidden;">
+    <div class="table-wrapper">
+        <div class="table-container">
 
-                    <div class="card-header">
-                        <h3 class="card-title text-center fw-bold fs-4">Past IP Events</h3>
-                        <div class="d-flex justify-content-end"> <!-- Align to the right -->
-                            <!-- Button to trigger modal -->
-                            <button type="button" class="btn-submit" wire:click="openAddEventModal">Add Event</button>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table-main">
-                                <thead>
-                                    <tr>
-                                        <th class="th-border-rad">Event Name</th>
-                                        <th>Organizer / Sponsor</th>
-                                        <th>Sponsor Category</th>
-                                        <th>Date / Period</th>
-                                        <th>Status</th>
-                                        <th class="th-action-btn">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($pastIpEvents as $event)
-                                    <tr>
-                                        <td>{{ $event->event_name }}</td>
-                                        <td>{{ $event->organizer_sponsor }}</td>
-                                        <td>{{ $event->sponsor_category }}</td>
-                                        <td>{{ $event->start }} - {{ $event->end }}</td>
-                                        <td>{{ $event->confirmed ? 'Confirmed' : 'Pending' }}</td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group">
-                                                <!-- Edit button -->
-                                                <div class="btn-g">
-                                                    @if($event->confirmed)
-                                                    <button type="button" class="btn-submit mx-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Cannot Edit Confirmed Event!" disabled>
-                                                        <i class="bi bi-pencil-square"></i>
-                                                    </button>
-
-
-                                                    @else
-                                                        <button type="button" class="btn-submit mx-1" wire:click="editEvent({{ $event->id }})">
-                                                            <i class="bi bi-pencil-square"></i>
-                                                        </button>
-                                                        <span class="span span-delete">Edit</span>
-                                                    @endif
-                                                </div>
-                                              <!-- Delete button -->
-                                                <button type="button" class="btn-delete" wire:click="deleteEvent({{ $event->id }})">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-
-                    <div class="m-3">
-                        {{ $pastIpEvents->links('livewire::bootstrap') }}
-                    </div>
-
-                </div>
-                <div class="mt-5"></div>
+            <div class="table-header bordered-bottom">
+                <h3 class="table-title">Past IP Events</h3> 
             </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table-main">
+                        <thead>
+                            <tr>
+                                <th class="th-border-rad">Event Name</th>
+                                <th>Organizer / Sponsor</th>
+                                <th>Sponsor Category</th>
+                                <th>Date / Period</th>
+                                <th>Status</th>
+                                <th class="th-action-btn">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($pastIpEvents as $event)
+                            <tr>
+                                <td>{{ $event->event_name }}</td>
+                                <td>{{ $event->organizer_sponsor }}</td>
+                                <td>{{ $event->sponsor_category }}</td>
+                                <td>{{ $event->start }} - {{ $event->end }}</td>
+                                <td>{{ $event->confirmed ? 'Confirmed' : 'Pending' }}</td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group">
+                                        <!-- Edit button -->
+                                        <div class="btn-g">
+                                            @if($event->confirmed)
+                                            <button type="button" class="btn-submit mx-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Cannot Edit Confirmed Event!" disabled>
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+
+
+                                            @else
+                                                <button type="button" class="btn-submit mx-1" wire:click="editEvent({{ $event->id }})">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                                <span class="span span-delete">Edit</span>
+                                            @endif
+                                        </div>
+                                        <!-- Delete button -->
+                                        <button type="button" class="btn-delete" wire:click="deleteEvent({{ $event->id }})">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="m-3">
+                {{ $pastIpEvents->links('livewire::bootstrap') }}
+            </div>
+                
         </div>
+        <div class="mt-5"></div>
     </div>
 
     <!-- Modal -->

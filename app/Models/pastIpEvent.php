@@ -22,6 +22,16 @@ class pastIpEvent extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    
+    public function scopeSearch($query, $term){
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('past_ip_events.event_name', 'like', $term)
+                  ->orWhere('past_ip_events.organizer_sponsor', 'like', $term)
+                  ->orWhere('users.name', 'like', $term);
+        });
+    }
+    
 }
 
 

@@ -443,7 +443,7 @@
                         <p>No Join Requests Yet...</p>
                     @else
                         @foreach($joinRequestsData[$joinEventId] as $requester)
-                            <div class="table-tr" style="background: #f0f0f0">
+                            <div class="table-tr no-hover" style="background: #f0f0f0">
                                 <div class="table-overlay"></div>
                                 <div class="tr" style="padding-bottom: 0">
 
@@ -459,14 +459,14 @@
 
                                 <div class="table-action-buttons">
                                     <div class="mx-2"></div>
-                                    <div class="table-btn-g w-35">
+                                    <div class="table-btn-g">
                                         <button class="table-action-button t-a-b-success" wire:click="approveParticipant('{{ $requester['user_id'] }}')" style="padding-right: 3px !important">
                                             <i class="bi bi-check-lg"></i>
                                         </button>
                                         <p class="hover-p" style="background: white">Approve</p>
                                     </div>
                                     <div class="mx-2"></div>
-                                    <div class="table-btn-g w-35">
+                                    <div class="table-btn-g">
                                         <button class="table-action-button t-a-b-warning" wire:click="disapproveParticipant('{{ $requester['user_id'] }}')" style="padding-right: 3px !important">
                                             <i class="bi bi-x-lg"></i>
                                         </button>
@@ -521,7 +521,7 @@
                                 </div>
                             @endif
                             @foreach($participants as $participant)
-                                <div class="table-tr-2">
+                                <div class="table-tr-2 no-hover">
 
                                     @if($type === 'participants')
                                         <div class="primary-data-2">
@@ -758,9 +758,6 @@
                                         </button>
                                         <p class="hover-p-2">Approve</p>
                                     </div>
-                                    <div class="v-spacer"></div>
-                                    <div class="v-spacer"></div>
-                                    <div class="v-spacer"></div>
                                     <div class="table-btn-g w-35">
                                         <button class="open-dialog-btn btn-warning" wire:click="disapproveParticipant('{{ $thisUserDetails['user_id'] }}')" wire:loading.attr="disabled"><i class="bi bi-x-lg"></i>
                                         </button>

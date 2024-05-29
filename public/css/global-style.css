@@ -153,8 +153,8 @@
     overflow: hidden;
 }
 
-.panel-content-wrapper.h-fit-content{
-    height: fit-content;
+.h-fit-content{
+    height: fit-content !important;
 }
 
 .popup-panel-content{
@@ -218,6 +218,10 @@
     margin-bottom: 30px;
 }
 
+.panel-form-group.block{
+    display: block;
+}
+
 .v-spacer{
     width: 5px;
 }
@@ -267,9 +271,15 @@
 
 .select-icon{
     position: absolute;
-    top: 10px; right: 16px;
-    color: #ccc;
+    top: 7px;
+    right: 10px;
+    color: white;
     pointer-events: none;
+    background: #e6e6e6;
+    padding: 2px 4px 0 4px;
+    border-radius: 20px;
+    border: 1px solid white;
+    cursor: pointer;
 }
 
 .panel-input-1.textarea{

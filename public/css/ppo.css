@@ -1,0 +1,232 @@
+.table-tr-3 {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: #ffffff;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    border: 1px solid white;
+}
+
+.table-container{
+    width: 900px !important;
+}
+
+.table-tr-3 .table-overlay{
+    border-radius: 25px !important;
+}
+
+.table-tr-3 .tr{
+    width: 100%;
+}
+
+.event-details{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px;
+    background: #dbdbdb;
+    border-bottom: 1px solid white;
+    z-index: 1;
+}
+
+.ppo-body{
+    position: absolute;
+    bottom: 0;
+    height: 82.58%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    z-index: 0;
+    background: #fafafa;
+}
+
+.body-header{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    background: #dbdbdb;
+    z-index: 1;
+    padding: 0 10px;
+}
+
+.body-header .name,
+.body-header .file{
+    padding: 7px;
+    overflow-wrap: break-word;
+    font-size: 12px;
+}
+
+.user-box .name,
+.user-box .file{
+    padding: 7px;
+    overflow-wrap: break-word;
+    font-size: 12px;
+}
+
+.b-bottom{
+    border-bottom: 1px solid white;
+    padding: 7px 0;
+    width: 100%;
+    font-size: 12px;;
+}
+
+.last{
+    padding: 7px 0;
+    width: 100%;
+    font-size: 12px;
+}
+
+.col-md-11{
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.submissions{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 0;
+}
+
+
+.submissions::-webkit-scrollbar {
+    width: 8px;
+}
+  
+
+.scroll-list{
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    height: fit-content;
+    padding: 0 10px;
+}
+
+.user-box{
+    display: flex;
+    position: relative;
+    width: 100%;
+    background: #ffffff;
+    height: 140px;
+    border-radius: 15px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    margin: 7px 0;
+    overflow: hidden ;
+}
+
+.user-box .name{
+    position: absolute;
+    top: 0;
+    border-bottom: 1px solid #e6e6e6;
+    left: -10px;
+    padding-left: 30px;
+    width: 120%;
+}
+
+.user-box .file{
+    margin-top: 20px;
+    position: relative;
+    width: 16.66%;
+    z-index: 0;
+}
+
+.file-container{
+    background: white;
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 17px;
+}
+
+.file-buttons{
+    background: white;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 15px;
+    justify-content: left;
+    align-items: center;
+}
+
+.file-for{
+    font-size: 10px;
+}
+
+.file-container
+
+.file-container span{
+    font-weight: 500;
+    padding: 0 10px;
+}
+
+@media (max-width: 768px) {
+    .col-md-4{
+        padding: 0 !important;
+    }
+
+    .event-details{
+        display: block;
+    }
+
+    .event-details .export-btn{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .table-tr-3{
+        height: 500px;
+    }
+
+    .ppo-body{
+        height: 63%;
+    }
+
+    .submissions::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    .user-box{
+        display: block;
+        overflow: hidden;
+        height: fit-content;
+    }
+
+    .user-box .file{
+        width: 100%;
+    }
+
+    .file-container{
+        position: relative;
+    }
+
+    .file-buttons {
+        justify-content: left;
+    }
+
+    .user-box .file{
+        margin-top: 0;
+    }
+
+    .m-top-on-mobile{
+        margin-top: 20px !important;
+    }
+}

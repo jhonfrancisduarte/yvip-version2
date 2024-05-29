@@ -3,7 +3,6 @@
 namespace App\Livewire\Tables;
 
 use App\Models\IpEvents;
-use App\Models\IpPostProgramObligation;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\VolunteerExperience;
@@ -104,6 +103,8 @@ class IpEventsTable extends Component
                         $participantData[] = [
                             'user_id' => $participantId,
                             'name' => $name,
+                            'picture' => $userData->profile_picture,
+                            'passport' => $userData->passport,
                         ];
                     }
                 }
@@ -124,6 +125,8 @@ class IpEventsTable extends Component
                         $joinRequestsData[$event->id][] = [
                             'user_id' => $joinRequest,
                             'name' => $name,
+                            'picture' => $userData->profile_picture,
+                            'passport' => $userData->passport_number,
                             'active_status' => $user->active_status,
                         ];
                     }
@@ -131,7 +134,7 @@ class IpEventsTable extends Component
             }
 
             $event->participantData = $participantData;
-            $event->qualifications = explode(',', $event->qualifications);
+            // $event->qualifications = explode(',', $event->qualifications);
             $event->hasJoined = in_array($userId, $joinRequests);
             $event->approved = in_array($userId, $participantIds);
             $event->disapprovedParticipants = in_array($userId, $disapprovedIds);
@@ -428,7 +431,6 @@ class IpEventsTable extends Component
                 $this->advocacyPlans = explode(', ',  $this->thisUserDetails->advocacy_plans);
                 $this->thisUserDetails = $this->thisUserDetails->getAttributes();
                 $this->getSkillsAndCategory($userId);
-                $this->openJoinRequestsTable = null;
                 $this->options = null;
             }
         }catch(Exception $e){
@@ -440,8 +442,6 @@ class IpEventsTable extends Component
         $this->thisUserDetails = null;
         $this->eventId = null;
         $this->options = null;
-        $this->closeParticipantsForm();
-        $this->openJoinRequests($this->joinEventId);
     }
 
     public function toggleOptions($eventId){
@@ -507,6 +507,8 @@ class IpEventsTable extends Component
                             $participantsData[] = [
                                 'id' => $participantId,
                                 'name' => $name,
+                                'picture' => $userData->profile_picture,
+                                'passport' => $userData->passport_number,
                             ];
                         }
                     }

@@ -4,6 +4,11 @@
     <title>Past IP Events</title>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="css/events-and-trainings.css">
+    <link rel="stylesheet" type="text/css" href="css/past-participated-event.css">
+@endsection
+
 @section('content')
 
     <div class="main-content-wrapper">
