@@ -1,4 +1,4 @@
-<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+<div class="page-wrapper p-t-130 p-b-100 font-poppins">
     <div class="wrapper wrapper--w680">
         
         <div class="progress-container">
@@ -54,7 +54,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">first name</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="first_name" name="first_name" required>
+                                    <input class="panel-input-1" type="text" wire:model.blur="first_name" name="first_name" required>
                                     @error('first_name') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror
@@ -64,7 +64,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">last name</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="last_name" name="last_name"  required>
+                                    <input class="panel-input-1" type="text" wire:model.blur="last_name" name="last_name"  required>
                                     @error('last_name') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror
@@ -76,13 +76,13 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">middle name</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="middle_name" name="middle_name">
+                                    <input class="panel-input-1" type="text" wire:model.blur="middle_name" name="middle_name">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">nickname</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="nickname" name="nickname">
+                                    <input class="panel-input-1" type="text" wire:model.blur="nickname" name="nickname">
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                                 <div class="input-group">
                                     <label class="label">date of birth</label>
                                     <div class="input-group">
-                                        <input class="input--style-4" type="date" wire:model.blur="date_of_birth" name="date_of_birth" style="height: 50px;"  required>
+                                        <input class="panel-input-1" type="date" wire:model.blur="date_of_birth" name="date_of_birth" style="height: 50px;"  required>
                                         @error('date_of_birth') <span class="text-danger small" style="color: red;">The date of birth field is required</span>@enderror
                                     </div>
                                 </div>
@@ -100,13 +100,16 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">civil status</label>
-                                        <select id="civil_status" class="label select-status" wire:model.blur="civil_status"  required>
-                                            <option class="label" value="">Select Civil Status</option>
-                                            <option class="label" value="Single">Single</option>
-                                            <option class="label" value="Married">Married</option>
-                                            <option class="label" value="Widowed">Widowed</option>
-                                            <option class="label" value="Legally Separated">Legally Separated</option>
+                                    <div style="position: relative">
+                                        <select id="civil_status" class="panel-input-1" wire:model.blur="civil_status"  required>
+                                            <option value="">Select Civil Status</option>
+                                            <option value="Single">Single</option>
+                                            <option value="Married">Married</option>
+                                            <option value="Widowed">Widowed</option>
+                                            <option value="Legally Separated">Legally Separated</option>
                                         </select>
+                                        <i class="bi bi-caret-down select-icon"></i>
+                                    </div>
                                     @error('civil_status')
                                         <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                     @enderror
@@ -118,7 +121,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">age</label>
-                                    <input class="input--style-4" type="number" wire:model.blur="age" name="age"  required>
+                                    <input class="panel-input-1" type="number" wire:model.blur="age" name="age"  required>
                                     @error('age') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror
@@ -127,7 +130,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">nationality</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="nationality" name="nationality" required>
+                                    <input class="panel-input-1" type="text" wire:model.blur="nationality" name="nationality" required>
                                     @error('nationality') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror
@@ -139,7 +142,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Blood type</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="blood_type" name="blood_type"  required>
+                                    <input class="panel-input-1" type="text" wire:model.blur="blood_type" name="blood_type"  required>
                                     @error('blood_type') <span class="text-danger small" style="color: red;">{{ $message }}</span>
     
                                     @enderror
@@ -168,7 +171,7 @@
 
                         <div class="section-buttons">
                             <b><a href="/sign-in" style="color:#0061C4">I already have an Account.</a></b>
-                            <button  class="register-button float-right" type="button" wire:click="nextSection(2)">Next<i class="bi bi-arrow-right-short"></i></button>
+                            <button  class="login-button float-right" type="button" wire:click="nextSection(2)">Next<i class="bi bi-arrow-right-short"></i></button>
                         </div>
                     </div>
 
@@ -181,14 +184,14 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Tel Number</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="tel_number" name="tel_number">
+                                    <input class="panel-input-1" type="text" wire:model.blur="tel_number" name="tel_number">
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Mobile Number</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="mobile_number" name="mobile_number" required>
+                                    <input class="panel-input-1" type="text" wire:model.blur="mobile_number" name="mobile_number" required>
                                     @error('mobile_number') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror
@@ -200,45 +203,55 @@
                             <div class="col-2" style="width: 100% !important">
                                 <div class="input-group">
                                     <label class="label">Email</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="email" wire:change="onBlurEmail" name="email" required >
+                                    <input class="panel-input-1" type="text" wire:model.blur="email" wire:change="onBlurEmail" name="email" required >
                                     @error('email') <span class="text-danger small" style="color: red;">{{ $message }}</span>@enderror
                                 </div>
                             </div>
                         </div>
                         
                         <fieldset class="fieldset">
-                                <legend class="label">Permanent Address</legend>
+                                <legend class="label">Permanent Address&nbsp&nbsp&nbsp</legend>
                                 <div class="row row-space">
                                     <div class="col-4" style="width: 100%">
                                         <div class="input-group">
-                                            <label class="label" for="permanent_province">Select Province:</label>
-                                            <select class="label select select-status" wire:model.live="permanent_selectedProvince" id="permanent_province" name="permanent_selectedProvince" required>
-                                                @if ($provinces)
-                                                    <option class="label" value="" style="opacity: .6;">Select Province</option>
-                                                    @foreach ($provinces->sortBy('province_description') as $province)
-                                                        <option class="label" value="{{ $province->province_description }}">{{ $province->province_description }}</option>
-                                                    @endforeach
-                                                @else
-                                                    <option class="label" value="">Select Province</option>
-                                                @endif
-                                            </select>
-                                            @error('permanent_selectedProvince') <span class="text-danger small" style="color: red;">The Province Field is required</span>@enderror
-
-                                            <label class="label" for="permanent_city">Select City:</label>
-                                            <select class="label select-status" wire:model.live="permanent_selectedCity" id="permanent_city" name="permanent_selectedCity"  required>
-                                                @if($pcities)
-                                                    <option class="label" value="">Select City</option>
-                                                    @foreach ($pcities as $city)
-                                                        <option class="label" value="{{ $city->city_municipality_description }}">{{ $city->city_municipality_description }}</option>
-                                                    @endforeach
-                                                @else
-                                                    <option class="label" value="">No cities available</option>
-                                                @endif
-                                            </select>
-                                            @error('permanent_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>@enderror
-
+                                            <div class="address-select">
+                                                <div class="col-2">
+                                                    <label class="label" for="permanent_province">Select Province:</label>
+                                                    <div style="position: relative">
+                                                        <select class="panel-input-1" wire:model.live="permanent_selectedProvince" id="permanent_province" name="permanent_selectedProvince" required>
+                                                            @if ($provinces)
+                                                                <option class="label" value="" style="opacity: .6;">Select Province</option>
+                                                                @foreach ($provinces->sortBy('province_description') as $province)
+                                                                    <option class="label" value="{{ $province->province_description }}">{{ $province->province_description }}</option>
+                                                                @endforeach
+                                                            @else
+                                                                <option class="label" value="">Select Province</option>
+                                                            @endif
+                                                        </select>
+                                                        <i class="bi bi-caret-down select-icon"></i>
+                                                    </div>
+                                                    @error('permanent_selectedProvince') <span class="text-danger small" style="color: red;">The Province Field is required</span>@enderror
+                                                </div>
+                                                <div class="col-2">
+                                                    <label class="label" for="permanent_city">Select City:</label>
+                                                    <div style="position: relative">
+                                                        <select class="panel-input-1" wire:model.live="permanent_selectedCity" id="permanent_city" name="permanent_selectedCity"  required>
+                                                            @if($pcities)
+                                                                <option class="label" value="">Select City</option>
+                                                                @foreach ($pcities as $city)
+                                                                    <option class="label" value="{{ $city->city_municipality_description }}">{{ $city->city_municipality_description }}</option>
+                                                                @endforeach
+                                                            @else
+                                                                <option class="label" value="">No cities available</option>
+                                                            @endif
+                                                        </select>
+                                                        <i class="bi bi-caret-down select-icon"></i>
+                                                    </div>
+                                                    @error('permanent_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>@enderror
+                                                </div>
+                                            </div>
                                             <label class="label">Street, Barangay</label>
-                                            <input class="input--style-4" type="text" wire:model="p_street_barangay" name="p_street_barangay" required >
+                                            <input class="panel-input-1" type="text" wire:model="p_street_barangay" name="p_street_barangay" required >
                                             @error('p_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>@enderror
                                         </div>
                                     </div>
@@ -246,38 +259,49 @@
                         </fieldset>
 
                         <fieldset class="fieldset">
-                                <legend class="label">Residential Address</legend>
+                                <legend class="label">Residential Address&nbsp&nbsp&nbsp</legend>
                                 <div class="row row-space">
                                     <div class="col-4" style="width: 100%">
                                         <div class="input-group">
-                                            <label class="label" for="residential_province">Select Province:</label>
-                                            <select class="label select-status" wire:model.live="residential_selectedProvince" id="residential_province" name="residential_selectedProvince"  required wire:ignore>
-                                                @if ($provinces)
-                                                    <option class="label" value="">Select Province</option>
-                                                    @foreach ($provinces->sortBy('province_description') as $province)
-                                                        <option class="label" value="{{ $province->province_description }}">{{ $province->province_description }}</option>
-                                                    @endforeach
-                                                @else
-                                                    <option class="label" value="">Select Province</option>
-                                                @endif
-                                            </select>
-                                            @error('residential_selectedProvince') <span class="text-danger small" style="color: red;">The Province field is required</span>@enderror
+                                            <div class="address-select">
+                                                <div class="col-2">
+                                                    <label class="label" for="residential_province">Select Province:</label>
+                                                    <div style="position: relative">
+                                                        <select class="panel-input-1" wire:model.live="residential_selectedProvince" id="residential_province" name="residential_selectedProvince"  required wire:ignore>
+                                                            @if ($provinces)
+                                                                <option class="label" value="">Select Province</option>
+                                                                @foreach ($provinces->sortBy('province_description') as $province)
+                                                                    <option class="label" value="{{ $province->province_description }}">{{ $province->province_description }}</option>
+                                                                @endforeach
+                                                            @else
+                                                                <option class="label" value="">Select Province</option>
+                                                            @endif
+                                                        </select>
+                                                        <i class="bi bi-caret-down select-icon"></i>
+                                                    </div>
+                                                    @error('residential_selectedProvince') <span class="text-danger small" style="color: red;">The Province field is required</span>@enderror
+                                                </div>
 
-                                            <label class="label" for="residential_city">Select City:</label>
-                                            <select class="label select-status" wire:model.live="residential_selectedCity" id="residential_city" name="residential_selectedCity" required>
-                                                @if($rcities)
-                                                    <option class="label" value="">Select City</option>
-                                                    @foreach ($rcities ->sortBy('city_municipality_descriptions') as $city)
-                                                        <option class="label" value="{{ $city->city_municipality_description }}">{{ $city->city_municipality_description }}</option>
-                                                    @endforeach
-                                                @else
-                                                    <option class="label" value="">No cities available</option>
-                                                @endif
-                                            </select>
-                                            @error('residential_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>@enderror
-
+                                                <div class="col-2">
+                                                    <label class="label" for="residential_city">Select City:</label>
+                                                    <div style="position: relative">
+                                                        <select class="panel-input-1" wire:model.live="residential_selectedCity" id="residential_city" name="residential_selectedCity" required>
+                                                            @if($rcities)
+                                                                <option class="label" value="">Select City</option>
+                                                                @foreach ($rcities ->sortBy('city_municipality_descriptions') as $city)
+                                                                    <option class="label" value="{{ $city->city_municipality_description }}">{{ $city->city_municipality_description }}</option>
+                                                                @endforeach
+                                                            @else
+                                                                <option class="label" value="">No cities available</option>
+                                                            @endif
+                                                        </select>
+                                                        <i class="bi bi-caret-down select-icon"></i>
+                                                    </div>
+                                                    @error('residential_selectedCity') <span class="text-danger small" style="color: red;">The City field is required</span>@enderror
+                                                </div>
+                                            </div>
                                             <label class="label">Street, Barangay</label>
-                                            <input class="input--style-4" type="text" wire:model="r_street_barangay" name="r_street_barangay"  required>
+                                            <input class="panel-input-1" type="text" wire:model="r_street_barangay" name="r_street_barangay"  required>
                                             @error('r_street_barangay') <span class="text-danger small" style="color: red;">The Street and Barangay field is required</span>@enderror
                                         </div>
                                     </div>
@@ -285,8 +309,8 @@
                         </fieldset>
 
                         <div class="section-buttons">
-                            <button  class="register-button float-left" type="button" wire:click="prevSection"><i class="bi bi-arrow-left-short"></i>Prev</button>
-                            <button  class="register-button float-right" type="button" wire:click="nextSection(3)">Next<i class="bi bi-arrow-right-short"></i></button>
+                            <button  class="login-button float-left" type="button" wire:click="prevSection"><i class="bi bi-arrow-left-short"></i>Prev</button>
+                            <button  class="login-button float-right" type="button" wire:click="nextSection(3)">Next<i class="bi bi-arrow-right-short"></i></button>
                         </div>
                     </div>
 
@@ -299,7 +323,7 @@
                             <div class="col-4" style="width: 100%">
                                 <div class="input-group">
                                     <label class="label">Educational Background</label>
-                                    <input class="input--style-4" type="text" wire:model.blur="educational_background" name="educational_background" required>
+                                    <input class="panel-input-1" type="text" wire:model.blur="educational_background" name="educational_background" required>
                                     @error('educational_background') <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -309,12 +333,15 @@
                         <div class="input-group">
                             <label class="label">Status</label>
                             <div class="rs-select2 js-select-simples select--no-search" wire:ignore>
-                                <select class="label select-status" id="status" wire:model.live="status" name="status" required>
-                                    <option selected value="" class="label">Choose option</option>
-                                    <option value="Student" class="label">Student</option>
-                                    <option value="Professional" class="label">Professional</option>
-                                </select>
-                                <div class="select-dropdown"></div>
+                                <div style="position: relative">
+                                    <select class="panel-input-1" id="status" wire:model.live="status" name="status" required>
+                                        <option selected value="" class="label">Choose option</option>
+                                        <option value="Student" class="label">Student</option>
+                                        <option value="Professional" class="label">Professional</option>
+                                    </select>
+                                    <div class="select-dropdown"></div>
+                                    <i class="bi bi-caret-down select-icon"></i>
+                                </div>
                                 @error('status') <span class="text-danger small" style="color: red;">The status field is required</span> @enderror
                             </div>
                         </div>
@@ -324,13 +351,13 @@
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">School name</label>
-                                        <input class="input--style-4" type="text" wire:model="name_of_school" name="name_of_school">
+                                        <input class="panel-input-1" type="text" wire:model="name_of_school" name="name_of_school">
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Course</label>
-                                        <input class="input--style-4" type="text" wire:model="course" name="course">
+                                        <input class="panel-input-1" type="text" wire:model="course" name="course">
                                     </div>
                                 </div>
                             </div>
@@ -341,13 +368,13 @@
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Nature of work</label>
-                                        <input class="input--style-4" type="text" wire:model="nature_of_work" name="nature_of_work">
+                                        <input class="panel-input-1" type="text" wire:model="nature_of_work" name="nature_of_work">
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Employer</label>
-                                        <input class="input--style-4" type="text" wire:model="employer" name="employer">
+                                        <input class="panel-input-1" type="text" wire:model="employer" name="employer">
                                     </div>
                                 </div>
                             </div>
@@ -378,21 +405,21 @@
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Organization name</label>
-                                        <input class="input--style-4" type="text" wire:model="organization_name" name="organization_name">
+                                        <input class="panel-input-1" type="text" wire:model="organization_name" name="organization_name">
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <div class="input-group">
                                         <label class="label">Position</label>
-                                        <input class="input--style-4" type="text" wire:model="org_position" name="org_position">
+                                        <input class="panel-input-1" type="text" wire:model="org_position" name="org_position">
                                     </div>
                                 </div>
                             </div>
                         @endif
 
                         <div class="section-buttons">
-                            <button  class="register-button float-left" type="button" wire:click="prevSection"><i class="bi bi-arrow-left-short"></i>Prev</button>
-                            <button  class="register-button float-right" type="button" wire:click="nextSection(4)">Next<i class="bi bi-arrow-right-short"></i></button>
+                            <button  class="login-button float-left" type="button" wire:click="prevSection"><i class="bi bi-arrow-left-short"></i>Prev</button>
+                            <button  class="login-button float-right" type="button" wire:click="nextSection(4)">Next<i class="bi bi-arrow-right-short"></i></button>
                         </div>
                     </div>
 
@@ -450,16 +477,14 @@
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="form-group">
-                                    <label for="birth_certificate" class="name">Birth Certificate</label>
+                                    <label class="label">Birth Certificate</label>
                                     <div class="d-flex align-items-center">
-                                        <div class="file-box mr-2 d-flex align-items-center justify-content-center">
-                                            <span class="file-name">{{ $birth_certificate ? $birth_certificate->getClientOriginalName() : 'No file chosen' }}</span>
+                                        <button type="button" class="file-btn" onclick="document.getElementById('birth_certificate').click()"> 
                                             @if($birth_certificate)
-                                                <button type="button" class="btn-cancel" wire:click.defer="removeBirthCertificate">&times;</button>
+                                                {{ $birth_certificate->getClientOriginalName() }}
+                                            @else
+                                                <i class="bi bi-upload"style="margin-left: -2px"></i>
                                             @endif
-                                        </div>
-                                        <button type="button" class="btn-submit upload" onclick="document.getElementById('birth_certificate').click()">
-                                            <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
                                         <input type="file" id="birth_certificate" wire:model="birth_certificate" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     </div>
@@ -469,16 +494,14 @@
 
                             <div class="col-2">
                                 <div class="form-group">
-                                    <label for="curriculum_vitae" class="col-form-label">Curriculum Vitae</label>
+                                    <label class="label">Curriculum Vitae</label>
                                     <div class="d-flex align-items-center">
-                                        <div class="file-box mr-2 d-flex align-items-center justify-content-between">
-                                            <span class="file-name">{{ $curriculum_vitae ? $curriculum_vitae->getClientOriginalName() : 'No file chosen' }}</span>
+                                        <button type="button" class="file-btn" onclick="document.getElementById('curriculum_vitae').click()"> 
                                             @if($curriculum_vitae)
-                                            <button type="button" class="btn-cancel" wire:click="removeCurriculumVitae">&times;</button>
+                                                {{ $curriculum_vitae->getClientOriginalName() }}
+                                            @else
+                                                <i class="bi bi-upload"style="margin-left: -2px"></i>
                                             @endif
-                                        </div>
-                                        <button type="button" class="btn-submit upload" onclick="document.getElementById('curriculum_vitae').click()">
-                                            <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
                                         <input type="file" id="curriculum_vitae" wire:model.defer="curriculum_vitae" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     </div>
@@ -490,17 +513,15 @@
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="form-group">
-                                    <label for="good_moral_cert" class="col-form-label">Good Moral Certificate</label>
+                                    <label class="label">Good Moral Certificate</label>
                                     <div class="d-flex align-items-center">
                                         <input type="file" id="good_moral_cert" wire:model.defer="good_moral_cert" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-                                        <div class="file-box mr-2 d-flex align-items-center justify-content-between">
-                                            <span class="file-name">{{ $good_moral_cert ? $good_moral_cert->getClientOriginalName() : 'No file chosen' }}</span>
+                                        <button type="button" class="file-btn" onclick="document.getElementById('good_moral_cert').click()"> 
                                             @if($good_moral_cert)
-                                                <button type="button" class="btn-cancel" wire:click="removeGoodMoralCertificate">&times;</button>
+                                                {{ $good_moral_cert->getClientOriginalName() }}
+                                            @else
+                                                <i class="bi bi-upload"style="margin-left: -2px"></i>
                                             @endif
-                                        </div>
-                                        <button type="button" class="btn-submit upload" onclick="document.getElementById('good_moral_cert').click()" wire:loading.attr='disabled'>
-                                            <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
                                     </div>
                                     @error('good_moral_cert') <span style="color: red">{{ $message }}</span> @enderror
@@ -508,18 +529,16 @@
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                    <label for="valid_Id" class="col-form-label">Valid ID</label>
+                                    <label class="label">Valid ID</label>
                                     <div class="d-flex align-items-center">
-                                        <div class="file-box mr-2 d-flex align-items-center justify-content-between">
-                                            <span class="file-name">{{ $valid_Id ? $valid_Id->getClientOriginalName() : 'No file chosen' }}</span>
-                                            @if($valid_Id)
-                                            <button type="button" class="btn-cancel" wire:click="removeValidId">&times;</button>
-                                            @endif
-                                        </div>
-                                        <button type="button" class="btn-submit upload" onclick="document.getElementById('valid_Id').click()">
-                                            <i class="bi bi-upload"style="margin-left: -2px"></i>
-                                        </button>
                                         <input type="file" id="valid_Id" wire:model.defer="valid_Id" style="display: none;" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*">
+                                        <button type="button" class="file-btn" onclick="document.getElementById('valid_Id').click()"> 
+                                            @if($valid_Id)
+                                                {{ $valid_Id->getClientOriginalName() }}
+                                            @else
+                                                <i class="bi bi-upload"style="margin-left: -2px"></i>
+                                            @endif
+                                        </button>
                                     </div>
                                     @error('valid_Id') <span style="color: red">{{ $message }}</span> @enderror
                                 </div>
@@ -527,26 +546,20 @@
                         </div>
 
                         <div class="row row-space">
-                            <div class="col-2">
+                            <div class="col-4" style="width: 100%">
                                 <div class="form-group">
-                                    <label for="other_document" class="col-form-label">Other</label>
+                                    <label class="label">Other</label>
                                     <div class="d-flex align-items-center">
-                                        <div class="file-box d-flex flex-column align-items-start justify-content-between">
+                                        <button type="button" class="file-btn" onclick="document.getElementById('other_documents').click()"> 
                                             @if($other_documents && count($other_documents) > 0)
-                                            @foreach($other_documents as $index => $document)
-                                                <div class="d-flex align-items-center w-100 mb-1">
-                                                    <span class="file-name">{{ $document->getClientOriginalName() }}</span>
-                                                    <button type="button" class="btn-cancel" wire:click="removeDocument({{ $index }})">&times;</button>
-                                                </div>
-                                            @endforeach
+                                                @foreach($other_documents as $index => $document)
+                                                    <span class="file-name">{{ $document->getClientOriginalName() }}, </span>
+                                                @endforeach
                                             @else
-                                            <span class="file-name">No file chosen</span>
+                                                <i class="bi bi-upload"style="margin-left: -2px"></i>
                                             @endif
-                                        </div>
-                                        <button type="button" class="btn-submit upload ml-2" onclick="document.getElementById('other_document').click()">
-                                            <i class="bi bi-upload"style="margin-left: -2px"></i>
                                         </button>
-                                        <input type="file" id="other_document" wire:model.defer="other_documents" style="display: none;" multiple accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                        <input type="file" id="other_documents" wire:model.defer="other_documents" style="display: none;" multiple accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     </div>
                                     @error('other_documents.*') <span style="color: red">{{ $message }}</span> @enderror
                                 </div>
@@ -557,7 +570,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">password</label>
-                                    <input class="input--style-4" type="password" wire:model="password" name="password" required>
+                                    <input class="panel-input-1" type="password" wire:model="password" name="password" required>
                                     @error('password') 
                                         <span class="text-danger small" style="color: red;">{{ $message }}</span>
                                     @enderror
@@ -566,7 +579,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">confirm password</label>
-                                    <input class="input--style-4" type="password" wire:model="c_password" name="c_password" required>
+                                    <input class="panel-input-1" type="password" wire:model="c_password" name="c_password" required>
                                     @error('c_password') <span class="text-danger small" style="color: red;">{{ $message }}</span>
 
                                     @enderror
@@ -592,8 +605,8 @@
                         <div class="row row-space">
                             <div class="col-2" style="width: 100%">
                                 <div class="p-t-15 reg-btn-holder">
-                                    <button  class="register-button float-left" type="button" wire:click="prevSection"><i class="bi bi-arrow-left-short"></i>Prev</button>
-                                    <button  class="register-button float-right" type="submit" wire:loading.attr="disabled">
+                                    <button  class="login-button float-left" type="button" wire:click="prevSection"><i class="bi bi-arrow-left-short"></i>Prev</button>
+                                    <button  class="login-button float-right" type="submit" wire:loading.attr="disabled">
                                         <span>Sign Up</span>
                                         <div class="loading-container {{ !$registering ? 'd-none' : '' }}">
                                             <div class="loading-spinner"></div>

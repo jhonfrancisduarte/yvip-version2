@@ -18,51 +18,52 @@
     <div class="main-container">
 
         <div class="scroll-detector"></div>
-            <div class="landing-content">
-                <div class="landing-page-hero">
-                    <div class="welcome-header">
 
-                        <div class="top-nav" id="topNavBar">
-                            <div class="top-buttons">
-                                <a href="/sign-in" class="sign-in margin-right">Sign In</a>
-                                <a href="/registration">Register</a>
-                            </div>
-                            <div class="onscroll-logos">
-                                <img src="images/nyc-logo_orig.png" width="50"/>
-                                <img src="images/yvip_logo.png" width="45"/>
-                                <span class="brand-text">THE NYC - </span>
-                                <span class="y">Y</span>
-                                <span class="v">V</span>
-                                <span class="i">I</span>
-                                <span class="p">P</span>
-                            </div>
+        <div class="top-nav" id="topNavBar">
+            <div class="top-buttons">
+                <a href="/sign-in" class="sign-in margin-right">Sign In</a>
+                <a href="/registration">Register</a>
+            </div>
+            <div class="onscroll-logos">
+                <img src="images/nyc-logo_orig.png" width="50"/>
+                <img src="images/yvip_logo.png" width="45"/>
+                <span class="brand-text">THE NYC - </span>
+                <span class="y">Y</span>
+                <span class="v">V</span>
+                <span class="i">I</span>
+                <span class="p">P</span>
+            </div>
+        </div>
+
+        <div class="landing-content">
+            <div class="landing-page-hero">
+                <div class="welcome-header">
+
+                    <div class="title-container">
+                        <div class="mobile-logos">
+                            <img class="m-logo" src="images/yvip_logo.png"/>
+                            <img class="m-logo" src="images/nyc-logo_orig.png"/>
                         </div>
-
-                        <div class="title-container">
-                            <div class="mobile-logos">
-                                <img class="m-logo" src="images/yvip_logo.png"/>
-                                <img class="m-logo" src="images/nyc-logo_orig.png"/>
-                            </div>
-                            <div class="desktop-logos logos-1">
-                                <img class="logo" src="images/yvip_logo.png"/>
-                            </div>
-                            <div class="yvip logos-3">
-                                <img src="images/maskhead.png" alt="" width="220">
-                                <h3>Youth Volunteers & <br>International Programs Beneficiaries Hub</h3>
-                            </div>
-                            <div class="desktop-logos logos-2">
-                                <a href="https://nyc.gov.ph/" target="_blank">
-                                    <img class="logo" src="images/nyc-logo_orig.png"/>
-                                </a>
-                            </div>
+                        <div class="desktop-logos logos-1">
+                            <img class="logo" src="images/yvip_logo.png"/>
+                        </div>
+                        <div class="yvip logos-3">
+                            <img src="images/maskhead.png" alt="" width="220">
+                            <h3>Youth Volunteers & <br>International Programs Beneficiaries Hub</h3>
+                        </div>
+                        <div class="desktop-logos logos-2">
+                            <a href="https://nyc.gov.ph/" target="_blank">
+                                <img class="logo" src="images/nyc-logo_orig.png"/>
+                            </a>
                         </div>
                     </div>
                 </div>
-
-                <div class="landing-page-content">
-                    <livewire:main-announcement />
-                </div>
             </div>
+
+            <div class="landing-page-content">
+                <livewire:main-announcement />
+            </div>
+        </div>
 
     </div>
 
@@ -70,7 +71,7 @@
 
 @section('js')
 <script>
-    if (window.innerWidth >= 1024) {
+    if (window.innerWidth >= 768) {
         let isOffScreen = false;
         const topNavBar = document.getElementById('topNavBar');
         const scrollDetector = document.querySelector('.scroll-detector');

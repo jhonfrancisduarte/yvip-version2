@@ -447,11 +447,12 @@ input {
 }
 
 .label {
-  font-size: 16px;
+  font-size: 14px;
   color: #555;
   text-transform: capitalize;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0;
+  padding-left: 10px;
 }
 
 .label-nc {

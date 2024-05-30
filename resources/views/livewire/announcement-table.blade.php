@@ -7,14 +7,14 @@
         <p>{{ $popup_message }}</p>
     </div>
 
-    @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa' || session('user_role') == 'ips')
-        <div class="search-bar-wrapper">
-            <div class="search-bar-container">
-                <input type="search" class="table-search-bar" wire:model.live="search" placeholder="Search announcement...">
+    <div class="search-bar-wrapper">
+        <div class="search-bar-container">
+            <input type="search" class="table-search-bar" wire:model.live="search" placeholder="Search announcement...">
+            @if(session('user_role') == 'sa' || session('user_role') == 'vs' || session('user_role') == 'vsa' || session('user_role') == 'ips')
                 <button class="theme-btn open-dialog-btn" wire:click="openAddForm"><i class="bi bi-plus-lg"></i></button>
-            </div>
+            @endif
         </div>
-    @endif
+    </div>
 
     @foreach($announcements as $announcement)
         <div class="announcement-container">

@@ -5,7 +5,7 @@
             <div class="row row-space login-input-div">
                 <div class="col-1">
                     <div class="input-group">
-                        <input class="input--style-4" type="text" id="email" name="email" required wire:model="email" placeholder="Email">
+                        <input class="panel-input-1" type="text" id="email" name="email" required wire:model="email" placeholder="Email">
                         @error('email')
                             <span style="color: red;">{{ $message }}</span>
                         @enderror
@@ -15,7 +15,7 @@
             <div class="row row-space login-input-div">
                 <div class="col-1">
                     <div class="input-group input-group-login">
-                        <input class="input--style-4" type="{{ $showPassword ? 'text' : 'password' }}" id="password" name="password" required wire:model="password" placeholder="Password">
+                        <input class="panel-input-1" type="{{ $showPassword ? 'text' : 'password' }}" id="password" name="password" required wire:model="password" placeholder="Password">
                         <span class="toggle-password" wire:click="togglePasswordVisibility">
                             <i class="fa {{ $showPassword ? 'fa-eye-slash' : 'fa-eye' }}"></i>
                         </span>

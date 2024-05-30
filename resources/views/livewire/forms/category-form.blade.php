@@ -1,8 +1,8 @@
-<div>
-
-    <div class="pop-up-message" @if($popup_message)style="position: fixed; top: 100px !important;"@endif>
+<div class="main-contents">
+    
+    <div class="pop-up-message" @if($popup_message)style="transform: scale(1) !important"@endif>
         <button type="button" class="close" wire:click="closePopup">
-            <span aria-hidden="true">&times;</span>
+            <span>&times;</span>
         </button>
         <p>{{ $popup_message }}</p>
     </div>
@@ -10,12 +10,12 @@
     <div class="container mt-4">
         <div class="row justify-content-center block-on-mobile">
 
-                <div class="col-6">
-                    <div class="card" style="border-radius: 20px; overflow: hidden;">
+                <div class="table-wrapper">
+                    <div class="table-container">
     
                         <div class="card-header">
                             <h5 class="card-title">My Categories and Skills</h5> 
-                            <button type="button" class="btn-submit float-right" wire:click="openAddSkillForm('{{ auth()->user()->id }}')">Add Skill</button>
+                            <button type="button" class="table-button float-right" wire:click="openAddSkillForm('{{ auth()->user()->id }}')">Add Skill</button>
                         </div>
                 
                         <div class="card-body scroll-table">
@@ -52,12 +52,12 @@
 
                 <div class="mt-5"></div>
 
-                <div class="col-6">
-                    <div class="card" style="border-radius: 20px; overflow: hidden;">
+                <div class="table-wrapper">
+                    <div class="table-container">
     
                         <div class="card-header">
                             <h5 class="card-title">My Experience</h5> 
-                            <button type="button" class="btn-submit float-right" required wire:click="openExperienceForm('{{ auth()->user()->id }}')">Add Experience</button>
+                            <button type="button" class="table-button float-right" required wire:click="openExperienceForm('{{ auth()->user()->id }}')">Add Experience</button>
                         </div>
                 
                         <div class="card-body scroll-table">

@@ -11,31 +11,20 @@
 
 @section('content')
 
-    @livewire('side-nav')
+    <div class="main-content-wrapper">
 
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">Volunteer Manual
-                        </h1>
-                        <a href="{{ asset('uploads/NYVP-Operational-Guidelines.pdf') }}" download>
-                            <button class="btn-submit" style="margin-left: 20px;">Download Manual</button>
-                        </a>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/dashboard" wire:navigate>Home</a></li>
-                            <li class="breadcrumb-item active">Volunteer Manual</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @livewire('main-nav')
+
+        <div class="scroll-detector"></div>
+        
         <div class="viewer">
+            <a href="{{ asset('uploads/NYVP-Operational-Guidelines.pdf') }}" download>
+                <button class="btn-submit" style="margin-left: 20px;">Download Manual</button>
+            </a>
+            
             <div id="pdf-viewer"></div>
         </div>
+
     </div>
 
 @endsection

@@ -1,4 +1,3 @@
-
 <div class="side-nav">
     <div class="overlay-on-mobile"></div>
 
@@ -6,23 +5,15 @@
 
         <span class="close-side-nav-btn" aria-hidden="true">&times;</span>
 
-        <nav class="mt-2" >
+        <nav class="mt-2">
 
             <div class="acc-section2">
                 <div class="image">
-                    @if(session('user_role') == 'yv' || session('user_role') == 'yip')
-                        <a href="{{ route('profile') }}"><img src="{{ Auth::user()->userData->profile_picture }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;"></a>
-                    @else
-                        <a href="{{ route('admin-profile') }}"><img src="{{ Auth::user()->admin->profile_picture }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;"></a>
-                    @endif
+                    <a href="{{ route('admin-profile') }}"><img src="{{ Auth::user()->admin->profile_picture }}" class="img-circle elevation-2" alt="User Image" style="width: 35px; height: 35px;"></a>
                 </div>
 
                 <div class="info">
-                    @if(session('user_role') == 'yv' || session('user_role') == 'yip')
-                        <a href="{{ route('profile') }}" class="d-block">{{ Auth::user()->userData->first_name }} {{ Auth::user()->userData->middle_name }} {{ Auth::user()->userData->last_name }}</a>
-                    @else
-                        <a href="{{ route('admin-profile') }}" class="d-block">{{ Auth::user()->admin->first_name }} {{ Auth::user()->admin->middle_name }} {{ Auth::user()->admin->last_name }}</a>
-                    @endif
+                    <a href="{{ route('admin-profile') }}" class="d-block">{{ Auth::user()->admin->first_name }} {{ Auth::user()->admin->middle_name }} {{ Auth::user()->admin->last_name }}</a>
                 </div>
             </div>
 
@@ -230,6 +221,7 @@
             </ul>
             
         </nav>
+
     </div>
 
     <div class="sidebar-desktop">

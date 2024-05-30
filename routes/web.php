@@ -20,7 +20,7 @@ Route::get('/terms-and-privacy-policy', function () {
 
 Route::middleware(['auth', 'user_role:yv,yip'])->group(function (){
      // Private pages accessible to all relevant user roles
-     Route::get('/dashboard', function () {return view('livewire.dashboard');})->name('dashboard');
+     Route::get('/home', function () {return view('livewire.dashboard');})->name('home');
      Route::get('/profile', function () {return view('livewire.profile');})->name('profile');
 });
 

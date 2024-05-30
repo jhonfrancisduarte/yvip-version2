@@ -21,7 +21,7 @@
 @endsection
 
 @section ('main-content')
-    <div class="main-container">
+    <div class="main-container flex">
         <div class="top-nav2">
             <div class="top-buttons">
                 <a href="/">Back</a>
@@ -53,7 +53,7 @@
 @section ('js')
     <script>
         const container = document.getElementById('forgot-pass-form');
-        const toggleButtons = document.getElementsByClassName('sign-inside');
+        const toggleButtons = document.getElementsByClassName('forget');
 
         for (let i = 0; i < toggleButtons.length; i++) {
             toggleButtons[i].addEventListener('click', () => {

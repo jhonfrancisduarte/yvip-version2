@@ -59,7 +59,7 @@
     display: flex;
     justify-content: center;
     align-items: end;
-    background: white;
+    background: #fdfdfd;
 }
 
 .search-bar-container{

@@ -17,6 +17,7 @@
         <div class="scroll-detector"></div>
 
         <livewire:announcement-table :dashboardType="'yv'" />
+        
     </div>
 
 @endsection

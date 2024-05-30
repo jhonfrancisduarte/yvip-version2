@@ -6,7 +6,7 @@
 
         <div class="input-group">
             <div class="col-md-6">
-                <input id="email" type="email" class="input--style-4" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+                <input id="email" type="email" class="panel-input-1" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
 
                 @error('email')
                     <span class="invalid-feedback" role="alert">
